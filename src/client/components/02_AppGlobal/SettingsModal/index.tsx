@@ -3,7 +3,7 @@ import { FC, Fragment, useRef } from "react";
 
 import { XIcon } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from 'next/navigation';
 import { useRecoilState, useRecoilStateLoadable } from "recoil";
 import { settingsOpenState } from "../../../store/ui/modals";
 import { currentUserState } from "../../../store/user";
@@ -16,7 +16,7 @@ import { Profile } from "../Settings/Profile";
 import { SettingsForm } from "../Settings/SettingsForm";
 
 const SettingsModal: FC = () => {
-  const navigate = useNavigate();
+  const {push: navigate} = useRouter()
   const { status } = useSession();
   const [settingsOpen, setSettingsOpen] = useRecoilState(settingsOpenState);
   const [currentUser] = useRecoilStateLoadable(currentUserState);

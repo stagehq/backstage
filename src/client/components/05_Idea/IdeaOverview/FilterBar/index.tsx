@@ -1,7 +1,7 @@
 import { FilterIcon, LightBulbIcon } from "@heroicons/react/outline";
 
 import { FC } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from 'next/navigation';
 import { useRecoilState } from "recoil";
 import { projectSlugState } from "../../../../store/project";
 import { filterActiveState } from "../../../../store/ui/ideasFilter";
@@ -11,7 +11,7 @@ import UserSelect from "./UserSelect";
 
 const IdeaBar: FC = () => {
   // get navigate from react router
-  const navigate = useNavigate();
+  const {push: navigate} = useRouter()
 
   // project slug state recoil
   const [projectSlug, setProjectSlug] = useRecoilState(projectSlugState);
@@ -70,7 +70,7 @@ const IdeaBar: FC = () => {
         {/* Create New Button */}
         <div className="relative h-10">
           <button
-            onClick={() => navigate(`/app/workspace/${projectSlug}/ideas/new`)}
+            onClick={() => navigate(`/workspace/${projectSlug}/ideas/new`)}
             type="button"
             className="inline-flex items-center px-4 py-2 h-full border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >

@@ -238,7 +238,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
             </label>
             <div className="mt-1 flex rounded-md shadow-sm relative">
               <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-blue-gray-300 bg-blue-gray-50 text-blue-gray-500 sm:text-sm">
-                zirkular.dev/app/profile/
+                zirkular.dev/profile/
               </span>
               <input
                 type="text"
@@ -447,7 +447,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                           setCurrentUser(editCurrentUser);
                           if (isOnboarding) {
                             setRedirectToDiscover(true);
-                            router.push("/app/discover");
+                            router.push("/discover");
                           }
                         });
                     }

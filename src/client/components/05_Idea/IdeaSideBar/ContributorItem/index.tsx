@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { User } from "../../../../graphql/types.generated";
 import SidebarItemWrapper from "../SidebarItemWrapper";
 
@@ -33,7 +33,7 @@ const ContributorItem: FC<ContributorItemProps> = ({
         >
           <div className="" key={"creator"}>
             {creator?.image ? (
-              <Link to={`/app/profile/${creator.alias}`}>
+              <Link href={`/profile/${creator.alias}`}>
                 <img
                   className="h-8 w-8 rounded-full bg-white ring-4 ring-gray-50"
                   src={creator.image}
@@ -50,7 +50,7 @@ const ContributorItem: FC<ContributorItemProps> = ({
             .map((user, index) => (
               <div className="" key={index}>
                 {user?.image ? (
-                  <Link to={`/app/profile/${user.alias}`}>
+                  <Link href={`/profile/${user.alias}`}>
                     <img
                       className="h-8 w-8 rounded-full bg-white ring-4 ring-gray-50"
                       src={user.image}

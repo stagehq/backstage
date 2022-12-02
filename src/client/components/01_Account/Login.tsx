@@ -1,14 +1,14 @@
+"use client";
+
 import {
   ExclamationCircleIcon,
   InformationCircleIcon,
 } from "@heroicons/react/outline";
 
-import { InferGetServerSidePropsType } from "next";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useSearchParams } from 'next/navigation';
 import { ParsedUrlQuery } from "querystring";
 import { useState } from "react";
-import { getServerSideProps } from "../../../pages/auth/login";
 
 interface Errors {
   [key: string]: string;
@@ -60,10 +60,10 @@ const validateEmail = (email: string) => {
 };
 
 const Login = ({
-  csrfToken,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  csrfToken
+}: { csrfToken: string }) => {
   const [email, setEmail] = useState("");
-  const { error } = useRouter().query;
+  const error = useSearchParams().get("error");
 
   return (
     <div>

@@ -3,7 +3,7 @@ import { FC, Fragment, useRef } from "react";
 
 import { XIcon } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from 'next/navigation';
 import { useRecoilState } from "recoil";
 import { useGetCurrentUserQuery } from "../../../graphql/getCurrentUser.generated";
 import { projectCreateOpenState } from "../../../store/ui/modals";
@@ -21,7 +21,7 @@ const ProjectCreateModal: FC = () => {
   const currentUser = data?.currentUser;
   const cancelButtonRef = useRef(null);
 
-  const navigate = useNavigate();
+  const {push: navigate} = useRouter()
 
   if (status === "loading") {
     return <LoadingPage />;

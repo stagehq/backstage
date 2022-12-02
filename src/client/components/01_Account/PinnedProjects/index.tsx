@@ -1,8 +1,8 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { DotsVerticalIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
+import Link from "next/link";
 import { FC } from "react";
-import { Link } from "react-router-dom";
 import { Project } from "../../../graphql/types.generated";
 
 interface PinnedProjectsProps {
@@ -35,7 +35,7 @@ const PinnedProjects: FC<PinnedProjectsProps> = ({ projects }) => {
               <div className="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
                 <div className="flex-1 px-4 py-2 text-sm truncate">
                   <Link
-                    to={project.slug ? "/app/workspace/" + project.slug : "#"}
+                    href={project.slug ? "/workspace/" + project.slug : "#"}
                     className="text-gray-900 font-medium hover:text-gray-600"
                   >
                     {project.name}

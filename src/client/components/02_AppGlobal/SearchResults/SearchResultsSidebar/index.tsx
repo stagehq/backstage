@@ -19,6 +19,7 @@ const SearchResultsSidebar: FC<SearchResultsSidebarProps> = ({
         <nav className="flex-1 space-y-1">
           {navigation.map((item: SearchResultsSidebarNavigationItem) => (
             <div
+              key={item.title}
               onClick={() => setActiveSearchResultSection(item.title)}
               className={clsx(
                 "flex px-2 py-2 rounded-md text-sm font-medium hover:cursor-default",

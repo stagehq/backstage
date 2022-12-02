@@ -1,35 +1,15 @@
 import { MailIcon } from "@heroicons/react/outline";
-import { useSession } from "next-auth/react";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
-import SignLayout from "../../client/components/01_Account/SignLayout";
-import LoadingPage from "../../client/components/02_AppGlobal/Loading/Page";
-import { currentUserState } from "../../client/store/user";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import SignLayout from "../../../src/client/components/01_Account/SignLayout";
 
 export default function VerifyRequestPage() {
-  const { status } = useSession();
-  const router = useRouter();
-  const [currentUser] = useRecoilState(currentUserState);
+  const token = cookies().get('next-auth.session-token')
+  const csrfToken = cookies().get('next-auth.csrf-token')
 
-  if (status === "loading") {
-    return <LoadingPage />;
-  }
-
-  if (status === "unauthenticated") {
-    router.push("/logout");
-  }
-
-  if (status === "authenticated") {
-    if (currentUser) {
-      if (currentUser?.lastProject?.slug !== undefined) {
-        router.push("/app/workspace/" + currentUser.lastProject?.slug);
-      } else {
-        router.push("/app/discover");
-      }
-    }
-    return <LoadingPage />;
-  }
+  if (token?.value) redirect('/discover') // already logged-in
+  if (!csrfToken?.value) redirect('/auth/login') // no csrf available
 
   return (
     <>

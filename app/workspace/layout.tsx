@@ -1,26 +1,26 @@
+"use client"
+
 import { DocumentTextIcon, LightBulbIcon } from "@heroicons/react/outline";
 import { Suspense, useEffect } from "react";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
-import { projectSlugState, projectState } from "../../store/project";
-import { labelSelectState, userSelectState } from "../../store/ui/ideasFilter";
+import { projectSlugState, projectState } from "../../src/client/store/project";
+import { labelSelectState, userSelectState } from "../../src/client/store/ui/ideasFilter";
 
 import { decodeGlobalID } from "@pothos/plugin-relay";
 import { decode as base64_decode } from "base-64";
 import clsx from "clsx";
 import { useRegisterActions } from "kbar";
 import Head from "next/head";
-import useMarkdownActions from "../../components/02_AppGlobal/CommandBar/hooks/useMarkdownActions";
-import useThemeActions from "../../components/02_AppGlobal/CommandBar/hooks/useThemeActions";
-import LoadingPage from "../../components/02_AppGlobal/Loading/Page";
-import LabelEditModal from "../../components/05_Idea/IdeaSideBar/LabelItem/LabelEditModal";
-import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
-import { currentUserState } from "../../store/user";
+import useMarkdownActions from "../../src/client/components/02_AppGlobal/CommandBar/hooks/useMarkdownActions";
+import useThemeActions from "../../src/client/components/02_AppGlobal/CommandBar/hooks/useThemeActions";
+import LoadingPage from "../../src/client/components/02_AppGlobal/Loading/Page";
+import LabelEditModal from "../../src/client/components/05_Idea/IdeaSideBar/LabelItem/LabelEditModal";
+import { useUpdateUserMutation } from "../../src/client/graphql/updateUser.generated";
+import { currentUserState } from "../../src/client/store/user";
+import { useRouter, useSearchParams } from "next/navigation";
 
-export const getIdfromRelayId = (id: string) => base64_decode(id).split(":")[1];
-
-function WorkspacePage() {
-  const { workspaceId } = useParams();
+function WorkspacePage({ children }: { children: React.ReactNode }) {
+  const workspaceId = useSearchParams().get("workspaceId");
   const [, updateUser] = useUpdateUserMutation();
 
   const [projectSlug, setProjectSlug] = useRecoilState(projectSlugState);
@@ -31,7 +31,7 @@ function WorkspacePage() {
   const resetLabelSelectState = useResetRecoilState(labelSelectState);
   const resetUserSelectState = useResetRecoilState(userSelectState);
 
-  const navigate = useNavigate();
+  const {push: navigate} = useRouter()
 
   /* change project slug if workspaceId changes */
   useEffect(() => {
@@ -89,7 +89,7 @@ function WorkspacePage() {
           />
         ),
         section: "Quick actions",
-        perform: () => navigate(`/app/workspace/${projectSlug}/ideas/new`),
+        perform: () => navigate(`/workspace/${projectSlug}/ideas/new`),
       },
       {
         id: "initiative",
@@ -103,7 +103,7 @@ function WorkspacePage() {
           />
         ),
         perform: () =>
-          navigate(`/app/workspace/${projectSlug}/initiatives/new`),
+          navigate(`/workspace/${projectSlug}/initiatives/new`),
       },
     ],
     [projectSlug]
@@ -117,7 +117,7 @@ function WorkspacePage() {
       </Head>
       <div className="flex min-h-[calc(100vh_-_64px)]">
         <Suspense fallback={<LoadingPage />}>
-          <Outlet />
+          { children }
           <LabelEditModal />
         </Suspense>
       </div>

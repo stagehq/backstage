@@ -3,13 +3,13 @@ import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { Project } from "@prisma/client";
 import clsx from "clsx";
 import { FC, Fragment, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from 'next/navigation';
 import { useRecoilState } from "recoil";
 import { projectSlugState } from "../../../store/project";
 import { currentUserState } from "../../../store/user";
 
 const WorkspaceSelector: FC = () => {
-  const navigate = useNavigate();
+  const {push: navigate} = useRouter()
 
   const [projectSlug, setProjectSlug] = useRecoilState(projectSlugState);
 
@@ -36,7 +36,7 @@ const WorkspaceSelector: FC = () => {
   }, [currentUser]);
 
   const handleWorkspaceChange = (value: string) => {
-    navigate(`/app/workspace/${value}`);
+    navigate(`/workspace/${value}`);
   };
 
   return (

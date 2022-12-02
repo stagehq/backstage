@@ -1,7 +1,8 @@
+"use client";
+
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, GlobeIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import { FC, Fragment } from "react";
-import { Link, useMatch } from "react-router-dom";
 
 import clsx from "clsx";
 import { signOut } from "next-auth/react";
@@ -10,6 +11,8 @@ import { User } from "../../../graphql/types.generated";
 import { settingsOpenState } from "../../../store/ui/modals";
 import { currentUserState } from "../../../store/user";
 import BackButton from "../BackButton";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const InAppHeader: FC = () => {
   /* data */
@@ -19,13 +22,14 @@ const InAppHeader: FC = () => {
   const [settingsOpen, setSettingsOpen] = useRecoilState(settingsOpenState);
 
   /* check if page is discovery */
-  const isDiscoverPage = useMatch("/app/discover");
+  const pathName = usePathname();
+  const isDiscoverPage = pathName === "/discover";
 
   const getLastProjectPath = (currentUser: User) => {
     if (currentUser.lastProject?.slug) {
-      return "/app/workspace/" + currentUser.lastProject?.slug;
+      return "/workspace/" + currentUser.lastProject?.slug;
     } else {
-      return "/app/discover";
+      return "/discover";
     }
   };
 
@@ -66,7 +70,7 @@ const InAppHeader: FC = () => {
               </div>
               <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
                 <div className="flex gap-2">
-                  <Link to="/app/discover">
+                  <Link href="/discover">
                     <button
                       type="button"
                       className={clsx(
@@ -114,7 +118,7 @@ const InAppHeader: FC = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to={`/app/profile/${currentUser.alias}`}
+                            href={`/profile/${currentUser.alias}`}
                             className={clsx(
                               active ? "bg-gray-100" : "",
                               "block py-2 px-4 text-sm text-gray-700"
@@ -192,7 +196,7 @@ const InAppHeader: FC = () => {
                 </button>
               </div>
               <div className="mt-3 px-2 space-y-1">
-                <Link to={`/app/profile/${currentUser && currentUser.alias}`}>
+                <Link href={`/profile/${currentUser && currentUser.alias}`}>
                   <Disclosure.Button className="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900">
                     Your profile
                   </Disclosure.Button>

@@ -10,10 +10,7 @@ import { Provider } from "urql";
 import ToasterComponent from "../client/components/04_Notification";
 import { client } from "../client/graphql/client";
 
-function CustomApp({
-  Component,
-  pageProps: { session, ...pageProps },
-}: AppProps) {
+function CustomApp({ Component, pageProps: { ...pageProps } }: AppProps) {
   useEffect((): void => {
     if (process.env.NODE_ENV === "production") {
       splitbee.init({
@@ -27,22 +24,16 @@ function CustomApp({
 
   return (
     <RecoilRoot>
-      <SessionProvider session={session}>
+      <SessionProvider>
         <Provider value={client}>
-          <div suppressHydrationWarning={true}>
-            {typeof window !== "undefined" && (
-              <>
-                <Head>
-                  <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1"
-                  />
-                </Head>
-                <Component {...pageProps} />
-                <ToasterComponent />
-              </>
-            )}
-          </div>
+          <Head>
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1"
+            />
+          </Head>
+          <Component {...pageProps} />
+          <ToasterComponent />
         </Provider>
       </SessionProvider>
     </RecoilRoot>

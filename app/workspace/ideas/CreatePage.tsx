@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { FC } from "react";
-import IdeaCreate from "../../../components/05_Idea/IdeaCreate";
+import IdeaCreate from "../../../src/client/components/05_Idea/IdeaCreate";
 
 const IdeaCreatePage: FC = () => {
   return (

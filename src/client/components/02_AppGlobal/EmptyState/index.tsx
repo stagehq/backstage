@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker";
 import { PlusIcon } from "@heroicons/react/solid";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from 'next/navigation';
 import { useCreateProjectMutation } from "../../../graphql/createProject.generated";
 import Spinner from "../Icons/Spinner";
 
@@ -20,7 +20,7 @@ export default function EmptyState() {
   const randomProjectName = faker.vehicle.bicycle();
 
   /* Router */
-  const navigate = useNavigate();
+  const {push: navigate} = useRouter()
 
   return (
     <div className="text-center">
@@ -54,7 +54,7 @@ export default function EmptyState() {
               }).then((result) => {
                 setCreateProjectLoading(false);
                 const slug = result.data?.createProject?.slug;
-                if (slug) navigate(`/app/workspace/${slug}`);
+                if (slug) navigate(`/workspace/${slug}`);
               });
             }
           }}

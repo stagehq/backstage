@@ -1,8 +1,5 @@
-import { decode as base64_decode } from "base-64";
 import Head from "next/head";
-import ProjectSettings from "../../../../client/components/03_AppWorkspace/ProjectSettings";
-
-export const getIdfromRelayId = (id: string) => base64_decode(id).split(":")[1];
+import ProjectSettings from "../../../src/client/components/03_AppWorkspace/ProjectSettings";
 
 function SettingsPage() {
   return (

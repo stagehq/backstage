@@ -1,6 +1,7 @@
-import { useSession } from "next-auth/react";
+import { authOptions } from "@/lib/auth";
+import { unstable_getServerSession } from "next-auth";
 import { Suspense } from "react";
-import { useLocation } from "react-router-dom";
+import { usePathname } from 'next/navigation';
 import InAppHeader from "../../03_AppWorkspace/InAppHeader";
 import SidebarLoader from "../../03_AppWorkspace/Loader/SidebarLoader";
 import WorkspaceHeaderLoader from "../../03_AppWorkspace/Loader/WorkspaceHeaderLoader";
@@ -10,14 +11,14 @@ import WorkspaceHeader from "../../03_AppWorkspace/WorkspaceHeader";
 import CommandBar from "../CommandBar";
 import SettingsModal from "../SettingsModal";
 
-interface Props {
+interface AppLayoutProps {
   children: React.ReactNode;
 }
-interface ShellProps {
-  children: React.ReactNode;
+interface AppShellProps {
+  children: React.ReactNode | Promise<Element>;
 }
 
-export function AppLayout({ children }: Props) {
+export function AppLayout({ children }: AppLayoutProps) {
   return (
     <div className="flex h-full flex-col bg-white">
       <CommandBar>{children}</CommandBar>
@@ -25,28 +26,24 @@ export function AppLayout({ children }: Props) {
   );
 }
 
-export default function AppShell({ children }: ShellProps) {
-  const { status } = useSession();
-
-  // get route from react router
-  const location = useLocation();
-  const pageName = location.pathname.split("/")[2];
+export default function AppShell({ children }: AppShellProps) {
+  const pageName = usePathname();  
 
   return (
     <div className="h-screen overflow-hidden">
       <AppLayout>
-        {status === "authenticated" ? (
+        {/* {status === "authenticated" ? (
           <div>
             <SettingsModal />
             <ProjectCreateModal />
           </div>
-        ) : null}
+        ) : null} */}
         <div className="flex h-full">
           <Suspense fallback={<SidebarLoader />}>
-            {pageName === "workspace" && <Sidebar />}
+            {pageName === "/workspace" && <Sidebar />}
           </Suspense>
           <div className="bg-white h-full w-full flex flex-col">
-            {pageName === "workspace" ? (
+            {pageName === "/workspace" ? (
               <Suspense
                 fallback={<WorkspaceHeaderLoader target={"WorkspaceHeader"} />}
               >
@@ -59,6 +56,7 @@ export default function AppShell({ children }: ShellProps) {
                 <InAppHeader />
               </Suspense>
             )}
+            {/* @ts-expect-error Server Component */}
             <div className="w-full flex-1">{children}</div>
           </div>
         </div>

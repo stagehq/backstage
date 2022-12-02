@@ -25,7 +25,7 @@ export default function NavbarStandard() {
             <div className="flex items-center justify-between w-full">
               <div className="flex items-center justify-between w-full md:w-auto">
                 <span className="sr-only">Workflow</span>
-                <Link href="/">
+                <Link href="/" legacyBehavior>
                   <img
                     className="h-8 w-auto md:h-10 cursor-pointer"
                     src="/images/logo.svg"
@@ -52,12 +52,12 @@ export default function NavbarStandard() {
               </div>
               {environment !== "production" && (
                 <div className="hidden md:flex md:items-center md:space-x-6">
-                  <Link href="/auth/login">
+                  <Link href="/auth/login" legacyBehavior>
                     <span className="text-base font-medium text-black hover:text-indigo-600">
                       Log in
                     </span>
                   </Link>
-                  <Link href="/get-started">
+                  <Link href="/get-started" legacyBehavior>
                     <span className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
                       Start free trial
                     </span>
@@ -76,7 +76,7 @@ export default function NavbarStandard() {
             <div className="shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
               <div className="px-5 pt-4 flex items-center justify-between">
                 <div className="pt-2">
-                  <Link href="/">
+                  <Link href="/" legacyBehavior>
                     <img
                       className="h-8 w-auto md:h-10 cursor-pointer"
                       src="/images/logo.svg"

@@ -3,10 +3,11 @@ import { FC, useState } from "react";
 import faker from "@faker-js/faker";
 import { PlusIcon } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
-import { Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
 import { useCreateProjectMutation } from "../../../graphql/createProject.generated";
 import { Project } from "../../../graphql/types.generated";
 import Spinner from "../../02_AppGlobal/Icons/Spinner";
+import { useRouter } from "next/router";
 
 interface ProjectListingProps {
   projects: Project[];
@@ -14,7 +15,7 @@ interface ProjectListingProps {
 
 const ProjectListing: FC<ProjectListingProps> = ({ projects }) => {
   const { data: session } = useSession();
-  const navigate = useNavigate();
+  const {push: navigate} = useRouter()
 
   const [, createProject] = useCreateProjectMutation();
 
@@ -45,7 +46,7 @@ const ProjectListing: FC<ProjectListingProps> = ({ projects }) => {
                 }).then((result) => {
                   setCreateProjectLoading(false);
                   const slug = result.data?.createProject?.slug;
-                  if (slug) navigate(`/app/workspace/${slug}`);
+                  if (slug) navigate(`/workspace/${slug}`);
                 });
               }
             }}
@@ -106,7 +107,7 @@ const ProjectListing: FC<ProjectListingProps> = ({ projects }) => {
                     </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 md:pr-0">
                       <Link
-                        to={`/app/workspace/${project.slug}`}
+                        href={`/workspace/${project.slug}`}
                         className="text-indigo-600 hover:text-indigo-900"
                       >
                         Edit

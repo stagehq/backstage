@@ -2502,11 +2502,6 @@
     "@react-hook/latest" "^1.0.2"
     "@react-hook/passive-layout-effect" "^1.2.0"
 
-"@remix-run/router@1.0.4":
-  version "1.0.4"
-  resolved "https://registry.npmjs.org/@remix-run/router/-/router-1.0.4.tgz"
-  integrity sha512-gTL8H5USTAKOyVA4xczzDJnC3HMssdFa3tRlwBicXynx9XfiXwneHnYQogwSKpdCkjXISrEKSTtX62rLpNEVQg==
-
 "@repeaterjs/repeater@3.0.4":
   version "3.0.4"
   resolved "https://registry.npmjs.org/@repeaterjs/repeater/-/repeater-3.0.4.tgz"
@@ -9139,21 +9134,6 @@ react-pdf@^5.7.1:
     tiny-invariant "^1.0.0"
     tiny-warning "^1.0.0"
 
-react-router-dom@^6.3.0:
-  version "6.4.4"
-  resolved "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.4.4.tgz"
-  integrity sha512-0Axverhw5d+4SBhLqLpzPhNkmv7gahUwlUVIOrRLGJ4/uwt30JVajVJXqv2Qr/LCwyvHhQc7YyK1Do8a9Jj7qA==
-  dependencies:
-    "@remix-run/router" "1.0.4"
-    react-router "6.4.4"
-
-react-router@6.4.4:
-  version "6.4.4"
-  resolved "https://registry.npmjs.org/react-router/-/react-router-6.4.4.tgz"
-  integrity sha512-SA6tSrUCRfuLWeYsTJDuriRqfFIsrSvuH7SqAJHegx9ZgxadE119rU8oOX/rG5FYEthpdEaEljdjDlnBxvfr+Q==
-  dependencies:
-    "@remix-run/router" "1.0.4"
-
 react-universal-interface@^0.6.2:
   version "0.6.2"
   resolved "https://registry.npmjs.org/react-universal-interface/-/react-universal-interface-0.6.2.tgz"
@@ -10709,11 +10689,6 @@ urql@^2.2.0:
   dependencies:
     "@urql/core" "^2.6.1"
     wonka "^4.0.14"
-
-use-react-router-breadcrumbs@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.npmjs.org/use-react-router-breadcrumbs/-/use-react-router-breadcrumbs-3.2.1.tgz"
-  integrity sha512-GpDhGo/A0I1ckGLER1/YZX/tgX+KOAyCGG2HgFIc0SVzQ30hTilufNdNRN3Gt+WXJW0zgn48CxxKvKSe+xA3TA==
 
 util-deprecate@^1.0.1, util-deprecate@^1.0.2:
   version "1.0.2"
