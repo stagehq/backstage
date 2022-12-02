@@ -1,0 +1,8 @@
+query getUserSearchResult($query: String!) {
+  getUserSearchResult(query: $query) {
+    id
+    fullName
+    alias
+    image
+  }
+}

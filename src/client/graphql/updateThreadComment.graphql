@@ -1,0 +1,5 @@
+mutation UpdateThreadComment($content: String!, $threadCommentId: String!) {
+  updateThreadComment(content: $content, threadCommentId: $threadCommentId) {
+    id
+  }
+}

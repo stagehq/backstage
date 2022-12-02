@@ -1,0 +1,3 @@
+mutation CreateStripeCheckoutSession($plan: PaidPlan!, $projectId: String!) {
+  createStripeCheckoutSession(plan: $plan, projectId: $projectId)
+}

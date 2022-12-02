@@ -1,0 +1,20 @@
+mutation UpdateLabel(
+  $projectId: String!
+  $nameOld: String!
+  $nameNew: String!
+  $color: String!
+  $description: String!
+) {
+  updateLabel(
+    projectId: $projectId
+    nameOld: $nameOld
+    nameNew: $nameNew
+    color: $color
+    description: $description
+  ) {
+    id
+    name
+    color
+    description
+  }
+}

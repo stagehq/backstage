@@ -1,0 +1,11 @@
+mutation UpdateUserProjectRelationRole(
+  $slug: String!
+  $userMail: String!
+  $role: ProjectRole!
+) {
+  updateUserProjectRelationRole(slug: $slug, userMail: $userMail, role: $role) {
+    id
+    userMail
+    role
+  }
+}

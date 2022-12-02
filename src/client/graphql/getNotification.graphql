@@ -1,0 +1,9 @@
+query GetNotification {
+  notification {
+    idea
+    initiative
+    meeting
+    chat
+    push
+  }
+}

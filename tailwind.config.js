@@ -1,43 +1,25 @@
-const { colors } = require("tailwindcss/colors")
-const { fontFamily } = require("tailwindcss/defaultTheme")
+const colors = require("tailwindcss/colors");
+const defaultTheme = require("tailwindcss/defaultTheme");
 
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./app/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./ui/**/*.{ts,tsx}",
-    "./content/**/*.{md,mdx}",
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    container: {
-      center: true,
-      padding: "1.5rem",
-      screens: {
-        "2xl": "1440px",
-      },
-    },
     extend: {
-      fontFamily: {
-        sans: ["var(--font-inter)", ...fontFamily.sans],
-      },
       colors: {
-        ...colors,
-        brand: {
-          50: "#f3f3f3",
-          100: "#e7e7e7",
-          200: "#c4c4c4",
-          300: "#a0a0a0",
-          400: "#585858",
-          500: "#111111",
-          600: "#0f0f0f",
-          700: "#0d0d0d",
-          800: "#0a0a0a",
-          900: "#080808",
-          DEFAULT: "#111111",
-        },
+        "blue-gray": colors.slate,
+        "yellow-light": "#fffd6c",
+        "indigo-light": "#f5f7fe",
+        background: "#f7f7f7",
+      },
+      fontFamily: {
+        sans: ["Inter", ...defaultTheme.fontFamily.sans],
+        handwritten: ["Nanum Pen Script", ...defaultTheme.fontFamily.serif],
+        mono: ["jetBrainsMono", ...defaultTheme.fontFamily.mono],
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
-}
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/aspect-ratio"),
+  ],
+};

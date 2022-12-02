@@ -1,0 +1,5 @@
+mutation UpdateIdea($id: String!, $description: String, $title: String) {
+  updateIdea(id: $id, description: $description, title: $title) {
+    id
+  }
+}

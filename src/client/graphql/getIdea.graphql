@@ -1,0 +1,77 @@
+query GetIdea($id: String, $ideaNumber: Int, $projectSlug: String) {
+  idea(id: $id, ideaNumber: $ideaNumber, projectSlug: $projectSlug) {
+    id
+    title
+    number
+    description
+    createdAt
+    modifiedAt
+    number
+    voteCount
+    reactions {
+      content
+      parentType
+      id
+      reactionGroup {
+        email
+      }
+    }
+    votes {
+      email
+    }
+    comments {
+      createdAt
+      id
+      creator {
+        email
+        alias
+        image
+      }
+      parentType
+      content
+      reactions {
+        content
+        id
+        parentType
+        reactionGroup {
+          email
+        }
+      }
+      threadComment {
+        id
+        creator {
+          email
+          alias
+          image
+        }
+        content
+        createdAt
+        reactions {
+          content
+          id
+          reactionGroup {
+            email
+          }
+        }
+      }
+    }
+    votedByUser
+    creator {
+      name
+      email
+      image
+      alias
+    }
+    participants {
+      email
+      name
+      image
+      alias
+    }
+    labels {
+      id
+      name
+      color
+    }
+  }
+}

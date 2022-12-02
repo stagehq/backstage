@@ -1,0 +1,23 @@
+schema: ./src/server/graphql/schema.graphql
+overwrite: true
+
+documents:
+  - "**/*.graphql"
+  - "!src/server/graphql/schema.graphql"
+
+hooks:
+  afterAllFileWrite:
+    - "prettier --write"
+
+generates:
+  src/client/graphql/types.generated.ts:
+    plugins:
+      - typescript
+      - typescript-urql-graphcache
+  ./:
+    preset: near-operation-file
+    presetConfig:
+      baseTypesPath: src/client/graphql/types.generated.ts
+    plugins:
+      - typescript-operations
+      - typescript-urql

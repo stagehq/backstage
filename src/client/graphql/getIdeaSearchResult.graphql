@@ -1,0 +1,7 @@
+query getIdeaSearchResult($query: String!) {
+  getIdeaSearchResult(query: $query) {
+    id
+    title
+    description
+  }
+}

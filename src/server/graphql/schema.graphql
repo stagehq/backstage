@@ -1,0 +1,188 @@
+type Comment implements Node {
+  content: String
+  createdAt: String
+  creator: User
+  id: ID!
+  idea: Idea
+  parentType: ParentType
+  reactions: [Reaction!]
+  threadComment: [ThreadComment!]
+}
+
+type Idea implements Node {
+  comments: [Comment!]
+  createdAt: String
+  creator: User
+  description: String
+  id: ID!
+  labels: [Label!]
+  modifiedAt: String
+  number: Int
+  participants: [User!]
+  project: Project
+  reactions: [Reaction!]
+  title: String
+  voteCount: Int
+  votedByUser: Boolean
+  votes: [User!]
+}
+
+type Label implements Node {
+  color: String
+  description: String
+  id: ID!
+  ideas: [Idea!]
+  name: String
+  project: Project
+}
+
+type Mutation {
+  createIdea(description: String, projectId: String, title: String): Idea
+  createLabel(color: String!, description: String!, name: String!, projectId: String!): Label
+  createProject(name: String, slug: String): Project
+  createReaction(commentId: String, content: String, ideaId: String, threadCommentId: String, type: ParentType): Reaction
+  createStripeCheckoutBillingPortalUrl(projectId: String!): String
+  createStripeCheckoutSession(plan: PaidPlan!, projectId: String!): String
+  createThreadComment(commentId: String, content: String): ThreadComment
+  deleteLabel(name: String!, projectId: String!): Label
+  deleteReaction(commentId: String, content: String, ideaId: String, threadCommentId: String, type: ParentType): Reaction
+  deleteThreadComment(threadCommentId: String): ThreadComment
+  inviteToProject(email: String!, projectId: String!): Boolean
+  removeUserFromProject(projectId: String!, userId: String!): Project
+  updateIdea(description: String, id: String, title: String): Idea
+  updateIdeaVote(id: String): Idea
+  updateLabel(color: String!, description: String!, nameNew: String!, nameOld: String!, projectId: String!): Label
+  updateNotification(chat: Boolean, idea: Boolean, initiative: Boolean, meeting: Boolean, push: PushNotification): Notification
+  updatePayment(annualBillingEnabled: Boolean, country: String, email: String, firstName: String, lastName: String, plan: PaymentPlan, zip: Int): Payment
+  updateProject(name: String, slug: String): Project
+  updateProjectActiveState(active: Boolean, slug: String): Project
+  updateReaction(commentId: String, content: String, ideaId: String, threadCommentId: String, type: ParentType): Reaction
+  updateThreadComment(content: String, threadCommentId: String): ThreadComment
+  updateUser(alias: String, bio: String, coverImageUrl: String, firstName: String, image: String, lastName: String, lastProject: String, url: String): User
+  updateUserProjectRelationRole(role: ProjectRole!, slug: String!, userMail: String!): UserProjectRelation
+}
+
+interface Node {
+  id: ID!
+}
+
+type Notification implements Node {
+  chat: Boolean
+  id: ID!
+  idea: Boolean
+  initiative: Boolean
+  meeting: Boolean
+  push: PushNotification
+}
+
+enum PaidPlan {
+  pro
+}
+
+enum ParentType {
+  comment
+  idea
+  initiative
+  threadComment
+}
+
+type Payment implements Node {
+  annualBillingEnabled: Boolean
+  country: String
+  email: String
+  firstName: String
+  id: ID!
+  lastName: String
+  plan: PaymentPlan
+  zip: Int
+}
+
+enum PaymentPlan {
+  extended
+  pro
+  starter
+}
+
+type Project implements Node {
+  active: Boolean
+  contributors: [UserProjectRelation!]
+  id: ID!
+  ideas: [Idea!]
+  labels: [Label!]
+  name: String
+  paidPlan: PaidPlan
+  slug: String
+}
+
+enum ProjectRole {
+  contributor
+  core
+  owner
+}
+
+enum PushNotification {
+  always
+  never
+  same_as_notification
+}
+
+type Query {
+  currentUser: User
+  getIdeaSearchResult(query: String!): [Idea!]
+  getProjectSearchResult(query: String!): [Project!]
+  getUserSearchResult(query: String!): [User!]
+  getValidAlias(alias: String): User
+  idea(id: String, ideaNumber: Int, projectSlug: String): Idea
+  node(id: ID!): Node
+  nodes(ids: [ID!]!): [Node]!
+  notification: Notification
+  payment: Payment
+  project(id: String, slug: String): Project
+  user(alias: String): User
+}
+
+type Reaction implements Node {
+  comment: Comment
+  content: String
+  id: ID!
+  idea: Idea
+  parentType: ParentType
+  reactionGroup: [User!]
+  threadComment: ThreadComment
+}
+
+type ThreadComment implements Node {
+  content: String
+  createdAt: String
+  creator: User
+  id: ID!
+  modifiedAt: String
+  parentComment: Comment
+  reactions: [Reaction!]
+}
+
+type User implements Node {
+  alias: String
+  bio: String
+  coverImageUrl: String
+  email: String
+  firstName: String
+  fullName: String
+  id: ID!
+  image: String
+  lastName: String
+  lastProject: Project
+  name: String
+  notification: Notification
+  url: String
+  userProjectRelations: [UserProjectRelation!]
+}
+
+type UserProjectRelation implements Node {
+  id: ID!
+  project: Project
+  projectId: String
+  role: ProjectRole
+  user: User
+  userMail: String
+}

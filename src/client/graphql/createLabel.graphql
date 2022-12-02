@@ -1,0 +1,15 @@
+mutation CreateLabel(
+  $name: String!
+  $color: String!
+  $description: String!
+  $projectId: String!
+) {
+  createLabel(
+    name: $name
+    color: $color
+    description: $description
+    projectId: $projectId
+  ) {
+    id
+  }
+}

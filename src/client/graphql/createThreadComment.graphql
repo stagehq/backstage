@@ -1,0 +1,5 @@
+mutation CreateThreadComment($content: String!, $commentId: String!) {
+  createThreadComment(content: $content, commentId: $commentId) {
+    id
+  }
+}

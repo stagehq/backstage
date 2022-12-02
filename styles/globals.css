@@ -1,3 +1,101 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: theme("colors.gray.400") transparent;
+    overflow-y: overlay;
+    position: relative;
+  }
+
+  .scrollbar:hover {
+    scrollbar-color: theme("colors.gray.500") transparent;
+  }
+
+  .scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: theme("colors.gray.400");
+    border-radius: 4px;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: theme("colors.gray.500");
+  }
+}
+
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .hero-gradient {
+    background: linear-gradient(
+      161.51deg,
+      #fffd6c 3.38%,
+      rgba(255, 253, 108, 0) 68.3%
+    );
+  }
+
+  .hero-gradient-2xl {
+    background: linear-gradient(
+      172.51deg,
+      #fffd6c 3.38%,
+      rgba(255, 253, 108, 0) 68.3%
+    );
+  }
+
+  .footer-gradient {
+    background: linear-gradient(
+      0deg,
+      #fffd6c -20.55%,
+      rgba(255, 253, 108, 0) 99.2%
+    );
+  }
+}
+
+.notion-header {
+  display: none !important;
+}
+
+.notion-app {
+  margin-top: 90px;
+  min-height: calc(
+    100vh - 178px
+  ) !important; /* 178px = nav height + footer height */
+}
+
+.notion-page-scroller {
+  min-height: 0px !important;
+}
+
+.CookieConsent div {
+  flex: none !important;
+}
+
+.idea-overview-count:hover .idea-overview-count-hover {
+  display: block;
+}
+
+@font-face {
+  font-family: "jetBrainsMono";
+  src: url("/fonts/jetBrainsMono/jetBrainsMonoNL-Light.ttf");
+}
+
+.jetBrainsMono {
+  font-family: "jetBrainsMono";
+}

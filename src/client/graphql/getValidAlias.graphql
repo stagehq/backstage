@@ -1,0 +1,5 @@
+query GetValidAlias($alias: String) {
+  getValidAlias(alias: $alias) {
+    id
+  }
+}

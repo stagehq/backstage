@@ -1,0 +1,34 @@
+mutation UpdateUser(
+  $alias: String
+  $firstName: String
+  $lastName: String
+  $image: String
+  $coverImageUrl: String
+  $bio: String
+  $url: String
+  $lastProject: String
+) {
+  updateUser(
+    alias: $alias
+    firstName: $firstName
+    lastName: $lastName
+    image: $image
+    coverImageUrl: $coverImageUrl
+    bio: $bio
+    url: $url
+    lastProject: $lastProject
+  ) {
+    alias
+    firstName
+    lastName
+    image
+    coverImageUrl
+    bio
+    url
+    lastProject {
+      id
+      slug
+      name
+    }
+  }
+}

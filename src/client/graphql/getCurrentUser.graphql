@@ -1,0 +1,43 @@
+query GetCurrentUser {
+  currentUser {
+    id
+    alias
+    email
+    name
+    firstName
+    lastName
+    fullName
+    image
+    coverImageUrl
+    bio
+    url
+    notification {
+      id
+      idea
+      initiative
+      meeting
+      chat
+      push
+    }
+    lastProject {
+      id
+      slug
+      name
+    }
+    userProjectRelations {
+      id
+      userMail
+      projectId
+      project {
+        id
+        name
+        slug
+        active
+        contributors {
+          id
+          userMail
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+query GetProject($id: String, $slug: String) {
+  __typename
+  project(id: $id, slug: $slug) {
+    __typename
+    id
+    name
+    slug
+    paidPlan
+    active
+    contributors {
+      id
+      userMail
+      role
+      user {
+        id
+        name
+        fullName
+        url
+        image
+        alias
+      }
+    }
+    labels {
+      id
+      name
+      description
+      color
+    }
+    ideas {
+      id
+      number
+      createdAt
+      modifiedAt
+      title
+      voteCount
+      votes {
+        email
+      }
+      votedByUser
+      labels {
+        id
+        name
+        description
+        color
+      }
+      creator {
+        id
+        fullName
+        image
+        alias
+      }
+      participants {
+        id
+        fullName
+        image
+        alias
+      }
+    }
+  }
+}

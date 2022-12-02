@@ -1,0 +1,3 @@
+mutation InviteToProject($email: String!, $projectId: String!) {
+  inviteToProject(email: $email, projectId: $projectId)
+}

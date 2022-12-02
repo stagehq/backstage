@@ -1,0 +1,13 @@
+query GetProjectWithUsers(
+  $id: String!
+  $slug: String!
+  $usersFirst: String!
+  $usersAfter: String
+) {
+  project(id: $id, slug: $slug) {
+    id
+    name
+    slug
+    paidPlan
+  }
+}

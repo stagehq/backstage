@@ -1,0 +1,5 @@
+mutation deleteLabel($projectId: String!, $name: String!) {
+  deleteLabel(projectId: $projectId, name: $name) {
+    id
+  }
+}

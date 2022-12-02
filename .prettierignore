@@ -1,0 +1,4 @@
+.next
+.vscode
+amplify
+src/server/graphql

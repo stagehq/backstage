@@ -1,0 +1,36 @@
+mutation CreateIdea(
+  $title: String!
+  $description: String!
+  $projectId: String!
+) {
+  createIdea(title: $title, description: $description, projectId: $projectId) {
+    id
+    number
+    createdAt
+    modifiedAt
+    title
+    voteCount
+    votes {
+      email
+    }
+    votedByUser
+    labels {
+      id
+      name
+      description
+      color
+    }
+    creator {
+      id
+      fullName
+      image
+      alias
+    }
+    participants {
+      id
+      fullName
+      image
+      alias
+    }
+  }
+}

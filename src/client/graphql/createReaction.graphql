@@ -1,0 +1,17 @@
+mutation CreateReaction(
+  $content: String!
+  $ideaId: String
+  $commentId: String
+  $threadCommentId: String
+  $type: ParentType
+) {
+  createReaction(
+    content: $content
+    ideaId: $ideaId
+    commentId: $commentId
+    threadCommentId: $threadCommentId
+    type: $type
+  ) {
+    id
+  }
+}
