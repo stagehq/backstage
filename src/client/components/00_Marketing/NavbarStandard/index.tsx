@@ -53,14 +53,14 @@ export default function NavbarStandard() {
               {environment !== "production" && (
                 <div className="hidden md:flex md:items-center md:space-x-6">
                   <Link href="/auth/login">
-                    <a className="text-base font-medium text-black hover:text-indigo-600">
+                    <span className="text-base font-medium text-black hover:text-indigo-600">
                       Log in
-                    </a>
+                    </span>
                   </Link>
                   <Link href="/get-started">
-                    <a className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                    <span className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
                       Start free trial
-                    </a>
+                    </span>
                   </Link>
                 </div>
               )}

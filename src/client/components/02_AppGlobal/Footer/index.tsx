@@ -25,9 +25,9 @@ const Footer = () => {
             <div className="flex space-x-4 sm:space-x-8 sm:ml-10">
               {links.map((item) => (
                 <Link key={item.name} href={item.href}>
-                  <a className="text-base font-medium text-black hover:text-indigo-600">
+                  <span className="text-base font-medium text-black hover:text-indigo-600">
                     {item.name}
-                  </a>
+                  </span>
                 </Link>
               ))}
             </div>
