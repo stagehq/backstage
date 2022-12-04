@@ -38,13 +38,16 @@ function handler() {
       .use(trustProxyMiddleware)
       .use(async (req: Request, res: NextApiResponse, next) => {
         const session = await getSession({ req });
+        console.log(session);
+        
         req.user = session;
         if (session) {
           // Signed in
           next();
         } else {
           // Not Signed in
-          res.status(401);
+          console.log("Not signed in");
+          res.status(401).end();
         }
       })
   );

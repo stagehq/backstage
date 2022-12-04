@@ -1,7 +1,8 @@
+import { ServerResponse } from 'http';
+import { authOptions } from '@/lib/auth';
 import { ApolloServer } from "apollo-server-micro";
 import { MicroRequest } from "apollo-server-micro/dist/types";
-import { ServerResponse } from "http";
-import handler from "../../server/api-route";
+import { unstable_getServerSession } from 'next-auth';
 import { schema } from "../../server/graphql/schema";
 import { getRequestOrigin } from "./../../server/get-request-origin";
 
@@ -33,10 +34,17 @@ const apolloServer = new ApolloServer({
 
 const startServer = apolloServer.start();
 
-export default handler().use((req: MicroRequest, res: ServerResponse) => {
+export default async function handler(req: MicroRequest, res: ServerResponse) {
+  const session = await unstable_getServerSession(req, res, authOptions)
+
+  if (!session) {
+    res.status(401).json({ message: "You must be logged in." });
+    return;
+  }
+
   startServer.then(() => {
     apolloServer.createHandler({
       path: "/api",
     })(req, res);
   });
-});
+};
