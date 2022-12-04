@@ -1,3 +1,5 @@
+"use client";
+
 import { PlusIcon } from "@heroicons/react/solid";
 import { FC } from "react";
 import { useRecoilState } from "recoil";

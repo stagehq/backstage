@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 
-import faker from "@faker-js/faker";
+import { faker } from '@faker-js/faker/locale/en'
 import { PlusIcon } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -24,6 +24,7 @@ const ProjectListing: FC<ProjectListingProps> = ({ projects }) => {
     useState<boolean>(false);
 
   /* Fake data */
+  /* TODO: Remove this when we have real data */
   const randomProjectName = faker.vehicle.bicycle();
 
   return (

@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { userAliasState, userState } from "../../store/profile";
+import { userAliasState, userState } from "../../../store/user";
 
 import { Project } from "@prisma/client";
 import Head from "next/head";
-import PinnedProjects from "../../components/01_Account/PinnedProjects";
-import ProfileHeader from "../../components/01_Account/ProfileHeader";
-import ProjectListing from "../../components/01_Account/ProjectListing.tsx";
-import EmptyState from "../../components/02_AppGlobal/EmptyState";
+import PinnedProjects from "../../src/client/components/01_Account/PinnedProjects";
+import ProfileHeader from "../../src/client/components/01_Account/ProfileHeader";
+import ProjectListing from "../../src/client/components/01_Account/ProjectListing.tsx";
+import EmptyState from "../../src/client/components/02_AppGlobal/EmptyState";
 
 function ProfilePage() {
   const { userAlias } = useParams();

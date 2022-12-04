@@ -57,8 +57,8 @@ export const client = createClient({
   },
   requestPolicy: `cache-and-network`,
   url: getAPIURl(),
-  // exchanges:
-  //   process.env.NODE_ENV === `development`
-  //     ? [devtoolsExchange, ...defaultExchanges]
-  //     : [...defaultExchanges],
+  exchanges:
+    process.env.NODE_ENV === `development`
+      ? [devtoolsExchange, ...defaultExchanges]
+      : [...defaultExchanges],
 });
