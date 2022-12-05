@@ -1,5 +1,7 @@
-import Homepage from "../client/components/00_Marketing/Homepage";
+import Link from "next/link";
 
 export default function HomepagePage() {
-  return <Homepage />;
+  return (
+    <span>Redirecting via middleware to <Link href="/auth/login">/auth/login</Link></span>
+  );
 }
