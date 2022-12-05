@@ -47,5 +47,5 @@ export default handler().get(async (req, res) => {
   //   },
   // });
 
-  // res.redirect(`/${project.slug}`);
+  // res.redirect(`/app/${project.slug}`);
 });

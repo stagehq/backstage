@@ -7,8 +7,8 @@ import {
   SpeakerphoneIcon,
 } from "@heroicons/react/outline";
 import clsx from "clsx";
-import Link from "next/link";
 import { Fragment } from "react";
+import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { projectSlugState } from "../../../store/project";
 
@@ -63,7 +63,7 @@ export default function PlusButton({ setProjectCreateOpen }: PlusButtonProps) {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href={`app/workspace/${projectSlug}/ideas/new`}
+                  to={`app/workspace/${projectSlug}/ideas/new`}
                   className={clsx(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "group flex items-center px-4 py-2 text-sm"
@@ -80,7 +80,7 @@ export default function PlusButton({ setProjectCreateOpen }: PlusButtonProps) {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href={`app/workspace/${projectSlug}/initiatives/new`}
+                  to={`app/workspace/${projectSlug}/initiatives/new`}
                   className={clsx(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "group flex items-center px-4 py-2 text-sm"

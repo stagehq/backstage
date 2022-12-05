@@ -84,10 +84,10 @@ function Homepage() {
         }}
       >
         {"We use cookies. "}
-        <Link href="/privacy" legacyBehavior>
-          <span className="text-indigo-700 hover:text-indigo-500 underline">
+        <Link href="/privacy">
+          <a className="text-indigo-700 hover:text-indigo-500 underline">
             Learn more
-          </span>
+          </a>
         </Link>
       </CookieConsent>
       <Layout>

@@ -1,9 +1,6 @@
-"use client";
-
 import clsx from "clsx";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { FC } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { projectSlugState } from "../../../store/project";
 
@@ -16,7 +13,7 @@ export const navigation = [
 ];
 
 const SidebarNavigation: FC = () => {
-  const location = usePathname();
+  const location = useLocation();
   const [projectSlug, setProjectSlug] = useRecoilState(projectSlugState);
 
   if (projectSlug) {
@@ -26,11 +23,11 @@ const SidebarNavigation: FC = () => {
           navigation.map((item) => (
             <Link
               key={item.name}
-              href={"/workspace/" + projectSlug + item.href}
+              to={"/app/workspace/" + projectSlug + item.href}
             >
               <span
                 className={clsx(
-                  location?.endsWith(item.key || projectSlug)
+                  location.pathname.endsWith(item.key || projectSlug)
                     ? "bg-gray-100 text-gray-900 hover:text-gray-900 hover:bg-gray-100"
                     : "text-gray-600 hover:text-gray-900 hover:bg-gray-50",
 

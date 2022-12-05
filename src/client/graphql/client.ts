@@ -1,5 +1,3 @@
-"use client";
-
 import {
   createClient,
   dedupExchange,

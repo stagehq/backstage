@@ -1,5 +1,3 @@
-"use client";
-
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import {
   ArrowSmRightIcon,
@@ -9,6 +7,7 @@ import {
   XIcon,
 } from "@heroicons/react/outline";
 import { FC, Fragment } from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   projectCreateOpenState,
   settingsOpenState,
@@ -16,8 +15,6 @@ import {
 
 import clsx from "clsx";
 import { signOut } from "next-auth/react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useRecoilState } from "recoil";
 import { projectSlugState } from "../../../store/project";
 import { currentUserState } from "../../../store/user";
@@ -39,7 +36,7 @@ const WorkspaceHeader: FC = () => {
   );
 
   /* location */
-  const location = usePathname();
+  const location = useLocation();
 
   return (
     <Disclosure as="header" className="bg-transparent border-b border-gray-200">
@@ -69,7 +66,7 @@ const WorkspaceHeader: FC = () => {
               </div>
               <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
                 <div className="flex gap-2">
-                  <Link href="/discover">
+                  <Link to="/app/discover">
                     <button
                       type="button"
                       className="flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -111,7 +108,7 @@ const WorkspaceHeader: FC = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            href={`/profile/${
+                            to={`/app/profile/${
                               currentUser && currentUser.alias
                             }`}
                             className={clsx(
@@ -172,18 +169,18 @@ const WorkspaceHeader: FC = () => {
                 navigation.map((item) => (
                   <Link
                     key={item.key}
-                    href={"/workspace/" + projectSlug + item.href}
+                    to={"/app/workspace/" + projectSlug + item.href}
                   >
                     <Disclosure.Button
                       key={item.name}
                       className={clsx(
-                        location?.endsWith(item.key || projectSlug)
+                        location.pathname.endsWith(item.key || projectSlug)
                           ? "bg-gray-100 text-gray-900"
                           : "text-gray-900 hover:bg-gray-50 hover:text-gray-900",
                         "block rounded-md py-2 px-3 text-base font-medium w-full text-left"
                       )}
                       aria-current={
-                        location?.endsWith(item.key || projectSlug)
+                        location.pathname.endsWith(item.key || projectSlug)
                           ? "page"
                           : undefined
                       }
@@ -195,7 +192,7 @@ const WorkspaceHeader: FC = () => {
             </div>
             <div className="border-t border-gray-200 py-4">
               <div className="px-4 flex items-center">
-                <Link href="/discover">
+                <Link to="/app/discover">
                   <span className="flex items-center gap-2 w-full">
                     <button
                       type="button"
@@ -250,7 +247,7 @@ const WorkspaceHeader: FC = () => {
                 </div>
               </div>
               <div className="mt-3 px-2 space-y-1">
-                <Link href={`/profile/${currentUser && currentUser.alias}`}>
+                <Link to={`/app/profile/${currentUser && currentUser.alias}`}>
                   <Disclosure.Button className="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900">
                     Your profile
                   </Disclosure.Button>

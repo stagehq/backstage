@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { currentUserState } from "../../../../store/user";
 import SidebarItemWrapper from "../SidebarItemWrapper";
@@ -30,7 +30,7 @@ const AuthorItem: FC<AuthorItemProps> = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             {authorImgPath ? (
-              <Link href={`/profile/${authorAlias}`}>
+              <Link to={`/app/profile/${authorAlias}`}>
                 <img
                   className="h-8 w-8 rounded-full"
                   src={authorImgPath}
@@ -42,7 +42,7 @@ const AuthorItem: FC<AuthorItemProps> = ({
               <div className="h-8 w-8 rounded-full bg-slate-400" />
             )}
             <div className="ml-3">
-              <Link href={`/profile/${authorAlias}`}>
+              <Link to={`/app/profile/${authorAlias}`}>
                 <p className="text-sm font-medium text-gray-800">
                   {authorName}
                 </p>

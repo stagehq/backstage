@@ -1,5 +1,5 @@
 import Head from "next/head";
-import IdeaOverview from "../../../src/client/components/05_Idea/IdeaOverview";
+import IdeaOverview from "../../../components/05_Idea/IdeaOverview";
 
 function IdeasPage() {
   return (

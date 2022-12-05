@@ -1,13 +1,11 @@
-"use client";
-
 import { FC, useEffect, useState } from "react";
 
 import { CheckCircleIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
-import { usePathname } from "next/navigation";
 import router from "next/router";
 import toast from "react-hot-toast";
+import { matchPath } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import slug from "slug";
 import { client } from "../../../graphql/client";
@@ -51,8 +49,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
   const [lastNameValid, setLastNameValid] = useState(true);
 
   // Match onbaording route
-  const pathname = usePathname();
-  const isOnboarding = "/auth/new-user" === pathname;
+  const isOnboarding = matchPath("/auth/new-user", location.pathname);
 
   /* Set name */
   const [, setCurrentUser] = useRecoilState(currentUserState);
@@ -241,7 +238,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
             </label>
             <div className="mt-1 flex rounded-md shadow-sm relative">
               <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-blue-gray-300 bg-blue-gray-50 text-blue-gray-500 sm:text-sm">
-                zirkular.dev/profile/
+                zirkular.dev/app/profile/
               </span>
               <input
                 type="text"
@@ -450,7 +447,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                           setCurrentUser(editCurrentUser);
                           if (isOnboarding) {
                             setRedirectToDiscover(true);
-                            router.push("/discover");
+                            router.push("/app/discover");
                           }
                         });
                     }

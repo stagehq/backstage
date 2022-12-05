@@ -1,10 +1,8 @@
-"use client";
-
 import { Disclosure, Menu } from "@headlessui/react";
 import { GlobeIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import clsx from "clsx";
-import Link from "next/link";
 import { FC } from "react";
+import { Link } from "react-router-dom";
 
 interface WorkspaceHeaderLoaderProps {
   target: "WorkspaceHeader" | "InAppHeader";
@@ -40,7 +38,7 @@ const WorkspaceHeaderLoader: FC<WorkspaceHeaderLoaderProps> = ({ target }) => {
               </div>
               <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
                 <div className="flex gap-2">
-                  <Link href="/discover">
+                  <Link to="/app/discover">
                     <button
                       type="button"
                       className="flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

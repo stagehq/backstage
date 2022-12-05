@@ -1,5 +1,3 @@
-"use client";
-
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { FC, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";

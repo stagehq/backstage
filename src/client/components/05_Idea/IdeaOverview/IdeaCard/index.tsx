@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Idea, User } from "../../../../graphql/types.generated";
 import {
   labelSelectState,
@@ -24,7 +24,7 @@ const IdeaCard: FC<IdeaCardProps> = ({ idea, key }) => {
   const selectedUser = useRecoilValue(userSelectState);
 
   const IdeaCardContent: FC<IdeaCardProps> = ({ idea, key }) => {
-    const { push: navigate } = useRouter();
+    const navigate = useNavigate();
     const { id } = decodeGlobalID(idea.id);
 
     // state for vote count
@@ -46,7 +46,7 @@ const IdeaCard: FC<IdeaCardProps> = ({ idea, key }) => {
             <span className="font-medium text-sm text-slate-500">
               #{idea.number}
             </span>
-            <Link href={`../ideas/${idea.number}`}>
+            <Link to={`../ideas/${idea.number}`}>
               <p className="mt-0 md:text-lg font-semibold text-slate-900">
                 {idea.title}
               </p>
@@ -64,7 +64,7 @@ const IdeaCard: FC<IdeaCardProps> = ({ idea, key }) => {
             {/* Contributer Images */}
             <div className="flex -space-x-1 relative z-0 overflow-hidden">
               {idea.creator?.image ? (
-                <Link href={`/profile/${idea.creator.alias}`}>
+                <Link to={`/app/profile/${idea.creator.alias}`}>
                   <img
                     src={idea.creator.image}
                     referrerPolicy="no-referrer"
@@ -77,7 +77,7 @@ const IdeaCard: FC<IdeaCardProps> = ({ idea, key }) => {
                 ? idea.participants.slice(0, 6).map((participant: User) => {
                     if (participant.image) {
                       return (
-                        <Link href={`/profile/${participant.alias}`}>
+                        <Link to={`/app/profile/${participant.alias}`}>
                           <img
                             src={participant.image}
                             referrerPolicy="no-referrer"

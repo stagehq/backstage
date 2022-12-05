@@ -4,8 +4,8 @@ import { FC, Fragment, useEffect, useRef, useState } from "react";
 
 import { ExclamationIcon } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { Project } from "../../../graphql/types.generated";
 import { useUpdateProjectActiveStateMutation } from "../../../graphql/updateProjectActiveState.generated";
@@ -35,7 +35,7 @@ const ProjectDeleteModal: FC<ProjectDeleteModalProps> = ({
 
   const cancelButtonRef = useRef(null);
 
-  const { push: navigate } = useRouter();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setOpen(deleterModalOpen);
@@ -164,7 +164,7 @@ const ProjectDeleteModal: FC<ProjectDeleteModalProps> = ({
                             // close the modal
                             handleClose();
                             // navigate to discover page
-                            navigate("/discover");
+                            navigate("/app/discover");
                           });
                       }
                     }}

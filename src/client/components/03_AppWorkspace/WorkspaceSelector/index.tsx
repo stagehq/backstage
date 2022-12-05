@@ -1,17 +1,15 @@
-"use client";
-
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { Project } from "@prisma/client";
 import clsx from "clsx";
-import { useRouter } from "next/navigation";
 import { FC, Fragment, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { projectSlugState } from "../../../store/project";
 import { currentUserState } from "../../../store/user";
 
 const WorkspaceSelector: FC = () => {
-  const { push: navigate } = useRouter();
+  const navigate = useNavigate();
 
   const [projectSlug, setProjectSlug] = useRecoilState(projectSlugState);
 
@@ -38,7 +36,7 @@ const WorkspaceSelector: FC = () => {
   }, [currentUser]);
 
   const handleWorkspaceChange = (value: string) => {
-    navigate(`/workspace/${value}`);
+    navigate(`/app/workspace/${value}`);
   };
 
   return (

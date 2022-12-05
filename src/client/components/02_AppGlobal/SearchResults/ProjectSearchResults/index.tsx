@@ -1,5 +1,5 @@
-import { useRouter } from "next/navigation";
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { Project } from "../../../../graphql/types.generated";
 
 interface ProjectSearchResultsProps {
@@ -9,7 +9,7 @@ interface ProjectSearchResultsProps {
 const ProjectSearchResults: FC<ProjectSearchResultsProps> = ({
   discoverSearchResult,
 }) => {
-  const { push: navigate } = useRouter();
+  const navigate = useNavigate();
 
   if (!discoverSearchResult) return null;
 
@@ -60,7 +60,7 @@ const ProjectSearchResults: FC<ProjectSearchResultsProps> = ({
                   </td>
                   <td className="py-4 pl-3 pr-4 text-right sm:pr-6 md:pr-0">
                     <button
-                      onClick={() => navigate(`/workspace/${project.slug}`)}
+                      onClick={() => navigate(`/app/workspace/${project.slug}`)}
                       className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                       Go

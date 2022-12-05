@@ -14,7 +14,7 @@ export default function SignUp() {
   }
 
   if (status === "authenticated") {
-    router.push("/workspace/workspaceId");
+    router.push("/app/workspace/workspaceId");
     return <LoadingPage />;
   }
 

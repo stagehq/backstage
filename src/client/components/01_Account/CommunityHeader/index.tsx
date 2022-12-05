@@ -1,5 +1,3 @@
-"use client";
-
 import { FC } from "react";
 import { useRecoilState } from "recoil";
 import { discoverSearchInputState } from "../../../store/ui/discover";

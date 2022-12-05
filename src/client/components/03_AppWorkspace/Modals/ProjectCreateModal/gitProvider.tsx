@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCreateProjectMutation } from "../../../../graphql/createProject.generated";
 import Spinner from "../../../02_AppGlobal/Icons/Spinner";
 
@@ -26,7 +26,7 @@ export default function GitProvider() {
   const randomProjectName = faker.vehicle.bicycle();
 
   /* Router */
-  const { push: navigate } = useRouter();
+  const navigate = useNavigate();
 
   function handleCreateProject(index: number) {
     setCreateProjectLoading(index);
@@ -36,7 +36,7 @@ export default function GitProvider() {
       }).then((result) => {
         setCreateProjectLoading(null);
         const slug = result.data?.createProject?.slug;
-        if (slug) navigate(`/workspace/${slug}`);
+        if (slug) navigate(`/app/workspace/${slug}`);
       });
     }
   }

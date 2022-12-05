@@ -5,8 +5,8 @@ import { projectSlugState, projectState } from "../../../store/project";
 import { ExclamationCircleIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import slug from "slug";
 import { Project } from "../../../graphql/types.generated";
 import { useUpdateProjectMutation } from "../../../graphql/updateProject.generated";
@@ -41,7 +41,7 @@ const ProjectProperties: FC = () => {
   };
 
   /* Router */
-  const { push: navigate } = useRouter();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // initialize old project for restore on reset button
@@ -185,7 +185,9 @@ const ProjectProperties: FC = () => {
                     setUpdateProjectLoading(false);
                     setFieldsEdited(false);
                     //TODO: fix navigation to new project
-                    navigate(`/workspace/${result.data?.updateProject?.slug}`);
+                    navigate(
+                      `/app/workspace/${result.data?.updateProject?.slug}`
+                    );
                   });
               }
             }}

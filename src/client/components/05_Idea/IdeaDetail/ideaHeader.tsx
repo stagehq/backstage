@@ -6,7 +6,7 @@ import { projectSlugState, projectState } from "../../../store/project";
 import { ClipboardIcon } from "@heroicons/react/outline";
 import { decodeGlobalID } from "@pothos/plugin-relay";
 import clsx from "clsx";
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import SimpleInput from "../../02_AppGlobal/Inputs/SimpleInput";
 import IdeaCount from "../IdeaOverview/IdeaVotes";
 
@@ -74,7 +74,7 @@ const IdeaHeader: FC<IdeaHeaderProps> = ({
           <div className="flex items-center grow gap-2">
             {idea && (
               <div>
-                <Link href={`/profile/${idea.creator?.alias}`}>
+                <Link to={`/app/profile/${idea.creator?.alias}`}>
                   <img
                     src={idea?.creator?.image ? idea?.creator.image : ""}
                     referrerPolicy="no-referrer"
@@ -85,7 +85,7 @@ const IdeaHeader: FC<IdeaHeaderProps> = ({
               </div>
             )}
             <div className="flex gap-1">
-              <Link href={`/profile/${idea?.creator?.alias}`}>
+              <Link to={`/app/profile/${idea?.creator?.alias}`}>
                 <div className="text-sm text-slate-800 font-medium">
                   {idea?.creator?.alias
                     ? idea?.creator?.alias

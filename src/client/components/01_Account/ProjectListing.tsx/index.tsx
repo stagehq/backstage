@@ -1,10 +1,9 @@
 import { FC, useState } from "react";
 
-import { faker } from "@faker-js/faker/locale/en";
+import faker from "@faker-js/faker";
 import { PlusIcon } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { Link, useNavigate } from "react-router-dom";
 import { useCreateProjectMutation } from "../../../graphql/createProject.generated";
 import { Project } from "../../../graphql/types.generated";
 import Spinner from "../../02_AppGlobal/Icons/Spinner";
@@ -15,7 +14,7 @@ interface ProjectListingProps {
 
 const ProjectListing: FC<ProjectListingProps> = ({ projects }) => {
   const { data: session } = useSession();
-  const { push: navigate } = useRouter();
+  const navigate = useNavigate();
 
   const [, createProject] = useCreateProjectMutation();
 
@@ -24,7 +23,6 @@ const ProjectListing: FC<ProjectListingProps> = ({ projects }) => {
     useState<boolean>(false);
 
   /* Fake data */
-  /* TODO: Remove this when we have real data */
   const randomProjectName = faker.vehicle.bicycle();
 
   return (
@@ -47,7 +45,7 @@ const ProjectListing: FC<ProjectListingProps> = ({ projects }) => {
                 }).then((result) => {
                   setCreateProjectLoading(false);
                   const slug = result.data?.createProject?.slug;
-                  if (slug) navigate(`/workspace/${slug}`);
+                  if (slug) navigate(`/app/workspace/${slug}`);
                 });
               }
             }}
@@ -108,7 +106,7 @@ const ProjectListing: FC<ProjectListingProps> = ({ projects }) => {
                     </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 md:pr-0">
                       <Link
-                        href={`/workspace/${project.slug}`}
+                        to={`/app/workspace/${project.slug}`}
                         className="text-indigo-600 hover:text-indigo-900"
                       >
                         Edit

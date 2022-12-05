@@ -54,9 +54,6 @@ module.exports = {
     locales: ["en"],
     defaultLocale: "en",
   },
-  experimental: {
-    appDir: true,
-  },
 };
 
 // Surpress warning for duplicate atom key – See this issue for more info https://github.com/facebookexperimental/Recoil/issues/733

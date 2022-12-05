@@ -1,5 +1,3 @@
-"use client";
-
 import { Combobox } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import clsx from "clsx";

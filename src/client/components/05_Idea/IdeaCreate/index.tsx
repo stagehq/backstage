@@ -5,7 +5,7 @@ import { projectSlugState, projectState } from "../../../store/project";
 
 import { decodeGlobalID } from "@pothos/plugin-relay";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router-dom";
 import { useCreateIdeaMutation } from "../../../graphql/createIdea.generated";
 import Spinner from "../../02_AppGlobal/Icons/Spinner";
 import RichTextInput from "../../02_AppGlobal/Inputs/RichTextInput";
@@ -39,7 +39,7 @@ const IdeaMainContainer = () => {
   const [createProjectLoading, setCreateProjectLoading] =
     useState<boolean>(false);
 
-  const { push: navigate } = useRouter();
+  const navigate = useNavigate();
 
   // //force focus
   const inputRef = useRef(null);
@@ -79,7 +79,7 @@ const IdeaMainContainer = () => {
           const ideaNumber = result.data?.createIdea?.number;
 
           if (ideaNumber) {
-            navigate(`/workspace/${project.slug}/ideas/${ideaNumber}`);
+            navigate(`/app/workspace/${project.slug}/ideas/${ideaNumber}`);
           }
         }
       });
