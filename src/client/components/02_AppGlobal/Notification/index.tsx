@@ -1,4 +1,5 @@
-/* This example requires Tailwind CSS v2.0+ */
+"use client";
+
 import { Fragment, useState } from "react";
 
 import { Transition } from "@headlessui/react";

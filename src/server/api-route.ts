@@ -39,7 +39,7 @@ function handler() {
       .use(async (req: Request, res: NextApiResponse, next) => {
         const session = await getSession({ req });
         console.log(session);
-        
+
         req.user = session;
         if (session) {
           // Signed in

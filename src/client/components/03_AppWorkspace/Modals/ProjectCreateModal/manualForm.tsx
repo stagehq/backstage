@@ -1,9 +1,9 @@
 import { ExclamationCircleIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useRouter } from 'next/navigation';
 import { useRecoilState } from "recoil";
 import { useCreateProjectMutation } from "../../../../graphql/createProject.generated";
 import { Project, ProjectRole } from "../../../../graphql/types.generated";
@@ -34,7 +34,7 @@ export default function ManualFrom() {
   const [projectName, setProjectName] = useState<string>("");
 
   /* Router */
-  const {push: navigate} = useRouter()
+  const { push: navigate } = useRouter();
 
   function handleCreateProject() {
     /* Check if form is good */

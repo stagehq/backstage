@@ -1,7 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { ChevronRightIcon } from "@heroicons/react/solid";
 import { FC } from "react";
-import Link from "next/link";
 
 //@ts-ignore
 const IdeaBreadcrumb = ({ match }) => <span>#{match.params.ideaId}</span>;
@@ -59,7 +57,8 @@ const Breadcrumb: FC = () => {
               )}
             </div>
           </li>
-        ))} */}Breadcrumb
+        ))} */}
+        Breadcrumb
       </ol>
     </nav>
   );

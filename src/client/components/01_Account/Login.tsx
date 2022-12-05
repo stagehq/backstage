@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/outline";
 
 import { signIn } from "next-auth/react";
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from "next/navigation";
 import { ParsedUrlQuery } from "querystring";
 import { useState } from "react";
 
@@ -59,9 +59,7 @@ const validateEmail = (email: string) => {
     );
 };
 
-const Login = ({
-  csrfToken
-}: { csrfToken: string }) => {
+const Login = ({ csrfToken }: { csrfToken: string }) => {
   const [email, setEmail] = useState("");
   const error = useSearchParams().get("error");
 

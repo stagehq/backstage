@@ -1,33 +1,25 @@
-"use client";
-
 import "../styles/globals.css";
 
-import splitbee from "@splitbee/web";
-import { SessionProvider } from "next-auth/react";
-import Head from "next/head";
-import { useEffect } from "react";
-import { RecoilRoot } from "recoil";
-import { Provider } from "urql";
-import ToasterComponent from "../src/client/components/04_Notification";
-import { client } from "../src/client/graphql/client";
 import AppShell from "@/client/components/02_AppGlobal/AppShell";
-0;
+import { Providers } from "@/client/providers/root";
+import Head from "next/head";
+import ToasterComponent from "../src/client/components/04_Notification";
 
 interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-function RootLayout({ children }: RootLayoutProps) {
-  useEffect((): void => {
-    if (process.env.NODE_ENV === "production") {
-      splitbee.init({
-        token: process.env.SPLITBEE_TOKEN,
-        disableCookie: true,
-        apiUrl: "/sb-api",
-        scriptUrl: "/sb.js",
-      });
-    }
-  }, []);
+export default async function RootLayout({ children }: RootLayoutProps) {
+  // useEffect((): void => {
+  //   if (process.env.NODE_ENV === "production") {
+  //     splitbee.init({
+  //       token: process.env.SPLITBEE_TOKEN,
+  //       disableCookie: true,
+  //       apiUrl: "/sb-api",
+  //       scriptUrl: "/sb.js",
+  //     });
+  //   }
+  // }, []);
 
   return (
     <html>
@@ -117,19 +109,12 @@ function RootLayout({ children }: RootLayoutProps) {
         <meta name="twitter:site" content="@zirkular_os" />
       </Head>
       <body className="selection:bg-indigo-600 selection:text-white">
-        <RecoilRoot>
-          <SessionProvider>
-            <Provider value={client}>
-              <AppShell>
-                {children}
-              </AppShell>
-              <ToasterComponent />
-            </Provider>
-          </SessionProvider>
-        </RecoilRoot>
+        <Providers>
+          {/* @ts-expect-error Server Component */}
+          <AppShell>{children}</AppShell>
+          <ToasterComponent />
+        </Providers>
       </body>
     </html>
   );
 }
-
-export default RootLayout;

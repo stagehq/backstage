@@ -9,7 +9,7 @@ export default function Layout({ children }: Props) {
   return (
     <div className="flex min-h-screen flex-col justify-between">
       <Navbar />
-        {children}
+      {children}
       <Footer />
     </div>
   );

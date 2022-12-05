@@ -1,3 +1,5 @@
+"use client";
+
 import { LogoutIcon, SearchIcon } from "@heroicons/react/outline";
 import clsx from "clsx";
 import {

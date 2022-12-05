@@ -1,11 +1,10 @@
-import GoogleProvider from 'next-auth/providers/google';
-import { NextAuthOptions } from "next-auth"
+import prisma from "@/server/db/prisma";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { NextAuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
 import GitlabProvider from "next-auth/providers/gitlab";
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import prisma from "@/server/db/prisma"
-
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers

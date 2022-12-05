@@ -7,8 +7,8 @@ import {
   SpeakerphoneIcon,
 } from "@heroicons/react/outline";
 import clsx from "clsx";
-import { Fragment } from "react";
 import Link from "next/link";
+import { Fragment } from "react";
 import { useRecoilValue } from "recoil";
 import { projectSlugState } from "../../../store/project";
 

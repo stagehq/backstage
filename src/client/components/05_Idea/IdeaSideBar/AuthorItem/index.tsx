@@ -1,5 +1,5 @@
-import { FC } from "react";
 import Link from "next/link";
+import { FC } from "react";
 import { useRecoilState } from "recoil";
 import { currentUserState } from "../../../../store/user";
 import SidebarItemWrapper from "../SidebarItemWrapper";

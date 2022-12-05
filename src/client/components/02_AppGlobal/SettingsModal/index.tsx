@@ -1,9 +1,11 @@
+"use client";
+
 import { Dialog, Transition } from "@headlessui/react";
 import { FC, Fragment, useRef } from "react";
 
 import { XIcon } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { useRecoilState, useRecoilStateLoadable } from "recoil";
 import { settingsOpenState } from "../../../store/ui/modals";
 import { currentUserState } from "../../../store/user";
@@ -16,7 +18,7 @@ import { Profile } from "../Settings/Profile";
 import { SettingsForm } from "../Settings/SettingsForm";
 
 const SettingsModal: FC = () => {
-  const {push: navigate} = useRouter()
+  const { push: navigate } = useRouter();
   const { status } = useSession();
   const [settingsOpen, setSettingsOpen] = useRecoilState(settingsOpenState);
   const [currentUser] = useRecoilStateLoadable(currentUserState);

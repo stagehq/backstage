@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { useRecoilState } from "recoil";
 import { currentUserState } from "../../../store/user";
 import LoadingPage from "../Loading/Page";
@@ -14,7 +14,7 @@ import SettingSidebar from "./SettingsSidebar";
 export default function Settings() {
   const { data: session, status } = useSession();
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
-  const {push: navigate} = useRouter()
+  const { push: navigate } = useRouter();
 
   if (status === "unauthenticated") {
     navigate("/");

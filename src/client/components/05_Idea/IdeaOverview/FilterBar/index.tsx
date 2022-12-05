@@ -1,7 +1,7 @@
 import { FilterIcon, LightBulbIcon } from "@heroicons/react/outline";
 
+import { useRouter } from "next/navigation";
 import { FC } from "react";
-import { useRouter } from 'next/navigation';
 import { useRecoilState } from "recoil";
 import { projectSlugState } from "../../../../store/project";
 import { filterActiveState } from "../../../../store/ui/ideasFilter";
@@ -11,7 +11,7 @@ import UserSelect from "./UserSelect";
 
 const IdeaBar: FC = () => {
   // get navigate from react router
-  const {push: navigate} = useRouter()
+  const { push: navigate } = useRouter();
 
   // project slug state recoil
   const [projectSlug, setProjectSlug] = useRecoilState(projectSlugState);

@@ -6,13 +6,13 @@ import { FC, Fragment } from "react";
 
 import clsx from "clsx";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useRecoilState } from "recoil";
 import { User } from "../../../graphql/types.generated";
 import { settingsOpenState } from "../../../store/ui/modals";
 import { currentUserState } from "../../../store/user";
 import BackButton from "../BackButton";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
 
 const InAppHeader: FC = () => {
   /* data */

@@ -1,5 +1,5 @@
+import { useRouter } from "next/navigation";
 import { FC } from "react";
-import { useRouter } from 'next/navigation';
 import { User } from "../../../../graphql/types.generated";
 
 interface UserSearchResultsProps {
@@ -9,7 +9,7 @@ interface UserSearchResultsProps {
 const UserSearchResults: FC<UserSearchResultsProps> = ({
   userSearchResult,
 }) => {
-  const {push: navigate} = useRouter()
+  const { push: navigate } = useRouter();
 
   if (!userSearchResult) return null;
   return (

@@ -5,11 +5,11 @@ import { redirect } from "next/navigation";
 import SignLayout from "../../../src/client/components/01_Account/SignLayout";
 
 export default function VerifyRequestPage() {
-  const token = cookies().get('next-auth.session-token')
-  const csrfToken = cookies().get('next-auth.csrf-token')
+  const token = cookies().get("next-auth.session-token");
+  const csrfToken = cookies().get("next-auth.csrf-token");
 
-  if (token?.value) redirect('/discover') // already logged-in
-  if (!csrfToken?.value) redirect('/auth/login') // no csrf available
+  if (token?.value) redirect("/discover"); // already logged-in
+  if (!csrfToken?.value) redirect("/auth/login"); // no csrf available
 
   return (
     <>

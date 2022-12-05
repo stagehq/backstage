@@ -1,7 +1,8 @@
-import { authOptions } from "@/lib/auth";
-import { unstable_getServerSession } from "next-auth";
+"use client";
+
+import { getCurrentUser } from "@/lib/session";
+import { notFound, usePathname } from "next/navigation";
 import { Suspense } from "react";
-import { usePathname } from 'next/navigation';
 import InAppHeader from "../../03_AppWorkspace/InAppHeader";
 import SidebarLoader from "../../03_AppWorkspace/Loader/SidebarLoader";
 import WorkspaceHeaderLoader from "../../03_AppWorkspace/Loader/WorkspaceHeaderLoader";
@@ -26,18 +27,23 @@ export function AppLayout({ children }: AppLayoutProps) {
   );
 }
 
-export default function AppShell({ children }: AppShellProps) {
-  const pageName = usePathname();  
+export default async function AppShell({ children }: AppShellProps) {
+  const user = await getCurrentUser();
+  const pageName = usePathname();
+
+  if (!user) {
+    return notFound();
+  }
 
   return (
     <div className="h-screen overflow-hidden">
       <AppLayout>
-        {/* {status === "authenticated" ? (
+        {user ? (
           <div>
             <SettingsModal />
             <ProjectCreateModal />
           </div>
-        ) : null} */}
+        ) : null}
         <div className="flex h-full">
           <Suspense fallback={<SidebarLoader />}>
             {pageName === "/workspace" && <Sidebar />}

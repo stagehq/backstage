@@ -1,13 +1,13 @@
 import { FC, useState } from "react";
 
-import { faker } from '@faker-js/faker/locale/en'
+import { faker } from "@faker-js/faker/locale/en";
 import { PlusIcon } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useCreateProjectMutation } from "../../../graphql/createProject.generated";
 import { Project } from "../../../graphql/types.generated";
 import Spinner from "../../02_AppGlobal/Icons/Spinner";
-import { useRouter } from "next/router";
 
 interface ProjectListingProps {
   projects: Project[];
@@ -15,7 +15,7 @@ interface ProjectListingProps {
 
 const ProjectListing: FC<ProjectListingProps> = ({ projects }) => {
   const { data: session } = useSession();
-  const {push: navigate} = useRouter()
+  const { push: navigate } = useRouter();
 
   const [, createProject] = useCreateProjectMutation();
 

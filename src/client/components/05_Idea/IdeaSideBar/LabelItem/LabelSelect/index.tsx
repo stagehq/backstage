@@ -1,3 +1,5 @@
+"use client";
+
 import { Combobox, Popover, Transition } from "@headlessui/react";
 import { CheckIcon, PlusSmIcon } from "@heroicons/react/outline";
 import { DotsHorizontalIcon } from "@heroicons/react/solid";

@@ -49,61 +49,63 @@ function Homepage() {
     }
   };
 
-  return <>
-    <Head>
-      <title>Zirkular – Open source made easy.</title>
-      <meta
-        name="description"
-        content="Zirkular connects contributors and maintainers in a community-first workspace with goal-oriented communication, efficient workflows and smart automations."
-      />
-    </Head>
-    <CookieConsent
-      location="bottom"
-      buttonText="OK"
-      style={{
-        margin: "16px calc((100vw - 343px) / 2)",
-        borderRadius: "8px",
-        paddingLeft: "8px",
-        backgroundColor: "#F7F6F6",
-        border: "1px solid #D1D2DC",
-        color: "#353655",
-        width: "343px",
-        minWidth: "343px",
-        fontSize: "16px",
-        boxShadow: "0px 4px 16px rgba(0, 0, 0, 0.05)",
-      }}
-      buttonStyle={{
-        borderRadius: "8px",
-        backgroundColor: "#4C4EDC",
-        color: "#FFFFFF",
-        height: "48px",
-        padding: "0 20px",
-        margin: "8px",
-        flex: "1 0 300px",
-      }}
-    >
-      {"We use cookies. "}
-      <Link href="/privacy" legacyBehavior>
-        <span className="text-indigo-700 hover:text-indigo-500 underline">
-          Learn more
-        </span>
-      </Link>
-    </CookieConsent>
-    <Layout>
-      <div className="relative overflow-hidden">
-        <main>
-          <Hero {...{ email, setEmail, handleSubmit, submitState }} />
-          <Compare />
-          <FeatureCommunity />
-          <FeatureMeeting />
-          <FeatureCommunication />
-          <FeatureConnected />
-          {/* Community Voices */}
-          <CallToAction {...{ email, setEmail, handleSubmit, submitState }} />
-        </main>
-      </div>
-    </Layout>
-  </>;
+  return (
+    <>
+      <Head>
+        <title>Zirkular – Open source made easy.</title>
+        <meta
+          name="description"
+          content="Zirkular connects contributors and maintainers in a community-first workspace with goal-oriented communication, efficient workflows and smart automations."
+        />
+      </Head>
+      <CookieConsent
+        location="bottom"
+        buttonText="OK"
+        style={{
+          margin: "16px calc((100vw - 343px) / 2)",
+          borderRadius: "8px",
+          paddingLeft: "8px",
+          backgroundColor: "#F7F6F6",
+          border: "1px solid #D1D2DC",
+          color: "#353655",
+          width: "343px",
+          minWidth: "343px",
+          fontSize: "16px",
+          boxShadow: "0px 4px 16px rgba(0, 0, 0, 0.05)",
+        }}
+        buttonStyle={{
+          borderRadius: "8px",
+          backgroundColor: "#4C4EDC",
+          color: "#FFFFFF",
+          height: "48px",
+          padding: "0 20px",
+          margin: "8px",
+          flex: "1 0 300px",
+        }}
+      >
+        {"We use cookies. "}
+        <Link href="/privacy" legacyBehavior>
+          <span className="text-indigo-700 hover:text-indigo-500 underline">
+            Learn more
+          </span>
+        </Link>
+      </CookieConsent>
+      <Layout>
+        <div className="relative overflow-hidden">
+          <main>
+            <Hero {...{ email, setEmail, handleSubmit, submitState }} />
+            <Compare />
+            <FeatureCommunity />
+            <FeatureMeeting />
+            <FeatureCommunication />
+            <FeatureConnected />
+            {/* Community Voices */}
+            <CallToAction {...{ email, setEmail, handleSubmit, submitState }} />
+          </main>
+        </div>
+      </Layout>
+    </>
+  );
 }
 
 export default Homepage;

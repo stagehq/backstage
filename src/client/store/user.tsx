@@ -9,7 +9,9 @@ export const currentUserFetch = selector<User | null>({
   key: "currentUserFetch",
   get: async ({ get }) => {
     try {
-      const response = await client.query(GetCurrentUserDocument, {}).toPromise();
+      const response = await client
+        .query(GetCurrentUserDocument, {})
+        .toPromise();
       return (response.data.currentUser as User) || null;
     } catch (error) {
       console.error(`currentUserFetch -> client.query() ERROR: \n${error}`);

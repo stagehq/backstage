@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useRouter } from 'next/navigation';
 import { useCreateProjectMutation } from "../../../../graphql/createProject.generated";
 import Spinner from "../../../02_AppGlobal/Icons/Spinner";
 
@@ -26,7 +26,7 @@ export default function GitProvider() {
   const randomProjectName = faker.vehicle.bicycle();
 
   /* Router */
-  const {push: navigate} = useRouter()
+  const { push: navigate } = useRouter();
 
   function handleCreateProject(index: number) {
     setCreateProjectLoading(index);

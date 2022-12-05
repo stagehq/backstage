@@ -1,11 +1,13 @@
+"use client";
+
 import { FC, useEffect, useState } from "react";
 
 import { CheckCircleIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 import router from "next/router";
 import toast from "react-hot-toast";
-import { matchPath } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import slug from "slug";
 import { client } from "../../../graphql/client";
@@ -49,7 +51,8 @@ const Profile: FC<ProfileProps> = ({ user }) => {
   const [lastNameValid, setLastNameValid] = useState(true);
 
   // Match onbaording route
-  const isOnboarding = matchPath("/auth/new-user", location.pathname);
+  const pathname = usePathname();
+  const isOnboarding = "/auth/new-user" === pathname;
 
   /* Set name */
   const [, setCurrentUser] = useRecoilState(currentUserState);

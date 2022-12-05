@@ -16,6 +16,8 @@ import {
 
 import clsx from "clsx";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useRecoilState } from "recoil";
 import { projectSlugState } from "../../../store/project";
 import { currentUserState } from "../../../store/user";
@@ -24,8 +26,6 @@ import PlusButton from "../PlusButton";
 import Search from "../Search";
 import { navigation } from "../SidebarNavigation";
 import WorkspaceSelector from "../WorkspaceSelector";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
 
 const WorkspaceHeader: FC = () => {
   /* data */

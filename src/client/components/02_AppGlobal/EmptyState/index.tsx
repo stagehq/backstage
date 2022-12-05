@@ -2,8 +2,8 @@
 import { faker } from "@faker-js/faker";
 import { PlusIcon } from "@heroicons/react/solid";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useRouter } from 'next/navigation';
 import { useCreateProjectMutation } from "../../../graphql/createProject.generated";
 import Spinner from "../Icons/Spinner";
 
@@ -20,7 +20,7 @@ export default function EmptyState() {
   const randomProjectName = faker.vehicle.bicycle();
 
   /* Router */
-  const {push: navigate} = useRouter()
+  const { push: navigate } = useRouter();
 
   return (
     <div className="text-center">

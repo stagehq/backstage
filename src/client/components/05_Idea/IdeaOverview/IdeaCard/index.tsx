@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Idea, User } from "../../../../graphql/types.generated";
 import {
   labelSelectState,
@@ -24,7 +24,7 @@ const IdeaCard: FC<IdeaCardProps> = ({ idea, key }) => {
   const selectedUser = useRecoilValue(userSelectState);
 
   const IdeaCardContent: FC<IdeaCardProps> = ({ idea, key }) => {
-    const {push: navigate} = useRouter()
+    const { push: navigate } = useRouter();
     const { id } = decodeGlobalID(idea.id);
 
     // state for vote count

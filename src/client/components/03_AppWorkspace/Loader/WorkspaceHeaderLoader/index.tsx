@@ -1,8 +1,10 @@
+"use client";
+
 import { Disclosure, Menu } from "@headlessui/react";
 import { GlobeIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import clsx from "clsx";
-import { FC } from "react";
 import Link from "next/link";
+import { FC } from "react";
 
 interface WorkspaceHeaderLoaderProps {
   target: "WorkspaceHeader" | "InAppHeader";
