@@ -74,7 +74,7 @@ const IdeaHeader: FC<IdeaHeaderProps> = ({
           <div className="flex items-center grow gap-2">
             {idea && (
               <div>
-                <Link to={`/app/profile/${idea.creator?.alias}`}>
+                <Link to={`/s/profile/${idea.creator?.alias}`}>
                   <img
                     src={idea?.creator?.image ? idea?.creator.image : ""}
                     referrerPolicy="no-referrer"
@@ -85,7 +85,7 @@ const IdeaHeader: FC<IdeaHeaderProps> = ({
               </div>
             )}
             <div className="flex gap-1">
-              <Link to={`/app/profile/${idea?.creator?.alias}`}>
+              <Link to={`/s/profile/${idea?.creator?.alias}`}>
                 <div className="text-sm text-slate-800 font-medium">
                   {idea?.creator?.alias
                     ? idea?.creator?.alias

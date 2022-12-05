@@ -66,7 +66,7 @@ const WorkspaceHeader: FC = () => {
               </div>
               <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
                 <div className="flex gap-2">
-                  <Link to="/app/discover">
+                  <Link to="/s/discover">
                     <button
                       type="button"
                       className="flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -108,7 +108,7 @@ const WorkspaceHeader: FC = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to={`/app/profile/${
+                            to={`/s/profile/${
                               currentUser && currentUser.alias
                             }`}
                             className={clsx(
@@ -169,7 +169,7 @@ const WorkspaceHeader: FC = () => {
                 navigation.map((item) => (
                   <Link
                     key={item.key}
-                    to={"/app/workspace/" + projectSlug + item.href}
+                    to={"/s/workspace/" + projectSlug + item.href}
                   >
                     <Disclosure.Button
                       key={item.name}
@@ -192,7 +192,7 @@ const WorkspaceHeader: FC = () => {
             </div>
             <div className="border-t border-gray-200 py-4">
               <div className="px-4 flex items-center">
-                <Link to="/app/discover">
+                <Link to="/s/discover">
                   <span className="flex items-center gap-2 w-full">
                     <button
                       type="button"
@@ -247,7 +247,7 @@ const WorkspaceHeader: FC = () => {
                 </div>
               </div>
               <div className="mt-3 px-2 space-y-1">
-                <Link to={`/app/profile/${currentUser && currentUser.alias}`}>
+                <Link to={`/s/profile/${currentUser && currentUser.alias}`}>
                   <Disclosure.Button className="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900">
                     Your profile
                   </Disclosure.Button>

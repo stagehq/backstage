@@ -235,7 +235,7 @@ builder.mutationField("createStripeCheckoutBillingPortalUrl", (t) =>
 
       const { url } = await stripe.billingPortal.sessions.create({
         customer: project.stripeCustomerId,
-        return_url: `${ctx.origin}/app/${project.slug}/settings`,
+        return_url: `${ctx.origin}/s/${project.slug}/settings`,
       });
 
       return url;
@@ -300,8 +300,8 @@ builder.mutationField("createStripeCheckoutSession", (t) =>
         allow_promotion_codes: true,
         ...customerMetadata,
         billing_address_collection: "auto",
-        success_url: `${ctx.origin}/app/${project.slug}/?upgraded=true`,
-        cancel_url: `${ctx.origin}/app/${project.slug}`,
+        success_url: `${ctx.origin}/s/${project.slug}/?upgraded=true`,
+        cancel_url: `${ctx.origin}/s/${project.slug}`,
       });
 
       return session.id;

@@ -7,7 +7,7 @@ import { routes } from "../../../../pages/app";
 
 const Breadcrumb: FC = () => {
   const breadcrumbs = useBreadcrumbs(routes, {
-    excludePaths: ["/", "/app", "/app/workspace"],
+    excludePaths: ["/", "/s", "/s/workspace"],
   });
 
   return (

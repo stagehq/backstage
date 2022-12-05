@@ -37,7 +37,7 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: "/app/:any*",
+        source: "/s/:any*",
         destination: "/app",
       },
       {

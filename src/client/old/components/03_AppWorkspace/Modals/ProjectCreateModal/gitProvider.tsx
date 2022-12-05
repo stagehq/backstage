@@ -36,7 +36,7 @@ export default function GitProvider() {
       }).then((result) => {
         setCreateProjectLoading(null);
         const slug = result.data?.createProject?.slug;
-        if (slug) navigate(`/app/workspace/${slug}`);
+        if (slug) navigate(`/s/workspace/${slug}`);
       });
     }
   }

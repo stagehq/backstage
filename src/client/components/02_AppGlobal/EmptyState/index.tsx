@@ -54,7 +54,7 @@ export default function EmptyState() {
               }).then((result) => {
                 setCreateProjectLoading(false);
                 const slug = result.data?.createProject?.slug;
-                if (slug) navigate(`/app/workspace/${slug}`);
+                if (slug) navigate(`/s/workspace/${slug}`);
               });
             }
           }}

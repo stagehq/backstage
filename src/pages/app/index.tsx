@@ -19,30 +19,30 @@ const IdeaBreadcrumb = ({ match }) => <span>#{match.params.ideaId}</span>;
 
 /* For breadcrumbs */
 export const routes = [
-  { path: "/app/profile", breadcrumb: "Profile" },
-  { path: "/app/profile/:profileId", breadcrumb: "Profile" },
-  { path: "/app/discover", breadcrumb: "Discover" },
-  { path: "/app/workspace/:workspaceId", breadcrumb: "Overview" },
-  { path: "/app/workspace/:workspaceId/ideas", breadcrumb: "Ideas" },
-  { path: "/app/workspace/:workspaceId/ideas/new", breadcrumb: "New" },
+  { path: "/s/profile", breadcrumb: "Profile" },
+  { path: "/s/profile/:profileId", breadcrumb: "Profile" },
+  { path: "/s/discover", breadcrumb: "Discover" },
+  { path: "/s/workspace/:workspaceId", breadcrumb: "Overview" },
+  { path: "/s/workspace/:workspaceId/ideas", breadcrumb: "Ideas" },
+  { path: "/s/workspace/:workspaceId/ideas/new", breadcrumb: "New" },
   {
-    path: "/app/workspace/:workspaceId/ideas/:ideaId",
+    path: "/s/workspace/:workspaceId/ideas/:ideaId",
     breadcrumb: IdeaBreadcrumb,
   },
   {
-    path: "/app/workspace/:workspaceId/initiatives",
+    path: "/s/workspace/:workspaceId/initiatives",
     breadcrumb: "Initiatives",
   },
   {
-    path: "/app/workspace/:workspaceId/initiative/:initiativeId",
+    path: "/s/workspace/:workspaceId/initiative/:initiativeId",
     breadcrumb: "Initiative",
   },
-  { path: "/app/workspace/:workspaceId/meetings", breadcrumb: "Meetings" },
+  { path: "/s/workspace/:workspaceId/meetings", breadcrumb: "Meetings" },
   {
-    path: "/app/workspace/:workspaceId/meeting/:meetingId",
+    path: "/s/workspace/:workspaceId/meeting/:meetingId",
     breadcrumb: "Meeting",
   },
-  { path: "/app/workspace/:workspaceId/settings", breadcrumb: "Settings" },
+  { path: "/s/workspace/:workspaceId/settings", breadcrumb: "Settings" },
 ];
 
 export default function App() {
@@ -53,41 +53,41 @@ export default function App() {
           <Suspense fallback={<LoadingPage />}>
             <Routes>
               {/* Discover */}
-              <Route path="/app/discover" element={<DiscoverPage />} />
+              <Route path="/s/discover" element={<DiscoverPage />} />
               {/* Profile */}
-              <Route path="/app/profile/:userAlias" element={<ProfilePage />} />
+              <Route path="/s/profile/:userAlias" element={<ProfilePage />} />
               {/* Workspace */}
               <Route
-                path="/app/workspace/:workspaceId"
+                path="/s/workspace/:workspaceId"
                 element={<WorkspacePage />}
               >
                 <Route
-                  path="/app/workspace/:workspaceId"
+                  path="/s/workspace/:workspaceId"
                   element={<OverviewPage />}
                 />
                 <Route
-                  path="/app/workspace/:workspaceId/ideas/new"
+                  path="/s/workspace/:workspaceId/ideas/new"
                   element={<IdeaCreatePage />}
                 />
                 <Route
-                  path="/app/workspace/:workspaceId/ideas"
+                  path="/s/workspace/:workspaceId/ideas"
                   element={<IdeasPage />}
                 />
                 <Route
-                  path="/app/workspace/:workspaceId/ideas/:ideaId"
+                  path="/s/workspace/:workspaceId/ideas/:ideaId"
                   element={<IdeaPage />}
                 />
                 <Route
-                  path="/app/workspace/:workspaceId/initiatives"
+                  path="/s/workspace/:workspaceId/initiatives"
                   element={<InitiativesPage />}
                 />
                 <Route
-                  path="/app/workspace/:workspaceId/meet"
+                  path="/s/workspace/:workspaceId/meet"
                   element={<MeetingsPage />}
                 />
 
                 <Route
-                  path="/app/workspace/:workspaceId/settings"
+                  path="/s/workspace/:workspaceId/settings"
                   element={<SettingsPage />}
                 />
               </Route>

@@ -36,7 +36,7 @@ const WorkspaceSelector: FC = () => {
   }, [currentUser]);
 
   const handleWorkspaceChange = (value: string) => {
-    navigate(`/app/workspace/${value}`);
+    navigate(`/s/workspace/${value}`);
   };
 
   return (

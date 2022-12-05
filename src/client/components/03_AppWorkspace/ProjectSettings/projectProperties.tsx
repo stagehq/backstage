@@ -186,7 +186,7 @@ const ProjectProperties: FC = () => {
                     setFieldsEdited(false);
                     //TODO: fix navigation to new project
                     navigate(
-                      `/app/workspace/${result.data?.updateProject?.slug}`
+                      `/s/workspace/${result.data?.updateProject?.slug}`
                     );
                   });
               }

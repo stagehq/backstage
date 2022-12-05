@@ -164,7 +164,7 @@ const ProjectDeleteModal: FC<ProjectDeleteModalProps> = ({
                             // close the modal
                             handleClose();
                             // navigate to discover page
-                            navigate("/app/discover");
+                            navigate("/s/discover");
                           });
                       }
                     }}

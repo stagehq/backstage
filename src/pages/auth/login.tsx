@@ -23,9 +23,9 @@ const SignIn = ({
   if (status === "authenticated") {
     if (data !== undefined) {
       if (data?.currentUser?.lastProject?.slug !== undefined) {
-        router.push("/app/workspace/" + data.currentUser.lastProject?.slug);
+        router.push("/s/workspace/" + data.currentUser.lastProject?.slug);
       } else {
-        router.push("/app/discover");
+        router.push("/s/discover");
       }
     }
     return <LoadingPage />;

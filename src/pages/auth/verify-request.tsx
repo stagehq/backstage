@@ -23,9 +23,9 @@ export default function VerifyRequestPage() {
   if (status === "authenticated") {
     if (currentUser) {
       if (currentUser?.lastProject?.slug !== undefined) {
-        router.push("/app/workspace/" + currentUser.lastProject?.slug);
+        router.push("/s/workspace/" + currentUser.lastProject?.slug);
       } else {
-        router.push("/app/discover");
+        router.push("/s/discover");
       }
     }
     return <LoadingPage />;

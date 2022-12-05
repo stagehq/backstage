@@ -69,7 +69,7 @@ export default function ManualFrom() {
 
             /* Redirect */
             const slug = result.data?.createProject?.slug;
-            if (slug) navigate(`/app/workspace/${slug}`);
+            if (slug) navigate(`/s/workspace/${slug}`);
           }
         });
       }

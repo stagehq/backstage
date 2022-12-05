@@ -33,7 +33,7 @@ const ContributorItem: FC<ContributorItemProps> = ({
         >
           <div className="" key={"creator"}>
             {creator?.image ? (
-              <Link to={`/app/profile/${creator.alias}`}>
+              <Link to={`/s/profile/${creator.alias}`}>
                 <img
                   className="h-8 w-8 rounded-full bg-white ring-4 ring-gray-50"
                   src={creator.image}
@@ -50,7 +50,7 @@ const ContributorItem: FC<ContributorItemProps> = ({
             .map((user, index) => (
               <div className="" key={index}>
                 {user?.image ? (
-                  <Link to={`/app/profile/${user.alias}`}>
+                  <Link to={`/s/profile/${user.alias}`}>
                     <img
                       className="h-8 w-8 rounded-full bg-white ring-4 ring-gray-50"
                       src={user.image}

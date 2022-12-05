@@ -89,7 +89,7 @@ function WorkspacePage() {
           />
         ),
         section: "Quick actions",
-        perform: () => navigate(`/app/workspace/${projectSlug}/ideas/new`),
+        perform: () => navigate(`/s/workspace/${projectSlug}/ideas/new`),
       },
       {
         id: "initiative",
@@ -103,7 +103,7 @@ function WorkspacePage() {
           />
         ),
         perform: () =>
-          navigate(`/app/workspace/${projectSlug}/initiatives/new`),
+          navigate(`/s/workspace/${projectSlug}/initiatives/new`),
       },
     ],
     [projectSlug]

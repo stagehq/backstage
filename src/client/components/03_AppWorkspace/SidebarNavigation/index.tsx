@@ -23,7 +23,7 @@ const SidebarNavigation: FC = () => {
           navigation.map((item) => (
             <Link
               key={item.name}
-              to={"/app/workspace/" + projectSlug + item.href}
+              to={"/s/workspace/" + projectSlug + item.href}
             >
               <span
                 className={clsx(

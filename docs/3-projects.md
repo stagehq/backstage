@@ -9,9 +9,9 @@ For example, [Feedback Fish](https://feedback.fish) adds `Project.feedbacks` (al
 From a user perspective, all the URLs in Bedrock are already set up to be human-readable and memorable:
 
 - `/app` is the user's own dashboard
-- `/app/settings` are the user's settings
-- `/app/[slug]` is a project's dashboard, e.g. `/app/fruits-inc`
-- `/app/[slug]/settings` are the project's settings, e.g. `/app/fruits-inc/settings`
+- `/s/settings` are the user's settings
+- `/s/[slug]` is a project's dashboard, e.g. `/s/fruits-inc`
+- `/s/[slug]/settings` are the project's settings, e.g. `/s/fruits-inc/settings`
 
 Assuming your users remember their (human-readable!) slug, they can quickly open any page they want. That's a feature!
 

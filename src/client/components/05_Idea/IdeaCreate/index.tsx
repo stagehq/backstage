@@ -79,7 +79,7 @@ const IdeaMainContainer = () => {
           const ideaNumber = result.data?.createIdea?.number;
 
           if (ideaNumber) {
-            navigate(`/app/workspace/${project.slug}/ideas/${ideaNumber}`);
+            navigate(`/s/workspace/${project.slug}/ideas/${ideaNumber}`);
           }
         }
       });

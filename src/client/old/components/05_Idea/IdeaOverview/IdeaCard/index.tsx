@@ -64,7 +64,7 @@ const IdeaCard: FC<IdeaCardProps> = ({ idea, key }) => {
             {/* Contributer Images */}
             <div className="flex -space-x-1 relative z-0 overflow-hidden">
               {idea.creator?.image ? (
-                <Link to={`/app/profile/${idea.creator.alias}`}>
+                <Link to={`/s/profile/${idea.creator.alias}`}>
                   <img
                     src={idea.creator.image}
                     referrerPolicy="no-referrer"
@@ -77,7 +77,7 @@ const IdeaCard: FC<IdeaCardProps> = ({ idea, key }) => {
                 ? idea.participants.slice(0, 6).map((participant: User) => {
                     if (participant.image) {
                       return (
-                        <Link to={`/app/profile/${participant.alias}`}>
+                        <Link to={`/s/profile/${participant.alias}`}>
                           <img
                             src={participant.image}
                             referrerPolicy="no-referrer"
