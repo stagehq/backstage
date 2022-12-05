@@ -7,7 +7,8 @@ import GitlabProvider from "next-auth/providers/gitlab";
 import GoogleProvider from "next-auth/providers/google";
 import prisma from "../../../server/db/prisma";
 
-const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, authOptions);
+const authHandler: NextApiHandler = (req, res) =>
+  NextAuth(req, res, authOptions);
 export default authHandler;
 
 export const authOptions = {

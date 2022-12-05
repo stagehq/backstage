@@ -1,6 +1,6 @@
 import { builder } from '../builder';
 import prisma from "../../db/prisma";
-import ThreadCommentItem from '../../../client/components/02_AppGlobal/Threading/threadComment';
+import ThreadCommentItem from '../../../client/_old/components/02_AppGlobal/Threading/threadComment';
 
 builder.prismaNode('ThreadComment', {
   findUnique: (id) => ({ id: id }),

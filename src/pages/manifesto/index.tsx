@@ -1,9 +1,9 @@
 import Head from "next/head";
 import { ExtendedRecordMap } from "notion-types";
-import Layout from "../../client/components/00_Marketing/Layout";
-import NotionPage from "../../client/components/00_Marketing/NotionPage";
 import { manifestoPageId } from "../../client/notion/config";
 import notion from "../../client/notion/notion";
+import Layout from "../../client/_old/components/00_Marketing/Layout";
+import NotionPage from "../../client/_old/components/00_Marketing/NotionPage";
 
 export const getStaticProps = async () => {
   const pageId = manifestoPageId;

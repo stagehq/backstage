@@ -3,9 +3,9 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
-import SignLayout from "../../client/components/01_Account/SignLayout";
-import LoadingPage from "../../client/components/02_AppGlobal/Loading/Page";
 import { currentUserState } from "../../client/store/user";
+import SignLayout from "../../client/_old/components/01_Account/SignLayout";
+import LoadingPage from "../../client/_old/components/02_AppGlobal/Loading/Page";
 
 export default function VerifyRequestPage() {
   const { status } = useSession();

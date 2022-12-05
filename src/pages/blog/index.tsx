@@ -1,7 +1,7 @@
 import { ExtendedRecordMap } from "notion-types";
-import NotionPage from "../../client/components/00_Marketing/NotionPage";
 import { rootNotionPageId } from "../../client/notion/config";
 import notion from "../../client/notion/notion";
+import NotionPage from "../../client/_old/components/00_Marketing/NotionPage";
 
 export const getStaticProps = async () => {
   const pageId = rootNotionPageId;

@@ -7,8 +7,8 @@ import Head from "next/head";
 import { useEffect } from "react";
 import { RecoilRoot } from "recoil";
 import { Provider } from "urql";
-import ToasterComponent from "../client/components/04_Notification";
 import { client } from "../client/graphql/client";
+import ToasterComponent from "../client/_old/components/04_Notification";
 
 function CustomApp({
   Component,

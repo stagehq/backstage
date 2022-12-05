@@ -131,7 +131,7 @@ builder.mutationField('updateIdea', (t) =>
     resolve: async (_, __, { id, description, title }, ctx) => {
       if (!ctx.session?.user.email || !id ) return null;
       
-      // Check for examples https://www.prisma.io/docs/concepts/components/prisma-client/null-and-undefined
+      // Check for examples https://www.prisma.io/docs/concepts/old/components/prisma-client/null-and-undefined
       return await prisma.idea.update({
         where: {
           id: id

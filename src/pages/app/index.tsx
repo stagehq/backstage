@@ -1,18 +1,18 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { Suspense } from "react";
-import AppShell from "../../client/components/02_AppGlobal/AppShell";
-import LoadingPage from "../../client/components/02_AppGlobal/Loading/Page";
-import DiscoverPage from "../../client/routes/discover/Discover";
-import ProfilePage from "../../client/routes/profile/Profile";
-import IdeaCreatePage from "../../client/routes/workspace/ideas/CreatePage";
-import IdeaPage from "../../client/routes/workspace/ideas/idea/IdeaPage";
-import IdeasPage from "../../client/routes/workspace/ideas/IdeasPage";
-import InitiativesPage from "../../client/routes/workspace/initiatives/InitiativesOverviewPage";
-import MeetingsPage from "../../client/routes/workspace/meetings/MeetingsPage";
-import OverviewPage from "../../client/routes/workspace/overview/OverviewPage";
-import SettingsPage from "../../client/routes/workspace/settings/Settings";
-import WorkspacePage from "../../client/routes/workspace/Workspace";
+import AppShell from "../../client/_old/components/02_AppGlobal/AppShell";
+import LoadingPage from "../../client/_old/components/02_AppGlobal/Loading/Page";
+import DiscoverPage from "../../client/routes/_old/discover/Discover";
+import ProfilePage from "../../client/routes/_old/profile/Profile";
+import IdeaCreatePage from "../../client/routes/_old/workspace/ideas/CreatePage";
+import IdeaPage from "../../client/routes/_old/workspace/ideas/idea/IdeaPage";
+import IdeasPage from "../../client/routes/_old/workspace/ideas/IdeasPage";
+import InitiativesPage from "../../client/routes/_old/workspace/initiatives/InitiativesOverviewPage";
+import MeetingsPage from "../../client/routes/_old/workspace/meetings/MeetingsPage";
+import OverviewPage from "../../client/routes/_old/workspace/overview/OverviewPage";
+import SettingsPage from "../../client/routes/_old/workspace/settings/Settings";
+import WorkspacePage from "../../client/routes/_old/workspace/Workspace";
 
 //@ts-ignore
 const IdeaBreadcrumb = ({ match }) => <span>#{match.params.ideaId}</span>;

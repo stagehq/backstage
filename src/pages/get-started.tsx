@@ -1,4 +1,4 @@
-import AuthenticationForm from "../client/components/01_Account/AuthenticationForm";
+import AuthenticationForm from "../client/_old/components/01_Account/AuthenticationForm";
 
 function Signup() {
   return (

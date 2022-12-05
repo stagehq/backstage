@@ -57,7 +57,7 @@ builder.mutationField('updateNotification', (t) =>
       });
 
       if(userHasNotifications){
-        // Check for examples https://www.prisma.io/docs/concepts/components/prisma-client/null-and-undefined
+        // Check for examples https://www.prisma.io/docs/concepts/old/components/prisma-client/null-and-undefined
         return await prisma.notification.update({
           where: {
             userMail: ctx.session?.user.email
