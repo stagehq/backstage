@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { Suspense } from "react";
-import AppShell from "../../client/_old/components/02_AppGlobal/AppShell";
-import LoadingPage from "../../client/_old/components/02_AppGlobal/Loading/Page";
+import Dashboard from "../../client/routes/dashboard/page";
 import DiscoverPage from "../../client/routes/_old/discover/Discover";
 import ProfilePage from "../../client/routes/_old/profile/Profile";
 import IdeaCreatePage from "../../client/routes/_old/workspace/ideas/CreatePage";
@@ -13,6 +12,8 @@ import MeetingsPage from "../../client/routes/_old/workspace/meetings/MeetingsPa
 import OverviewPage from "../../client/routes/_old/workspace/overview/OverviewPage";
 import SettingsPage from "../../client/routes/_old/workspace/settings/Settings";
 import WorkspacePage from "../../client/routes/_old/workspace/Workspace";
+import AppShell from "../../client/_old/components/02_AppGlobal/AppShell";
+import LoadingPage from "../../client/_old/components/02_AppGlobal/Loading/Page";
 
 //@ts-ignore
 const IdeaBreadcrumb = ({ match }) => <span>#{match.params.ideaId}</span>;
@@ -52,6 +53,7 @@ export default function App() {
         <AppShell>
           <Suspense fallback={<LoadingPage />}>
             <Routes>
+              <Route path="/s/dashboard" element={<Dashboard />} />
               {/* Discover */}
               <Route path="/s/discover" element={<DiscoverPage />} />
               {/* Profile */}

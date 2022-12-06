@@ -37,7 +37,7 @@ const GetStartedBanner: FC = () => {
           </div>
           <div>
             <img
-              src="/images/app/get-started.png"
+              src="app/get-started.png"
               alt="Get started"
               className="relative px-6 -bottom-6 w-[40rem]"
             />
