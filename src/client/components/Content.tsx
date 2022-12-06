@@ -7,7 +7,7 @@ interface ContentProps {
 const Content: FC<ContentProps> = ({ children }) => {
   return (
     <div className="w-full h-full bg-neutral-50 border-t border-zinc-200">
-      { children }
+      {children}
     </div>
   );
 };
