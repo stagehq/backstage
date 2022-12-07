@@ -1,11 +1,8 @@
 import { FC } from "react";
-import { useRecoilState } from "recoil";
-import { currentUserState } from "../store/user";
 import { GradientArea } from "./Login";
 import LoginCard from "./LoginCard";
 
-const Onboarding: FC = () => {
-  const [currentUser] = useRecoilState(currentUserState);
+const Onboarding: FC = () => {  
   return (
     <LoginCard>
       <div className="flex flex-col h-full sm:min-h-[530px]">
