@@ -7,7 +7,8 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import { FC, useState } from "react";
-import Gradient from "../../../components/Gradient";
+import Gradient from "./Gradient";
+import Logo from "./Logo";
 
 interface Errors {
   [key: string]: string;
@@ -62,17 +63,14 @@ interface LoginProps {
   csrfToken: string;
 }
 
-const Login: FC<LoginProps> = ({
-  csrfToken,
-}) => {
+const Login: FC<LoginProps> = ({ csrfToken }) => {
   const [email, setEmail] = useState("");
   const { error } = useRouter().query;
 
   return (
-      <div className="min-h-full flex flex-col justify-center sm:py-36 sm:px-6 lg:px-8">
-      
-        <div className="sm:mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white sm:border sm:border-white sm:shadow-[0_4px_100px_0_rgba(0,0,0,0.08)] shadow-zinc-400 sm:rounded-lg overflow-hidden">
+    <div className="min-h-full flex flex-col justify-center sm:py-36 sm:px-6 lg:px-8">
+      <div className="sm:mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white sm:border sm:border-white sm:shadow-[0_4px_100px_0_rgba(0,0,0,0.08)] shadow-zinc-400 sm:rounded-lg overflow-hidden">
           <div className="relative h-48">
             <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
               <Logo />
@@ -219,36 +217,12 @@ const Login: FC<LoginProps> = ({
                   </span>
                 </div>
               </div>
-              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
   );
 };
-
-const Logo = () => {
-  return (
-<div
-  className="flex justify-center items-center flex-grow-0 flex-shrink-0 w-20 h-20 relative gap-[20.000001907348633px] px-[10.000000953674316px] py-[7.5px] rounded-[20px] bg-white"
-  style={{boxShadow: "0px 2.6666667461395264px 16px 0 rgba(0,0,0,0.04)"}}
->
-  <svg
-    width="43"
-    height="46"
-    viewBox="0 0 43 46"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    preserveAspectRatio="none"
-  >
-    <path
-      d="M23.0125 39.3375C22.1125 40.0375 20.8375 40.0375 19.9375 39.3375L4.56254 27.3875C4.12698 27.0473 3.59019 26.8625 3.03754 26.8625C2.48488 26.8625 1.94809 27.0473 1.51254 27.3875C1.21475 27.6206 0.973936 27.9185 0.808321 28.2585C0.642707 28.5985 0.556641 28.9718 0.556641 29.35C0.556641 29.7282 0.642707 30.1014 0.808321 30.4414C0.973936 30.7815 1.21475 31.0793 1.51254 31.3125L18.4125 44.4625C20.2125 45.8625 22.7375 45.8625 24.5625 44.4625L41.4625 31.3125C42.7375 30.3125 42.7375 28.3875 41.4625 27.3875L41.4375 27.3625C41.002 27.0223 40.4652 26.8375 39.9125 26.8375C39.3599 26.8375 38.8231 27.0223 38.3875 27.3625L23.0125 39.3375ZM24.5875 31.7875L41.4875 18.6375C42.7625 17.6375 42.7625 15.6875 41.4875 14.6875L24.5875 1.53749C22.7875 0.137488 20.2625 0.137488 18.4375 1.53749L1.53754 14.7125C0.262538 15.7125 0.262538 17.6625 1.53754 18.6625L18.4375 31.8125C20.2375 33.2125 22.7875 33.2125 24.5875 31.7875Z"
-      fill="#A1A1AA"
-    ></path>
-  </svg>
-</div>
-
-  )
-}
 
 export default Login;

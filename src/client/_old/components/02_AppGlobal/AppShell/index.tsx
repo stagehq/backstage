@@ -22,6 +22,6 @@ const Shell: FC<ShellProps> = ({ children }: ShellProps) => {
       </div>
     </Layout>
   );
-}
+};
 
 export default Shell;

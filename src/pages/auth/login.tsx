@@ -4,8 +4,8 @@ import { InferGetServerSidePropsType } from "next";
 import { CtxOrReq } from "next-auth/client/_utils";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import Login from "../../client/components/Login";
 import { useGetCurrentUserQuery } from "../../client/graphql/getCurrentUser.generated";
-import Login from "../../client/_old/components/01_Account/Login";
 import SignLayout from "../../client/_old/components/01_Account/SignLayout";
 import LoadingPage from "../../client/_old/components/02_AppGlobal/Loading/Page";
 

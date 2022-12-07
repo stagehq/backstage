@@ -13,7 +13,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       </div>
     </div>
   );
-}
+};
 
 export default Layout;
-
