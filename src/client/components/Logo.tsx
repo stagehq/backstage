@@ -1,4 +1,5 @@
 const Logo = () => {
+  /* TODO: When we have a logo, we can use it here, but check all references in the UI if they get rendered correctly. */
   return (
     <div
       className="flex justify-center items-center flex-grow-0 flex-shrink-0 w-20 h-20 relative gap-[20.000001907348633px] px-[10.000000953674316px] py-[7.5px] rounded-[20px] bg-white"
