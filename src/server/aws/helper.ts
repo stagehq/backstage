@@ -1,6 +1,6 @@
 // Upload files to aws
 
-import { uploadType } from "../../client/_old/components/02_AppGlobal/Dropzone";
+import { uploadType } from "../../client/components/Dropzone";
 
 export const uploadFile = async (
   file: any,

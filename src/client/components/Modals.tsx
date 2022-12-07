@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
-import SettingsModal from "../_old/components/02_AppGlobal/SettingsModal";
 import ProjectCreateModal from "../_old/components/03_AppWorkspace/Modals";
+import SettingsModal from "./modals/SettingsModal";
 
 const Modals = () => {
   const { status } = useSession();

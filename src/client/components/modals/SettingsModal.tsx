@@ -5,15 +5,15 @@ import { XIcon } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilStateLoadable } from "recoil";
-import { settingsOpenState } from "../../../../store/ui/modals";
-import { currentUserState } from "../../../../store/user";
-import LoadingPage from "../Loading/Page";
-import BillingHistory from "../Settings/BillingHistory";
-import Integrations from "../Settings/Integrations";
-import Notifications from "../Settings/Notifications";
-import Plan from "../Settings/Plan";
-import { Profile } from "../Settings/Profile";
-import { SettingsForm } from "../Settings/SettingsForm";
+import { settingsOpenState } from "../../store/ui/modals";
+import { currentUserState } from "../../store/user";
+import LoadingPage from "../../_old/components/02_AppGlobal/Loading/Page";
+import BillingHistory from "../../_old/components/02_AppGlobal/Settings/BillingHistory";
+import Integrations from "../../_old/components/02_AppGlobal/Settings/Integrations";
+import Notifications from "../../_old/components/02_AppGlobal/Settings/Notifications";
+import Plan from "../../_old/components/02_AppGlobal/Settings/Plan";
+import { Profile } from "../../_old/components/02_AppGlobal/Settings/Profile";
+import { SettingsForm } from "../../_old/components/02_AppGlobal/Settings/SettingsForm";
 
 const SettingsModal: FC = () => {
   const navigate = useNavigate();

@@ -2,10 +2,10 @@ import React, { ReactNode, useCallback, useState } from "react";
 
 import { useDropzone } from "react-dropzone";
 import { useRecoilState } from "recoil";
-import { uploadFile } from "../../../../../server/aws/helper";
-import { User } from "../../../../graphql/types.generated";
-import { useUpdateUserMutation } from "../../../../graphql/updateUser.generated";
-import { currentUserState } from "../../../../store/user";
+import { uploadFile } from "../../server/aws/helper";
+import { User } from "../graphql/types.generated";
+import { useUpdateUserMutation } from "../graphql/updateUser.generated";
+import { currentUserState } from "../store/user";
 
 export interface DropzoneProps {
   children?: ReactNode;
@@ -40,6 +40,8 @@ export const Dropzone: React.FC<DropzoneProps> = ({
   const onDrop = useCallback((acceptedFiles: any) => {
     setFiles(
       acceptedFiles.map((file: any) => {
+        console.log(file);
+
         uploadFile(file ? file : null, user.id, type).then((data) => {
           // Update user images
           updateUser({

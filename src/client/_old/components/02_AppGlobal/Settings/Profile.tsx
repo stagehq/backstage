@@ -8,12 +8,12 @@ import toast from "react-hot-toast";
 import { matchPath } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import slug from "slug";
+import { Dropzone } from "../../../../components/Dropzone";
 import { client } from "../../../../graphql/client";
 import { GetValidAliasDocument } from "../../../../graphql/getValidAlias.generated";
 import { User } from "../../../../graphql/types.generated";
 import { useUpdateUserMutation } from "../../../../graphql/updateUser.generated";
 import { currentUserState } from "../../../../store/user";
-import { Dropzone } from "../Dropzone";
 import Spinner from "../Icons/Spinner";
 import { parseName } from "./helper/parseName";
 
