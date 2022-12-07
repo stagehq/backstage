@@ -89,7 +89,7 @@ class MyDocument extends Document {
           {/* Twitter */}
           <meta name="twitter:site" content="@zirkular_os" />
         </Head>
-        <body className="selection:bg-indigo-600 selection:text-white">
+        <body className="selection:bg-zinc-800 selection:text-white">
           <Main />
           <NextScript />
         </body>

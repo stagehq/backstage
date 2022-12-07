@@ -3,12 +3,11 @@ import {
   InformationCircleIcon,
 } from "@heroicons/react/outline";
 
-import { InferGetServerSidePropsType } from "next";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
-import { useState } from "react";
-import { getServerSideProps } from "../../../pages/auth/login";
+import { FC, useState } from "react";
+import Gradient from "../../../components/Gradient";
 
 interface Errors {
   [key: string]: string;
@@ -44,7 +43,7 @@ const SignInError = ({ error }: ParsedUrlQuery) => {
           />
         </div>
         <div className="ml-3">
-          <p className="text-sm text-gray-700">{errorMessage}</p>
+          <p className="text-sm text-zinc-700">{errorMessage}</p>
         </div>
       </div>
     </div>
@@ -59,37 +58,29 @@ const validateEmail = (email: string) => {
     );
 };
 
-const Login = ({
+interface LoginProps {
+  csrfToken: string;
+}
+
+const Login: FC<LoginProps> = ({
   csrfToken,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+}) => {
   const [email, setEmail] = useState("");
   const { error } = useRouter().query;
 
   return (
-    <div>
-      <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <img
-            className="mx-auto h-12 w-auto"
-            src="/images/logo.svg"
-            alt="Workflow"
-          />
-          {/* <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Or{" "}
-            <a
-              href="#"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
-            >
-              start your 14-day free trial
-            </a>
-          </p> */}
-        </div>
-
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <div className="min-h-full flex flex-col justify-center sm:py-36 sm:px-6 lg:px-8">
+      
+        <div className="sm:mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+          <div className="bg-white sm:border sm:border-white sm:shadow-[0_4px_100px_0_rgba(0,0,0,0.08)] shadow-zinc-400 sm:rounded-lg overflow-hidden">
+          <div className="relative h-48">
+            <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
+              <Logo />
+            </div>
+            <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
+            <Gradient />
+          </div>
+          <div className="py-8 px-4 sm:px-10">
             <form
               className="space-y-6"
               method="post"
@@ -102,7 +93,7 @@ const Login = ({
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-zinc-600"
                 >
                   Email address
                 </label>
@@ -116,7 +107,7 @@ const Login = ({
                     name="email"
                     type="email"
                     autoComplete="email"
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
                   />
                   {error === "EmailSignin" ? (
                     <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -146,7 +137,7 @@ const Login = ({
               <div>
                 <button
                   type="submit"
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500"
                 >
                   Sign in
                 </button>
@@ -156,11 +147,11 @@ const Login = ({
             <div className="mt-6">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300" />
+                  <div className="w-full border-t border-zinc-300" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">
-                    Or continue with
+                  <span className="px-2 bg-white font-medium text-zinc-500">
+                    or continue with
                   </span>
                 </div>
               </div>
@@ -169,7 +160,7 @@ const Login = ({
                 <div>
                   <span
                     onClick={() => signIn("github")}
-                    className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                    className="w-full inline-flex justify-center py-2 px-4 border border-zinc-300 rounded-md shadow-sm bg-white text-sm font-medium text-zinc-900 hover:bg-zinc-50"
                   >
                     <svg
                       className="w-5 h-5"
@@ -183,14 +174,14 @@ const Login = ({
                         clipRule="evenodd"
                       />
                     </svg>
-                    <span className="ml-2 hover:cursor-default">GitHub</span>
+                    {/* <span className="ml-2 hover:cursor-default">GitHub</span> */}
                   </span>
                 </div>
 
                 <div>
                   <span
                     onClick={() => signIn("gitlab")}
-                    className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                    className="w-full inline-flex justify-center py-2 px-4 border border-zinc-300 rounded-md shadow-sm bg-white text-sm font-medium text-zinc-900 hover:bg-zinc-50"
                   >
                     <svg
                       className="w-5 h-5"
@@ -204,14 +195,14 @@ const Login = ({
                         fill="currentColor"
                       />
                     </svg>
-                    <span className="ml-2 hover:cursor-default">GitLab</span>
+                    {/* <span className="ml-2 hover:cursor-default">GitLab</span> */}
                   </span>
                 </div>
 
                 <div>
                   <span
                     onClick={() => signIn("google")}
-                    className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                    className="w-full inline-flex justify-center py-2 px-4 border border-zinc-300 rounded-md shadow-sm bg-white text-sm font-medium text-zinc-900 hover:bg-zinc-50"
                   >
                     <svg
                       className="w-5 h-5"
@@ -224,16 +215,40 @@ const Login = ({
                         d="M21.456 10.154c.123.659.19 1.348.19 2.067 0 5.624-3.764 9.623-9.449 9.623A9.841 9.841 0 012.353 12a9.841 9.841 0 019.844-9.844c2.658 0 4.879.978 6.583 2.566l-2.775 2.775V7.49c-1.033-.984-2.344-1.489-3.808-1.489-3.248 0-5.888 2.744-5.888 5.993 0 3.248 2.64 5.998 5.888 5.998 2.947 0 4.953-1.685 5.365-3.999h-5.365v-3.839h9.26z"
                       ></path>
                     </svg>
-                    <span className="ml-2 hover:cursor-default">Google</span>
+                    {/* <span className="ml-2 hover:cursor-default">Google</span> */}
                   </span>
                 </div>
+              </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
   );
 };
+
+const Logo = () => {
+  return (
+<div
+  className="flex justify-center items-center flex-grow-0 flex-shrink-0 w-20 h-20 relative gap-[20.000001907348633px] px-[10.000000953674316px] py-[7.5px] rounded-[20px] bg-white"
+  style={{boxShadow: "0px 2.6666667461395264px 16px 0 rgba(0,0,0,0.04)"}}
+>
+  <svg
+    width="43"
+    height="46"
+    viewBox="0 0 43 46"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="none"
+  >
+    <path
+      d="M23.0125 39.3375C22.1125 40.0375 20.8375 40.0375 19.9375 39.3375L4.56254 27.3875C4.12698 27.0473 3.59019 26.8625 3.03754 26.8625C2.48488 26.8625 1.94809 27.0473 1.51254 27.3875C1.21475 27.6206 0.973936 27.9185 0.808321 28.2585C0.642707 28.5985 0.556641 28.9718 0.556641 29.35C0.556641 29.7282 0.642707 30.1014 0.808321 30.4414C0.973936 30.7815 1.21475 31.0793 1.51254 31.3125L18.4125 44.4625C20.2125 45.8625 22.7375 45.8625 24.5625 44.4625L41.4625 31.3125C42.7375 30.3125 42.7375 28.3875 41.4625 27.3875L41.4375 27.3625C41.002 27.0223 40.4652 26.8375 39.9125 26.8375C39.3599 26.8375 38.8231 27.0223 38.3875 27.3625L23.0125 39.3375ZM24.5875 31.7875L41.4875 18.6375C42.7625 17.6375 42.7625 15.6875 41.4875 14.6875L24.5875 1.53749C22.7875 0.137488 20.2625 0.137488 18.4375 1.53749L1.53754 14.7125C0.262538 15.7125 0.262538 17.6625 1.53754 18.6625L18.4375 31.8125C20.2375 33.2125 22.7875 33.2125 24.5875 31.7875Z"
+      fill="#A1A1AA"
+    ></path>
+  </svg>
+</div>
+
+  )
+}
 
 export default Login;

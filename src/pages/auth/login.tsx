@@ -38,7 +38,7 @@ const SignIn = ({
           <title>Login</title>
         </Head>
         <SignLayout>
-          <Login csrfToken={csrfToken} />
+          <Login csrfToken={csrfToken ? csrfToken : ""} />
         </SignLayout>
       </>
     );
