@@ -4,9 +4,9 @@ import { InferGetServerSidePropsType } from "next";
 import { CtxOrReq } from "next-auth/client/_utils";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import Layout from "../../client/components/layouts/Login";
 import Login from "../../client/components/Login";
 import { useGetCurrentUserQuery } from "../../client/graphql/getCurrentUser.generated";
-import SignLayout from "../../client/_old/components/01_Account/SignLayout";
 import LoadingPage from "../../client/_old/components/02_AppGlobal/Loading/Page";
 
 const SignIn = ({
@@ -37,9 +37,9 @@ const SignIn = ({
         <Head>
           <title>Login</title>
         </Head>
-        <SignLayout>
+        <Layout>
           <Login csrfToken={csrfToken ? csrfToken : ""} />
-        </SignLayout>
+        </Layout>
       </>
     );
   }

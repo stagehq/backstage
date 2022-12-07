@@ -1,6 +1,6 @@
 import { FC, Suspense } from "react";
 import { Header } from "../../../../components/Header";
-import Layout from "../../../../components/Layout";
+import Layout from "../../../../components/layouts/General";
 import Modals from "../../../../components/Modals";
 import WorkspaceHeaderLoader from "../../03_AppWorkspace/Loader/WorkspaceHeaderLoader";
 interface ShellProps {

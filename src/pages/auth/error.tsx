@@ -2,7 +2,7 @@ import { ShieldExclamationIcon } from "@heroicons/react/outline";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
-import SignLayout from "../../client/_old/components/01_Account/SignLayout";
+import SignLayout from "../../client/components/layouts/Login";
 
 interface Errors {
   [key: string]: string;
