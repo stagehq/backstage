@@ -1,18 +1,18 @@
+import Container from "../../components/Container";
 import Content from "../../components/Content";
 import Tabs from "../../components/Tabs";
 
-const Analytics = () => {
+const SiteEditing = () => {
   return (
     <>
       <Tabs />
       <Content>
-        {/* <Container>
-          <Banner />
-          <Title />
-        </Container> */}
+        <Container>
+          Site
+        </Container>
       </Content>
     </>
   );
 };
 
-export default Analytics;
+export default SiteEditing;

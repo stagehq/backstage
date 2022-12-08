@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { currentUserState } from "../store/user";
 
@@ -31,7 +32,9 @@ const Title = () => {
         </div>
       </div>
       <div className="flex justify-start items-start relative gap-2 px-4 py-2 rounded border border-[#dcdcdc]">
-        <p className="text-sm font-medium text-left text-zinc-900">Edit</p>
+        <Link key="editing" to={"/s/" + "nilsjacobsen"} >
+          <p className="text-sm font-medium text-left text-zinc-900">Edit</p>
+        </Link>
       </div>
     </div>
   );
