@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import {
@@ -11,7 +12,9 @@ import LoginCard from "../LoginCard";
 import BlogsIcon from "./visuals/BlogsIcon";
 import CheckIcon from "./visuals/CheckIcon";
 import CvIcon from "./visuals/CvIcon";
+import DomainIcon from "./visuals/DomainIcon";
 import GGIcons from "./visuals/GGIcons";
+import StoreIcon from "./visuals/StoreIcon";
 
 const renderOnboardingSection = (activeSection: OnboardingSection) => {
   switch (activeSection) {
@@ -55,7 +58,7 @@ const OnboardingStart = () => {
   return (
     <>
       <GradientArea />
-      <div className="mt-auto py-8 px-4 sm:px-10">
+      <div className="mt-auto py-8 px-4 sm:px-6">
         <div className="flex flex-col justify-start items-start gap-2">
           <p className="text-xl font-semibold text-left text-zinc-900">
             Welcome on Stage
@@ -212,7 +215,7 @@ const OnboardingCv: FC = () => {
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
         <Gradient />
       </div>
-      <div className="py-8 px-4 sm:px-10">
+      <div className="py-8 px-4 sm:px-6">
         <div className="flex flex-col justify-start items-start gap-4">
           <p className="text-xl font-semibold text-left text-zinc-900">
             Connect your CV
@@ -241,7 +244,7 @@ const OnboardingCv: FC = () => {
             <button
               type="button"
               disabled={!validLink}
-              onClick={() => setActiveSection("profile")}
+              onClick={() => setActiveSection("projects")}
               className="mt-2 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
             >
               Import
@@ -250,7 +253,7 @@ const OnboardingCv: FC = () => {
         </div>
       </div>
       <div className="mt-auto w-full ">
-        <div className="pb-8 px-4 sm:px-10">
+        <div className="pb-8 px-4 sm:px-6">
           <div className="flex flex-col justify-start items-start gap-2 w-full">
             <div className="flex justify-start items-center w-full">
               <div className="flex justify-start items-start flex-grow gap-1.5">
@@ -297,7 +300,7 @@ const OnboardingProjects: FC = () => {
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
         <Gradient />
       </div>
-      <div className="py-8 px-4 sm:px-10">
+      <div className="py-8 px-4 sm:px-6">
         <div className="flex flex-col justify-start items-start gap-4">
           <p className="text-xl font-semibold text-left text-zinc-900">
             Connect your Projects
@@ -377,7 +380,7 @@ const OnboardingProjects: FC = () => {
         </div>
       </div>
       <div className="mt-auto w-full ">
-        <div className="pb-8 px-4 sm:px-10">
+        <div className="pb-8 px-4 sm:px-6">
           <div className="flex flex-col justify-start items-start gap-2 w-full">
             <div className="flex justify-start items-center w-full">
               <div className="flex justify-start items-start flex-grow gap-1.5">
@@ -426,7 +429,7 @@ const OnboardingBlogs: FC = () => {
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
         <Gradient />
       </div>
-      <div className="py-8 px-4 sm:px-10">
+      <div className="py-8 px-4 sm:px-6">
         <div className="flex flex-col justify-start items-start gap-4">
           <p className="text-xl font-semibold text-left text-zinc-900">
             Connect your Blogs
@@ -434,20 +437,20 @@ const OnboardingBlogs: FC = () => {
 
           <div className="flex flex-col justify-start items-start gap-2 w-full">
             <div className="flex justify-start items-center h-9 overflow-hidden gap-3 rounded w-full">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M5.69437 8.02258C5.53355 7.90238 5.37233 7.84229 5.21151 7.84229H4.48869V12.1722H5.21193C5.37274 12.1722 5.53397 12.1121 5.69478 11.9919C5.85559 11.8717 5.936 11.6914 5.936 11.4506V8.56387C5.93558 8.32348 5.85476 8.14277 5.69437 8.02258ZM17.4643 0.715942H2.53532C1.53232 0.715942 0.718307 1.52788 0.71582 2.53131V17.4687C0.718307 18.4721 1.53232 19.2841 2.53532 19.2841H17.4643C18.4677 19.2841 19.2813 18.4721 19.2838 17.4687V2.53131C19.2813 1.52788 18.4673 0.715942 17.4643 0.715942ZM7.10686 11.4585C7.10686 12.2381 6.62567 13.4194 5.10251 13.4169H3.1794V6.5591H5.14313C6.61199 6.5591 7.10603 7.73867 7.10645 8.5187L7.10686 11.4585ZM11.2797 7.78385H9.07142V9.37623H10.4213V10.6018H9.07142V12.1938H11.2801V13.4194H8.70296C8.24042 13.4314 7.8558 13.0658 7.84419 12.6033V7.41787C7.833 6.95574 8.19897 6.57194 8.6611 6.56034H11.2801L11.2797 7.78385ZM15.5752 12.5622C15.0281 13.8367 14.0479 13.5831 13.609 12.5622L12.012 6.56075H13.362L14.5933 11.2741L15.8189 6.56075H17.1692L15.5752 12.5622Z"
-                fill="#52525B"
-              ></path>
-            </svg>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M5.69437 8.02258C5.53355 7.90238 5.37233 7.84229 5.21151 7.84229H4.48869V12.1722H5.21193C5.37274 12.1722 5.53397 12.1121 5.69478 11.9919C5.85559 11.8717 5.936 11.6914 5.936 11.4506V8.56387C5.93558 8.32348 5.85476 8.14277 5.69437 8.02258ZM17.4643 0.715942H2.53532C1.53232 0.715942 0.718307 1.52788 0.71582 2.53131V17.4687C0.718307 18.4721 1.53232 19.2841 2.53532 19.2841H17.4643C18.4677 19.2841 19.2813 18.4721 19.2838 17.4687V2.53131C19.2813 1.52788 18.4673 0.715942 17.4643 0.715942ZM7.10686 11.4585C7.10686 12.2381 6.62567 13.4194 5.10251 13.4169H3.1794V6.5591H5.14313C6.61199 6.5591 7.10603 7.73867 7.10645 8.5187L7.10686 11.4585ZM11.2797 7.78385H9.07142V9.37623H10.4213V10.6018H9.07142V12.1938H11.2801V13.4194H8.70296C8.24042 13.4314 7.8558 13.0658 7.84419 12.6033V7.41787C7.833 6.95574 8.19897 6.57194 8.6611 6.56034H11.2801L11.2797 7.78385ZM15.5752 12.5622C15.0281 13.8367 14.0479 13.5831 13.609 12.5622L12.012 6.56075H13.362L14.5933 11.2741L15.8189 6.56075H17.1692L15.5752 12.5622Z"
+                  fill="#52525B"
+                ></path>
+              </svg>
               <div className="flex justify-start items-center flex-grow gap-2">
                 <p className="text-sm font-medium text-left text-zinc-900">
                   Dev.to
@@ -469,20 +472,20 @@ const OnboardingBlogs: FC = () => {
               )}
             </div>
             <div className="flex justify-start items-center h-9 overflow-hidden gap-3 rounded w-full">
-            <svg
-              width="20"
-              height="12"
-              viewBox="0 0 20 12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M5.64062 0.320679C8.75602 0.320679 11.2812 2.86359 11.2812 6.00009C11.2812 9.13668 8.75578 11.6794 5.64062 11.6794C2.52562 11.6794 0 9.13668 0 6.00009C0 2.86367 2.52539 0.320679 5.64062 0.320679ZM14.6484 0.653337C16.2061 0.653337 17.4688 3.04695 17.4688 6.00009H17.4691C17.4691 8.95254 16.2063 11.3469 14.6488 11.3469C13.0912 11.3469 11.8284 8.95254 11.8284 6.00009C11.8284 3.04773 13.0909 0.653337 14.6485 0.653337H14.6484ZM19.008 1.21029C19.5558 1.21029 20 3.35476 20 6.00017C20 8.64472 19.5559 10.7901 19.008 10.7901C18.4602 10.7901 18.0163 8.64535 18.0163 6.00017C18.0163 3.35492 18.4604 1.21029 19.008 1.21029Z"
-                fill="#52525B"
-              ></path>
-            </svg>
+              <svg
+                width="20"
+                height="12"
+                viewBox="0 0 20 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M5.64062 0.320679C8.75602 0.320679 11.2812 2.86359 11.2812 6.00009C11.2812 9.13668 8.75578 11.6794 5.64062 11.6794C2.52562 11.6794 0 9.13668 0 6.00009C0 2.86367 2.52539 0.320679 5.64062 0.320679ZM14.6484 0.653337C16.2061 0.653337 17.4688 3.04695 17.4688 6.00009H17.4691C17.4691 8.95254 16.2063 11.3469 14.6488 11.3469C13.0912 11.3469 11.8284 8.95254 11.8284 6.00009C11.8284 3.04773 13.0909 0.653337 14.6485 0.653337H14.6484ZM19.008 1.21029C19.5558 1.21029 20 3.35476 20 6.00017C20 8.64472 19.5559 10.7901 19.008 10.7901C18.4602 10.7901 18.0163 8.64535 18.0163 6.00017C18.0163 3.35492 18.4604 1.21029 19.008 1.21029Z"
+                  fill="#52525B"
+                ></path>
+              </svg>
               <div className="flex justify-start items-center flex-grow gap-2">
                 <p className="text-sm font-medium text-left text-zinc-900">
                   Medium
@@ -506,7 +509,7 @@ const OnboardingBlogs: FC = () => {
         </div>
       </div>
       <div className="mt-auto w-full ">
-        <div className="pb-8 px-4 sm:px-10">
+        <div className="pb-8 px-4 sm:px-6">
           <div className="flex flex-col justify-start items-start gap-2 w-full">
             <div className="flex justify-start items-center w-full">
               <div className="flex justify-start items-start flex-grow gap-1.5">
@@ -542,18 +545,108 @@ const OnboardingBlogs: FC = () => {
 };
 
 const OnboardingStore: FC = () => {
+  const [, setActiveSection] = useRecoilState(activeSectionState);
+
   return (
-    <div>
-      <h1>Onboarding Store</h1>
-    </div>
+    <>
+      <div className="relative h-64">
+        <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
+          <StoreIcon />
+        </div>
+        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
+        <Gradient />
+      </div>
+      <div className="sm:mt-auto mt-8 py-8 px-4 sm:px-6">
+        <div className="flex flex-col justify-start items-start gap-2">
+          <p className="text-xl font-semibold text-left text-zinc-900">
+            More? Check out the store
+          </p>
+          <p className="text-xs font-medium text-left text-zinc-500">
+            In our extension store your can find extensions for the latest
+            tools, platforms and services.
+          </p>
+          <button
+            type="button"
+            onClick={() => setActiveSection("subdomain")}
+            className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500"
+          >
+            Claim domain
+          </button>
+        </div>
+      </div>
+    </>
   );
 };
 
 const OnboardingSubdomain: FC = () => {
+  const [, setActiveSection] = useRecoilState(activeSectionState);
+  const [subdomain, setSubdomain] = useState("");
+
   return (
-    <div>
-      <h1>Onboarding Subdomain</h1>
-    </div>
+    <>
+      <div className="relative h-64">
+        <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
+          <DomainIcon />
+        </div>
+        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
+        <Gradient />
+      </div>
+      <div className="flex flex-col justify-start items-start gap-2 pt-8 px-4 sm:px-6">
+        <p className="text-xl font-semibold text-left text-zinc-900">
+          Choose a subdomain
+        </p>
+        <p className="text-xs font-medium text-left text-zinc-500">
+          The subdomain is the name which is displayed in your url.{" "}
+          {subdomain.length === 0 ? (
+            <>
+              For example: <span className="underline">nilsjacobsen</span>
+              .getstage.app
+            </>
+          ) : (
+            <>
+              Your domain: <span className="underline">{subdomain}</span>
+              .getstage.app
+            </>
+          )}
+        </p>
+      </div>
+      <div className="flex flex-col justify-start items-start gap-2 pt-8 px-4 sm:px-6">
+        <div className="mt-auto w-full">
+          <div className="w-full">
+            <label
+              htmlFor="link"
+              className="block text-sm font-medium text-zinc-600"
+            >
+              Subdomain
+            </label>
+            <div className="mt-1 relative">
+              <input
+                onChange={(e) => {
+                  setSubdomain(e.target.value);
+                }}
+                value={subdomain}
+                id="subdomain"
+                name="subdomain"
+                type="text"
+                autoComplete="subdomain"
+                maxLength={65}
+                className="appearance-none block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+              />
+            </div>
+          </div>
+          <Link href={"/s"}>
+            <button
+              type="button"
+              disabled={subdomain.length === 0}
+              onClick={() => setActiveSection("subdomain")}
+              className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
+            >
+              Generate website
+            </button>
+          </Link>
+        </div>
+      </div>
+    </>
   );
 };
 
