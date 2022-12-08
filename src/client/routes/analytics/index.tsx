@@ -9,10 +9,10 @@ const Analytics = () => {
     <>
       <Tabs />
       <Content>
-        <Container>
+        {/* <Container>
           <Banner />
           <Title />
-        </Container>
+        </Container> */}
       </Content>
     </>
   );

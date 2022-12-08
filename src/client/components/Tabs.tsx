@@ -1,14 +1,17 @@
 import clsx from "clsx";
 import { FC } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Container from "./Container";
 
 const tabs = [
-  { name: "Sites", path: "./sites", active: true },
-  { name: "Analytics", path: "./analytics", active: false },
+  { name: "Sites", path: "/s" },
+  { name: "Analytics", path: "/s/analytics" },
 ];
 
 const Tabs = () => {
+  const location = useLocation();
+  console.log(location.pathname.endsWith("/s/analytics"))
+
   return (
     <div className="w-full bg-white">
       <Container>
@@ -19,7 +22,7 @@ const Tabs = () => {
                 key: tab.name,
                 name: tab.name,
                 path: tab.path,
-                active: tab.active,
+                active: location.pathname.endsWith(tab.path),
               }}
             />
           ))}
