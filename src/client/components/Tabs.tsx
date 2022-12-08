@@ -10,7 +10,6 @@ const tabs = [
 
 const Tabs = () => {
   const location = useLocation();
-  console.log(location.pathname.endsWith("/s/analytics"))
 
   return (
     <div className="w-full bg-white">
