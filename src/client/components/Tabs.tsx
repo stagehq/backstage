@@ -2,32 +2,54 @@ import clsx from "clsx";
 import { FC } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Container from "./Container";
+import { useParams } from 'react-router-dom';
 
-const tabs = [
+const globalTabs = [
   { name: "Sites", path: "/s" },
   { name: "Analytics", path: "/s/analytics" },
 ];
 
 const Tabs = () => {
   const location = useLocation();
+  const { siteId } = useParams();
+
+  const siteTabs = [
+    { name: "Preview", path: `/s/${siteId}`  },
+    { name: "Sections", path: `/s/${siteId}/sections` },
+    { name: "Settings", path: `/s/${siteId}/settings` },
+  ];
 
   return (
-    <div className="w-full bg-white">
-      <Container>
-        <div className="flex justify-start items-start gap-3 h-10">
-          {tabs.map((tab) => (
-            <Tab
-              {...{
-                key: tab.name,
-                name: tab.name,
-                path: tab.path,
-                active: location.pathname.endsWith(tab.path),
-              }}
-            />
-          ))}
-        </div>
-      </Container>
-    </div>
+    <>
+      <div className="w-full bg-white md:hidden">
+        <Container>
+          <div className="flex justify-start items-start gap-3 h-10">
+            {siteId
+              ? siteTabs.map((tab) => (
+                <Tab
+                  {...{
+                    key: tab.name,
+                    name: tab.name,
+                    path: tab.path,
+                    active: location.pathname.endsWith(tab.path),
+                  }}
+                />
+              ))
+              : globalTabs.map((tab) => (
+                <Tab
+                  {...{
+                    key: tab.name,
+                    name: tab.name,
+                    path: tab.path,
+                    active: location.pathname.endsWith(tab.path),
+                  }}
+                />
+              ))
+            }
+          </div>
+        </Container>
+      </div>
+    </>
   );
 };
 

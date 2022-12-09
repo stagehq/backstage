@@ -1,11 +1,9 @@
 import Container from "../../components/Container";
 import Content from "../../components/Content";
-import Tabs from "../../components/Tabs";
 
-const SiteEditing = () => {
+const Site = () => {
   return (
     <>
-      <Tabs />
       <Content>
         <Container>
           Site
@@ -15,4 +13,4 @@ const SiteEditing = () => {
   );
 };
 
-export default SiteEditing;
+export default Site;
