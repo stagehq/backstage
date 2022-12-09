@@ -45,24 +45,24 @@ export const Header = () => {
                     </svg>
                   </div>
                 </Link>
-                {siteId && <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="none"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    stroke="#A1A1AA"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M5.5 3l5 5-5 5"
-                  ></path>
-                </svg>}
-                <Link to={`/s/${siteId}`}>
-                  {siteId}
-                </Link>
+                {siteId && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="none"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      stroke="#A1A1AA"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                      d="M5.5 3l5 5-5 5"
+                    ></path>
+                  </svg>
+                )}
+                <Link to={`/s/${siteId}`}>{siteId}</Link>
               </div>
               <div className="relative z-10 flex items-center md:hidden">
                 {/* Mobile menu button */}
