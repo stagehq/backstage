@@ -5,9 +5,7 @@ const SiteSettings = () => {
   return (
     <>
       <Content>
-        <Container>
-          Settings
-        </Container>
+        <Container>Settings</Container>
       </Content>
     </>
   );

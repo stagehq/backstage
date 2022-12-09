@@ -3,11 +3,10 @@ import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import clsx from "clsx";
 import { signOut } from "next-auth/react";
 import { Fragment } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { settingsOpenState } from "../store/ui/modals";
 import { currentUserState } from "../store/user";
-import {useParams} from 'react-router-dom';
 import Tabs from "./Tabs";
 
 export const Header = () => {
@@ -16,12 +15,14 @@ export const Header = () => {
   const [currentUser] = useRecoilState(currentUserState);
   const [, setSettingsOpen] = useRecoilState(settingsOpenState);
 
-
   if (!currentUser) return null;
 
   return (
     <div className="h-screen overflow-hidden">
-      <Disclosure as="header" className="bg-transparent border-r border-gray-200">
+      <Disclosure
+        as="header"
+        className="bg-transparent border-r border-gray-200"
+      >
         {({ open }) => (
           <>
             <div className="flex items-center justify-between h-[60px] w-full px-2 sm:px-4 lg:px-6">
@@ -57,13 +58,17 @@ export const Header = () => {
               <div className="hidden md:relative md:z-10 md:ml-4 md:flex  md:items-center">
                 <div className="flex justify-start items-center gap-6">
                   <div className="flex justify-start items-center h-8 overflow-hidden gap-2 px-4 py-2 rounded border border-zinc-200">
-                    <p className="text-sm font-medium text-zinc-700">Feedback</p>
+                    <p className="text-sm font-medium text-zinc-700">
+                      Feedback
+                    </p>
                   </div>
                   <div className="flex justify-start items-center h-8 overflow-hidden gap-2 py-2 rounded">
                     <p className="text-sm font-medium text-zinc-700">Docs</p>
                   </div>
                   <div className="flex justify-start items-center h-8 overflow-hidden gap-2 py-2 rounded">
-                    <p className="text-sm font-medium text-zinc-700">Community</p>
+                    <p className="text-sm font-medium text-zinc-700">
+                      Community
+                    </p>
                   </div>
                 </div>
                 {/* Profile dropdown */}
@@ -120,7 +125,8 @@ export const Header = () => {
                           <div
                             onClick={() =>
                               signOut({
-                                callbackUrl: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
+                                callbackUrl:
+                                  process.env.NEXT_PUBLIC_NEXTAUTH_URL,
                               })
                             }
                             className={clsx(
@@ -138,7 +144,11 @@ export const Header = () => {
               </div>
             </div>
 
-            <Disclosure.Panel as="nav" className="lg:hidden" aria-label="Global">
+            <Disclosure.Panel
+              as="nav"
+              className="lg:hidden"
+              aria-label="Global"
+            >
               <div className="border-t border-gray-200 pt-4 pb-3">
                 <div className="px-2 sm:px-4 flex items-center">
                   <div className="flex-shrink-0">

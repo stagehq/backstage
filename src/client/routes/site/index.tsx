@@ -5,9 +5,7 @@ const Site = () => {
   return (
     <>
       <Content>
-        <Container>
-          Site
-        </Container>
+        <Container>Site</Container>
       </Content>
     </>
   );

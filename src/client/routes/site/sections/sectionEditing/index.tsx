@@ -5,9 +5,7 @@ const SectionEditing = () => {
   return (
     <>
       <Content>
-        <Container>
-          Section Editing
-        </Container>
+        <Container>Section Editing</Container>
       </Content>
     </>
   );

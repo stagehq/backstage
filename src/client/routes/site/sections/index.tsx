@@ -5,9 +5,7 @@ const Sections = () => {
   return (
     <>
       <Content>
-        <Container>
-          Sections
-        </Container>
+        <Container>Sections</Container>
       </Content>
     </>
   );
