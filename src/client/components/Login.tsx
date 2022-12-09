@@ -66,7 +66,7 @@ interface LoginProps {
 
 export const GradientArea = () => {
   return (
-    <div className="relative h-64">
+    <div className="relative h-[50vh]">
       <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
         <Logo />
       </div>
@@ -82,7 +82,13 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
 
   return (
     <LoginCard>
-      <GradientArea />
+      <div className="relative h-[50vh] sm:h-64">
+        <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
+          <Logo />
+        </div>
+        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
+        <Gradient />
+      </div>
       <div className="py-8 px-4 sm:px-10">
         <form
           className="space-y-6"

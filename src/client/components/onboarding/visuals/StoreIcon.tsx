@@ -313,11 +313,7 @@ const StoreIcon = () => {
                 gradientUnits="userSpaceOnUse"
               >
                 <stop stopColor="#263238" stopOpacity="0.2"></stop>
-                <stop
-                  offset="1"
-                  stopColor="#263238"
-                  stopOpacity="0.02"
-                ></stop>
+                <stop offset="1" stopColor="#263238" stopOpacity="0.02"></stop>
               </linearGradient>
               <radialGradient
                 id="paint1_radial_304_35097"

@@ -1,4 +1,5 @@
 import { FC, Suspense } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import { Header } from "../../../../components/Header";
 import Layout from "../../../../components/layouts/General";
 import Modals from "../../../../components/Modals";
@@ -8,6 +9,10 @@ interface ShellProps {
 }
 
 const Shell: FC<ShellProps> = ({ children }: ShellProps) => {
+  // get react router location
+  const location = useLocation();
+  console.log("location", location);
+
   return (
     <Layout>
       <Modals />

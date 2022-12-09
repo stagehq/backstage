@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -7,8 +8,8 @@ import {
 } from "../../store/ui/onboarding";
 import ImageUpload from "../crop/ImageUpload";
 import Gradient from "../Gradient";
-import { GradientArea } from "../Login";
 import LoginCard from "../LoginCard";
+import Logo from "../Logo";
 import BlogsIcon from "./visuals/BlogsIcon";
 import CheckIcon from "./visuals/CheckIcon";
 import CvIcon from "./visuals/CvIcon";
@@ -57,8 +58,14 @@ const OnboardingStart = () => {
   const [, setActiveSection] = useRecoilState(activeSectionState);
   return (
     <>
-      <GradientArea />
-      <div className="mt-auto py-8 px-4 sm:px-6">
+      <div className="relative h-[50vh] sm:h-64">
+        <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
+          <Logo />
+        </div>
+        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
+        <Gradient />
+      </div>
+      <div className="mt-auto py-6 px-4 sm:px-6">
         <div className="flex flex-col justify-start items-start gap-2">
           <p className="text-xl font-semibold text-left text-zinc-900">
             Welcome on Stage
@@ -88,7 +95,7 @@ const OnboardingProfile = () => {
   const [error, setError] = useState("");
 
   return (
-    <div className="flex flex-col py-6 px-4 sm:px-6 h-full sm:min-h-[530px]">
+    <div className="flex flex-col py-6 px-4 sm:px-6 h-screen sm:h-full sm:min-h-[530px]">
       <div className="flex flex-col justify-start items-start gap-2">
         <p className="text-xl font-semibold text-left text-zinc-900">
           Basic Information
@@ -162,9 +169,7 @@ const OnboardingProfile = () => {
             <p className="text-xs text-left text-zinc-500">
               Write a few sentences about yourself.
             </p>
-            <p className="text-xs text-left text-zinc-500">
-              {tagline.length}/250
-            </p>
+            <p className="text-xs text-left text-zinc-500">{bio.length}/250</p>
           </div>
         </div>
       </div>
@@ -190,32 +195,78 @@ const OnboardingApi: FC = () => {
   );
 };
 
+const OnboardingDotMenu = () => {
+  const [activeSection, setActiveSection] = useRecoilState(activeSectionState);
+
+  return (
+    <div className="flex justify-start items-start flex-grow gap-1.5">
+      <div
+        className={clsx(
+          "w-[5px] h-[5px] rounded-[3px]",
+          activeSection === "cv" ? "bg-zinc-900" : "bg-zinc-300"
+        )}
+        onClick={() => setActiveSection("cv")}
+      ></div>
+      <div
+        className={clsx(
+          "w-[5px] h-[5px] rounded-[3px]",
+          activeSection === "projects" ? "bg-zinc-900" : "bg-zinc-300"
+        )}
+        onClick={() => setActiveSection("projects")}
+      ></div>
+      <div
+        className={clsx(
+          "w-[5px] h-[5px] rounded-[3px]",
+          activeSection === "blogs" ? "bg-zinc-900" : "bg-zinc-300"
+        )}
+        onClick={() => setActiveSection("blogs")}
+      ></div>
+    </div>
+  );
+};
+
 const OnboardingCv: FC = () => {
   const [link, setLink] = useState("");
   const [, setActiveSection] = useRecoilState(activeSectionState);
   const [validLink, setValidLink] = useState(false);
+  const [username, setUsername] = useState("");
 
-  const isValidLink = (link: string) => {
-    const regex = new RegExp(
-      "^(https?:\\/\\/)?(www.|[a-z]{2}.)?\\linkedin\\.com\\/.+$"
-    );
-    return regex.test(link);
+  const isValidLink = (url: string): boolean => {
+    // Regular expression to check for a valid LinkedIn profile URL
+    const regex =
+      /^https:\/\/(www\.)?linkedin\.com\/(mwlite\/|m\/)?in\/[a-zA-Z0-9_-]+\/?$/;
+    return regex.test(url);
+  };
+
+  const usernameFromLink = (url: string): string => {
+    const regex = /\/in\/(.*)\//;
+    const match = url.match(regex);
+    if (match) {
+      return match[1];
+    }
+    return "";
   };
 
   useEffect(() => {
     setValidLink(isValidLink(link));
   }, [link]);
 
+  useEffect(() => {
+    if (validLink) {
+      setUsername(usernameFromLink(link));
+    }
+  }, [validLink, link]);
+
   return (
     <>
-      <div className="relative h-64">
+      <div className="relative h-[50vh] sm:h-64">
         <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
           <CvIcon />
         </div>
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
         <Gradient />
       </div>
-      <div className="py-8 px-4 sm:px-6">
+      <div className="py-6 px-4 sm:px-6">
         <div className="flex flex-col justify-start items-start gap-4">
           <p className="text-xl font-semibold text-left text-zinc-900">
             Connect your CV
@@ -256,27 +307,15 @@ const OnboardingCv: FC = () => {
         <div className="pb-8 px-4 sm:px-6">
           <div className="flex flex-col justify-start items-start gap-2 w-full">
             <div className="flex justify-start items-center w-full">
-              <div className="flex justify-start items-start flex-grow gap-1.5">
-                <div
-                  className="w-[5px] h-[5px] rounded-[3px] bg-zinc-900"
-                  onClick={() => setActiveSection("cv")}
-                ></div>
-                <div
-                  className="w-[5px] h-[5px] rounded-[3px] bg-zinc-300"
-                  onClick={() => setActiveSection("projects")}
-                ></div>
-                <div
-                  className="w-[5px] h-[5px] rounded-[3px] bg-zinc-300"
-                  onClick={() => setActiveSection("blogs")}
-                ></div>
-              </div>
+              <OnboardingDotMenu />
               <div className="flex justify-start items-center h-8 overflow-hidden gap-2 py-2 rounded">
-                <p
+                <button
+                  type="button"
                   onClick={() => setActiveSection("projects")}
-                  className="text-sm font-medium text-left text-zinc-700"
+                  className="flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-zinc-900 bg-white hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-100 disabled:opacity-30"
                 >
                   Next
-                </p>
+                </button>
               </div>
             </div>
           </div>
@@ -293,14 +332,14 @@ const OnboardingProjects: FC = () => {
 
   return (
     <>
-      <div className="relative h-64">
+      <div className="relative h-[50vh] sm:h-64">
         <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
           <GGIcons />
         </div>
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
         <Gradient />
       </div>
-      <div className="py-8 px-4 sm:px-6">
+      <div className="py-6 px-4 sm:px-6">
         <div className="flex flex-col justify-start items-start gap-4">
           <p className="text-xl font-semibold text-left text-zinc-900">
             Connect your Projects
@@ -383,20 +422,7 @@ const OnboardingProjects: FC = () => {
         <div className="pb-8 px-4 sm:px-6">
           <div className="flex flex-col justify-start items-start gap-2 w-full">
             <div className="flex justify-start items-center w-full">
-              <div className="flex justify-start items-start flex-grow gap-1.5">
-                <div
-                  className="w-[5px] h-[5px] rounded-[3px] bg-zinc-300"
-                  onClick={() => setActiveSection("cv")}
-                ></div>
-                <div
-                  className="w-[5px] h-[5px] rounded-[3px] bg-zinc-900"
-                  onClick={() => setActiveSection("projects")}
-                ></div>
-                <div
-                  className="w-[5px] h-[5px] rounded-[3px] bg-zinc-300"
-                  onClick={() => setActiveSection("blogs")}
-                ></div>
-              </div>
+              <OnboardingDotMenu />
               <div className="flex justify-start items-center h-8 overflow-hidden gap-2 py-2 rounded">
                 <button
                   type="button"
@@ -422,14 +448,14 @@ const OnboardingBlogs: FC = () => {
 
   return (
     <>
-      <div className="relative h-64">
+      <div className="relative h-[50vh] sm:h-64">
         <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
           <BlogsIcon />
         </div>
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
         <Gradient />
       </div>
-      <div className="py-8 px-4 sm:px-6">
+      <div className="py-6 px-4 sm:px-6">
         <div className="flex flex-col justify-start items-start gap-4">
           <p className="text-xl font-semibold text-left text-zinc-900">
             Connect your Blogs
@@ -512,20 +538,7 @@ const OnboardingBlogs: FC = () => {
         <div className="pb-8 px-4 sm:px-6">
           <div className="flex flex-col justify-start items-start gap-2 w-full">
             <div className="flex justify-start items-center w-full">
-              <div className="flex justify-start items-start flex-grow gap-1.5">
-                <div
-                  className="w-[5px] h-[5px] rounded-[3px] bg-zinc-300"
-                  onClick={() => setActiveSection("cv")}
-                ></div>
-                <div
-                  className="w-[5px] h-[5px] rounded-[3px] bg-zinc-300"
-                  onClick={() => setActiveSection("projects")}
-                ></div>
-                <div
-                  className="w-[5px] h-[5px] rounded-[3px]  bg-zinc-900"
-                  onClick={() => setActiveSection("blogs")}
-                ></div>
-              </div>
+              <OnboardingDotMenu />
               <div className="flex justify-start items-center h-8 overflow-hidden gap-2 py-2 rounded">
                 <button
                   type="button"
@@ -549,14 +562,14 @@ const OnboardingStore: FC = () => {
 
   return (
     <>
-      <div className="relative h-64">
+      <div className="relative h-[50vh] sm:h-64">
         <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
           <StoreIcon />
         </div>
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
         <Gradient />
       </div>
-      <div className="sm:mt-auto mt-8 py-8 px-4 sm:px-6">
+      <div className="mt-auto py-6 px-4 sm:px-6">
         <div className="flex flex-col justify-start items-start gap-2">
           <p className="text-xl font-semibold text-left text-zinc-900">
             More? Check out the store
@@ -584,14 +597,14 @@ const OnboardingSubdomain: FC = () => {
 
   return (
     <>
-      <div className="relative h-64">
+      <div className="relative h-[50vh] sm:h-64">
         <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
           <DomainIcon />
         </div>
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
         <Gradient />
       </div>
-      <div className="flex flex-col justify-start items-start gap-2 pt-8 px-4 sm:px-6">
+      <div className="mt-auto flex flex-col justify-start items-start gap-2 pt-8 px-4 sm:px-6">
         <p className="text-xl font-semibold text-left text-zinc-900">
           Choose a subdomain
         </p>
@@ -610,8 +623,8 @@ const OnboardingSubdomain: FC = () => {
           )}
         </p>
       </div>
-      <div className="flex flex-col justify-start items-start gap-2 pt-8 px-4 sm:px-6">
-        <div className="mt-auto w-full">
+      <div className="flex flex-col justify-start items-start gap-2 px-4 py-6 sm:px-6">
+        <div className="w-full">
           <div className="w-full">
             <label
               htmlFor="link"
