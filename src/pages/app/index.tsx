@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { Suspense } from "react";
-import Analytics from "../../client/routes/analytics";
 import Dashboard from "../../client/routes/dashboard/page";
 import AppShell from "../../client/_old/components/02_AppGlobal/AppShell";
 import LoadingPage from "../../client/_old/components/02_AppGlobal/Loading/Page";
+import Analytics from "../../client/routes/analytics";
+import SiteEditing from "../../client/routes/site";
 
 /* For breadcrumbs */
 export const routes = [
@@ -35,7 +36,7 @@ export default function App() {
               <Route path="/s/settings" element={<Analytics />} />
 
               {/* Website Editing */}
-              <Route path="/s/:siteId" element={<Dashboard />} />
+              <Route path="/s/:siteId" element={<SiteEditing />} />
 
               {/* Site settings */}
               <Route path="/s/:siteId/settings" element={<Dashboard />} />
