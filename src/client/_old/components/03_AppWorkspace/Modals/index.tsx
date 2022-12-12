@@ -4,12 +4,12 @@ import { FC, Fragment, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
+import { Icon } from "../../../../components/Icons";
 import { useGetCurrentUserQuery } from "../../../../graphql/getCurrentUser.generated";
 import { projectCreateOpenState } from "../../../../store/ui/modals";
 import LoadingPage from "../../02_AppGlobal/Loading/Page/index";
 import { ProjectCreate } from "./ProjectCreateModal";
 import { ProjectCreateForm } from "./ProjectCreateModal/projectCreateForm";
-import { Icon } from "../../../../components/Icons";
 
 const ProjectCreateModal: FC = () => {
   const { status } = useSession();
@@ -79,7 +79,7 @@ const ProjectCreateModal: FC = () => {
                       onClick={() => setProjectCreateOpen(false)}
                     >
                       <span className="sr-only">Close</span>
-                      <Icon name="XMarkIcon" color="dark"/>
+                      <Icon name="XMarkIcon" color="dark" />
                     </button>
                   </div>
                   <div>

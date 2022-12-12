@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { FC, Fragment, useRef } from "react";
 import { useSession } from "next-auth/react";
+import { FC, Fragment, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilStateLoadable } from "recoil";
 import { settingsOpenState } from "../../store/ui/modals";
