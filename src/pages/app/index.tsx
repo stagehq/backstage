@@ -9,11 +9,13 @@ import Sections from "../../client/routes/site/sections";
 import SectionEditing from "../../client/routes/site/sections/sectionEditing";
 import SiteSettings from "../../client/routes/site/siteSettings";
 import LoadingPage from "../../client/_old/components/02_AppGlobal/Loading/Page";
+import Modals from "../../client/components/Modals";
 
 export default function App() {
   return (
     <>
       <Router>
+        <Modals />
         <Suspense fallback={<LoadingPage />}>
           <Routes>
             {/* Backstage */}
