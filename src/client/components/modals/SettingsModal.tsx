@@ -1,7 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { FC, Fragment, useRef } from "react";
-
-import { XIcon } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilStateLoadable } from "recoil";

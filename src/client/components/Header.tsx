@@ -1,5 +1,4 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import clsx from "clsx";
 import { signOut } from "next-auth/react";
 import { Fragment } from "react";
