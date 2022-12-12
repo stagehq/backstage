@@ -20,7 +20,7 @@ const Tabs = () => {
 
   return (
     <>
-      <div className="w-full bg-white md:hidden">
+      <div className={clsx("w-full bg-white", siteId ? "md:hidden" : "")}>
         <Container>
           <div className="flex justify-start items-start gap-3 h-10">
             {siteId
