@@ -1,11 +1,14 @@
 import Container from "../../components/Container";
 import Content from "../../components/Content";
+import SectionList from "../../components/sidebars/SectionList";
 
 const Site = () => {
   return (
     <>
       <Content>
-        <Container>Site</Container>
+        <Container>
+          <SectionList />
+        </Container>
       </Content>
     </>
   );
