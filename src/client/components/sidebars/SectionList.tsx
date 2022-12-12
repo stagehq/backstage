@@ -1,7 +1,7 @@
-import { Icon, IconEnum } from "@stagehq/ui/dist/components/Icon";
 import clsx from "clsx";
 import { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { Icon, IconEnum } from "../Icons";
 
 export interface Section {
   id: number;
@@ -124,6 +124,10 @@ const SectionItem = ({
   section: Section;
   index: number;
 }) => {
+  const handleClick = (id: number) => {
+    console.log("clicked", id);
+  };
+
   return (
     <Draggable
       key={section.id}
@@ -136,6 +140,7 @@ const SectionItem = ({
           ref={draggableProvided.innerRef}
           {...draggableProvided.draggableProps}
           {...draggableProvided.dragHandleProps}
+          onClick={() => handleClick(section.id)}
           className={clsx(
             "flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-8 relative overflow-hidden gap-3 px-3 rounded mb-1",
             section.selected ? "bg-zinc-100" : "bg-white"

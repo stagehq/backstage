@@ -3,13 +3,12 @@ import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import clsx from "clsx";
 import { signOut } from "next-auth/react";
 import { Fragment } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { settingsOpenState } from "../store/ui/modals";
 import { currentUserState } from "../store/user";
 import Breadcrumb from "./Breadcrumb";
 import Tabs from "./Tabs";
-import { useParams } from "react-router-dom";
 
 export const Header = () => {
   const { siteId } = useParams();
@@ -39,107 +38,108 @@ export const Header = () => {
                   )}
                 </Disclosure.Button>
               </div>
-              {siteId 
-                ? <div>
+              {siteId ? (
+                <div>
                   <a href="https://google.com">
                     <div className="flex items-center h-8 bg-zinc-700 text-white px-4 rounded hover:bg-zinc-900">
                       <p>Open</p>
                     </div>
                   </a>
                 </div>
-                : <div className="hidden md:relative md:z-10 md:ml-4 md:flex  md:items-center">
-                <div className="flex justify-start items-center gap-1">
-                  <a
-                    href=""
-                    className="cursor-pointer text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 flex justify-start items-center h-8 overflow-hidden gap-2 px-4 py-2 rounded border border-zinc-200"
-                  >
-                    <p className="text-sm font-medium">Feedback</p>
-                  </a>
-                  <a
-                    href="https://developers.getstage.app/introduction/readme"
-                    className="cursor-pointer text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 flex justify-start items-center h-8 overflow-hidden gap-2 py-2 px-4 rounded"
-                  >
-                    <p className="text-sm font-medium">Docs</p>
-                  </a>
-                  <a
-                    href=""
-                    className="cursor-pointer text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 flex justify-start items-center h-8 overflow-hidden gap-2 py-2 px-4 rounded"
-                  >
-                    <p className="text-sm font-medium">Community</p>
-                  </a>
-                </div>
-                {/* Profile dropdown */}
-                <Menu as="div" className="flex-shrink-0 relative ml-4">
-                  <div>
-                    <Menu.Button className="bg-white rounded-full flex focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                      <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src={currentUser.image ? currentUser.image : ""}
-                        referrerPolicy="no-referrer"
-                        alt="profile image"
-                      />
-                    </Menu.Button>
+              ) : (
+                <div className="hidden md:relative md:z-10 md:ml-4 md:flex  md:items-center">
+                  <div className="flex justify-start items-center gap-1">
+                    <a
+                      href=""
+                      className="cursor-pointer text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 flex justify-start items-center h-8 overflow-hidden gap-2 px-4 py-2 rounded border border-zinc-200"
+                    >
+                      <p className="text-sm font-medium">Feedback</p>
+                    </a>
+                    <a
+                      href="https://developers.getstage.app/introduction/readme"
+                      className="cursor-pointer text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 flex justify-start items-center h-8 overflow-hidden gap-2 py-2 px-4 rounded"
+                    >
+                      <p className="text-sm font-medium">Docs</p>
+                    </a>
+                    <a
+                      href=""
+                      className="cursor-pointer text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 flex justify-start items-center h-8 overflow-hidden gap-2 py-2 px-4 rounded"
+                    >
+                      <p className="text-sm font-medium">Community</p>
+                    </a>
                   </div>
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                  >
-                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none cursor-pointer">
-                      <Menu.Item>
-                        {({ active }) => (
-                          <Link
-                            to={`/s/profile/${currentUser.alias}`}
-                            className={clsx(
-                              active ? "bg-gray-100" : "",
-                              "block py-2 px-4 text-sm text-gray-700"
-                            )}
-                          >
-                            Your Profile
-                          </Link>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <div
-                            onClick={() => setSettingsOpen(true)}
-                            className={clsx(
-                              active ? "bg-gray-100" : "",
-                              "block py-2 px-4 text-sm text-gray-700"
-                            )}
-                          >
-                            Settings
-                          </div>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <div
-                            onClick={() =>
-                              signOut({
-                                callbackUrl:
-                                  process.env.NEXT_PUBLIC_NEXTAUTH_URL,
-                              })
-                            }
-                            className={clsx(
-                              active ? "bg-gray-100" : "",
-                              "block py-2 px-4 text-sm text-gray-700"
-                            )}
-                          >
-                            Sign out
-                          </div>
-                        )}
-                      </Menu.Item>
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
+                  {/* Profile dropdown */}
+                  <Menu as="div" className="flex-shrink-0 relative ml-4">
+                    <div>
+                      <Menu.Button className="bg-white rounded-full flex focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <span className="sr-only">Open user menu</span>
+                        <img
+                          className="h-8 w-8 rounded-full"
+                          src={currentUser.image ? currentUser.image : ""}
+                          referrerPolicy="no-referrer"
+                          alt="profile image"
+                        />
+                      </Menu.Button>
+                    </div>
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none cursor-pointer">
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              to={`/s/profile/${currentUser.alias}`}
+                              className={clsx(
+                                active ? "bg-gray-100" : "",
+                                "block py-2 px-4 text-sm text-gray-700"
+                              )}
+                            >
+                              Your Profile
+                            </Link>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <div
+                              onClick={() => setSettingsOpen(true)}
+                              className={clsx(
+                                active ? "bg-gray-100" : "",
+                                "block py-2 px-4 text-sm text-gray-700"
+                              )}
+                            >
+                              Settings
+                            </div>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <div
+                              onClick={() =>
+                                signOut({
+                                  callbackUrl:
+                                    process.env.NEXT_PUBLIC_NEXTAUTH_URL,
+                                })
+                              }
+                              className={clsx(
+                                active ? "bg-gray-100" : "",
+                                "block py-2 px-4 text-sm text-gray-700"
+                              )}
+                            >
+                              Sign out
+                            </div>
+                          )}
+                        </Menu.Item>
+                      </Menu.Items>
+                    </Transition>
+                  </Menu>
                 </div>
-              }
+              )}
             </div>
 
             <Disclosure.Panel
