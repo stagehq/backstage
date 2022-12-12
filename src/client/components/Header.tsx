@@ -8,6 +8,7 @@ import { useRecoilState } from "recoil";
 import { settingsOpenState } from "../store/ui/modals";
 import { currentUserState } from "../store/user";
 import Breadcrumb from "./Breadcrumb";
+import { Icon } from "./Icons";
 import Tabs from "./Tabs";
 
 export const Header = () => {
@@ -32,9 +33,9 @@ export const Header = () => {
                 <Disclosure.Button className="rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                   <span className="sr-only">Open menu</span>
                   {open ? (
-                    <XIcon className="block h-6 w-6" aria-hidden="true" />
+                    <Icon name={"XMarkIcon"} color="dark" />
                   ) : (
-                    <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                    <Icon name={"Bars2Icon"} color="dark" />
                   )}
                 </Disclosure.Button>
               </div>
@@ -172,7 +173,7 @@ export const Header = () => {
                     className="ml-auto flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                    <Icon name={"BellIcon"} />
                   </button>
                 </div>
                 <div className="mt-3 px-1 sm:px-3 space-y-1">

@@ -14,6 +14,7 @@ import Notifications from "../../_old/components/02_AppGlobal/Settings/Notificat
 import Plan from "../../_old/components/02_AppGlobal/Settings/Plan";
 import { Profile } from "../../_old/components/02_AppGlobal/Settings/Profile";
 import { SettingsForm } from "../../_old/components/02_AppGlobal/Settings/SettingsForm";
+import { Icon } from "../Icons";
 
 const SettingsModal: FC = () => {
   const navigate = useNavigate();
@@ -80,7 +81,7 @@ const SettingsModal: FC = () => {
                       onClick={() => setSettingsOpen(false)}
                     >
                       <span className="sr-only">Close</span>
-                      <XIcon className="h-6 w-6" aria-hidden="true" />
+                      <Icon name="XMarkIcon" />
                     </button>
                   </div>
                   <div>

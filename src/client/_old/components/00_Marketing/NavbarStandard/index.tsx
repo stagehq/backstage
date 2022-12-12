@@ -3,6 +3,7 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 
 import Link from "next/link";
 import { Fragment } from "react";
+import { Icon } from "../../../../components/Icons";
 
 const navigation = [
   { name: "Twitter", href: "https://twitter.com/zirkular_os" },
@@ -35,7 +36,7 @@ export default function NavbarStandard() {
                 <div className="-mr-2 flex items-center md:hidden">
                   <Popover.Button className="rounded-md p-2 inline-flex items-center justify-center text-black focus:outline-none focus:ring-2 focus-ring-inset focus:ring-indigo">
                     <span className="sr-only">Open main menu</span>
-                    <MenuIcon className="h-6 w-6" aria-hidden="true" />
+                    <Icon name={"Bars2Icon"} color="dark" />
                   </Popover.Button>
                 </div>
               </div>
