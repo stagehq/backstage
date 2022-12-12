@@ -13,7 +13,7 @@ const Site = () => {
               <SectionList />
             </SectionWrapper>
           </SectionSidebar>
-          <EditSidebar></EditSidebar>
+          <EditSidebar>{/* portal */}</EditSidebar>
         </Studio>
       </Content>
     </>

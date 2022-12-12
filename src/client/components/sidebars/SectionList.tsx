@@ -1,16 +1,37 @@
 import clsx from "clsx";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import ImageUpload from "../crop/ImageUpload";
 import { Icon, IconEnum } from "../Icons";
 import EditSidebarPortal from "./EditSidebarPortal";
+
+export enum SectionType {
+  HEADER = "Header",
+  EXTENSION = "Extension",
+  FOOTER = "Footer",
+}
+
+export enum ExtensionAPIEnum {
+  GITHUB = "GitHub",
+  GITLAB = "GitLab",
+  SPOTIFY = "Spotify",
+  YOUTUBE = "YouTube",
+  STACKOVERFLOW = "StackOverflow",
+  MEDIUM = "Medium",
+  DEVTO = "Dev.to",
+}
+
+export type ExtensionApis = ExtensionAPIEnum[];
 
 export interface Section {
   id: number;
   text: string;
   icon: IconEnum;
+  type: SectionType;
   selected: boolean;
   locked: boolean;
   error?: string;
+  apis?: ExtensionApis;
 }
 
 export interface SectionListProps {
@@ -23,6 +44,7 @@ const SectionList = () => {
     {
       id: 1,
       text: "Header",
+      type: SectionType.HEADER,
       icon: "QueueListIcon",
       locked: true,
       selected: true,
@@ -30,34 +52,43 @@ const SectionList = () => {
     {
       id: 2,
       text: "Blogs",
+      type: SectionType.EXTENSION,
       icon: "DocumentIcon",
       locked: false,
       selected: false,
+      apis: [ExtensionAPIEnum.MEDIUM, ExtensionAPIEnum.DEVTO],
     },
     {
       id: 3,
-      text: "GitHub",
+      text: "Repositories",
+      type: SectionType.EXTENSION,
       icon: "CodeBracketIcon",
       locked: false,
       selected: false,
+      apis: [ExtensionAPIEnum.GITHUB, ExtensionAPIEnum.GITLAB],
     },
     {
       id: 4,
       text: "Music",
+      type: SectionType.EXTENSION,
       icon: "MusicalNoteIcon",
       locked: false,
       selected: false,
+      apis: [ExtensionAPIEnum.SPOTIFY],
     },
     {
       id: 5,
-      text: "Projects",
-      icon: "DocumentIcon",
+      text: "Videos",
+      type: SectionType.EXTENSION,
+      icon: "VideoCameraIcon",
       locked: false,
       selected: false,
+      apis: [ExtensionAPIEnum.YOUTUBE],
     },
     {
       id: 6,
       text: "Footer",
+      type: SectionType.FOOTER,
       icon: "QueueListIcon",
       locked: true,
       selected: false,
@@ -135,6 +166,81 @@ const SectionList = () => {
 
 export default SectionList;
 
+interface EditSectionHeaderProps {
+  title: string;
+}
+
+const EditSectionHeader: FC<EditSectionHeaderProps> = ({ title }) => {
+  return (
+    <div className="flex justify-between items-center w-full h-10 pl-6 pr-[22px]">
+      <p className="text-sm font-semibold text-left text-zinc-900">{title}</p>
+    </div>
+  );
+};
+
+interface EditSectionContentProps {
+  children: React.ReactNode;
+}
+
+const EditSectionContent: FC<EditSectionContentProps> = ({ children }) => {
+  return (
+    <div className="flex flex-col w-full h-full pl-6 pr-[22px]">
+      <div className="flex flex-col w-full h-full">{children}</div>
+    </div>
+  );
+};
+
+const HeaderSectionEditSidebar = () => {
+  return (
+    <div className="flex flex-col w-full h-full">
+      <EditSectionHeader title="Data" />
+      <EditSectionContent>
+        <ImageUpload />
+      </EditSectionContent>
+    </div>
+  );
+};
+
+const ExtensionSectionEditSidebar = ({ apis }: { apis: ExtensionApis }) => {
+  return (
+    <div className="flex flex-col w-full h-full">
+      <EditSectionHeader title="APIs" />
+      <EditSectionContent>
+        <ExtensionApisList apis={apis} />
+      </EditSectionContent>
+    </div>
+  );
+};
+
+const FooterSectionEditSidebar = () => {
+  return (
+    <div className="flex flex-col w-full h-full">
+      <EditSectionHeader title="Data" />
+      <EditSectionContent>
+        <span className="text-sm">footer edit data</span>
+      </EditSectionContent>
+    </div>
+  );
+};
+
+const ExtensionApisList = ({ apis }: { apis: ExtensionApis }) => {
+  return (
+    <div className="flex flex-col w-full h-full">
+      {apis.map((api) => (
+        <ExtensionApiItem api={api} key={api} />
+      ))}
+    </div>
+  );
+};
+
+const ExtensionApiItem = ({ api }: { api: ExtensionAPIEnum }) => {
+  return (
+    <div className="flex justify-between items-center w-full h-10">
+      <p className="text-sm font-semibold text-left text-zinc-900">{api}</p>
+    </div>
+  );
+};
+
 const SectionItem = ({
   section,
   index,
@@ -144,6 +250,23 @@ const SectionItem = ({
   index: number;
   onClick: () => void;
 }) => {
+  const renderSectionEditSidebar = (section: Section) => {
+    console.log("first render");
+
+    switch (section.type) {
+      case SectionType.HEADER:
+        console.log("header");
+        return <HeaderSectionEditSidebar />;
+      case SectionType.EXTENSION:
+        return <ExtensionSectionEditSidebar apis={section.apis!} />;
+      case SectionType.FOOTER:
+        return <FooterSectionEditSidebar />;
+      default:
+        console.log("default");
+
+        return <HeaderSectionEditSidebar />;
+    }
+  };
   return (
     <Draggable
       key={section.id}
@@ -161,9 +284,6 @@ const SectionItem = ({
             "flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-8 relative overflow-hidden gap-3 px-3 rounded mb-1 hover:cursor-pointer",
             section.selected ? "bg-zinc-100" : "bg-white"
           )}
-          style={{
-            cursor: "default",
-          }}
         >
           <Icon name={section.icon} color={"dark"} size={"md"} />
           <div className="flex justify-start items-center flex-grow relative gap-2">
@@ -187,7 +307,7 @@ const SectionItem = ({
           </div>
           {section.selected && (
             <EditSidebarPortal>
-              <span>this is a {section.text}</span>
+              {renderSectionEditSidebar(section)}
             </EditSidebarPortal>
           )}
         </div>
@@ -207,7 +327,7 @@ const LockedIcon = () => {
       className="flex-grow-0 flex-shrink-0 w-[10.5px] h-[10.5px] relative"
       preserveAspectRatio="none"
     >
-      <g clip-path="url(#clip0_341_28043)">
+      <g clipPath="url(#clip0_341_28043)">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
