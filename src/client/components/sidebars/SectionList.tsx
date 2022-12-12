@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { Icon, IconEnum } from "../Icons";
+import EditSidebarPortal from "./EditSidebarPortal";
 
 export interface Section {
   id: number;
@@ -92,6 +93,18 @@ const SectionList = () => {
     setSections(reorderedSections);
   };
 
+  const handleClick = (id: number) => {
+    // if the section is not locked and not selected, set the selected section to true
+    const newSections = sections.map((section) => {
+      if (section.id === id) {
+        return { ...section, selected: true };
+      }
+      return { ...section, selected: false };
+    });
+
+    setSections(newSections);
+  };
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
@@ -105,7 +118,12 @@ const SectionList = () => {
             }
           >
             {sections.map((section, index) => (
-              <SectionItem section={section} index={index} key={section.id} />
+              <SectionItem
+                section={section}
+                index={index}
+                key={section.id}
+                onClick={() => handleClick(section.id)}
+              />
             ))}
             {droppableProvided.placeholder}
           </div>
@@ -120,14 +138,12 @@ export default SectionList;
 const SectionItem = ({
   section,
   index,
+  onClick,
 }: {
   section: Section;
   index: number;
+  onClick: () => void;
 }) => {
-  const handleClick = (id: number) => {
-    console.log("clicked", id);
-  };
-
   return (
     <Draggable
       key={section.id}
@@ -140,11 +156,14 @@ const SectionItem = ({
           ref={draggableProvided.innerRef}
           {...draggableProvided.draggableProps}
           {...draggableProvided.dragHandleProps}
-          onClick={() => handleClick(section.id)}
+          onClick={onClick}
           className={clsx(
-            "flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-8 relative overflow-hidden gap-3 px-3 rounded mb-1",
+            "flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-8 relative overflow-hidden gap-3 px-3 rounded mb-1 hover:cursor-pointer",
             section.selected ? "bg-zinc-100" : "bg-white"
           )}
+          style={{
+            cursor: "default",
+          }}
         >
           <Icon name={section.icon} color={"dark"} size={"md"} />
           <div className="flex justify-start items-center flex-grow relative gap-2">
@@ -166,6 +185,11 @@ const SectionItem = ({
           >
             <DragHandleIcon />
           </div>
+          {section.selected && (
+            <EditSidebarPortal>
+              <span>this is a {section.text}</span>
+            </EditSidebarPortal>
+          )}
         </div>
       )}
     </Draggable>

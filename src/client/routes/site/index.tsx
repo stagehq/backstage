@@ -13,6 +13,7 @@ const Site = () => {
               <SectionList />
             </SectionWrapper>
           </SectionSidebar>
+          <EditSidebar></EditSidebar>
         </Studio>
       </Content>
     </>
@@ -26,7 +27,7 @@ interface StudioProps {
 }
 
 const Studio: FC<StudioProps> = ({ children }) => {
-  return <div className="flex w-full h-full">{children}</div>;
+  return <div className="flex w-full h-full relative">{children}</div>;
 };
 
 interface SectionSidebar {
@@ -35,7 +36,25 @@ interface SectionSidebar {
 
 const SectionSidebar: FC<SectionSidebar> = ({ children }) => {
   return (
-    <div className="flex flex-col w-[270px] h-full bg-white border-r border-zinc-100 gap-2 py-3">
+    <div className="absolute left-0 flex flex-col w-[270px] h-full bg-white border-r border-zinc-100 gap-2 py-3">
+      {children}
+    </div>
+  );
+};
+
+interface EditSidebar {
+  children: React.ReactNode;
+}
+
+const EditSidebar: FC<EditSidebar> = ({ children }) => {
+  // is a portal, don't render anything here
+  return (
+    <div
+      id={
+        process.env.NEXT_PUBLIC_EDIT_SIDEBAR_PORTAL_NAME || "editSidebarPortal"
+      }
+      className="absolute right-0 flex flex-col w-[270px] h-full bg-white border-l border-zinc-100 gap-2 py-3"
+    >
       {children}
     </div>
   );
