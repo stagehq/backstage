@@ -255,15 +255,12 @@ const SectionItem = ({
 
     switch (section.type) {
       case SectionType.HEADER:
-        console.log("header");
         return <HeaderSectionEditSidebar />;
       case SectionType.EXTENSION:
         return <ExtensionSectionEditSidebar apis={section.apis!} />;
       case SectionType.FOOTER:
         return <FooterSectionEditSidebar />;
       default:
-        console.log("default");
-
         return <HeaderSectionEditSidebar />;
     }
   };
