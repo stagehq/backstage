@@ -64,7 +64,12 @@ const Tab: FC<TabProps> = ({ name, path, active }) => {
         to={path}
         className="flex h-8 justify-start items-center relative gap-2 px-4 rounded py-0.5 hover:bg-zinc-100"
       >
-        <p className={clsx("text-sm font-medium text-left", active ? "text-zinc-900" : "text-zinc-700 hover:text-zinc-900")}>
+        <p
+          className={clsx(
+            "text-sm font-medium text-left",
+            active ? "text-zinc-900" : "text-zinc-700 hover:text-zinc-900"
+          )}
+        >
           {name}
         </p>
       </Link>
