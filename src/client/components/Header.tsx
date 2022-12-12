@@ -9,8 +9,10 @@ import { settingsOpenState } from "../store/ui/modals";
 import { currentUserState } from "../store/user";
 import Breadcrumb from "./Breadcrumb";
 import Tabs from "./Tabs";
+import { useParams } from "react-router-dom";
 
 export const Header = () => {
+  const { siteId } = useParams();
   const [currentUser] = useRecoilState(currentUserState);
   const [, setSettingsOpen] = useRecoilState(settingsOpenState);
 
@@ -37,7 +39,15 @@ export const Header = () => {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="hidden md:relative md:z-10 md:ml-4 md:flex  md:items-center">
+              {siteId 
+                ? <div>
+                  <a href="https://google.com">
+                    <div className="flex items-center h-8 bg-zinc-700 text-white px-4 rounded hover:bg-zinc-900">
+                      <p>Open</p>
+                    </div>
+                  </a>
+                </div>
+                : <div className="hidden md:relative md:z-10 md:ml-4 md:flex  md:items-center">
                 <div className="flex justify-start items-center gap-1">
                   <a
                     href=""
@@ -128,7 +138,8 @@ export const Header = () => {
                     </Menu.Items>
                   </Transition>
                 </Menu>
-              </div>
+                </div>
+              }
             </div>
 
             <Disclosure.Panel
