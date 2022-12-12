@@ -76,20 +76,20 @@ export const Header = () => {
                 </Disclosure.Button>
               </div>
               <div className="hidden md:relative md:z-10 md:ml-4 md:flex  md:items-center">
-                <div className="flex justify-start items-center gap-6">
-                  <div className="flex justify-start items-center h-8 overflow-hidden gap-2 px-4 py-2 rounded border border-zinc-200">
-                    <p className="text-sm font-medium text-zinc-700">
+                <div className="flex justify-start items-center gap-1">
+                  <a href="" className="cursor-pointer text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 flex justify-start items-center h-8 overflow-hidden gap-2 px-4 py-2 rounded border border-zinc-200">
+                    <p className="text-sm font-medium">
                       Feedback
                     </p>
-                  </div>
-                  <div className="flex justify-start items-center h-8 overflow-hidden gap-2 py-2 rounded">
-                    <p className="text-sm font-medium text-zinc-700">Docs</p>
-                  </div>
-                  <div className="flex justify-start items-center h-8 overflow-hidden gap-2 py-2 rounded">
-                    <p className="text-sm font-medium text-zinc-700">
+                  </a>
+                  <a href="https://developers.getstage.app/introduction/readme" className="cursor-pointer text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 flex justify-start items-center h-8 overflow-hidden gap-2 py-2 px-4 rounded">
+                    <p className="text-sm font-medium">Docs</p>
+                  </a>
+                  <a href="" className="cursor-pointer text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 flex justify-start items-center h-8 overflow-hidden gap-2 py-2 px-4 rounded">
+                    <p className="text-sm font-medium">
                       Community
                     </p>
-                  </div>
+                  </a>
                 </div>
                 {/* Profile dropdown */}
                 <Menu as="div" className="flex-shrink-0 relative ml-4">
