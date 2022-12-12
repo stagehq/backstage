@@ -1,5 +1,6 @@
 import * as Heroicons from "@heroicons/react/24/outline";
 import clsx from "clsx";
+
 export type IconEnum = keyof typeof Heroicons;
 
 export interface IconProps {
