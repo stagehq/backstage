@@ -31,11 +31,11 @@ const Title = () => {
           </p>
         </div>
       </div>
-      <div className="flex justify-start items-start relative gap-2 px-4 py-2 rounded border border-[#dcdcdc]">
-        <Link key="editing" to={"/s/" + "nilsjacobsen"}>
-          <p className="text-sm font-medium text-left text-zinc-900">Edit</p>
-        </Link>
-      </div>
+      <Link key="editing" to={"/s/" + "nilsjacobsen"}>
+        <div className="flex justify-start items-start relative gap-2 px-4 py-2 rounded border border-zinc-200 hover:bg-zinc-100 cursor-pointer text-zinc-700 hover:text-zinc-900">
+          <p className="text-sm font-medium text-left">Edit</p>
+        </div>
+      </Link>
     </div>
   );
 };
