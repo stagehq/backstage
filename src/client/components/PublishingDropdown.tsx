@@ -1,7 +1,9 @@
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
-import { FC, Fragment, useState } from "react";
+import { Fragment } from "react";
+import { useRecoilState } from "recoil";
+import { publishingState } from "../store/ui/publishing";
 
 export type publishingKeys = "offline" | "unlisted" | "published";
 
@@ -15,31 +17,25 @@ export const publishingOptions: publishingOption[] = [
   {
     key: "published",
     title: "Published",
-    description: "This job posting can be viewed by anyone who has the link.",
+    description: "Everyone can find this page.",
   },
   {
     key: "unlisted",
     title: "Unlisted",
-    description: "This job posting will no longer be publicly accessible.",
+    description: "Only people with link can see this page.",
   },
   {
     key: "offline",
     title: "Offline",
-    description: "This job posting will no longer be publicly accessible.",
+    description: "This page is unpublished.",
   },
 ];
 
-interface PublishingDropdownProps {
-  state: publishingKeys;
-}
-
-const PublishingDropdown: FC<PublishingDropdownProps> = ({ state }) => {
-  const [selected, setSelected] = useState<publishingOption>(
-    publishingOptions.find((option) => option.key === state) as publishingOption
-  );
+const PublishingDropdown = () => {
+  const [publishing,setPublishing] = useRecoilState(publishingState);
 
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox value={publishing} onChange={setPublishing}>
       {({ open }) => (
         <>
           <Listbox.Label className="sr-only">
@@ -52,14 +48,14 @@ const PublishingDropdown: FC<PublishingDropdownProps> = ({ state }) => {
               <div
                 className={clsx(
                   "mr-1 w-2.5 h-2.5 rounded-md",
-                  selected.title === "Published"
+                  publishing.title === "Published"
                     ? "bg-emerald-400"
-                    : selected.title === "Unlisted"
+                    : publishing.title === "Unlisted"
                     ? "bg-transparent border-2 border-emerald-400"
                     : "bg-rose-500 border-transparent"
                 )}
               ></div>
-              <p className="text-sm font-medium">{selected.title}</p>
+              <p className="text-sm font-medium">{publishing.title}</p>
               <ChevronDownIcon
                 className="h-5 w-5 text-zinc-700"
                 aria-hidden="true"

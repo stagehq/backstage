@@ -41,7 +41,7 @@ export const Header = () => {
               </div>
               {siteId ? (
                 <div className="hidden md:flex gap-2">
-                  <PublishingDropdown state="published" />
+                  <PublishingDropdown />
                   <Link to="">
                     <div className="h-8 w-8 flex justify-center items-center hover:bg-zinc-100 rounded">
                       <Icon name={"Cog6ToothIcon"} color="dark" size="lg" />

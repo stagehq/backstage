@@ -3,14 +3,19 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 import { Fragment } from "react";
 import { useRecoilState } from "recoil";
 import { publishingOpenState } from "../../store/ui/modals";
+import { publishingState } from "../../store/ui/publishing";
+import { publishingOptions } from "../PublishingDropdown";
+import clsx from "clsx";
 
 export default function PublishingMobileModal() {
   const [publishingOpen, setPublishingOpen] =
     useRecoilState(publishingOpenState);
+  const [publishing, setPublishing] =
+    useRecoilState(publishingState);
 
   return (
     <Transition.Root show={publishingOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setPublishingOpen}>
+      <Dialog as="div" className="relative z-10 md:hidden" onClose={setPublishingOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -34,38 +39,39 @@ export default function PublishingMobileModal() {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
-                <div>
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                    <CheckIcon
-                      className="h-6 w-6 text-green-600"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <div className="mt-3 text-center sm:mt-5">
-                    <Dialog.Title
-                      as="h3"
-                      className="text-lg font-medium leading-6 text-gray-900"
-                    >
-                      Payment successful
-                    </Dialog.Title>
-                    <div className="mt-2">
-                      <p className="text-sm text-gray-500">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Consequatur amet labore.
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-sm sm:p-6">
+                {publishingOptions.map((option) => (
+                  <div
+                    key={option.title}
+                    className={clsx( publishing === option ? "text-zinc-700 bg-zinc-100" : "text-zinc-900","cursor-default select-none p-4 text rounded")}
+                    onClick={()=>{ setPublishing(option); setPublishingOpen(false) }}
+                  >
+                    <div className="flex flex-col">
+                      <div className="flex justify-between">
+                        <p
+                          className={
+                            publishing === option ? "font-semibold" : "font-normal"
+                          }
+                        >
+                          {option.title}
+                        </p>
+                        {publishing === option ? (
+                          <span
+                            className="text-zinc-700"
+                          >
+                            <CheckIcon
+                              className="h-6 w-6"
+                              aria-hidden="true"
+                            />
+                          </span>
+                        ) : null}
+                      </div>
+                      <p className="text-zinc-500 mt-2">
+                        {option.description}
                       </p>
                     </div>
                   </div>
-                </div>
-                <div className="mt-5 sm:mt-6">
-                  <button
-                    type="button"
-                    className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
-                    onClick={() => setPublishingOpen(false)}
-                  >
-                    Go back to dashboard
-                  </button>
-                </div>
+                ))}
               </Dialog.Panel>
             </Transition.Child>
           </div>
