@@ -104,10 +104,10 @@ export default function ImageUpload() {
           referrerPolicy="no-referrer"
           alt="profile image"
         />
-        <div className="ml-4 flex">
+        <div className="ml-4 flex gap-2">
           <div className="relative bg-white px-4 py-2 rounded border border-zinc-200 text-sm font-medium text-zinc-700">
             <label htmlFor="user-photo">
-              <span>Change</span>
+              <span>Select</span>
               <span className="sr-only"> user photo</span>
             </label>
             <input
@@ -119,12 +119,6 @@ export default function ImageUpload() {
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md"
             />
           </div>
-          <button
-            type="button"
-            className="ml-3 bg-transparent py-2 px-3 border border-transparent rounded-md text-sm font-medium text-gray-900 hover:text-blue-gray-700 focus:outline-none focus:border-blue-gray-300 focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-gray-50 focus:ring-blue-500"
-          >
-            Remove
-          </button>
         </div>
       </div>
 
