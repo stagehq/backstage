@@ -1,8 +1,8 @@
 import { FC } from "react";
 import Content from "../../components/Content";
+import ShareBar from "../../components/ShareBar";
 import SectionList from "../../components/sidebars/SectionList";
 import SectionWrapper from "../../components/sidebars/SectionWrapper";
-import ShareBar from "../../components/ShareBar";
 
 const Site = () => {
   return (

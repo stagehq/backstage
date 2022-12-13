@@ -5,13 +5,13 @@ import { FC, Fragment, useState } from "react";
 
 export type publishingKeys = "offline" | "unlisted" | "published";
 
-type publishingOption = {
+export type publishingOption = {
   key: publishingKeys;
   title: string;
   description: string;
 };
 
-const publishingOptions: publishingOption[] = [
+export const publishingOptions: publishingOption[] = [
   {
     key: "published",
     title: "Published",
