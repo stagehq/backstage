@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { createPortal } from "react-dom";
 
 interface EditSidebarPortalProps {
@@ -6,15 +6,23 @@ interface EditSidebarPortalProps {
 }
 
 const EditSidebarPortal: FC<EditSidebarPortalProps> = ({ children }) => {
-  const portal = document.getElementById(
-    process.env.NEXT_PUBLIC_EDIT_SIDEBAR_PORTAL_NAME || "editSidebarPortal"
-  );
+  // state to store portal in
+  const [portal, setPortal] = React.useState<HTMLElement | null>(null);
+
+  // create portal on mount
+  useEffect(() => {
+    setPortal(
+      document.getElementById(
+        process.env.NEXT_PUBLIC_EDIT_SIDEBAR_PORTAL_NAME || "editSidebarPortal"
+      )
+    );
+  }, []);
 
   if (portal) {
     return createPortal(children, portal);
+  } else {
+    return null;
   }
-
-  return null;
 };
 
 export default EditSidebarPortal;

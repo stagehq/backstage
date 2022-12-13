@@ -15,7 +15,9 @@ const Site = () => {
               <SectionList />
             </SectionWrapper>
           </SectionSidebar>
-          <EditSidebar>{/* portal */}</EditSidebar>
+          <EditSidebar>
+            {/* React Portal: do not place something insde here */}
+          </EditSidebar>
         </Studio>
       </Content>
     </>
