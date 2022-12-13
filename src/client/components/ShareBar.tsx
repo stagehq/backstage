@@ -24,7 +24,7 @@ const ShareBar: FC<ShareBarProps> = ({ state }) => {
   );
 
   return (
-    <div className="h-10 flex items-center justify-between mx-4 mt-6 mb-3">
+    <div className="md:hidden h-10 flex items-center justify-between mx-4 mt-6 mb-3">
       <div
         className="flex gap-2 pl-4 pr-3 items-center h-10 border border-zinc-200 rounded-3xl"
         onClick={() => setPublishingOpen(true)}
