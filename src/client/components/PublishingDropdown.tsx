@@ -83,14 +83,26 @@ const PublishingDropdown = () => {
                   >
                     {({ selected, active }) => (
                       <div className="flex flex-col">
-                        <div className="flex justify-between">
-                          <p
-                            className={
-                              selected ? "font-semibold" : "font-normal"
-                            }
-                          >
-                            {option.title}
-                          </p>
+                        <div className="flex gap-2 items-center justify-between">
+                          <div className="flex gap-2 items-center">
+                            <div
+                              className={clsx(
+                                "mr-1 w-2.5 h-2.5 rounded-md",
+                                option.title === "Published"
+                                  ? "bg-emerald-400"
+                                  : option.title === "Unlisted"
+                                  ? "bg-transparent border-2 border-emerald-400"
+                                  : "bg-rose-500 border-transparent"
+                              )}
+                            />
+                            <p
+                              className={
+                                selected ? "font-semibold" : "font-normal"
+                              }
+                            >
+                              {option.title}
+                            </p>
+                          </div>
                           {selected ? (
                             <span
                               className={

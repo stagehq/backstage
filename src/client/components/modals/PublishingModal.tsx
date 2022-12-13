@@ -43,18 +43,30 @@ export default function PublishingMobileModal() {
                 {publishingOptions.map((option) => (
                   <div
                     key={option.title}
-                    className={clsx( publishing === option ? "text-zinc-700 bg-zinc-100" : "text-zinc-900","cursor-default select-none p-4 text rounded")}
+                    className={clsx( publishing === option ? "text-zinc-700 bg-zinc-100" : "text-zinc-900","cursor-default select-none p-4 text rounded-md")}
                     onClick={()=>{ setPublishing(option); setPublishingOpen(false) }}
                   >
                     <div className="flex flex-col">
                       <div className="flex justify-between">
-                        <p
-                          className={
-                            publishing === option ? "font-semibold" : "font-normal"
-                          }
-                        >
-                          {option.title}
-                        </p>
+                        <div className="flex items-center gap-2"> 
+                          <div
+                            className={clsx(
+                              "mr-1 w-2.5 h-2.5 rounded-md",
+                              option.title === "Published"
+                                ? "bg-emerald-400"
+                                : option.title === "Unlisted"
+                                ? "bg-transparent border-2 border-emerald-400"
+                                : "bg-rose-500 border-transparent"
+                            )}
+                          />
+                          <p
+                            className={
+                              publishing === option ? "font-semibold" : "font-normal"
+                            }
+                          >
+                            {option.title}
+                          </p>
+                        </div>
                         {publishing === option ? (
                           <span
                             className="text-zinc-700"
