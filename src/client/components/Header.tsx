@@ -8,7 +8,6 @@ import { settingsOpenState } from "../store/ui/modals";
 import { currentUserState } from "../store/user";
 import Breadcrumb from "./Breadcrumb";
 import { Icon } from "./Icons";
-import PublishingButton from "./PublishingButton";
 import PublishingDropdown from "./PublishingDropdown";
 import Tabs from "./Tabs";
 
