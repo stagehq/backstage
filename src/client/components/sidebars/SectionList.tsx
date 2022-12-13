@@ -14,6 +14,7 @@ export enum SectionType {
 export enum ExtensionAPIEnum {
   GITHUB = "GitHub",
   GITLAB = "GitLab",
+  LINKEDIN = "LinkedIn",
   SPOTIFY = "Spotify",
   YOUTUBE = "YouTube",
   STACKOVERFLOW = "StackOverflow",
@@ -486,6 +487,10 @@ export const getAPIIcon = (api: ExtensionAPIEnum) => {
       return <DribbbleIcon />;
     case ExtensionAPIEnum.STACKOVERFLOW:
       return <StackOverflowIcon />;
+    case ExtensionAPIEnum.LINKEDIN:
+      return <LinkedInIcon />;
+    case ExtensionAPIEnum.YOUTUBE:
+      return <YouTubeIcon />;
     default:
       return <DefaultAPIIcon />;
   }
@@ -626,6 +631,40 @@ const StackOverflowIcon = () => {
       <path
         fill="#52525B"
         d="M17.297 19.884v-5.132h1.707V21.6H3.6v-6.848h1.717v5.132h11.98zM7.196 14.275l.353-1.678 8.384 1.764-.353 1.679-8.384-1.765zm1.106-4.015l.725-1.536 7.764 3.605-.725 1.546-7.764-3.615zm2.156-3.806l1.097-1.316 6.581 5.494-1.097 1.306-6.581-5.484zM14.702 2.4l5.113 6.877-1.374 1.02-5.112-6.876 1.373-1.02zM7.024 18.176V16.46h8.565v1.717H7.024z"
+      ></path>
+    </svg>
+  );
+};
+
+const YouTubeIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="#52525B"
+        d="M21.966 6.543a2.202 2.202 0 00-1.36-1.528C17.4 3.778 12.281 3.787 12 3.787c-.281 0-5.4-.01-8.606 1.228a2.203 2.203 0 00-1.36 1.528C1.791 7.471 1.5 9.178 1.5 12s.29 4.528.534 5.456a2.203 2.203 0 001.36 1.528c3.075 1.19 7.893 1.228 8.54 1.228h.132c.646 0 5.465-.037 8.54-1.228a2.203 2.203 0 001.36-1.528c.243-.928.534-2.634.534-5.456 0-2.822-.29-4.529-.534-5.457zm-6.76 5.766l-4.5 3a.337.337 0 01-.206.066.42.42 0 01-.178-.047.365.365 0 01-.197-.328V9a.365.365 0 01.197-.329.375.375 0 01.384.02l4.5 3a.367.367 0 010 .618z"
+      ></path>
+    </svg>
+  );
+};
+
+const LinkedInIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="#52525B"
+        d="M18.335 18.339H15.67v-4.177c0-.996-.02-2.278-1.39-2.278-1.389 0-1.601 1.084-1.601 2.205v4.25h-2.666V9.75h2.56v1.17h.035c.358-.674 1.228-1.387 2.528-1.387 2.7 0 3.2 1.778 3.2 4.091v4.715h-.001zM7.003 8.575a1.546 1.546 0 01-1.287-2.409 1.548 1.548 0 111.286 2.409h.001zm1.336 9.764H5.666V9.75H8.34v8.589h-.001zM19.67 3H4.329C3.593 3 3 3.58 3 4.297v15.406C3 20.42 3.594 21 4.328 21h15.338C20.4 21 21 20.42 21 19.703V4.297C21 3.58 20.4 3 19.666 3h.004z"
       ></path>
     </svg>
   );
