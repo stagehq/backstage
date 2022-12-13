@@ -8,6 +8,7 @@ import { settingsOpenState } from "../store/ui/modals";
 import { currentUserState } from "../store/user";
 import Breadcrumb from "./Breadcrumb";
 import { Icon } from "./Icons";
+import PublishingButton from "./PublishingButton";
 import Tabs from "./Tabs";
 
 export const Header = () => {
@@ -39,10 +40,16 @@ export const Header = () => {
                 </Disclosure.Button>
               </div>
               {siteId ? (
-                <div>
+                <div className="hidden md:flex gap-2">
+                  <PublishingButton state="published" />
+                  <Link to="">
+                    <div className="h-8 w-8 flex justify-center items-center hover:bg-zinc-100 rounded">
+                      <Icon name={"Cog6ToothIcon"} color="dark" size="lg"/>
+                    </div>
+                  </Link>
                   <a href="https://google.com">
                     <div className="flex items-center h-8 bg-zinc-700 text-white px-4 rounded hover:bg-zinc-900">
-                      <p>Open</p>
+                      <p className="text-sm">Open</p>
                     </div>
                   </a>
                 </div>
