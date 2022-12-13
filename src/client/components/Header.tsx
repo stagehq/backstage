@@ -9,6 +9,7 @@ import { currentUserState } from "../store/user";
 import Breadcrumb from "./Breadcrumb";
 import { Icon } from "./Icons";
 import PublishingButton from "./PublishingButton";
+import PublishingDropdown from "./PublishingDropdown";
 import Tabs from "./Tabs";
 
 export const Header = () => {
@@ -41,7 +42,7 @@ export const Header = () => {
               </div>
               {siteId ? (
                 <div className="hidden md:flex gap-2">
-                  <PublishingButton state="published" />
+                  <PublishingDropdown state="published" />
                   <Link to="">
                     <div className="h-8 w-8 flex justify-center items-center hover:bg-zinc-100 rounded">
                       <Icon name={"Cog6ToothIcon"} color="dark" size="lg"/>
