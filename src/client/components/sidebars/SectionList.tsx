@@ -308,7 +308,7 @@ const ExtensionApiItem = ({ api }: { api: ExtensionAPIEnum }) => {
     <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-9 relative overflow-hidden gap-3 rounded">
       {getAPIIcon(api)}
       <div className="flex justify-start items-center flex-grow relative gap-2">
-        <p className="flex-grow-0 flex-shrink-0 text-xs font-medium text-left text-zinc-900">
+        <p className="flex-grow-0 flex-shrink-0 text-xs font-medium text-left text-zinc-900 select-none">
           {api}
         </p>
       </div>
