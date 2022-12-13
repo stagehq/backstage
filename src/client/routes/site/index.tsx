@@ -36,7 +36,7 @@ interface SectionSidebar {
 
 const SectionSidebar: FC<SectionSidebar> = ({ children }) => {
   return (
-    <div className="absolute left-0 flex flex-col w-[270px] h-full bg-white border-r border-zinc-100 gap-2 py-3">
+    <div className="hidden absolute left-0 md:flex flex-col w-[270px] h-full bg-white border-r border-zinc-100 gap-2 py-3">
       {children}
     </div>
   );
@@ -53,7 +53,7 @@ const EditSidebar: FC<EditSidebar> = ({ children }) => {
       id={
         process.env.NEXT_PUBLIC_EDIT_SIDEBAR_PORTAL_NAME || "editSidebarPortal"
       }
-      className="absolute right-0 flex flex-col w-[270px] h-full bg-white border-l border-zinc-100 gap-2 py-3"
+      className="hidden absolute right-0 md:flex flex-col w-[270px] h-full bg-white border-l border-zinc-100 gap-2 py-3"
     >
       {children}
     </div>
