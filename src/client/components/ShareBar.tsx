@@ -1,13 +1,9 @@
 // this is a mobile only component
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useRecoilState } from "recoil";
 import { publishingOpenState } from "../store/ui/modals";
 import { publishingState } from "../store/ui/publishing";
-import {
-  publishingKeys,
-  publishingOption,
-  publishingOptions,
-} from "./PublishingDropdown";
+import { publishingKeys } from "./PublishingDropdown";
 
 import clsx from "clsx";
 
@@ -20,7 +16,7 @@ interface ShareBarProps {
 
 const ShareBar: FC<ShareBarProps> = ({ state }) => {
   const [, setPublishingOpen] = useRecoilState(publishingOpenState);
-  const [publishing,] = useRecoilState(publishingState);
+  const [publishing] = useRecoilState(publishingState);
 
   return (
     <div className="md:hidden h-10 flex items-center justify-between mx-4 mt-6 mb-3">

@@ -32,7 +32,7 @@ export const publishingOptions: publishingOption[] = [
 ];
 
 const PublishingDropdown = () => {
-  const [publishing,setPublishing] = useRecoilState(publishingState);
+  const [publishing, setPublishing] = useRecoilState(publishingState);
 
   return (
     <Listbox value={publishing} onChange={setPublishing}>

@@ -1,21 +1,24 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
+import clsx from "clsx";
 import { Fragment } from "react";
 import { useRecoilState } from "recoil";
 import { publishingOpenState } from "../../store/ui/modals";
 import { publishingState } from "../../store/ui/publishing";
 import { publishingOptions } from "../PublishingDropdown";
-import clsx from "clsx";
 
 export default function PublishingMobileModal() {
   const [publishingOpen, setPublishingOpen] =
     useRecoilState(publishingOpenState);
-  const [publishing, setPublishing] =
-    useRecoilState(publishingState);
+  const [publishing, setPublishing] = useRecoilState(publishingState);
 
   return (
     <Transition.Root show={publishingOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10 md:hidden" onClose={setPublishingOpen}>
+      <Dialog
+        as="div"
+        className="relative z-10 md:hidden"
+        onClose={setPublishingOpen}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -43,12 +46,20 @@ export default function PublishingMobileModal() {
                 {publishingOptions.map((option) => (
                   <div
                     key={option.title}
-                    className={clsx( publishing === option ? "text-zinc-700 bg-zinc-100" : "text-zinc-900","cursor-default select-none p-4 text rounded-md")}
-                    onClick={()=>{ setPublishing(option); setPublishingOpen(false) }}
+                    className={clsx(
+                      publishing === option
+                        ? "text-zinc-700 bg-zinc-100"
+                        : "text-zinc-900",
+                      "cursor-default select-none p-4 text rounded-md"
+                    )}
+                    onClick={() => {
+                      setPublishing(option);
+                      setPublishingOpen(false);
+                    }}
                   >
                     <div className="flex flex-col">
                       <div className="flex justify-between">
-                        <div className="flex items-center gap-2"> 
+                        <div className="flex items-center gap-2">
                           <div
                             className={clsx(
                               "mr-1 w-2.5 h-2.5 rounded-md",
@@ -61,26 +72,21 @@ export default function PublishingMobileModal() {
                           />
                           <p
                             className={
-                              publishing === option ? "font-semibold" : "font-normal"
+                              publishing === option
+                                ? "font-semibold"
+                                : "font-normal"
                             }
                           >
                             {option.title}
                           </p>
                         </div>
                         {publishing === option ? (
-                          <span
-                            className="text-zinc-700"
-                          >
-                            <CheckIcon
-                              className="h-6 w-6"
-                              aria-hidden="true"
-                            />
+                          <span className="text-zinc-700">
+                            <CheckIcon className="h-6 w-6" aria-hidden="true" />
                           </span>
                         ) : null}
                       </div>
-                      <p className="text-zinc-500 mt-2">
-                        {option.description}
-                      </p>
+                      <p className="text-zinc-500 mt-2">{option.description}</p>
                     </div>
                   </div>
                 ))}

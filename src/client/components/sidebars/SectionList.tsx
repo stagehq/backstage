@@ -1,9 +1,27 @@
+import {
+  Action,
+  Actions,
+  Cards,
+  Header,
+  List,
+  Section,
+  Seperator,
+} from "@stagehq/ui";
+import { Pills } from "@stagehq/ui/dist/components/Pills";
 import clsx from "clsx";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import ImageUpload from "../crop/ImageUpload";
 import { Icon, IconEnum } from "../Icons";
 import EditSidebarPortal from "./EditSidebarPortal";
+import { PageAsidePortal, PageMainPortal } from "./PagePortal";
+import {
+  blogPosts,
+  experience,
+  openSource,
+  spotify,
+  university,
+} from "./testData";
 
 export enum SectionType {
   HEADER = "Header",
@@ -26,6 +44,11 @@ export enum ExtensionAPIEnum {
 
 export type ExtensionApis = ExtensionAPIEnum[];
 
+export enum ExtensionPosition {
+  MAIN = "Main",
+  ASIDE = "Aside",
+}
+
 export interface Section {
   id: number;
   text: string;
@@ -35,6 +58,8 @@ export interface Section {
   locked: boolean;
   error?: string;
   apis?: ExtensionApis;
+  position?: ExtensionPosition;
+  component?: React.ReactNode;
 }
 
 export interface SectionListProps {
@@ -60,6 +85,33 @@ const SectionList = () => {
       locked: false,
       selected: false,
       apis: [ExtensionAPIEnum.MEDIUM, ExtensionAPIEnum.DEVTO],
+      position: ExtensionPosition.MAIN,
+      component: (
+        <Section>
+          <Header
+            title="Recent Blogs"
+            icon="BookOpenIcon"
+            actions={
+              <Actions>
+                <Action.Link url="https://google.com" text="DEV.to" />
+              </Actions>
+            }
+          />
+          <List>
+            {blogPosts.map((post: any) => (
+              <List.Item
+                type={post.type}
+                title={post.title}
+                additional={post.additional}
+                subtitle={post.subtitle}
+                actions={
+                  <Action.Link url="https://google.com" text="Read article" />
+                }
+              />
+            ))}
+          </List>
+        </Section>
+      ),
     },
     {
       id: 3,
@@ -69,6 +121,45 @@ const SectionList = () => {
       locked: false,
       selected: false,
       apis: [ExtensionAPIEnum.GITHUB, ExtensionAPIEnum.GITLAB],
+      position: ExtensionPosition.MAIN,
+      component: (
+        <Section>
+          <Header
+            title="Open Source"
+            icon="CodeBracketSquareIcon"
+            actions={
+              <Actions>
+                <Action.Link url="https://github.com" text="GitHub profile" />
+              </Actions>
+            }
+          />
+          <Pills
+            pills={[
+              "react.js",
+              "vue.js",
+              "angular.js",
+              "ember.js",
+              "svelte.js",
+            ]}
+          />
+          <List>
+            {openSource.map((project: any) => (
+              <List.Item
+                type={project.type}
+                title={project.title}
+                additional={project.additional}
+                subtitle={project.subtitle}
+                count={
+                  project.count && {
+                    value: project.count?.value,
+                    icon: project.count?.icon,
+                  }
+                }
+              />
+            ))}
+          </List>
+        </Section>
+      ),
     },
     {
       id: 4,
@@ -78,6 +169,46 @@ const SectionList = () => {
       locked: false,
       selected: false,
       apis: [ExtensionAPIEnum.SPOTIFY],
+      position: ExtensionPosition.MAIN,
+      component: (
+        <Section>
+          <Header
+            title="My Music"
+            icon="MusicalNoteIcon"
+            actions={
+              <Actions>
+                <Action.Link url="https://github.com" text="Spotify profile" />
+              </Actions>
+            }
+          />
+          <Cards>
+            <Cards.Item
+              type="horizontal"
+              title="This album title"
+              subtitle="Artist Name"
+              image="https://placeimg.com/640/480/arch"
+              icon="PlayIcon"
+            />
+          </Cards>
+          <List>
+            {spotify.map((album: any, index) => (
+              <List.Item
+                index={index + 1}
+                type={album.type}
+                title={album.title}
+                subtitle={album.subtitle}
+                image={album.image}
+                count={
+                  album.count && {
+                    value: album.count.value,
+                    icon: album.count.icon,
+                  }
+                }
+              />
+            ))}
+          </List>
+        </Section>
+      ),
     },
     {
       id: 5,
@@ -87,9 +218,80 @@ const SectionList = () => {
       locked: false,
       selected: false,
       apis: [ExtensionAPIEnum.YOUTUBE],
+      position: ExtensionPosition.MAIN,
     },
     {
       id: 6,
+      text: "Hire me!",
+      type: SectionType.EXTENSION,
+      icon: "UserIcon",
+      locked: false,
+      selected: false,
+      apis: [ExtensionAPIEnum.LINKEDIN],
+      position: ExtensionPosition.ASIDE,
+      component: (
+        <Section>
+          <Cards>
+            <Cards.Item
+              type="vertical"
+              title="Hire me!"
+              subtitle="I build web apps for startups, businesses and public institutions as a freelance web developer and designer. Let's discuss your needs and see how I can help."
+              icon="BoltIcon"
+              actions={
+                <Actions>
+                  <Action.Button
+                    link="https://google.com"
+                    text="Contact me"
+                    icon="EnvelopeIcon"
+                    primary
+                  />
+                </Actions>
+              }
+            />
+          </Cards>
+        </Section>
+      ),
+    },
+    {
+      id: 7,
+      text: "LinkedIn",
+      type: SectionType.EXTENSION,
+      icon: "BriefcaseIcon",
+      locked: false,
+      selected: false,
+      apis: [ExtensionAPIEnum.LINKEDIN],
+      position: ExtensionPosition.ASIDE,
+      component: (
+        <Section>
+          <Header title="Experience" icon="BriefcaseIcon" />
+          <List>
+            {experience.map((job: any) => (
+              <List.Item
+                type={job.type}
+                title={job.subtitle}
+                subtitle={job.title}
+                additional={job.additional}
+                image={job.image}
+              />
+            ))}
+          </List>
+          <Seperator />
+          <List>
+            {university.map((job: any) => (
+              <List.Item
+                type={job.type}
+                title={job.title}
+                subtitle={job.subtitle}
+                additional={job.additional}
+                image={job.image}
+              />
+            ))}
+          </List>
+        </Section>
+      ),
+    },
+    {
+      id: 8,
       text: "Footer",
       type: SectionType.FOOTER,
       icon: "QueueListIcon",
@@ -123,6 +325,11 @@ const SectionList = () => {
       result.source.index,
       result.destination.index
     );
+
+    // update the ids of the sections
+    reorderedSections.forEach((section, index) => {
+      section.id = index + 1;
+    });
 
     setSections(reorderedSections);
   };
@@ -343,6 +550,11 @@ const SectionItem = ({
         return <HeaderSectionEditSidebar />;
     }
   };
+
+  useEffect(() => {
+    console.log("rerender");
+  }, [section]);
+
   return (
     <Draggable
       key={section.id}
@@ -381,6 +593,32 @@ const SectionItem = ({
           >
             <DragHandleIcon />
           </div>
+          {section.component &&
+            section.position &&
+            section.position === ExtensionPosition.MAIN && (
+              <PageMainPortal>
+                <div
+                  className={clsx(
+                    section.selected && "border-l-4 border-zinc-700"
+                  )}
+                >
+                  {section.component}
+                </div>
+              </PageMainPortal>
+            )}
+          {section.component &&
+            section.position &&
+            section.position === ExtensionPosition.ASIDE && (
+              <PageAsidePortal>
+                <div
+                  className={clsx(
+                    section.selected && "border-r-4 border-zinc-700"
+                  )}
+                >
+                  {section.component}
+                </div>
+              </PageAsidePortal>
+            )}
           {section.selected && (
             <EditSidebarPortal>
               {renderSectionEditSidebar(section)}
