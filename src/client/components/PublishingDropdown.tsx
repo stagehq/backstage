@@ -3,7 +3,7 @@ import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import { FC, Fragment, useState } from "react";
 
-type publishingKeys = "offline" | "unlisted" | "published";
+export type publishingKeys = "offline" | "unlisted" | "published";
 
 type publishingOption = {
   key: publishingKeys;

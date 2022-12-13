@@ -2,11 +2,13 @@ import { FC } from "react";
 import Content from "../../components/Content";
 import SectionList from "../../components/sidebars/SectionList";
 import SectionWrapper from "../../components/sidebars/SectionWrapper";
+import ShareBar from "../../components/ShareBar";
 
 const Site = () => {
   return (
     <>
       <Content>
+        <ShareBar state="published" />
         <Studio>
           <SectionSidebar>
             <SectionWrapper>

@@ -5,6 +5,11 @@ export const settingsOpenState = atom({
   default: false,
 });
 
+export const publishingOpenState = atom({
+  key: "publishingOpenState",
+  default: false,
+});
+
 export const projectCreateOpenState = atom({
   key: "projectCreateOpenState",
   default: false,
