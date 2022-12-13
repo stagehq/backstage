@@ -34,13 +34,13 @@ export const Icon = ({ name, color, size }: IconProps) => {
       iconColor = "text-brand-500";
       break;
     case "success":
-      iconColor = "text-success-500";
+      iconColor = "text-green-500";
       break;
     case "warning":
-      iconColor = "text-warning-500";
+      iconColor = "text-yellow-500";
       break;
     case "danger":
-      iconColor = "text-danger-500";
+      iconColor = "text-red-500";
       break;
     default:
       iconColor = "text-zinc-400";

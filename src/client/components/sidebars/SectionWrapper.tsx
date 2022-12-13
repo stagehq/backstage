@@ -1,3 +1,5 @@
+import { Icon } from "../Icons";
+
 interface Props {
   children: React.ReactNode;
 }
@@ -10,7 +12,7 @@ const SectionWrapper = (props: Props) => {
           Sections
         </p>
         <div className="flex justify-center items-center w-6 h-6 gap-2 hover:bg-zinc-100 rounded">
-          <PlusIcon />
+          <Icon name="PlusSmallIcon" color="dark" size="md" />
         </div>
       </div>
       <div className="flex flex-col w-full h-full gap-2">{props.children}</div>
@@ -19,25 +21,3 @@ const SectionWrapper = (props: Props) => {
 };
 
 export default SectionWrapper;
-
-const PlusIcon = () => {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="w-5 h-5"
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M10 5V15M15 10H5"
-        stroke="#52525B"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-    </svg>
-  );
-};

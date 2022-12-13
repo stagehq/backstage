@@ -193,11 +193,79 @@ const EditSectionContent: FC<EditSectionContentProps> = ({ children }) => {
 };
 
 const HeaderSectionEditSidebar = () => {
+  const [tagline, setTagline] = useState("");
+  const [bio, setBio] = useState("");
   return (
     <div className="flex flex-col w-full h-full">
       <EditSectionHeader title="Data" />
       <EditSectionContent>
-        <ImageUpload />
+        {/* <ImageUpload /> */}
+
+        <div className="mt-4 flex flex-col justify-start items-start gap-4">
+          <ImageUpload />
+          <div className="flex flex-col justify-start items-start gap-2 w-full">
+            <div className="w-full">
+              <label
+                htmlFor="tagline"
+                className="block text-sm font-medium text-zinc-600"
+              >
+                Tagline
+              </label>
+              <div className="mt-1 relative">
+                <input
+                  onChange={(e) => {
+                    setTagline(e.target.value);
+                  }}
+                  value={tagline}
+                  id="tagline"
+                  name="tagline"
+                  type="text"
+                  autoComplete="tagline"
+                  maxLength={65}
+                  className="appearance-none block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+                />
+              </div>
+              <div className="flex justify-between items-start pt-2">
+                <p className="text-xs text-left text-zinc-500">
+                  Write a short tagline.
+                </p>
+                <p className="text-xs text-left text-zinc-500">
+                  {tagline.length}/65
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="w-full">
+            <label
+              htmlFor="bio"
+              className="block text-sm font-medium text-zinc-600"
+            >
+              Bio
+            </label>
+            <div className="mt-1 relative">
+              <textarea
+                onChange={(e) => {
+                  setBio(e.target.value);
+                }}
+                rows={5}
+                value={bio}
+                id="bio"
+                name="bio"
+                autoComplete="bio"
+                maxLength={250}
+                className="appearance-none block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+              />
+            </div>
+            <div className="flex justify-between items-start pt-2">
+              <p className="text-xs text-left text-zinc-500">
+                Write a few sentences about yourself.
+              </p>
+              <p className="text-xs text-left text-zinc-500">
+                {bio.length}/250
+              </p>
+            </div>
+          </div>
+        </div>
       </EditSectionContent>
     </div>
   );
@@ -237,8 +305,16 @@ const ExtensionApisList = ({ apis }: { apis: ExtensionApis }) => {
 
 const ExtensionApiItem = ({ api }: { api: ExtensionAPIEnum }) => {
   return (
-    <div className="flex justify-between items-center w-full h-10">
-      <p className="text-sm font-semibold text-left text-zinc-900">{api}</p>
+    <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-9 relative overflow-hidden gap-3 rounded">
+      {getAPIIcon(api)}
+      <div className="flex justify-start items-center flex-grow relative gap-2">
+        <p className="flex-grow-0 flex-shrink-0 text-xs font-medium text-left text-zinc-900">
+          {api}
+        </p>
+      </div>
+      <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 w-6 h-6 relative gap-2">
+        {getAPIConnectionState(api)}
+      </div>
     </div>
   );
 };
@@ -366,6 +442,29 @@ const DragHandleIcon = () => {
         strokeWidth="0.677083"
       ></path>
     </svg>
+  );
+};
+
+const getAPIConnectionState = (api: ExtensionAPIEnum) => {
+  // TODO: Get the connection state from the AP
+  const randomTrueFalse = Math.random() >= 0.5;
+
+  if (randomTrueFalse) {
+    return <APIConnectedIcon />;
+  } else {
+    return <APIConnectButton />;
+  }
+};
+
+const APIConnectedIcon = () => {
+  return <Icon name="CheckCircleIcon" color="success" size="md" />;
+};
+
+const APIConnectButton = () => {
+  return (
+    <div className="flex items-center justify-center w-6 h-6 rounded hover:bg-gray-100">
+      <Icon name="PlusSmallIcon" color="dark" size="md" />
+    </div>
   );
 };
 
