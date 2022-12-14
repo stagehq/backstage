@@ -21,12 +21,14 @@ model User {
   emailVerified        DateTime?
   image                String?
   coverImageUrl        String?
-  accounts             Account[]
-  sessions             Session[]
   alias                String?               @unique
   name                 String?
   firstName            String?
   lastName             String?
+
+  accounts             Account[]
+  sessions             Session[]
+  sites                Site[]
 }
 
 model Account {
@@ -67,3 +69,102 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Site {
+  id                    String                @id @default(cuid())
+  createdAt             DateTime              @default(now())
+  modifiedAt            DateTime              @default(now())
+  isMain                Boolean               @default(false)
+  subdomain             String                @unique
+
+  userId                String                
+  user                  User                  @relation(fields: [userId], references: [id])
+
+  extensions            Extension[]
+}
+
+model Extension {
+  id                    String                @id @default(cuid())
+  createdAt             DateTime              @default(now())
+  modifiedAt            DateTime              @default(now())
+
+  siteId                String
+  site                  Site                  @relation(fields: [siteId], references: [id])
+
+  storeExtensionId      String
+  storeExtension        StoreExtension        @relation(fields: [storeExtensionId], references: [id])
+
+  apiId      String
+  underlayingApi        Api                   @relation(fields: [apiId], references: [id])
+}
+
+model Api {
+  id                    String                @id @default(cuid())
+  createdAt             DateTime              @default(now())
+  modifiedAt            DateTime              @default(now())
+  refreshToken          String
+  accessToken           String
+
+  apiConnectorId        String
+  apiConnector          ApiConnector          @relation(fields: [apiConnectorId], references: [id])
+
+  apiResponses          ApiResponses[]
+
+  extensions            Extension[]
+}
+
+model ApiResponses {
+  id                    String                @id @default(cuid())
+  createdAt             DateTime              @default(now())
+  modifiedAt            DateTime              @default(now())
+  response              String
+
+  apiId                 String
+  api                   Api                   @relation(fields: [apiId], references: [id])
+
+  apiConnectorRouteId   String
+  apiConnectorRoute     ApiConnectorRoute     @relation(fields: [apiConnectorRouteId], references: [id])
+}
+
+
+
+
+// Generated API Connector ----------------------------------------------------------
+model ApiConnector {
+  id                    String                @id @default(cuid())
+  createdAt             DateTime              @default(now())
+  modifiedAt            DateTime              @default(now())
+  name                  String                @unique
+  markdown              String?
+
+  integratedApis        Api[]
+  apiConnectorRoute     ApiConnectorRoute[]
+}
+
+model ApiConnectorRoute {
+  id                    String                @id @default(cuid())
+  createdAt             DateTime              @default(now())
+  modifiedAt            DateTime              @default(now())
+  name                  String                            
+  url                   String
+
+  apiConnectorId        String
+  apiConnector          ApiConnector          @relation(fields: [apiConnectorId], references: [id])
+
+  apiResponses          ApiResponses[]
+
+  storeExtensions       StoreExtension[]
+}
+
+// Generated Extension Store ---------------------------------------------------------
+model StoreExtension {
+  id                    String                @id @default(cuid())
+  createdAt             DateTime              @default(now())
+  modifiedAt            DateTime              @default(now())
+  name                  String                @unique
+  markdown              String?
+
+  integratedExtensions  Extension[]
+  routes                ApiConnectorRoute[]
+}
+
