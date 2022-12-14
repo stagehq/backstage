@@ -5,6 +5,7 @@ import { currentUserState } from "../store/user";
 const Title = () => {
   // get current user from recoil state
   const user = useRecoilValue(currentUserState);
+  console.log(user);
 
   if (!user) return null;
 

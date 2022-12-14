@@ -13,6 +13,12 @@ type Query {
   nodes(ids: [ID!]!): [Node]!
 }
 
+type Site implements Node {
+  id: ID!
+  isMain: Boolean
+  subdomain: String
+}
+
 type User implements Node {
   alias: String
   coverImageUrl: String
@@ -23,4 +29,5 @@ type User implements Node {
   image: String
   lastName: String
   name: String
+  sites: [Site!]
 }

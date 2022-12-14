@@ -9,5 +9,9 @@ query GetCurrentUser {
     fullName
     image
     coverImageUrl
+    sites {
+      isMain
+      subdomain
+    }
   }
 }
