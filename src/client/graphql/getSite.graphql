@@ -1,5 +1,37 @@
 query GetSite($subdomain: String!) {
   getSite(subdomain: $subdomain) {
     id
+    modifiedAt
+    createdAt
+    subdomain
+
+    extensions {
+      id
+      modifiedAt
+      createdAt
+
+      storeExtension {
+        id
+        modifiedAt
+        createdAt
+        name
+        markdown
+      }
+
+      underlayingApis {
+        id
+        modifiedAt
+        createdAt
+        refreshToken
+        accessToken
+
+        apiResponses {
+          id
+          modifiedAt
+          createdAt
+          response
+        }
+      }
+    }
   }
 }

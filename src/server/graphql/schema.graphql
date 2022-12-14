@@ -1,7 +1,25 @@
+type Api implements Node {
+  accessToken: String
+  apiResponses: [ApiResponse!]
+  createdAt: String
+  id: ID!
+  modifiedAt: String
+  refreshToken: String
+}
+
+type ApiResponse implements Node {
+  createdAt: String
+  id: ID!
+  modifiedAt: String
+  response: String
+}
+
 type Extension implements Node {
   createdAt: String
   id: ID!
   modifiedAt: String
+  storeExtension: StoreExtension
+  underlayingApis: [Api!]
 }
 
 type Mutation {
@@ -22,9 +40,18 @@ type Query {
 
 type Site implements Node {
   createdAt: String
+  extensions: [Extension!]
   id: ID!
   modifiedAt: String
   subdomain: String
+}
+
+type StoreExtension implements Node {
+  createdAt: String
+  id: ID!
+  markdown: String
+  modifiedAt: String
+  name: String
 }
 
 type User implements Node {

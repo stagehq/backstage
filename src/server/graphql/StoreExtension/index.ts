@@ -1,13 +1,12 @@
 import { builder } from '../builder';
 
-builder.prismaNode('Extension', {
+builder.prismaNode('StoreExtension', {
   findUnique: (id) => ({ id: id }),
-  id: { resolve: (extension) => extension.id },
+  id: { resolve: (storeExtension) => storeExtension.id },
   fields: (t) => ({
     createdAt: t.string({ resolve: site => site.createdAt.toString()}),
     modifiedAt: t.string({ resolve: site => site.modifiedAt.toString()}),
-
-    storeExtension: t.relation('storeExtension'),
-    underlayingApis: t.relation('underlayingApis'),
+    name: t.exposeString('name'),
+    markdown: t.exposeString('markdown')
   }),
 });

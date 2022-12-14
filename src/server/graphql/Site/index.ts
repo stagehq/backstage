@@ -8,6 +8,8 @@ builder.prismaNode('Site', {
     subdomain: t.exposeString('subdomain'),
     createdAt: t.string({ resolve: site => site.createdAt.toString()}),
     modifiedAt: t.string({ resolve: site => site.modifiedAt.toString()}),
+
+    extensions: t.relation('extensions'),
   }),
 });
 

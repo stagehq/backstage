@@ -98,8 +98,7 @@ model Extension {
   storeExtensionId      String
   storeExtension        StoreExtension        @relation(fields: [storeExtensionId], references: [id])
 
-  apiId      String
-  underlayingApi        Api                   @relation(fields: [apiId], references: [id])
+  underlayingApis        Api[]
 }
 
 model Api {
@@ -112,12 +111,13 @@ model Api {
   apiConnectorId        String
   apiConnector          ApiConnector          @relation(fields: [apiConnectorId], references: [id])
 
-  apiResponses          ApiResponses[]
+  apiResponses          ApiResponse[]
 
-  extensions            Extension[]
+  extensionId           String
+  extension             Extension             @relation(fields: [extensionId], references: [id])
 }
 
-model ApiResponses {
+model ApiResponse {
   id                    String                @id @default(cuid())
   createdAt             DateTime              @default(now())
   modifiedAt            DateTime              @default(now())
@@ -155,7 +155,7 @@ model ApiConnectorRoute {
   apiConnectorId        String
   apiConnector          ApiConnector          @relation(fields: [apiConnectorId], references: [id])
 
-  apiResponses          ApiResponses[]
+  apiResponses          ApiResponse[]
 
   storeExtensions       StoreExtension[]
 }
