@@ -1,5 +1,6 @@
 import './User'
 import './Site'
+import './Extension'
 
 import { lexicographicSortSchema, printSchema } from 'graphql'
 

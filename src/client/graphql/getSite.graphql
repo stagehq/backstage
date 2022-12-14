@@ -1,0 +1,5 @@
+query GetSite($id: String!) {
+  getSite(id: $id) {
+    id
+  }
+}
