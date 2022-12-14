@@ -25,7 +25,7 @@ export default function VerifyRequestPage() {
       if (currentUser?.lastProject?.slug !== undefined) {
         router.push("/s/workspace/" + currentUser.lastProject?.slug);
       } else {
-        router.push("/s/discover");
+        router.push("/s");
       }
     }
     return <LoadingPage />;

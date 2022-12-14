@@ -212,16 +212,6 @@ const SectionList = () => {
     },
     {
       id: 5,
-      text: "Videos",
-      type: SectionType.EXTENSION,
-      icon: "VideoCameraIcon",
-      locked: false,
-      selected: false,
-      apis: [ExtensionAPIEnum.YOUTUBE],
-      position: ExtensionPosition.MAIN,
-    },
-    {
-      id: 6,
       text: "Hire me!",
       type: SectionType.EXTENSION,
       icon: "UserIcon",
@@ -253,7 +243,7 @@ const SectionList = () => {
       ),
     },
     {
-      id: 7,
+      id: 6,
       text: "LinkedIn",
       type: SectionType.EXTENSION,
       icon: "BriefcaseIcon",
@@ -291,7 +281,7 @@ const SectionList = () => {
       ),
     },
     {
-      id: 8,
+      id: 7,
       text: "Footer",
       type: SectionType.FOOTER,
       icon: "QueueListIcon",
@@ -299,6 +289,9 @@ const SectionList = () => {
       selected: false,
     },
   ]);
+  useEffect(() => {
+    console.log("sections", sections);
+  }, [sections]);
 
   // a little function to help us with reordering the result
   const reorder = (list: Section[], startIndex: number, endIndex: number) => {
@@ -537,8 +530,6 @@ const SectionItem = ({
   onClick: () => void;
 }) => {
   const renderSectionEditSidebar = (section: Section) => {
-    console.log("first render");
-
     switch (section.type) {
       case SectionType.HEADER:
         return <HeaderSectionEditSidebar />;
@@ -550,10 +541,6 @@ const SectionItem = ({
         return <HeaderSectionEditSidebar />;
     }
   };
-
-  useEffect(() => {
-    console.log("rerender");
-  }, [section]);
 
   return (
     <Draggable
@@ -591,6 +578,9 @@ const SectionItem = ({
               section.selected ? "opacity-80" : "opacity-30"
             )}
           >
+            {section.position === ExtensionPosition.ASIDE && (
+              <DesktopSidebarIcon />
+            )}
             <DragHandleIcon />
           </div>
           {section.component &&
@@ -599,8 +589,13 @@ const SectionItem = ({
               <PageMainPortal>
                 <div
                   className={clsx(
-                    section.selected && "border-l-4 border-zinc-700"
+                    section.selected &&
+                      "before:block before:absolute before:right-0 before:shadow-[inset_6px_0_0_0_rgb(0,0,0)] before:-inset-2 before:border-l-4 before:border-zinc-900 before:bg-gradient-to-r from-zinc-400/10 to-transparent relative inline-block py-4 -my-4 -mx-24 px-24"
                   )}
+                  style={{
+                    clipPath:
+                      "polygon(calc(100% - 6px) 0, 100% 0, 100% 100%, 0 100%, 0 0)",
+                  }}
                 >
                   {section.component}
                 </div>
@@ -612,8 +607,13 @@ const SectionItem = ({
               <PageAsidePortal>
                 <div
                   className={clsx(
-                    section.selected && "border-r-4 border-zinc-700"
+                    section.selected &&
+                      "before:block before:absolute before:left-0 before:shadow-[inset_-6px_0_0_0_rgb(0,0,0)] before:-inset-2 before:border-r-4 before:border-zinc-900 before:bg-gradient-to-l from-zinc-400/10 to-transparent relative inline-block py-4 -my-4 -mx-24 px-24"
                   )}
+                  style={{
+                    clipPath:
+                      "polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 calc(100% - 6px))",
+                  }}
                 >
                   {section.component}
                 </div>
@@ -704,6 +704,38 @@ const APIConnectButton = () => {
     <div className="flex items-center justify-center w-6 h-6 rounded hover:bg-gray-100">
       <Icon name="PlusSmallIcon" color="dark" size="md" />
     </div>
+  );
+};
+
+const DesktopSidebarIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="none"
+      viewBox="0 0 16 16"
+    >
+      <g stroke="#71717A" strokeWidth="1.031" clipPath="url(#clip0_403_32286)">
+        <rect
+          width="2.406"
+          height="9.969"
+          x="11.453"
+          y="2.516"
+          rx="0.859"
+        ></rect>
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M2 7.5h6.875m0 0l-2.75-2.75m2.75 2.75l-2.75 2.75"
+        ></path>
+      </g>
+      <defs>
+        <clipPath id="clip0_403_32286">
+          <path fill="#fff" d="M0 0H16V16H0z"></path>
+        </clipPath>
+      </defs>
+    </svg>
   );
 };
 

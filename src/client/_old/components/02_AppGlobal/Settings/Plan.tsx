@@ -325,27 +325,27 @@ const Plan: FC<PlanProps> = ({ user }) => {
               onClick={() => {
                 setUpdateNotificationLoading(true);
                 if (session?.user?.email) {
-                  toast
-                    // .promise(
-                    //   updatePayment({
-                    //     firstName: "test",
-                    //     lastName: "test",
-                    //     email: "test",
-                    //     country: "test",
-                    //     zip: 73525,
-                    //     annualBillingEnabled: annualBillingEnabled,
-                    //     plan: selectedPlan.name.toLowerCase() as PaymentPlan,
-                    //   }),
-                    //   {
-                    //     loading: `Save notification ...`,
-                    //     success: `Successfully saved!`,
-                    //     error: (err) => err,
-                    //   }
-                    // )
-                    // .then(() => {
-                    //   setUpdateNotificationLoading(false);
-                    //   setFieldsEdited(false);
-                    // });
+                  toast;
+                  // .promise(
+                  //   updatePayment({
+                  //     firstName: "test",
+                  //     lastName: "test",
+                  //     email: "test",
+                  //     country: "test",
+                  //     zip: 73525,
+                  //     annualBillingEnabled: annualBillingEnabled,
+                  //     plan: selectedPlan.name.toLowerCase() as PaymentPlan,
+                  //   }),
+                  //   {
+                  //     loading: `Save notification ...`,
+                  //     success: `Successfully saved!`,
+                  //     error: (err) => err,
+                  //   }
+                  // )
+                  // .then(() => {
+                  //   setUpdateNotificationLoading(false);
+                  //   setFieldsEdited(false);
+                  // });
                 }
               }}
               className="bg-blue-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-900"

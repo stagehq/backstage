@@ -1,7 +1,5 @@
 const Repositories = () => {
-    return <div>
-      Repo
-    </div>
-}
+  return <div>Repo</div>;
+};
 
 export default Repositories;

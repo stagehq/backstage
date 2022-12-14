@@ -2,7 +2,6 @@
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 // import { useCreateProjectMutation } from "../../../../../graphql/createProject.generated";
@@ -58,15 +57,12 @@ export default function ManualFrom() {
         //       toast.error("Something went wrong");
         //       return false;
         //     }
-
         //     /* Update local currentUser store */
         //     handleUpdateCurrentUserWithProject(
         //       result.data?.createProject as Project
         //     );
-
         //     /* Close modal */
         //     setProjectCreateOpen(false);
-
         //     /* Redirect */
         //     const slug = result.data?.createProject?.slug;
         //     if (slug) navigate(`/s/workspace/${slug}`);

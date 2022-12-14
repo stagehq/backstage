@@ -25,7 +25,7 @@ const SignIn = ({
       if (data?.currentUser?.lastProject?.slug !== undefined) {
         router.push("/s/workspace/" + data.currentUser.lastProject?.slug);
       } else {
-        router.push("/s/discover");
+        router.push("/s");
       }
     }
     return <LoadingPage />;

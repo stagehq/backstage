@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { User } from "../../../../graphql/types.generated";
 
 import { useSession } from "next-auth/react";
@@ -271,25 +271,25 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
             onClick={() => {
               setUpdateNotificationLoading(true);
               if (session?.user?.email) {
-                toast
-                  // .promise(
-                  //   updateNotification({
-                  //     idea: ideaNotification,
-                  //     initiative: initivativeNotification,
-                  //     meeting: statusMeetingsNotification,
-                  //     chat: chatNotification,
-                  //     push: pushNotification as PushNotification,
-                  //   }),
-                  //   {
-                  //     loading: `Save notification ...`,
-                  //     success: `Successfully saved!`,
-                  //     error: (err) => err,
-                  //   }
-                  // )
-                  // .then(() => {
-                  //   setUpdateNotificationLoading(false);
-                  //   setFieldsEdited(false);
-                  // });
+                toast;
+                // .promise(
+                //   updateNotification({
+                //     idea: ideaNotification,
+                //     initiative: initivativeNotification,
+                //     meeting: statusMeetingsNotification,
+                //     chat: chatNotification,
+                //     push: pushNotification as PushNotification,
+                //   }),
+                //   {
+                //     loading: `Save notification ...`,
+                //     success: `Successfully saved!`,
+                //     error: (err) => err,
+                //   }
+                // )
+                // .then(() => {
+                //   setUpdateNotificationLoading(false);
+                //   setFieldsEdited(false);
+                // });
               }
             }}
             className="bg-blue-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-900"
