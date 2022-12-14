@@ -14,7 +14,7 @@ interface Node {
 
 type Query {
   currentUser: User
-  getSite(id: String!): Site
+  getSite(subdomain: String!): Site
   getValidAlias(alias: String): User
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!

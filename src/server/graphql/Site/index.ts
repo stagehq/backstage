@@ -15,14 +15,14 @@ builder.queryField('getSite', (t) =>
   t.prismaField({
     type: "Site",
     args: {
-      id: t.arg.string({ required: true }),
+      subdomain: t.arg.string({ required: true }),
     },
-    resolve: async (query, root, { id }, ctx) => {
+    resolve: async (query, root, { subdomain }, ctx) => {
       if (!ctx.session.user.email) return null;
 
-      const site = await prisma.site.findUnique({
+      const site = await prisma.site.findFirst({
         where: {
-          id: id,
+          subdomain: subdomain,
         },
       });
 

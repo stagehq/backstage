@@ -1,5 +1,5 @@
-query GetSite($id: String!) {
-  getSite(id: $id) {
+query GetSite($subdomain: String!) {
+  getSite(subdomain: $subdomain) {
     id
   }
 }
