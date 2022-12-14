@@ -1,3 +1,0 @@
-mutation CreateStripeCheckoutBillingPortalUrl($projectId: String!) {
-  createStripeCheckoutBillingPortalUrl(projectId: $projectId)
-}

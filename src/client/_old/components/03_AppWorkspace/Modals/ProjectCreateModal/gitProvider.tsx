@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCreateProjectMutation } from "../../../../../graphql/createProject.generated";
+// import { useCreateProjectMutation } from "../../../../../graphql/createProject.generated";
 import Spinner from "../../../02_AppGlobal/Icons/Spinner";
 
 const provider = [
@@ -15,7 +15,7 @@ const provider = [
 export default function GitProvider() {
   /* Data Handling */
   const { data: session } = useSession();
-  const [, createProject] = useCreateProjectMutation();
+  // const [, createProject] = useCreateProjectMutation();
 
   /* UI States */
   const [createProjectLoading, setCreateProjectLoading] = useState<
@@ -31,13 +31,13 @@ export default function GitProvider() {
   function handleCreateProject(index: number) {
     setCreateProjectLoading(index);
     if (session?.user?.email) {
-      createProject({
-        name: randomProjectName,
-      }).then((result) => {
-        setCreateProjectLoading(null);
-        const slug = result.data?.createProject?.slug;
-        if (slug) navigate(`/s/workspace/${slug}`);
-      });
+      // createProject({
+      //   name: randomProjectName,
+      // }).then((result) => {
+      //   setCreateProjectLoading(null);
+      //   const slug = result.data?.createProject?.slug;
+      //   if (slug) navigate(`/s/workspace/${slug}`);
+      // });
     }
   }
 

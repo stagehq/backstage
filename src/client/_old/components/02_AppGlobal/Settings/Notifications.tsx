@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from "react";
-import { PushNotification, User } from "../../../../graphql/types.generated";
+import { User } from "../../../../graphql/types.generated";
 
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
-import { useUpdateNotificationMutation } from "../../../../graphql/updateNotification.generated";
+// import { useUpdateNotificationMutation } from "../../../../graphql/updateNotification.generated";
 import Spinner from "../Icons/Spinner";
 
 interface NotificationProps {
@@ -13,7 +13,7 @@ interface NotificationProps {
 const Notifications: FC<NotificationProps> = ({ user }) => {
   /* Set data */
   const { data: session } = useSession();
-  const [, updateNotification] = useUpdateNotificationMutation();
+  // const [, updateNotification] = useUpdateNotificationMutation();
 
   /* Set UI State */
   const [fieldsEdited, setFieldsEdited] = useState(false);
@@ -31,23 +31,23 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
     "always" | "same_as_notification" | "never"
   >("same_as_notification");
 
-  useEffect(() => {
-    setIdeaNotification(
-      user.notification?.idea ? user.notification?.idea : false
-    );
-    setInitivativeNotification(
-      user.notification?.initiative ? user.notification?.initiative : false
-    );
-    setStatusMeetingsNotification(
-      user.notification?.meeting ? user.notification?.meeting : false
-    );
-    setChatNotification(
-      user.notification?.chat ? user.notification?.chat : false
-    );
-    setPushNotification(
-      user.notification?.push ? user.notification?.push : "same_as_notification"
-    );
-  }, [user]);
+  // useEffect(() => {
+  //   setIdeaNotification(
+  //     user.notification?.idea ? user.notification?.idea : false
+  //   );
+  //   setInitivativeNotification(
+  //     user.notification?.initiative ? user.notification?.initiative : false
+  //   );
+  //   setStatusMeetingsNotification(
+  //     user.notification?.meeting ? user.notification?.meeting : false
+  //   );
+  //   setChatNotification(
+  //     user.notification?.chat ? user.notification?.chat : false
+  //   );
+  //   setPushNotification(
+  //     user.notification?.push ? user.notification?.push : "same_as_notification"
+  //   );
+  // }, [user]);
 
   return (
     <div className="sm:overflow-hidden">
@@ -272,24 +272,24 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
               setUpdateNotificationLoading(true);
               if (session?.user?.email) {
                 toast
-                  .promise(
-                    updateNotification({
-                      idea: ideaNotification,
-                      initiative: initivativeNotification,
-                      meeting: statusMeetingsNotification,
-                      chat: chatNotification,
-                      push: pushNotification as PushNotification,
-                    }),
-                    {
-                      loading: `Save notification ...`,
-                      success: `Successfully saved!`,
-                      error: (err) => err,
-                    }
-                  )
-                  .then(() => {
-                    setUpdateNotificationLoading(false);
-                    setFieldsEdited(false);
-                  });
+                  // .promise(
+                  //   updateNotification({
+                  //     idea: ideaNotification,
+                  //     initiative: initivativeNotification,
+                  //     meeting: statusMeetingsNotification,
+                  //     chat: chatNotification,
+                  //     push: pushNotification as PushNotification,
+                  //   }),
+                  //   {
+                  //     loading: `Save notification ...`,
+                  //     success: `Successfully saved!`,
+                  //     error: (err) => err,
+                  //   }
+                  // )
+                  // .then(() => {
+                  //   setUpdateNotificationLoading(false);
+                  //   setFieldsEdited(false);
+                  // });
               }
             }}
             className="bg-blue-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-900"

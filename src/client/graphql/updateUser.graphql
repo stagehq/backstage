@@ -4,9 +4,6 @@ mutation UpdateUser(
   $lastName: String
   $image: String
   $coverImageUrl: String
-  $bio: String
-  $url: String
-  $lastProject: String
 ) {
   updateUser(
     alias: $alias
@@ -14,21 +11,11 @@ mutation UpdateUser(
     lastName: $lastName
     image: $image
     coverImageUrl: $coverImageUrl
-    bio: $bio
-    url: $url
-    lastProject: $lastProject
   ) {
     alias
     firstName
     lastName
     image
     coverImageUrl
-    bio
-    url
-    lastProject {
-      id
-      slug
-      name
-    }
   }
 }

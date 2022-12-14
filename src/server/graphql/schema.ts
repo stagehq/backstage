@@ -1,13 +1,4 @@
 import './User'
-import './Project'
-import './UserProjectRelation'
-import './Notification'
-import './Payment'
-import './Label'
-import './Idea'
-import './Reaction'
-import './Comment'
-import './ThreadComment'
 
 import { lexicographicSortSchema, printSchema } from 'graphql'
 

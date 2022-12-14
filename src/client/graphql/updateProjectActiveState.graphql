@@ -1,7 +1,0 @@
-mutation UpdateProjectActiveState($active: Boolean, $slug: String) {
-  updateProjectActiveState(active: $active, slug: $slug) {
-    id
-    name
-    slug
-  }
-}

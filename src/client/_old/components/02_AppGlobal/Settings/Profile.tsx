@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 
-import { CheckCircleIcon } from "@heroicons/react/solid";
+// import { CheckCircleIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import router from "next/router";
@@ -68,13 +68,13 @@ const Profile: FC<ProfileProps> = ({ user }) => {
     });
   };
 
-  // handle bio change
-  const handleBioChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setEditCurrentUser({
-      ...editCurrentUser,
-      bio: e.target.value,
-    });
-  };
+  // // handle bio change
+  // const handleBioChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  //   setEditCurrentUser({
+  //     ...editCurrentUser,
+  //     bio: e.target.value,
+  //   });
+  // };
 
   // handle alias change
   const handleAliasChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,13 +100,13 @@ const Profile: FC<ProfileProps> = ({ user }) => {
     }
   };
 
-  // handle url change
-  const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEditCurrentUser({
-      ...editCurrentUser,
-      url: e.target.value,
-    });
-  };
+  // // handle url change
+  // const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setEditCurrentUser({
+  //     ...editCurrentUser,
+  //     url: e.target.value,
+  //   });
+  // };
 
   // useEffect to set first name and last name with parsed name
   useEffect(() => {
@@ -257,10 +257,10 @@ const Profile: FC<ProfileProps> = ({ user }) => {
               />
               {aliasValid && !aliasTooShort && editCurrentUser.alias && (
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                  <CheckCircleIcon
+                  {/* <CheckCircleIcon
                     className="h-5 w-5 text-green-500"
                     aria-hidden="true"
-                  />
+                  /> */}
                 </div>
               )}
             </div>
@@ -323,7 +323,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
             </Dropzone>
           </div>
 
-          <div className="sm:col-span-6">
+          {/* <div className="sm:col-span-6">
             <label
               htmlFor="description"
               className="block text-sm font-medium text-gray-900"
@@ -338,7 +338,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                 value={editCurrentUser.bio ? editCurrentUser.bio : ""}
                 onChange={(event) => {
                   setFieldsEdited(true);
-                  handleBioChange(event);
+                  // handleBioChange(event);
                 }}
                 className="block w-full border border-blue-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500"
               />
@@ -346,9 +346,9 @@ const Profile: FC<ProfileProps> = ({ user }) => {
             <p className="mt-3 text-sm text-blue-gray-500">
               Brief description for your profile. URLs are hyperlinked.
             </p>
-          </div>
+          </div> */}
 
-          <div className="sm:col-span-6">
+          {/* <div className="sm:col-span-6">
             <label
               htmlFor="url"
               className="block text-sm font-medium text-gray-900"
@@ -366,7 +366,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
               }}
               className="mt-1 block w-full border-blue-gray-300 rounded-md shadow-sm text-gray-900 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
             />
-          </div>
+          </div> */}
           <div className="sm:col-span-6">
             {fieldsEdited && session?.user?.email ? (
               <div className="flex items-center justify-end gap-2">
@@ -425,8 +425,8 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                             alias: editCurrentUser.alias,
                             firstName: editCurrentUser.firstName,
                             lastName: editCurrentUser.lastName,
-                            bio: editCurrentUser.bio,
-                            url: editCurrentUser.url,
+                            // bio: editCurrentUser.bio,
+                            // url: editCurrentUser.url,
                           }),
                           {
                             loading: `Save profile ...`,

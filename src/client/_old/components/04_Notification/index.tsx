@@ -1,11 +1,11 @@
-import {
-  ArrowCircleDownIcon,
-  CheckCircleIcon,
-  DotsCircleHorizontalIcon,
-  InformationCircleIcon,
-  XCircleIcon,
-  XIcon,
-} from "@heroicons/react/outline";
+// import {
+//   ArrowCircleDownIcon,
+//   CheckCircleIcon,
+//   DotsCircleHorizontalIcon,
+//   InformationCircleIcon,
+//   XCircleIcon,
+//   XIcon,
+// } from "@heroicons/react/outline";
 import { resolveValue, Toast, toast, Toaster } from "react-hot-toast";
 
 import { Transition } from "@headlessui/react";
@@ -15,42 +15,48 @@ const renderToastTypeIcon = (type: string) => {
   switch (type) {
     case "success":
       return (
-        <CheckCircleIcon
-          className="h-6 w-6 text-green-400"
-          aria-hidden="true"
-        />
+        <div></div>
+        // <CheckCircleIcon
+        //   className="h-6 w-6 text-green-400"
+        //   aria-hidden="true"
+        // />
       );
     case "blank":
       return (
-        <InformationCircleIcon
-          className="h-6 w-6 text-blue-400"
-          aria-hidden="true"
-        />
+        <div></div>
+        // <InformationCircleIcon
+        //   className="h-6 w-6 text-blue-400"
+        //   aria-hidden="true"
+        // />
       );
     case "error":
       return (
-        <XCircleIcon className="h-6 w-6 text-red-400" aria-hidden="true" />
+        <div></div>
+        // <XCircleIcon className="h-6 w-6 text-red-400" aria-hidden="true" />
       );
     case "loading":
       return (
-        <ArrowCircleDownIcon
-          className="h-6 w-6 text-blue-400"
-          aria-hidden="true"
-        />
+        <div></div>
+        // <ArrowCircleDownIcon
+        //   className="h-6 w-6 text-blue-400"
+        //   aria-hidden="true"
+        // />
       );
     case "custom":
       return (
-        <DotsCircleHorizontalIcon
-          className="h-6 w-6 text-blue-400"
-          aria-hidden="true"
-        />
+        <div></div>
+        // <DotsCircleHorizontalIcon
+        //   className="h-6 w-6 text-blue-400"
+        //   aria-hidden="true"
+        // />
       );
     default:
       return (
-        <DotsCircleHorizontalIcon
-          className="h-6 w-6 text-blue-400"
-          aria-hidden="true"
-        />
+        <div></div>
+        // <DotsCircleHorizontalIcon
+        //   className="h-6 w-6 text-blue-400"
+        //   aria-hidden="true"
+        // />
       );
   }
 };
@@ -94,7 +100,7 @@ export default function ToasterComponent() {
                           onClick={() => toast.dismiss(t.id)}
                         >
                           <span className="sr-only">Close</span>
-                          <XIcon className="h-5 w-5" aria-hidden="true" />
+                          {/* <XIcon className="h-5 w-5" aria-hidden="true" /> */}
                         </button>
                       </div>
                     </div>

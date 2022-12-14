@@ -1,7 +1,0 @@
-query GetCurrentUserWithProjects {
-  currentUser {
-    id
-    alias
-    email
-  }
-}

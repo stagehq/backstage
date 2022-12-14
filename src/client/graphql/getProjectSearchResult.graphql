@@ -1,7 +1,0 @@
-query getProjectSearchResult($query: String!) {
-  getProjectSearchResult(query: $query) {
-    id
-    name
-    slug
-  }
-}

@@ -1,5 +1,0 @@
-mutation DeleteThreadComment($threadCommentId: String!) {
-  deleteThreadComment(threadCommentId: $threadCommentId) {
-    id
-  }
-}

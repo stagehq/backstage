@@ -1,5 +1,0 @@
-mutation UpdateIdeaVote($id: String) {
-  updateIdeaVote(id: $id) {
-    id
-  }
-}

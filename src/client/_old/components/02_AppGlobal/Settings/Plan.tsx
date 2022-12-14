@@ -1,11 +1,11 @@
 import { RadioGroup, Switch } from "@headlessui/react";
-import { QuestionMarkCircleIcon } from "@heroicons/react/outline";
+// import { QuestionMarkCircleIcon } from "@heroicons/react/outline";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import { FC, useState } from "react";
 import toast from "react-hot-toast";
-import { PaymentPlan, User } from "../../../../graphql/types.generated";
-import { useUpdatePaymentMutation } from "../../../../graphql/updatePayment.generated";
+import { User } from "../../../../graphql/types.generated";
+// import { useUpdatePaymentMutation } from "../../../../graphql/updatePayment.generated";
 import Spinner from "../Icons/Spinner";
 
 const plans = [
@@ -36,7 +36,7 @@ interface PlanProps {
 const Plan: FC<PlanProps> = ({ user }) => {
   /* Set data */
   const { data: session } = useSession();
-  const [, updatePayment] = useUpdatePaymentMutation();
+  // const [, updatePayment] = useUpdatePaymentMutation();
 
   /* Set UI State */
   const [fieldsEdited, setFieldsEdited] = useState(false);
@@ -66,10 +66,10 @@ const Plan: FC<PlanProps> = ({ user }) => {
 
           <RadioGroup
             value={selectedPlan}
-            onChange={(plan) => {
-              setSelectedPlan(plan);
-              setFieldsEdited(true);
-            }}
+            // onChange={(plan) => {
+            //   setSelectedPlan(plan);
+            //   setFieldsEdited(true);
+            // }}
           >
             <RadioGroup.Label className="sr-only">
               Pricing plans
@@ -258,10 +258,10 @@ const Plan: FC<PlanProps> = ({ user }) => {
                   className="flex items-center text-sm font-medium text-gray-700"
                 >
                   <span>Security code</span>
-                  <QuestionMarkCircleIcon
+                  {/* <QuestionMarkCircleIcon
                     className="ml-1 flex-shrink-0 h-5 w-5 text-gray-300"
                     aria-hidden="true"
-                  />
+                  /> */}
                 </label>
                 <input
                   type="text"
@@ -326,26 +326,26 @@ const Plan: FC<PlanProps> = ({ user }) => {
                 setUpdateNotificationLoading(true);
                 if (session?.user?.email) {
                   toast
-                    .promise(
-                      updatePayment({
-                        firstName: "test",
-                        lastName: "test",
-                        email: "test",
-                        country: "test",
-                        zip: 73525,
-                        annualBillingEnabled: annualBillingEnabled,
-                        plan: selectedPlan.name.toLowerCase() as PaymentPlan,
-                      }),
-                      {
-                        loading: `Save notification ...`,
-                        success: `Successfully saved!`,
-                        error: (err) => err,
-                      }
-                    )
-                    .then(() => {
-                      setUpdateNotificationLoading(false);
-                      setFieldsEdited(false);
-                    });
+                    // .promise(
+                    //   updatePayment({
+                    //     firstName: "test",
+                    //     lastName: "test",
+                    //     email: "test",
+                    //     country: "test",
+                    //     zip: 73525,
+                    //     annualBillingEnabled: annualBillingEnabled,
+                    //     plan: selectedPlan.name.toLowerCase() as PaymentPlan,
+                    //   }),
+                    //   {
+                    //     loading: `Save notification ...`,
+                    //     success: `Successfully saved!`,
+                    //     error: (err) => err,
+                    //   }
+                    // )
+                    // .then(() => {
+                    //   setUpdateNotificationLoading(false);
+                    //   setFieldsEdited(false);
+                    // });
                 }
               }}
               className="bg-blue-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-900"
