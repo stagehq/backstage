@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Site" ALTER COLUMN "isMain" DROP NOT NULL;

@@ -14,8 +14,9 @@ type Query {
 }
 
 type Site implements Node {
+  createdAt: String
   id: ID!
-  isMain: Boolean
+  modifiedAt: String
   subdomain: String
 }
 
@@ -28,6 +29,7 @@ type User implements Node {
   id: ID!
   image: String
   lastName: String
+  mainSite: Site
   name: String
   sites: [Site!]
 }

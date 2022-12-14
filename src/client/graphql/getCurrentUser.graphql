@@ -10,8 +10,12 @@ query GetCurrentUser {
     image
     coverImageUrl
     sites {
-      isMain
       subdomain
+      modifiedAt
+    }
+    mainSite {
+      subdomain
+      modifiedAt
     }
   }
 }

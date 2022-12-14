@@ -18,6 +18,7 @@ builder.prismaNode('User', {
     coverImageUrl: t.exposeString('coverImageUrl'),
 
     sites: t.relation('sites'),
+    mainSite: t.relation('mainSite'),
   }),
 });
 

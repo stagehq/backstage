@@ -28,7 +28,9 @@ model User {
 
   accounts             Account[]
   sessions             Session[]
-  sites                Site[]
+  sites                Site[]                @relation("tailorings")
+
+  mainSite             Site?                  @relation("mainSite")
 }
 
 model Account {
@@ -74,13 +76,15 @@ model Site {
   id                    String                @id @default(cuid())
   createdAt             DateTime              @default(now())
   modifiedAt            DateTime              @default(now())
-  isMain                Boolean               @default(false)
   subdomain             String                @unique
 
   userId                String                
-  user                  User                  @relation(fields: [userId], references: [id])
+  user                  User                  @relation("tailorings", fields: [userId], references: [id])
 
   extensions            Extension[]
+
+  userMainSiteId        String?                @unique
+  userMainSite          User?                  @relation("mainSite", fields: [userMainSiteId], references: [id])
 }
 
 model Extension {
