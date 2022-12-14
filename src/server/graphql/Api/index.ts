@@ -10,5 +10,6 @@ builder.prismaNode('Api', {
     accessToken: t.exposeString('accessToken'),
 
     apiResponses: t.relation('apiResponses'),
+    apiConnector: t.relation('apiConnector'),
   }),
 });

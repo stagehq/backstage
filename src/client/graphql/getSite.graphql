@@ -25,11 +25,27 @@ query GetSite($subdomain: String!) {
         refreshToken
         accessToken
 
+        apiConnector {
+          id 
+          modifiedAt
+          createdAt
+          name
+          markdown
+        }
+
         apiResponses {
           id
           modifiedAt
           createdAt
           response
+
+          apiConnectorRoute {
+            id
+            modifiedAt
+            createdAt
+            name
+            url
+          }
         }
       }
     }

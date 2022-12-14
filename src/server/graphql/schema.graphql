@@ -1,5 +1,6 @@
 type Api implements Node {
   accessToken: String
+  apiConnector: ApiConnector
   apiResponses: [ApiResponse!]
   createdAt: String
   id: ID!
@@ -7,7 +8,24 @@ type Api implements Node {
   refreshToken: String
 }
 
+type ApiConnector implements Node {
+  createdAt: String
+  id: ID!
+  markdown: String
+  modifiedAt: String
+  name: String
+}
+
+type ApiConnectorRoute implements Node {
+  createdAt: String
+  id: ID!
+  modifiedAt: String
+  name: String
+  url: String
+}
+
 type ApiResponse implements Node {
+  apiConnectorRoute: ApiConnectorRoute
   createdAt: String
   id: ID!
   modifiedAt: String

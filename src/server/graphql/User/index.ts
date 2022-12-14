@@ -42,7 +42,7 @@ builder.queryField('getValidAlias', (t) =>
     args: {
       alias: t.arg.string(),
     },
-    resolve: async (query, root, { alias }, ctx) => {
+    resolve: async (query, root, { alias }, ) => {
       if (!alias) {
         throw new Error(
           "Please provide an user alias to the user query"

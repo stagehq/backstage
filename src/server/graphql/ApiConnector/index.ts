@@ -1,13 +1,13 @@
 import { builder } from '../builder';
 
-builder.prismaNode('ApiResponse', {
+builder.prismaNode('ApiConnector', {
   findUnique: (id) => ({ id: id }),
-  id: { resolve: (apiResponses) => apiResponses.id },
+  id: { resolve: (apiConnector) => apiConnector.id },
   fields: (t) => ({
     createdAt: t.string({ resolve: site => site.createdAt.toString()}),
     modifiedAt: t.string({ resolve: site => site.modifiedAt.toString()}),
     
-    response: t.exposeString('response'),
-    apiConnectorRoute: t.relation('apiConnectorRoute')
+    name: t.exposeString('name'),
+    markdown: t.exposeString('markdown'),
   }),
 });
