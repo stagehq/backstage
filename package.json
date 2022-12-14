@@ -25,7 +25,8 @@
     "typecheck:cypress": "tsc --noEmit -p cypress/tsconfig.json",
     "cypress:open": "cypress open",
     "prepare": "husky install",
-    "configure-husky": "npx husky install && npx husky add .husky/pre-commit \"npx --no-install lint-staged\""
+    "configure-husky": "npx husky install && npx husky add .husky/pre-commit \"npx --no-install lint-staged\"",
+    "seed": "ts-node src/test/seed/index.ts"
   },
   "dependencies": {
     "@emoji-mart/data": "^1.0.6",
