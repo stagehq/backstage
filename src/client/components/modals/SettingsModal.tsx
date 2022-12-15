@@ -5,14 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilStateLoadable } from "recoil";
 import { settingsOpenState } from "../../store/ui/modals";
 import { currentUserState } from "../../store/user";
-import LoadingPage from "../../_old/components/02_AppGlobal/Loading/Page";
-import BillingHistory from "../../_old/components/02_AppGlobal/Settings/BillingHistory";
-import Integrations from "../../_old/components/02_AppGlobal/Settings/Integrations";
-import Notifications from "../../_old/components/02_AppGlobal/Settings/Notifications";
-import Plan from "../../_old/components/02_AppGlobal/Settings/Plan";
-import { Profile } from "../../_old/components/02_AppGlobal/Settings/Profile";
-import { SettingsForm } from "../../_old/components/02_AppGlobal/Settings/SettingsForm";
 import { Icon } from "../Icons";
+import LoadingPage from "../loading";
+import BillingHistory from "./settings/BillingHistory";
+import Integrations from "./settings/Integrations";
+import Notifications from "./settings/Notifications";
+import Plan from "./settings/Plan";
+import { Profile } from "./settings/Profile";
+import { SettingsForm } from "./settings/SettingsForm";
 
 const SettingsModal: FC = () => {
   const navigate = useNavigate();

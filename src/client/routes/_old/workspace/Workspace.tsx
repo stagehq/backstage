@@ -13,11 +13,11 @@ import { decode as base64_decode } from "base-64";
 import clsx from "clsx";
 import { useRegisterActions } from "kbar";
 import Head from "next/head";
+import LoadingPage from "../../../components/loading";
 import { useUpdateUserMutation } from "../../../graphql/updateUser.generated";
 import { currentUserState } from "../../../store/user";
 import useMarkdownActions from "../../../_old/components/02_AppGlobal/CommandBar/hooks/useMarkdownActions";
 import useThemeActions from "../../../_old/components/02_AppGlobal/CommandBar/hooks/useThemeActions";
-import LoadingPage from "../../../_old/components/02_AppGlobal/Loading/Page";
 import LabelEditModal from "../../../_old/components/05_Idea/IdeaSideBar/LabelItem/LabelEditModal";
 
 export const getIdfromRelayId = (id: string) => base64_decode(id).split(":")[1];

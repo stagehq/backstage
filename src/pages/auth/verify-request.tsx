@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Icon } from "../../client/components/Icons";
 import SignLayout from "../../client/components/layouts/Login";
-import LoadingPage from "../../client/_old/components/02_AppGlobal/Loading/Page";
+import LoadingPage from "../../client/components/loading";
 
 export default function VerifyRequestPage() {
   const { status } = useSession();

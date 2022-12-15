@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { currentUserState } from "../../../store/user";
-import LoadingPage from "../Loading/Page";
+import LoadingPage from "../../loading";
 import BillingHistory from "./BillingHistory";
 import Integrations from "./Integrations";
 import Notifications from "./Notifications";

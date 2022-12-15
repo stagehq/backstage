@@ -4,9 +4,9 @@ import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import { FC, useState } from "react";
 import toast from "react-hot-toast";
-import { User } from "../../../../graphql/types.generated";
+import { User } from "../../../graphql/types.generated";
 // import { useUpdatePaymentMutation } from "../../../../graphql/updatePayment.generated";
-import Spinner from "../Icons/Spinner";
+import Spinner from "../../../_old/components/02_AppGlobal/Icons/Spinner";
 
 const plans = [
   {

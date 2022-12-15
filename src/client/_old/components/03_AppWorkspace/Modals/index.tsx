@@ -5,9 +5,9 @@ import { useSession } from "next-auth/react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { Icon } from "../../../../components/Icons";
+import LoadingPage from "../../../../components/loading/index";
 import { useGetCurrentUserQuery } from "../../../../graphql/getCurrentUser.generated";
 import { projectCreateOpenState } from "../../../../store/ui/modals";
-import LoadingPage from "../../02_AppGlobal/Loading/Page/index";
 import { ProjectCreate } from "./ProjectCreateModal";
 import { ProjectCreateForm } from "./ProjectCreateModal/projectCreateForm";
 

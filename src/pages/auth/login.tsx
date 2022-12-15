@@ -5,8 +5,8 @@ import { CtxOrReq } from "next-auth/client/_utils";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Layout from "../../client/components/layouts/Login";
+import LoadingPage from "../../client/components/loading";
 import Login from "../../client/components/Login";
-import LoadingPage from "../../client/_old/components/02_AppGlobal/Loading/Page";
 
 const SignIn = ({
   csrfToken,

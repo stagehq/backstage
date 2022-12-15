@@ -6,13 +6,13 @@ import { projectSlugState, projectState } from "../../../../store/project";
 
 import { decodeGlobalID } from "@pothos/plugin-relay";
 import { useParams } from "react-router-dom";
+import LoadingPage from "../../../../components/loading";
 import { useCreateReactionMutation } from "../../../../graphql/createReaction.generated";
 import { useDeleteReactionMutation } from "../../../../graphql/deleteReaction.generated";
 import { useUpdateIdeaMutation } from "../../../../graphql/updateIdea.generated";
 import { useUpdateReactionMutation } from "../../../../graphql/updateReaction.generated";
 import { currentUserState } from "../../../../store/user";
 import RichTextInput from "../../02_AppGlobal/Inputs/RichTextInput";
-import LoadingPage from "../../02_AppGlobal/Loading/Page";
 import ReactionBar from "../../02_AppGlobal/ReactionBar";
 import Threading from "../../02_AppGlobal/Threading";
 import IdeaSideBar from "../IdeaSideBar";

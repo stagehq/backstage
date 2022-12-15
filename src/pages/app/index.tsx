@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { Suspense } from "react";
 import { Header } from "../../client/components/Header";
+import LoadingPage from "../../client/components/loading";
 import Modals from "../../client/components/Modals";
 import Analytics from "../../client/routes/analytics";
 import Dashboard from "../../client/routes/dashboard/page";
@@ -9,7 +10,6 @@ import Site from "../../client/routes/site";
 import Sections from "../../client/routes/site/sections";
 import SectionEditing from "../../client/routes/site/sections/sectionEditing";
 import SiteSettings from "../../client/routes/site/siteSettings";
-import LoadingPage from "../../client/_old/components/02_AppGlobal/Loading/Page";
 
 export default function App() {
   return (

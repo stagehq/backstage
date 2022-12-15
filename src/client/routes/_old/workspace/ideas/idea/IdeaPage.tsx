@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { FC, Suspense } from "react";
-import LoadingPage from "../../../../../_old/components/02_AppGlobal/Loading/Page";
+import LoadingPage from "../../../../../components/loading";
 import IdeaContainer from "../../../../../_old/components/05_Idea/IdeaDetail";
 
 const IdeaPage: FC = () => {
