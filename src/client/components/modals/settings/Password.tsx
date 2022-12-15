@@ -48,7 +48,11 @@ const Password: FC<PasswordProps> = ({
                     </button>
                     <div className="flex items-start w-6/12">
                       <div className="flex-shrink-0">
-                        <Icon name="CheckCircleIcon" size="lg" color="success" />
+                        <Icon
+                          name="CheckCircleIcon"
+                          size="lg"
+                          color="success"
+                        />
                       </div>
                       <div className="ml-3 w-0 flex-1 pt-0.5">
                         <p className="text-sm font-medium text-gray-900">

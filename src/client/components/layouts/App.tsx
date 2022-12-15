@@ -1,9 +1,9 @@
 import { FC, Suspense } from "react";
 import { useLocation } from "react-router-dom";
-import { Header } from "../../../../components/Header";
-import Layout from "../../../../components/layouts/General";
-import Modals from "../../../../components/Modals";
-import WorkspaceHeaderLoader from "../../03_AppWorkspace/Loader/WorkspaceHeaderLoader";
+import WorkspaceHeaderLoader from "../../_old/components/03_AppWorkspace/Loader/WorkspaceHeaderLoader";
+import { Header } from "../Header";
+import Modals from "../Modals";
+import Layout from "./General";
 interface ShellProps {
   children: React.ReactNode;
 }

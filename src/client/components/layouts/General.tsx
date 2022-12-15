@@ -1,4 +1,4 @@
-import CommandBar from "../../_old/components/02_AppGlobal/CommandBar";
+import CommandBar from "../kbar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

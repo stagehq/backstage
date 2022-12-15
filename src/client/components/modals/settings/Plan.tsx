@@ -103,9 +103,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                             checked
                               ? "bg-zinc-500 border-transparent"
                               : "bg-white border-gray-300",
-                            active
-                              ? "ring-2 ring-offset-2 ring-zinc-500"
-                              : "",
+                            active ? "ring-2 ring-offset-2 ring-zinc-500" : "",
                             "h-4 w-4 rounded-full border flex items-center justify-center"
                           )}
                           aria-hidden="true"

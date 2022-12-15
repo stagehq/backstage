@@ -1,4 +1,3 @@
-import { LogoutIcon, SearchIcon } from "@heroicons/react/outline";
 import clsx from "clsx";
 import {
   KBarAnimator,
@@ -13,6 +12,7 @@ import {
 import { signOut } from "next-auth/react";
 
 import { FC } from "react";
+import { Icon } from "../Icons";
 
 interface CommandBarProps {
   children: React.ReactNode;
@@ -71,11 +71,7 @@ const CommandBar: FC<CommandBarProps> = ({ children }) => {
       id: "signout",
       name: "Sign out",
       priority: Priority.LOW,
-      icon: (
-        <LogoutIcon
-          className={clsx("h-6 w-6 flex-none text-gray-900 text-opacity-60")}
-        />
-      ),
+      icon: <Icon name="ArrowLeftOnRectangleIcon" size="md" color="neutral" />,
       perform: () => {
         signOut({
           callbackUrl: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
@@ -96,10 +92,7 @@ const CommandBar: FC<CommandBarProps> = ({ children }) => {
           <KBarAnimator>
             <div className="mx-auto max-w-2xl w-96 transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
               <div className="relative">
-                <SearchIcon
-                  className="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400"
-                  aria-hidden="true"
-                />
+                <Icon name="MagnifyingGlassIcon" size="md" color="dark" />
                 <KBarSearch
                   defaultPlaceholder="Search..."
                   className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm outline-none"

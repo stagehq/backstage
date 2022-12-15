@@ -1,6 +1,6 @@
 import { useRegisterActions } from "kbar";
 import { useRecoilState } from "recoil";
-import { themeState } from "../../../../../store/ui/theme";
+import { themeState } from "../../../store/ui/theme";
 
 export default function useThemeActions() {
   // recoil theme state

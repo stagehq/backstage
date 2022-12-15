@@ -91,7 +91,7 @@ export default function Payment() {
                   className="flex items-center text-sm font-medium text-gray-700"
                 >
                   <span>Security code</span>
-                  <Icon name="QuestionMarkCircleIcon" size="lg" color="dark" /> 
+                  <Icon name="QuestionMarkCircleIcon" size="lg" color="dark" />
                 </label>
                 <input
                   type="text"

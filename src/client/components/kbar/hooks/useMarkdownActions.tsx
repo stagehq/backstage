@@ -1,6 +1,6 @@
 import { useRegisterActions } from "kbar";
 import { useRecoilState } from "recoil";
-import { editorMarkdownState } from "../../../../../store/ui/editor";
+import { editorMarkdownState } from "../../../store/ui/editor";
 
 export default function useMarkdownActions() {
   // markdown toggle recoil state
