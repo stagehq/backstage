@@ -1,13 +1,5 @@
-mutation upsertSite(
-  $subdomain: String
-  $tagline: String
-  $bio: String
-) {
-  upsertSite(
-    subdomain: $subdomain
-    tagline: $tagline
-    bio: $bio
-  ) {
+mutation UpsertSite($subdomain: String!, $tagline: String!, $bio: String!) {
+  upsertSite(subdomain: $subdomain, tagline: $tagline, bio: $bio) {
     id
     subdomain
   }

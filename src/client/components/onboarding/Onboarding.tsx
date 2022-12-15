@@ -4,6 +4,7 @@ import { FC, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRecoilState } from "recoil";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
+import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
 import { onboardingState } from "../../store/onboarding";
 import {
   activeSectionState,
@@ -689,22 +690,35 @@ const OnboardingStore: FC = () => {
 
 const OnboardingSubdomain: FC = () => {
   const [, setActiveSection] = useRecoilState(activeSectionState);
-  const [subdomain, setSubdomain] = useState("");
-  const [subdomainAvailable, setSubdomainAvailable] = useState(false);
+  const [onboarding, setOnboarding] = useRecoilState(onboardingState);
+
+  const [subdomainValid, setSubdomainValid] = useState(false);
+
+  const [, upsertSite] = useUpsertSiteMutation();
 
   const handleSubdomainChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value === "") {
-      setSubdomain(value);
-      setSubdomainAvailable(false);
+      setOnboarding({ ...onboarding, subdomain: value });
+      setSubdomainValid(false);
     } else if (value.match(/^[a-z]+$/)) {
-      setSubdomain(value);
-
+      setOnboarding({ ...onboarding, subdomain: value });
       if (value.length > 3) {
-        setSubdomainAvailable(true);
+        setSubdomainValid(true);
       } else {
-        setSubdomainAvailable(false);
+        setSubdomainValid(false);
       }
+    }
+  };
+
+  const handleUpsertSite = () => {
+    if (subdomainValid) {
+      upsertSite({
+        subdomain: onboarding.subdomain,
+        tagline: onboarding.tagline,
+        bio: onboarding.bio
+      });
+      setActiveSection("done");
     }
   };
 
@@ -723,14 +737,15 @@ const OnboardingSubdomain: FC = () => {
         </p>
         <p className="text-xs font-medium text-left text-zinc-500">
           The subdomain is the name which is displayed in your url.{" "}
-          {subdomain.length === 0 ? (
+          {onboarding.subdomain.length === 0 ? (
             <>
               For example: <span className="underline">nilsjacobsen</span>
               .getstage.app
             </>
           ) : (
             <>
-              Your domain: <span className="underline">{subdomain}</span>
+              Your domain:{" "}
+              <span className="underline">{onboarding.subdomain}</span>
               .getstage.app
             </>
           )}
@@ -748,7 +763,7 @@ const OnboardingSubdomain: FC = () => {
             <div className="mt-1 relative">
               <input
                 onChange={handleSubdomainChange}
-                value={subdomain}
+                value={onboarding.subdomain}
                 id="subdomain"
                 maxLength={20}
                 name="subdomain"
@@ -761,8 +776,11 @@ const OnboardingSubdomain: FC = () => {
           <Link href={"/s"}>
             <button
               type="button"
-              disabled={!subdomainAvailable}
-              onClick={() => setActiveSection("subdomain")}
+              disabled={!subdomainValid}
+              onClick={() => {
+                handleUpsertSite();
+                setActiveSection("subdomain");
+              }}
               className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
             >
               Generate website

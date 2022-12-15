@@ -4,6 +4,8 @@ query GetSite($subdomain: String!) {
     modifiedAt
     createdAt
     subdomain
+    tagline
+    bio
 
     extensions {
       id
