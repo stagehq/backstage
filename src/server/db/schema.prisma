@@ -92,6 +92,8 @@ model Extension {
   createdAt             DateTime              @default(now())
   modifiedAt            DateTime              @default(now())
 
+  sortOrder             Int                                
+
   siteId                String
   site                  Site                  @relation(fields: [siteId], references: [id])
 
