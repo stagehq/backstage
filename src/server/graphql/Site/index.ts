@@ -5,6 +5,8 @@ builder.prismaNode('Site', {
   findUnique: (id) => ({ id: id }),
   id: { resolve: (site) => site.id },
   fields: (t) => ({
+    tagline: t.exposeString('tagline'),
+    bio: t.exposeString('bio'),
     subdomain: t.exposeString('subdomain'),
     createdAt: t.string({ resolve: site => site.createdAt.toString()}),
     modifiedAt: t.string({ resolve: site => site.modifiedAt.toString()}),

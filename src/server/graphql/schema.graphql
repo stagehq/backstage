@@ -39,6 +39,7 @@ type Extension implements Node {
   sortOrder: Int
   storeExtension: StoreExtension
   underlayingApis: [Api!]
+  urls: [String!]
 }
 
 type Mutation {
@@ -58,11 +59,13 @@ type Query {
 }
 
 type Site implements Node {
+  bio: String
   createdAt: String
   extensions: [Extension!]
   id: ID!
   modifiedAt: String
   subdomain: String
+  tagline: String
 }
 
 type StoreExtension implements Node {

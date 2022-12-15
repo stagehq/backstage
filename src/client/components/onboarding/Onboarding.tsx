@@ -1,7 +1,10 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useRecoilState } from "recoil";
+import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
+import { onboardingState } from "../../store/onboarding";
 import {
   activeSectionState,
   OnboardingSection,
@@ -90,14 +93,11 @@ const OnboardingStart = () => {
 };
 
 const OnboardingProfile = () => {
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [tagline, setTagline] = useState("");
-  const [bio, setBio] = useState("");
-
+  const [onboarding, setOnboarding] = useRecoilState(onboardingState);
   const [user, setUser] = useRecoilState(currentUserState);
   const [, setActiveSection] = useRecoilState(activeSectionState);
-  const [error, setError] = useState("");
+
+  const [, updateUser] = useUpdateUserMutation();
 
   useEffect(() => {
     if (!user) return;
@@ -112,12 +112,20 @@ const OnboardingProfile = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      setFirstname(user.firstName || "");
-      setLastname(user.lastName || "");
-    }
-  }, [user]);
+  const changeNames = () => {
+    if (!user) return;
+    updateUser({
+      firstName: user.firstName,
+      lastName: user.lastName,
+    }).then((res) => {
+      if (!res.data?.updateUser) {
+        toast.error("Something went wrong");
+        return;
+      }
+    });
+  };
+
+  if (!user) return null;
 
   return (
     <div className="flex flex-col py-6 px-4 sm:px-6 h-screen sm:h-full sm:min-h-[530px]">
@@ -149,9 +157,9 @@ const OnboardingProfile = () => {
               <div className="mt-1 relative">
                 <input
                   onChange={(e) => {
-                    setFirstname(e.target.value);
+                    setUser({ ...user, firstName: e.target.value });
                   }}
-                  value={firstname}
+                  value={user.firstName || ""}
                   id="firstname"
                   name="firstname"
                   placeholder="First Name"
@@ -174,9 +182,9 @@ const OnboardingProfile = () => {
               <div className="mt-1 relative">
                 <input
                   onChange={(e) => {
-                    setLastname(e.target.value);
+                    setUser({ ...user, lastName: e.target.value });
                   }}
-                  value={lastname}
+                  value={user.lastName || ""}
                   id="lastname"
                   name="lastname"
                   placeholder="Surname"
@@ -201,9 +209,9 @@ const OnboardingProfile = () => {
             <div className="mt-1 relative">
               <input
                 onChange={(e) => {
-                  setTagline(e.target.value);
+                  setOnboarding({ ...onboarding, tagline: e.target.value });
                 }}
-                value={tagline}
+                value={onboarding.tagline}
                 id="tagline"
                 name="tagline"
                 type="text"
@@ -217,7 +225,7 @@ const OnboardingProfile = () => {
                 Write a short tagline.
               </p>
               <p className="text-xs text-left text-zinc-500">
-                {tagline.length}/65
+                {onboarding.tagline.length}/65
               </p>
             </div>
           </div>
@@ -232,10 +240,10 @@ const OnboardingProfile = () => {
           <div className="mt-1 relative">
             <textarea
               onChange={(e) => {
-                setBio(e.target.value);
+                setOnboarding({ ...onboarding, bio: e.target.value });
               }}
               rows={4}
-              value={bio}
+              value={onboarding.bio}
               id="bio"
               name="bio"
               autoComplete="bio"
@@ -247,7 +255,9 @@ const OnboardingProfile = () => {
             <p className="text-xs text-left text-zinc-500">
               Write a few sentences about yourself.
             </p>
-            <p className="text-xs text-left text-zinc-500">{bio.length}/250</p>
+            <p className="text-xs text-left text-zinc-500">
+              {onboarding.bio.length}/250
+            </p>
           </div>
         </div>
       </div>
@@ -255,9 +265,15 @@ const OnboardingProfile = () => {
         <button
           type="button"
           disabled={
-            tagline === "" || bio === "" || firstname === "" || lastname === ""
+            onboarding.tagline === "" ||
+            onboarding.bio === "" ||
+            user.firstName === "" ||
+            user.lastName === ""
           }
-          onClick={() => setActiveSection("cv")}
+          onClick={() => {
+            setActiveSection("cv");
+            changeNames();
+          }}
           className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
         >
           Next

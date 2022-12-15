@@ -10,5 +10,6 @@ builder.prismaNode('Extension', {
 
     storeExtension: t.relation('storeExtension'),
     underlayingApis: t.relation('underlayingApis'),
+    urls: t.stringList({ resolve: extension => extension.urls }),
   }),
 });

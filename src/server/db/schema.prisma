@@ -77,6 +77,8 @@ model Site {
   createdAt             DateTime              @default(now())
   modifiedAt            DateTime              @default(now())
   subdomain             String                @unique
+  tagline               String
+  bio                   String
 
   userId                String                
   user                  User                  @relation("tailorings", fields: [userId], references: [id])
@@ -101,6 +103,8 @@ model Extension {
   storeExtension        StoreExtension        @relation(fields: [storeExtensionId], references: [id])
 
   underlayingApis        Api[]
+
+  urls                  String[]
 }
 
 model Api {
