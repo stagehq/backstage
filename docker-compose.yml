@@ -9,7 +9,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: saas
+      POSTGRES_DB: stage
     # Make sure log colors show up correctly
     tty: true
 
