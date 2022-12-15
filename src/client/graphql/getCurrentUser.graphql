@@ -12,10 +12,14 @@ query GetCurrentUser {
     sites {
       subdomain
       modifiedAt
+      tagline
+      bio
     }
     mainSite {
       subdomain
       modifiedAt
+      tagline
+      bio
     }
   }
 }

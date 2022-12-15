@@ -34,3 +34,39 @@ builder.queryField('getSite', (t) =>
     },
   })
 );
+
+builder.mutationField('upsertSite', (t) => {
+  return t.prismaField({
+    type: 'Site',
+    args: {
+      subdomain: t.arg.string({ required: true }),
+      tagline: t.arg.string({ required: true }),
+      bio: t.arg.string({ required: true }),
+    },
+    resolve: async (query, root, { subdomain, tagline, bio }, ctx) => {
+      if (!ctx.session.user.email) return null;
+
+      const site = await prisma.site.upsert({
+        where: {
+          subdomain: subdomain,
+        },
+        update: {
+          tagline: tagline,
+          bio: bio,
+        },
+        create: {
+          user: {
+            connect: {
+              email: ctx.session.user.email,
+            },
+          },
+          subdomain: subdomain,
+          tagline: tagline,
+          bio: bio,
+        },
+      });
+
+      return site;
+    },
+  });
+});
