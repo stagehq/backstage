@@ -7,10 +7,10 @@ import Head from "next/head";
 import { Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import LoadingPage from "../../../components/loading/Page";
+import Spinner from "../../../components/loading/Spinner";
+import GetStartedBanner from "../../../components/More";
 import CommunityHeader from "../../../_old/components/01_Account/CommunityHeader";
 import RecommendedProjects from "../../../_old/components/01_Account/RecommendedProjects";
-import GetStartedBanner from "../../../components/More";
-import Spinner from "../../../components/loading/Spinner";
 import SearchResults from "../../../_old/components/02_AppGlobal/SearchResults";
 
 const tabs: DiscoverTab[] = [

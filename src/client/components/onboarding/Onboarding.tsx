@@ -6,10 +6,12 @@ import {
   activeSectionState,
   OnboardingSection,
 } from "../../store/ui/onboarding";
+import { currentUserState } from "../../store/user";
 import ImageUpload from "../crop/ImageUpload";
 import Gradient from "../Gradient";
 import LoginCard from "../LoginCard";
 import Logo from "../Logo";
+import { parseName } from "../modals/settings/helper/parseName";
 import BlogsIcon from "./visuals/BlogsIcon";
 import CheckIcon from "./visuals/CheckIcon";
 import CvIcon from "./visuals/CvIcon";
@@ -88,11 +90,34 @@ const OnboardingStart = () => {
 };
 
 const OnboardingProfile = () => {
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [tagline, setTagline] = useState("");
   const [bio, setBio] = useState("");
 
+  const [user, setUser] = useRecoilState(currentUserState);
   const [, setActiveSection] = useRecoilState(activeSectionState);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!user) return;
+
+    if (user.name && user.firstName === null && user.lastName === null) {
+      const parsedName = parseName(user.name);
+      setUser({
+        ...user,
+        firstName: parsedName.name,
+        lastName: parsedName.lastName,
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      setFirstname(user.firstName || "");
+      setLastname(user.lastName || "");
+    }
+  }, [user]);
 
   return (
     <div className="flex flex-col py-6 px-4 sm:px-6 h-screen sm:h-full sm:min-h-[530px]">
@@ -112,6 +137,59 @@ const OnboardingProfile = () => {
       </div>
       <div className="mt-4 flex flex-col justify-start items-start gap-4">
         <ImageUpload />
+        <div className="mt-2 flex gap-4">
+          <div className="flex flex-col justify-start items-start gap-2 w-full">
+            <div className="w-full">
+              <label
+                htmlFor="firstname"
+                className="block text-sm font-medium text-zinc-600"
+              >
+                First Name
+              </label>
+              <div className="mt-1 relative">
+                <input
+                  onChange={(e) => {
+                    setFirstname(e.target.value);
+                  }}
+                  value={firstname}
+                  id="firstname"
+                  name="firstname"
+                  placeholder="First Name"
+                  type="text"
+                  autoComplete="firstname"
+                  maxLength={50}
+                  className="appearance-none block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col justify-start items-start gap-2 w-full">
+            <div className="w-full">
+              <label
+                htmlFor="lastname"
+                className="block text-sm font-medium text-zinc-600"
+              >
+                Last name
+              </label>
+              <div className="mt-1 relative">
+                <input
+                  onChange={(e) => {
+                    setLastname(e.target.value);
+                  }}
+                  value={lastname}
+                  id="lastname"
+                  name="lastname"
+                  placeholder="Surname"
+                  type="text"
+                  autoComplete="lastname"
+                  maxLength={50}
+                  className="appearance-none block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="flex flex-col justify-start items-start gap-2 w-full">
           <div className="w-full">
             <label
@@ -176,7 +254,9 @@ const OnboardingProfile = () => {
       <div className="mt-auto">
         <button
           type="button"
-          disabled={tagline === "" || bio === ""}
+          disabled={
+            tagline === "" || bio === "" || firstname === "" || lastname === ""
+          }
           onClick={() => setActiveSection("cv")}
           className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
         >
