@@ -1,5 +1,4 @@
 import { useSession } from "next-auth/react";
-import ProjectCreateModal from "../_old/components/03_AppWorkspace/Modals";
 import PublishingMobileModal from "./modals/PublishingModal";
 import SettingsModal from "./modals/SettingsModal";
 
@@ -10,7 +9,6 @@ const Modals = () => {
     return (
       <>
         <SettingsModal />
-        <ProjectCreateModal />
         <PublishingMobileModal />
       </>
     );
