@@ -22,7 +22,7 @@ const Title = () => {
             viewBox="0 0 14 15"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="flex-grow-0 flex-shrink-0"
+            className="h-3 w-3 motion-safe:animate-pulse"
             preserveAspectRatio="xMidYMid meet"
           >
             <circle cx="7" cy="7.5" r="7" fill="#04D187"></circle>
