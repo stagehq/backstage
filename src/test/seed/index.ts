@@ -4,50 +4,50 @@ import { testData } from "./data";
 
 export interface SeedData {
   users: {
-    email: string,
-    image: string,
-    provider: string,
-    type: string,
-    token_type: string,
-    scope: string,
-    providerAccountId: string,
-  }[],
+    email: string;
+    image: string;
+    provider: string;
+    type: string;
+    token_type: string;
+    scope: string;
+    providerAccountId: string;
+  }[];
   sites: {
-    id: string,
-    subdomain: string,
+    id: string;
+    subdomain: string;
     extensions: {
-      id: string,
+      id: string;
       storeExtension: {
-        id: string,
-        name: string,
-      },
+        id: string;
+        name: string;
+      };
       underlayingApis: {
-        id: string,
-        refreshToken: string,
-        accessToken: string,
+        id: string;
+        refreshToken: string;
+        accessToken: string;
         apiConnector: {
-          id: string,
-          name: string,
-          markdown: string,
-        },
+          id: string;
+          name: string;
+          markdown: string;
+        };
         apiResponses: {
-          id: string,
-          response: string,
+          id: string;
+          response: string;
           apiConnectorRoute: {
-            id: string,
-            name: string,
-            url: string,
-          },
-        }[],
-      }[],
-    }[],
-  }[],
+            id: string;
+            name: string;
+            url: string;
+          };
+        }[];
+      }[];
+    }[];
+  }[];
 }
 
 // Inspired by prisma/docs#451
 async function emptyDatabase() {
   console.log("Emptying database");
-  
+
   const tables = Prisma.dmmf.datamodel.models.map(
     (model) => model.dbName || model.name
   );

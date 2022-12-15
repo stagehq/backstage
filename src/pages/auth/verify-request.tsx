@@ -1,16 +1,13 @@
-import { MailIcon } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
+import { Icon } from "../../client/components/Icons";
 import SignLayout from "../../client/components/layouts/Login";
-import { currentUserState } from "../../client/store/user";
 import LoadingPage from "../../client/_old/components/02_AppGlobal/Loading/Page";
 
 export default function VerifyRequestPage() {
   const { status } = useSession();
   const router = useRouter();
-  const [currentUser] = useRecoilState(currentUserState);
 
   if (status === "loading") {
     return <LoadingPage />;
@@ -21,13 +18,7 @@ export default function VerifyRequestPage() {
   }
 
   if (status === "authenticated") {
-    if (currentUser) {
-      if (currentUser?.lastProject?.slug !== undefined) {
-        router.push("/s/workspace/" + currentUser.lastProject?.slug);
-      } else {
-        router.push("/s");
-      }
-    }
+    router.push("/s");
     return <LoadingPage />;
   }
 
@@ -37,10 +28,12 @@ export default function VerifyRequestPage() {
         <title>E-mail Verification</title>
       </Head>
       <SignLayout>
-        <div className="max-w-lg mx-auto min-h-screen flex items-center justify-center">
+        <div className="max-w-lg mx-auto min-h-screen flex items-center justify-center px-6">
           <div>
             <div className="text-center">
-              <MailIcon className="mx-auto h-8 w-8 text-gray-400" />
+              <div className="flex justify-center">
+                <Icon name="EnvelopeIcon" size="lg" color="neutral" />
+              </div>
               <h2 className="mt-2 text-lg font-medium text-gray-900">
                 You got mail!
               </h2>

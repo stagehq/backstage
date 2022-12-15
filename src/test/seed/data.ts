@@ -19,7 +19,7 @@ export const testData: SeedData = {
       token_type: "bearer",
       scope: "read:user,user:email",
       providerAccountId: "34959078",
-    }
+    },
   ],
   sites: [
     {
@@ -30,7 +30,7 @@ export const testData: SeedData = {
           id: "2376491287369123",
           storeExtension: {
             id: "w9909823049852034",
-            name: "Repositories"
+            name: "Repositories",
           },
           underlayingApis: [
             {
@@ -40,7 +40,7 @@ export const testData: SeedData = {
               apiConnector: {
                 id: "39749345763945",
                 name: "Github",
-                markdown: "This is a description"
+                markdown: "This is a description",
               },
               apiResponses: [
                 {
@@ -49,14 +49,14 @@ export const testData: SeedData = {
                   apiConnectorRoute: {
                     id: "3948579374593",
                     name: "RecentProjects",
-                    url: "/projects/recent"
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      ]
+                    url: "/projects/recent",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
     {
       id: "934293746928734928374",
@@ -66,7 +66,7 @@ export const testData: SeedData = {
           id: "2376491287369123",
           storeExtension: {
             id: "w9909823049852034",
-            name: "Repositories"
+            name: "Repositories",
           },
           underlayingApis: [
             {
@@ -76,7 +76,7 @@ export const testData: SeedData = {
               apiConnector: {
                 id: "39749345763945",
                 name: "Github",
-                markdown: "This is a description"
+                markdown: "This is a description",
               },
               apiResponses: [
                 {
@@ -85,15 +85,14 @@ export const testData: SeedData = {
                   apiConnectorRoute: {
                     id: "3948579374593",
                     name: "RecentProjects",
-                    url: "/projects/recent"
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      ]
+                    url: "/projects/recent",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
   ],
 };
-

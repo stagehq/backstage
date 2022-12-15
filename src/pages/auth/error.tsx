@@ -1,7 +1,7 @@
-import { ShieldExclamationIcon } from "@heroicons/react/outline";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
+import { Icon } from "../../client/components/Icons";
 import SignLayout from "../../client/components/layouts/Login";
 
 interface Errors {
@@ -40,10 +40,12 @@ export default function ErrorPage() {
         <title>Error</title>
       </Head>
       <SignLayout>
-        <div className="max-w-lg mx-auto min-h-screen flex items-center justify-center">
+        <div className="max-w-lg mx-auto min-h-screen flex items-center justify-center px-6">
           <div>
             <div className="text-center">
-              <ShieldExclamationIcon className="mx-auto h-8 w-8 text-gray-400" />
+              <div className="flex justify-center">
+                <Icon name="ShieldExclamationIcon" size="lg" color="warning" />
+              </div>
               <h2 className="mt-2 text-lg font-medium text-gray-900">
                 We're sorry!
               </h2>
