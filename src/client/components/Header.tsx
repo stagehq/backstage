@@ -9,7 +9,7 @@ import { currentUserState } from "../store/user";
 import Breadcrumb from "./Breadcrumb";
 import { Icon } from "./Icons";
 import Layout from "./layouts/General";
-import PublishingDropdown from "./PublishingDropdown";
+import PublishingDropdown from "./studio/PublishingDropdown";
 import Tabs from "./Tabs";
 
 export const Header = () => {

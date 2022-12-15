@@ -5,7 +5,7 @@ import { Fragment } from "react";
 import { useRecoilState } from "recoil";
 import { publishingOpenState } from "../../store/ui/modals";
 import { publishingState } from "../../store/ui/publishing";
-import { publishingOptions } from "../PublishingDropdown";
+import { publishingOptions } from "../studio/PublishingDropdown";
 
 export default function PublishingMobileModal() {
   const [publishingOpen, setPublishingOpen] =

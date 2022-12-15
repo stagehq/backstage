@@ -3,7 +3,7 @@ import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import Content from "../../components/Content";
-import ShareBar from "../../components/ShareBar";
+import ShareBar from "../../components/studio/ShareBar";
 import SectionList from "../../components/sidebars/SectionList";
 import SectionWrapper from "../../components/sidebars/SectionWrapper";
 import { personal } from "../../components/sidebars/testData";

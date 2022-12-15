@@ -1,14 +1,14 @@
 // this is a mobile only component
 import { FC } from "react";
 import { useRecoilState } from "recoil";
-import { publishingOpenState } from "../store/ui/modals";
-import { publishingState } from "../store/ui/publishing";
+import { publishingOpenState } from "../../store/ui/modals";
+import { publishingState } from "../../store/ui/publishing";
 import { publishingKeys } from "./PublishingDropdown";
 
 import clsx from "clsx";
 
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { Icon } from "./Icons";
+import { Icon } from "../Icons";
 
 interface ShareBarProps {
   state: publishingKeys;

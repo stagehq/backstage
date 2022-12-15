@@ -1,6 +1,6 @@
 // onboarding storeimport { atom } from "recoil";
 import { atom } from "recoil";
-import { publishingOption } from "../../components/PublishingDropdown";
+import { publishingOption } from "../../components/studio/PublishingDropdown";
 
 // recoil publishingState atom
 export const publishingState = atom<publishingOption>({

@@ -3,7 +3,7 @@ import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import { Fragment } from "react";
 import { useRecoilState } from "recoil";
-import { publishingState } from "../store/ui/publishing";
+import { publishingState } from "../../store/ui/publishing";
 
 export type publishingKeys = "offline" | "unlisted" | "published";
 
