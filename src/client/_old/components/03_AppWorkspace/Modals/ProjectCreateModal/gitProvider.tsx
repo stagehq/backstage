@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { useCreateProjectMutation } from "../../../../../graphql/createProject.generated";
-import Spinner from "../../../02_AppGlobal/Icons/Spinner";
+import Spinner from "../../../../../components/loading/Spinner";
 
 const provider = [
   { name: "GitHub", colorBg: "#000000", colorText: "#FFFFFF" },

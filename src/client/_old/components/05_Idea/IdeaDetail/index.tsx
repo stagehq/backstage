@@ -6,7 +6,7 @@ import { projectSlugState, projectState } from "../../../../store/project";
 
 import { decodeGlobalID } from "@pothos/plugin-relay";
 import { useParams } from "react-router-dom";
-import LoadingPage from "../../../../components/loading";
+import LoadingPage from "../../../../components/loading/Page";
 import { useCreateReactionMutation } from "../../../../graphql/createReaction.generated";
 import { useDeleteReactionMutation } from "../../../../graphql/deleteReaction.generated";
 import { useUpdateIdeaMutation } from "../../../../graphql/updateIdea.generated";

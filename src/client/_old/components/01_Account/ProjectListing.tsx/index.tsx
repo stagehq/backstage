@@ -4,9 +4,9 @@ import faker from "@faker-js/faker";
 import { PlusIcon } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
 import { Link, useNavigate } from "react-router-dom";
+import Spinner from "../../../../components/loading/Spinner";
 import { useCreateProjectMutation } from "../../../../graphql/createProject.generated";
 import { Project } from "../../../../graphql/types.generated";
-import Spinner from "../../02_AppGlobal/Icons/Spinner";
 
 interface ProjectListingProps {
   projects: Project[];

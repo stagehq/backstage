@@ -4,7 +4,7 @@ import { User } from "../../../graphql/types.generated";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 // import { useUpdateNotificationMutation } from "../../../../graphql/updateNotification.generated";
-import Spinner from "../../../_old/components/02_AppGlobal/Icons/Spinner";
+import Spinner from "../../loading/Spinner";
 
 interface NotificationProps {
   user: User;

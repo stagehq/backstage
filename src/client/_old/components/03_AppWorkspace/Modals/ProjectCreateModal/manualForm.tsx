@@ -6,9 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 // import { useCreateProjectMutation } from "../../../../../graphql/createProject.generated";
 // import { Project, ProjectRole } from "../../../../../graphql/types.generated";
+import Spinner from "../../../../../components/loading/Spinner";
 import { projectCreateOpenState } from "../../../../../store/ui/modals";
 import { currentUserState } from "../../../../../store/user";
-import Spinner from "../../../02_AppGlobal/Icons/Spinner";
 import { HandleSingleInputProps, SingleInputField } from "../singleInputField";
 
 export default function ManualFrom() {

@@ -8,9 +8,9 @@ import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import slug from "slug";
+import Spinner from "../../../../components/loading/Spinner";
 import { Project } from "../../../../graphql/types.generated";
 import { useUpdateProjectMutation } from "../../../../graphql/updateProject.generated";
-import Spinner from "../../02_AppGlobal/Icons/Spinner";
 import { SlugField } from "./slugField";
 
 const ProjectProperties: FC = () => {

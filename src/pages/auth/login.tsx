@@ -5,7 +5,7 @@ import { CtxOrReq } from "next-auth/client/_utils";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Layout from "../../client/components/layouts/Login";
-import LoadingPage from "../../client/components/loading";
+import LoadingPage from "../../client/components/loading/Page";
 import Login from "../../client/components/Login";
 
 const SignIn = ({

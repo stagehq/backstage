@@ -6,11 +6,11 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { Suspense } from "react";
 import { useNavigate } from "react-router-dom";
-import LoadingPage from "../../../components/loading";
+import GetStartedBanner from "../../../components";
+import LoadingPage from "../../../components/loading/Page";
+import Spinner from "../../../components/loading/Spinner";
 import CommunityHeader from "../../../_old/components/01_Account/CommunityHeader";
 import RecommendedProjects from "../../../_old/components/01_Account/RecommendedProjects";
-import GetStartedBanner from "../../../_old/components/02_AppGlobal/GetStartedBanner";
-import Spinner from "../../../_old/components/02_AppGlobal/Icons/Spinner";
 import SearchResults from "../../../_old/components/02_AppGlobal/SearchResults";
 
 const tabs: DiscoverTab[] = [

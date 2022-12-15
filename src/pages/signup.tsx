@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import SignLayout from "../client/components/layouts/Login";
-import LoadingPage from "../client/components/loading";
+import LoadingPage from "../client/components/loading/Page";
 import Signup from "../client/_old/components/01_Account/Signup";
 
 export default function SignUp() {

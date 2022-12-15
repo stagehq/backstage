@@ -6,7 +6,7 @@ import { useRecoilState, useRecoilStateLoadable } from "recoil";
 import { settingsOpenState } from "../../store/ui/modals";
 import { currentUserState } from "../../store/user";
 import { Icon } from "../Icons";
-import LoadingPage from "../loading";
+import LoadingPage from "../loading/Page";
 import BillingHistory from "./settings/BillingHistory";
 import Integrations from "./settings/Integrations";
 import Notifications from "./settings/Notifications";

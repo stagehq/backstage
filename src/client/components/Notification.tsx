@@ -1,62 +1,24 @@
-// import {
-//   ArrowCircleDownIcon,
-//   CheckCircleIcon,
-//   DotsCircleHorizontalIcon,
-//   InformationCircleIcon,
-//   XCircleIcon,
-//   XIcon,
-// } from "@heroicons/react/outline";
 import { resolveValue, Toast, toast, Toaster } from "react-hot-toast";
 
 import { Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import { Icon } from "./Icons";
 
 const renderToastTypeIcon = (type: string) => {
   switch (type) {
     case "success":
-      return (
-        <div></div>
-        // <CheckCircleIcon
-        //   className="h-6 w-6 text-green-400"
-        //   aria-hidden="true"
-        // />
-      );
+      return <Icon name="CheckCircleIcon" size="lg" color="dark" />;
     case "blank":
-      return (
-        <div></div>
-        // <InformationCircleIcon
-        //   className="h-6 w-6 text-blue-400"
-        //   aria-hidden="true"
-        // />
-      );
+      return <Icon name="InformationCircleIcon" size="lg" color="dark" />;
     case "error":
-      return (
-        <div></div>
-        // <XCircleIcon className="h-6 w-6 text-red-400" aria-hidden="true" />
-      );
+      return <Icon name="XCircleIcon" size="lg" color="dark" />;
     case "loading":
-      return (
-        <div></div>
-        // <ArrowCircleDownIcon
-        //   className="h-6 w-6 text-blue-400"
-        //   aria-hidden="true"
-        // />
-      );
+      return <Icon name="ArrowDownCircleIcon" size="lg" color="dark" />;
     case "custom":
-      return (
-        <div></div>
-        // <DotsCircleHorizontalIcon
-        //   className="h-6 w-6 text-blue-400"
-        //   aria-hidden="true"
-        // />
-      );
+      return <Icon name="EllipsisHorizontalIcon" size="lg" color="dark" />;
     default:
       return (
-        <div></div>
-        // <DotsCircleHorizontalIcon
-        //   className="h-6 w-6 text-blue-400"
-        //   aria-hidden="true"
-        // />
+        <Icon name="EllipsisHorizontalCircleIcon" size="lg" color="dark" />
       );
   }
 };

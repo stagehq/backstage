@@ -1,4 +1,4 @@
-import Spinner from "../../_old/components/02_AppGlobal/Icons/Spinner";
+import Spinner from "./Spinner";
 
 export default function LoadingPage() {
   return (

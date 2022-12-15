@@ -15,7 +15,7 @@ import { useRegisterActions } from "kbar";
 import Head from "next/head";
 import useMarkdownActions from "../../../components/kbar/hooks/useMarkdownActions";
 import useThemeActions from "../../../components/kbar/hooks/useThemeActions";
-import LoadingPage from "../../../components/loading";
+import LoadingPage from "../../../components/loading/Page";
 import { useUpdateUserMutation } from "../../../graphql/updateUser.generated";
 import { currentUserState } from "../../../store/user";
 import LabelEditModal from "../../../_old/components/05_Idea/IdeaSideBar/LabelItem/LabelEditModal";

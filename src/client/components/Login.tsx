@@ -1,13 +1,9 @@
-import {
-  ExclamationCircleIcon,
-  InformationCircleIcon,
-} from "@heroicons/react/outline";
-
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import { FC, useState } from "react";
 import Gradient from "./Gradient";
+import { Icon } from "./Icons";
 import LoginCard from "./LoginCard";
 import Logo from "./Logo";
 
@@ -39,10 +35,7 @@ const SignInError = ({ error }: ParsedUrlQuery) => {
     <div className="bg-blue-50 border-l-4 border-blue-400 p-4">
       <div className="flex">
         <div className="flex-shrink-0">
-          <InformationCircleIcon
-            className="h-5 w-5 text-blue-400"
-            aria-hidden="true"
-          />
+          <Icon name="InformationCircleIcon" size="md" color="dark" />
         </div>
         <div className="ml-3">
           <p className="text-sm text-zinc-700">{errorMessage}</p>
@@ -118,10 +111,7 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
               />
               {error === "EmailSignin" ? (
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <ExclamationCircleIcon
-                    className="h-5 w-5 text-red-500"
-                    aria-hidden="true"
-                  />
+                  <Icon name="ExclamationCircleIcon" size="lg" color="danger" />
                 </div>
               ) : null}
             </div>

@@ -1,7 +1,7 @@
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/outline";
 import clsx from "clsx";
 import { FC } from "react";
-import Spinner from "../../02_AppGlobal/Icons/Spinner";
+import Spinner from "../../../../components/loading/Spinner";
 import { SubmitStateType } from "../Homepage";
 
 interface CallToActionProps {

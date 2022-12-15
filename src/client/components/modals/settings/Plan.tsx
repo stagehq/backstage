@@ -5,8 +5,8 @@ import { FC, useState } from "react";
 import toast from "react-hot-toast";
 import { User } from "../../../graphql/types.generated";
 // import { useUpdatePaymentMutation } from "../../../../graphql/updatePayment.generated";
-import Spinner from "../../../_old/components/02_AppGlobal/Icons/Spinner";
 import { Icon } from "../../Icons";
+import Spinner from "../../loading/Spinner";
 
 const plans = [
   {

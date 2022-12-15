@@ -1,6 +1,7 @@
 import Banner from "../../components/Banner";
 import Container from "../../components/Container";
 import Content from "../../components/Content";
+import More from "../../components/More";
 import Title from "../../components/Title";
 
 const Dashboard = () => {
@@ -10,6 +11,7 @@ const Dashboard = () => {
         <Container>
           <Banner />
           <Title />
+          <More />
         </Container>
       </Content>
     </>

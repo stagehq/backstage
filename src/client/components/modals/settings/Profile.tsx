@@ -13,8 +13,8 @@ import { GetValidAliasDocument } from "../../../graphql/getValidAlias.generated"
 import { User } from "../../../graphql/types.generated";
 import { useUpdateUserMutation } from "../../../graphql/updateUser.generated";
 import { currentUserState } from "../../../store/user";
-import Spinner from "../../../_old/components/02_AppGlobal/Icons/Spinner";
 import { Dropzone } from "../../Dropzone";
+import Spinner from "../../loading/Spinner";
 import { parseName } from "./helper/parseName";
 
 interface ProfileProps {

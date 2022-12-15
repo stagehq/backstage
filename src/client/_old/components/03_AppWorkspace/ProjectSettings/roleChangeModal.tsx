@@ -10,8 +10,8 @@ import { projectSlugState, projectState } from "../../../../store/project";
 
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import Spinner from "../../../../components/loading/Spinner";
 import { useUpdateUserProjectRelationRoleMutation } from "../../../../graphql/updateUserProjectRelationRole.generated";
-import Spinner from "../../02_AppGlobal/Icons/Spinner";
 
 const roleOptions = [
   { id: ProjectRole.Contributor, title: "Contributor" },

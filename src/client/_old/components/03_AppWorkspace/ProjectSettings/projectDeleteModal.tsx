@@ -7,10 +7,10 @@ import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
+import Spinner from "../../../../components/loading/Spinner";
 import { Project } from "../../../../graphql/types.generated";
 import { useUpdateProjectActiveStateMutation } from "../../../../graphql/updateProjectActiveState.generated";
 import { currentUserState } from "../../../../store/user";
-import Spinner from "../../02_AppGlobal/Icons/Spinner";
 
 interface ProjectDeleteModalProps {
   deleterModalOpen: boolean;
