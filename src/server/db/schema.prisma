@@ -77,8 +77,8 @@ model Site {
   createdAt             DateTime              @default(now())
   modifiedAt            DateTime              @default(now())
   subdomain             String                @unique
-  tagline               String
-  bio                   String
+  tagline               String?
+  bio                   String?
 
   userId                String                
   user                  User                  @relation("tailorings", fields: [userId], references: [id])
