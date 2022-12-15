@@ -36,6 +36,7 @@ type Extension implements Node {
   createdAt: String
   id: ID!
   modifiedAt: String
+  sortOrder: Int
   storeExtension: StoreExtension
   underlayingApis: [Api!]
 }
