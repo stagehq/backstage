@@ -55,7 +55,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
         <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6">
           <div className="sm:col-span-6">
             <h2 className="text-xl font-medium text-gray-900">Notifications</h2>
-            <p className="mt-1 text-sm text-blue-gray-500">
+            <p className="mt-1 text-sm text-zinc-gray-500">
               We'll always let you know about important changes, but you pick
               what else you want to hear about.
             </p>
@@ -78,7 +78,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                         setFieldsEdited(true);
                         setIdeaNotification(!ideaNotification);
                       }}
-                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                      className="focus:ring-zinc-500 h-4 w-4 text-zinc-600 border-gray-300 rounded"
                     />
                   </div>
                   <div className="ml-3 text-sm">
@@ -105,7 +105,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                         setFieldsEdited(true);
                         setInitivativeNotification(!initivativeNotification);
                       }}
-                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                      className="focus:ring-zinc-500 h-4 w-4 text-zinc-600 border-gray-300 rounded"
                     />
                   </div>
                   <div className="ml-3 text-sm">
@@ -134,7 +134,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                           !statusMeetingsNotification
                         );
                       }}
-                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                      className="focus:ring-zinc-500 h-4 w-4 text-zinc-600 border-gray-300 rounded"
                     />
                   </div>
                   <div className="ml-3 text-sm">
@@ -160,7 +160,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                         setFieldsEdited(true);
                         setChatNotification(!chatNotification);
                       }}
-                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                      className="focus:ring-zinc-500 h-4 w-4 text-zinc-600 border-gray-300 rounded"
                     />
                   </div>
                   <div className="ml-3 text-sm">
@@ -201,7 +201,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                       setFieldsEdited(true);
                       setPushNotification("always");
                     }}
-                    className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                    className="focus:ring-zinc-500 h-4 w-4 text-zinc-600 border-gray-300"
                   />
                   <label
                     htmlFor="push-everything"
@@ -221,7 +221,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                       setFieldsEdited(true);
                       setPushNotification("same_as_notification");
                     }}
-                    className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                    className="focus:ring-zinc-500 h-4 w-4 text-zinc-600 border-gray-300"
                   />
                   <label
                     htmlFor="push-email"
@@ -241,7 +241,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                       setFieldsEdited(true);
                       setPushNotification("never");
                     }}
-                    className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                    className="focus:ring-zinc-500 h-4 w-4 text-zinc-600 border-gray-300"
                   />
                   <label
                     htmlFor="push-nothing"
@@ -292,7 +292,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                 // });
               }
             }}
-            className="bg-blue-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-900"
+            className="bg-zinc-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-900"
           >
             {updateNotificationLoading ? (
               <Spinner color={"text-white"} />

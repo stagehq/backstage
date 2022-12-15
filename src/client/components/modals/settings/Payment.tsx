@@ -1,4 +1,4 @@
-import { QuestionMarkCircleIcon } from "@heroicons/react/outline";
+import { Icon } from "../../Icons";
 
 export default function Payment() {
   return (
@@ -32,7 +32,7 @@ export default function Payment() {
                   name="first-name"
                   id="first-name"
                   autoComplete="cc-given-name"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
                 />
               </div>
 
@@ -48,7 +48,7 @@ export default function Payment() {
                   name="last-name"
                   id="last-name"
                   autoComplete="cc-family-name"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
                 />
               </div>
 
@@ -64,7 +64,7 @@ export default function Payment() {
                   name="email-address"
                   id="email-address"
                   autoComplete="email"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
                 />
               </div>
 
@@ -80,7 +80,7 @@ export default function Payment() {
                   name="expiration-date"
                   id="expiration-date"
                   autoComplete="cc-exp"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
                   placeholder="MM / YY"
                 />
               </div>
@@ -91,17 +91,14 @@ export default function Payment() {
                   className="flex items-center text-sm font-medium text-gray-700"
                 >
                   <span>Security code</span>
-                  <QuestionMarkCircleIcon
-                    className="ml-1 flex-shrink-0 h-5 w-5 text-gray-300"
-                    aria-hidden="true"
-                  />
+                  <Icon name="QuestionMarkCircleIcon" size="lg" color="dark" /> 
                 </label>
                 <input
                   type="text"
                   name="security-code"
                   id="security-code"
                   autoComplete="cc-csc"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
                 />
               </div>
 
@@ -116,7 +113,7 @@ export default function Payment() {
                   id="country"
                   name="country"
                   autoComplete="country-name"
-                  className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
                 >
                   <option>United States</option>
                   <option>Canada</option>
@@ -136,7 +133,7 @@ export default function Payment() {
                   name="postal-code"
                   id="postal-code"
                   autoComplete="postal-code"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
                 />
               </div>
             </div>

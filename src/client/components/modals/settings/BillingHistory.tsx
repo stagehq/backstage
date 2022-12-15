@@ -75,7 +75,7 @@ export default function BillingHistory() {
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <a
                             href={payment.href}
-                            className="text-indigo-600 hover:text-indigo-900"
+                            className="text-zinc-600 hover:text-zinc-900"
                           >
                             View receipt
                           </a>

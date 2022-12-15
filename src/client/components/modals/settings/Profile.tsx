@@ -164,7 +164,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
         <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6">
           <div className="sm:col-span-6">
             <h2 className="text-xl font-medium text-gray-900">Profile</h2>
-            <p className="mt-1 text-sm text-blue-gray-500">
+            <p className="mt-1 text-sm text-zinc-gray-500">
               This information will be displayed publicly.
             </p>
           </div>
@@ -187,13 +187,13 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                 handleFirstNameChange(event);
               }}
               className={clsx(
-                "flex-1 block w-full min-w-0 border-blue-gray-300 rounded-md text-gray-900 sm:text-sm focus:ring-blue-500 focus:border-blue-500",
+                "mt-1 flex-1 block w-full min-w-0 border-zinc-300 rounded-md text-gray-900 sm:text-sm focus:ring-zinc-500 focus:border-zinc-500",
                 !firstNameValid &&
                   "border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:ring-red-500"
               )}
             />
             {!firstNameValid && (
-              <p className="mt-2 text-sm text-blue-gray-500" id="email-error">
+              <p className="mt-2 text-sm text-zinc-gray-500" id="email-error">
                 Please provide a valid first name.
               </p>
             )}
@@ -217,13 +217,13 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                 handleLastNameChange(event);
               }}
               className={clsx(
-                "flex-1 block w-full min-w-0 border-blue-gray-300 rounded-md text-gray-900 sm:text-sm focus:ring-blue-500 focus:border-blue-500",
+                "mt-1 flex-1 block w-full min-w-0 border-zinc-300 rounded-md text-gray-900 sm:text-sm focus:ring-zinc-500 focus:border-zinc-500",
                 !lastNameValid &&
                   "border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:ring-red-500"
               )}
             />
             {!lastNameValid && (
-              <p className="mt-2 text-sm text-blue-gray-500" id="email-error">
+              <p className="mt-2 text-sm text-zinc-gray-500" id="email-error">
                 Please provide a valid last name.
               </p>
             )}
@@ -237,8 +237,8 @@ const Profile: FC<ProfileProps> = ({ user }) => {
               Alias
             </label>
             <div className="mt-1 flex rounded-md shadow-sm relative">
-              <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-blue-gray-300 bg-blue-gray-50 text-blue-gray-500 sm:text-sm">
-                zirkular.dev/s/profile/
+              <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-zinc-gray-300 bg-zinc-gray-50 text-zinc-gray-500 sm:text-sm">
+                getstage.app/
               </span>
               <input
                 type="text"
@@ -250,7 +250,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                   handleAliasChange(event);
                 }}
                 className={clsx(
-                  "flex-1 block w-full min-w-0 border-blue-gray-300 rounded-none rounded-r-md text-gray-900 sm:text-sm focus:ring-blue-500 focus:border-blue-500",
+                  "flex-1 block w-full min-w-0 border-zinc-300 rounded-none rounded-r-md text-gray-900 sm:text-sm focus:ring-zinc-500 focus:border-zinc-500",
                   (!aliasValid || aliasTooShort) &&
                     "border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:ring-red-500"
                 )}
@@ -265,7 +265,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
               )}
             </div>
             {!editCurrentUser.alias && (
-              <p className="mt-2 text-sm text-blue-gray-500" id="email-error">
+              <p className="mt-2 text-sm text-zinc-gray-500" id="email-error">
                 Please provide an alias.
               </p>
             )}
@@ -297,7 +297,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                   alt="profile image"
                 />
                 <div className="ml-4 flex">
-                  <div className="relative bg-white py-2 px-3 border border-blue-gray-300 rounded-md shadow-sm flex items-center cursor-pointer hover:bg-blue-gray-50 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-blue-gray-50 focus-within:ring-blue-500">
+                  <div className="relative bg-white py-2 px-3 border border-zinc-gray-300 rounded-md shadow-sm flex items-center cursor-pointer hover:bg-zinc-gray-50 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-zinc-gray-50 focus-within:ring-zinc-500">
                     <label
                       htmlFor="user-photo"
                       className="relative text-sm font-medium text-gray-900 pointer-events-none"
@@ -314,7 +314,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                   </div>
                   <button
                     type="button"
-                    className="ml-3 bg-transparent py-2 px-3 border border-transparent rounded-md text-sm font-medium text-gray-900 hover:text-blue-gray-700 focus:outline-none focus:border-blue-gray-300 focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-gray-50 focus:ring-blue-500"
+                    className="ml-3 bg-transparent py-2 px-3 border border-transparent rounded-md text-sm font-medium text-gray-900 hover:text-zinc-gray-700 focus:outline-none focus:border-zinc-gray-300 focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-gray-50 focus:ring-zinc-500"
                   >
                     Remove
                   </button>
@@ -340,10 +340,10 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                   setFieldsEdited(true);
                   // handleBioChange(event);
                 }}
-                className="block w-full border border-blue-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+                className="block w-full border border-zinc-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-zinc-500 focus:border-zinc-500"
               />
             </div>
-            <p className="mt-3 text-sm text-blue-gray-500">
+            <p className="mt-3 text-sm text-zinc-gray-500">
               Brief description for your profile. URLs are hyperlinked.
             </p>
           </div> */}
@@ -364,7 +364,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                 setFieldsEdited(true);
                 handleUrlChange(event);
               }}
-              className="mt-1 block w-full border-blue-gray-300 rounded-md shadow-sm text-gray-900 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full border-zinc-gray-300 rounded-md shadow-sm text-gray-900 sm:text-sm focus:ring-zinc-500 focus:border-zinc-500"
             />
           </div> */}
           <div className="sm:col-span-6">
@@ -452,7 +452,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                         });
                     }
                   }}
-                  className="bg-blue-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-900"
+                  className="bg-zinc-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-900"
                 >
                   {updateUserLoading ? <Spinner color={"text-white"} /> : null}
                   Save
@@ -461,7 +461,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
             ) : null}
             {redirectToDiscover && (
               <div>
-                <p className="text-sm text-blue-gray-500">Redirecting ...</p>
+                <p className="text-sm text-zinc-gray-500">Redirecting ...</p>
               </div>
             )}
           </div>

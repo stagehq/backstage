@@ -1,5 +1,4 @@
 import { RadioGroup, Switch } from "@headlessui/react";
-// import { QuestionMarkCircleIcon } from "@heroicons/react/outline";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import { FC, useState } from "react";
@@ -7,6 +6,7 @@ import toast from "react-hot-toast";
 import { User } from "../../../graphql/types.generated";
 // import { useUpdatePaymentMutation } from "../../../../graphql/updatePayment.generated";
 import Spinner from "../../../_old/components/02_AppGlobal/Icons/Spinner";
+import { Icon } from "../../Icons";
 
 const plans = [
   {
@@ -89,7 +89,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                         ? "rounded-bl-md rounded-br-md"
                         : "",
                       checked
-                        ? "bg-indigo-50 border-indigo-200 z-10"
+                        ? "bg-zinc-50 border-zinc-200 z-10"
                         : "border-gray-200",
                       "relative border p-4 flex flex-col cursor-pointer md:pl-4 md:pr-6 md:grid md:grid-cols-3 focus:outline-none"
                     )
@@ -101,10 +101,10 @@ const Plan: FC<PlanProps> = ({ user }) => {
                         <span
                           className={clsx(
                             checked
-                              ? "bg-indigo-500 border-transparent"
+                              ? "bg-zinc-500 border-transparent"
                               : "bg-white border-gray-300",
                             active
-                              ? "ring-2 ring-offset-2 ring-indigo-500"
+                              ? "ring-2 ring-offset-2 ring-zinc-500"
                               : "",
                             "h-4 w-4 rounded-full border flex items-center justify-center"
                           )}
@@ -122,7 +122,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                       <RadioGroup.Description className="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-center">
                         <span
                           className={clsx(
-                            checked ? "text-indigo-900" : "text-gray-900",
+                            checked ? "text-zinc-900" : "text-gray-900",
                             "font-medium"
                           )}
                         >
@@ -130,7 +130,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                         </span>{" "}
                         <span
                           className={
-                            checked ? "text-indigo-700" : "text-gray-500"
+                            checked ? "text-zinc-700" : "text-gray-500"
                           }
                         >
                           (${plan.priceYearly} / yr)
@@ -138,7 +138,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                       </RadioGroup.Description>
                       <RadioGroup.Description
                         className={clsx(
-                          checked ? "text-indigo-700" : "text-gray-500",
+                          checked ? "text-zinc-700" : "text-gray-500",
                           "ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-right"
                         )}
                       >
@@ -156,8 +156,8 @@ const Plan: FC<PlanProps> = ({ user }) => {
               checked={annualBillingEnabled}
               onChange={setAnnualBillingEnabled}
               className={clsx(
-                annualBillingEnabled ? "bg-indigo-500" : "bg-gray-200",
-                "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors ease-in-out duration-200"
+                annualBillingEnabled ? "bg-zinc-500" : "bg-gray-200",
+                "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 transition-colors ease-in-out duration-200"
               )}
             >
               <span
@@ -199,7 +199,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                   name="first-name"
                   id="first-name"
                   autoComplete="cc-given-name"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
                 />
               </div>
 
@@ -215,7 +215,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                   name="last-name"
                   id="last-name"
                   autoComplete="cc-family-name"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
                 />
               </div>
 
@@ -231,7 +231,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                   name="email-address"
                   id="email-address"
                   autoComplete="email"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
                 />
               </div>
 
@@ -247,7 +247,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                   name="expiration-date"
                   id="expiration-date"
                   autoComplete="cc-exp"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
                   placeholder="MM / YY"
                 />
               </div>
@@ -258,17 +258,14 @@ const Plan: FC<PlanProps> = ({ user }) => {
                   className="flex items-center text-sm font-medium text-gray-700"
                 >
                   <span>Security code</span>
-                  {/* <QuestionMarkCircleIcon
-                    className="ml-1 flex-shrink-0 h-5 w-5 text-gray-300"
-                    aria-hidden="true"
-                  /> */}
+                  <Icon name="QuestionMarkCircleIcon" size="lg" color="dark" />
                 </label>
                 <input
                   type="text"
                   name="security-code"
                   id="security-code"
                   autoComplete="cc-csc"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
                 />
               </div>
 
@@ -283,7 +280,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                   id="country"
                   name="country"
                   autoComplete="country-name"
-                  className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
                 >
                   <option>United States</option>
                   <option>Canada</option>
@@ -303,7 +300,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                   name="postal-code"
                   id="postal-code"
                   autoComplete="postal-code"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
                 />
               </div>
             </div>
@@ -316,7 +313,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
               onClick={() => {
                 setFieldsEdited(false);
               }}
-              className="bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-900"
+              className="bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-900"
             >
               Reset
             </button>
@@ -348,7 +345,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                   // });
                 }
               }}
-              className="bg-blue-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-900"
+              className="bg-zinc-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-900"
             >
               {updateNotificationLoading ? (
                 <Spinner color={"text-white"} />

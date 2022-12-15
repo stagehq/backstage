@@ -1,6 +1,6 @@
-import { CheckCircleIcon } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
 import { FC } from "react";
+import { Icon } from "../../Icons";
 
 interface PasswordProps {
   password: string;
@@ -48,10 +48,7 @@ const Password: FC<PasswordProps> = ({
                     </button>
                     <div className="flex items-start w-6/12">
                       <div className="flex-shrink-0">
-                        <CheckCircleIcon
-                          className="h-6 w-6 text-green-400"
-                          aria-hidden="true"
-                        />
+                        <Icon name="CheckCircleIcon" size="lg" color="success" />
                       </div>
                       <div className="ml-3 w-0 flex-1 pt-0.5">
                         <p className="text-sm font-medium text-gray-900">
