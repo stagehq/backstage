@@ -716,7 +716,7 @@ const OnboardingSubdomain: FC = () => {
       upsertSite({
         subdomain: onboarding.subdomain,
         tagline: onboarding.tagline,
-        bio: onboarding.bio
+        bio: onboarding.bio,
       });
       setActiveSection("done");
     }

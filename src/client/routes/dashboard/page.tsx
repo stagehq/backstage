@@ -1,27 +1,32 @@
+import { useEffect } from "react";
+import useSWR from "swr";
 import Banner from "../../components/Banner";
 import Container from "../../components/Container";
 import Content from "../../components/Content";
 import More from "../../components/More";
 import Title from "../../components/Title";
-import useSWR from 'swr'
-import { useEffect } from "react";
 
 const useLinkedin = (url: string) => {
-  const fetcher = (url: string) => fetch(url).then(r => r.json())
-  const { data, error, isLoading } = useSWR(`/api/linkedin?url=` + url, fetcher)
+  const fetcher = (url: string) => fetch(url).then((r) => r.json());
+  const { data, error, isLoading } = useSWR(
+    `/api/linkedin?url=` + url,
+    fetcher
+  );
   return {
-    user: data, 
+    user: data,
     isLoading,
-    isError: error
-  }
-}
+    isError: error,
+  };
+};
 
 const Dashboard = () => {
-  const { user, isLoading, isError } = useLinkedin('https://linkedin.com/in/brunocampos01');
+  const { user, isLoading, isError } = useLinkedin(
+    "https://linkedin.com/in/brunocampos01"
+  );
 
   useEffect(() => {
-    console.log(user); 
-  }, [user])
+    console.log(user);
+  }, [user]);
 
   return (
     <>
