@@ -7,21 +7,20 @@ import useSWR from 'swr'
 import { useEffect } from "react";
 
 const useLinkedin = (url: string) => {
-  const fetcher = (url: string) => fetch(url).then((res) => res.json())
-  const { data, error, isLoading } = useSWR(`/api/linkedin/${url}`, fetcher)
-
+  const fetcher = (url: string) => fetch(url).then(r => r.json())
+  const { data, error, isLoading } = useSWR(`/api/linkedin?url=` + url, fetcher)
   return {
-    user: data,
+    user: data, 
     isLoading,
     isError: error
   }
 }
 
 const Dashboard = () => {
-  const { user, isLoading, isError } = useLinkedin('https://linkedin.com/in/brunocampos01')
-  
+  const { user, isLoading, isError } = useLinkedin('https://linkedin.com/in/brunocampos01');
+
   useEffect(() => {
-    console.log(user)
+    console.log(user); 
   }, [user])
 
   return (
