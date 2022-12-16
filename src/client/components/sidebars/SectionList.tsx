@@ -98,7 +98,7 @@ const SectionList = () => {
             }
           />
           <List>
-            {blogPosts.map((post: any) => (
+            {blogPosts.map((post: any, index) => (
               <List.Item
                 type={post.type}
                 title={post.title}
@@ -107,6 +107,7 @@ const SectionList = () => {
                 actions={
                   <Action.Link url="https://google.com" text="Read article" />
                 }
+                key={"blogPosts" + index}
               />
             ))}
           </List>
@@ -143,7 +144,7 @@ const SectionList = () => {
             ]}
           />
           <List>
-            {openSource.map((project: any) => (
+            {openSource.map((project: any, index) => (
               <List.Item
                 type={project.type}
                 title={project.title}
@@ -155,6 +156,7 @@ const SectionList = () => {
                     icon: project.count?.icon,
                   }
                 }
+                key={"openSource" + index}
               />
             ))}
           </List>
@@ -204,6 +206,7 @@ const SectionList = () => {
                     icon: album.count.icon,
                   }
                 }
+                key={album.title}
               />
             ))}
           </List>
@@ -255,25 +258,27 @@ const SectionList = () => {
         <Section>
           <Header title="Experience" icon="BriefcaseIcon" />
           <List>
-            {experience.map((job: any) => (
+            {experience.map((job: any, index) => (
               <List.Item
                 type={job.type}
                 title={job.subtitle}
                 subtitle={job.title}
                 additional={job.additional}
                 image={job.image}
+                key={"experience" + index}
               />
             ))}
           </List>
           <Seperator />
           <List>
-            {university.map((job: any) => (
+            {university.map((job: any, index) => (
               <List.Item
                 type={job.type}
                 title={job.title}
                 subtitle={job.subtitle}
                 additional={job.additional}
                 image={job.image}
+                key={"university" + index}
               />
             ))}
           </List>
