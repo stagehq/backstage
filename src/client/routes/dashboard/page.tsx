@@ -19,29 +19,6 @@ const useLinkedin = (url: string) => {
   };
 };
 
-export async function fetchTokens(
-  authRequest: AuthorizationRequest,
-  authCode: string
-): Promise<TokenResponse> {
-  const response = await fetch("https://github.com/login/oauth/access_token", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" , "Access-Control-Allow-Origin": "*"},
-    body: JSON.stringify({
-      client_id: "d088936f563ce38a44a1",
-      client_secret: "xT3vOix9IMKbEmHiUt-kSScEdrlG7GT51B9IH4uAJbwEbZ4aA7",
-      code: authCode,
-      // code_verifier: authRequest.codeVerifier,
-      // grant_type: "authorization_code",
-      redirect_uri: authRequest.redirectURI,
-    }),
-  });
-  if (!response.ok) {
-    console.error("fetch tokens error:", await response.text());
-    throw new Error(response.statusText);
-  }
-  return (await response.json()) as TokenResponse;
-}
-
 const Dashboard = () => {
   // const { user, isLoading, isError } = useLinkedin(
   //   "https://linkedin.com/in/brunocampos01"
@@ -52,18 +29,21 @@ const Dashboard = () => {
       authRequest: AuthorizationRequest,
       authCode: string
     ): Promise<TokenResponse> {
+      const data = new URLSearchParams();
+      data.append("client_id", "d088936f563ce38a44a1");
+      data.append("client_secret", "505290532c232f369bd09218477840fd64976a37");
+      data.append("code", authCode);
+      // data.append("code_verifier", authRequest.codeVerifier);
+      // data.append("grant_type", "authorization_code");
+      data.append("redirect_uri", authRequest.redirectURI);
+
       const response = await fetch("https://github.com/login/oauth/access_token", {
+        mode: "no-cors",
         method: "POST",
-        headers: { "Content-Type": "application/json" , "Access-Control-Allow-Origin": "*"},
-        body: JSON.stringify({
-          client_id: "d088936f563ce38a44a1",
-          client_secret: "xT3vOix9IMKbEmHiUt-kSScEdrlG7GT51B9IH4uAJbwEbZ4aA7",
-          code: authCode,
-          code_verifier: authRequest.codeVerifier,
-          grant_type: "authorization_code",
-          redirect_uri: authRequest.redirectURI,
-        }),
+        headers: { "Content-Type": "application/x-www-form-urlencoded", "Access-Control-Allow-Origin": "*", "Accept": "*/*" },
+        body: data,
       });
+      
       if (!response.ok) {
         console.error("fetch tokens error:", await response.text());
         throw new Error(response.statusText);
