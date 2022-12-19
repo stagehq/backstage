@@ -343,11 +343,13 @@ const OnboardingSubdomain: FC = () => {
           The alias is the name which is displayed in your url.{" "}
           {onboarding.subdomain.length === 0 ? (
             <>
-              For example: getstage.app/<span className="underline">nilsjacobsen</span>
+              For example: getstage.app/
+              <span className="underline">nilsjacobsen</span>
             </>
           ) : (
             <>
-              Your domain: getstage.app/<span className="underline">{onboarding.subdomain}</span>
+              Your domain: getstage.app/
+              <span className="underline">{onboarding.subdomain}</span>
             </>
           )}
         </p>
@@ -427,9 +429,9 @@ const OnboardingCv: FC = () => {
   const [link, setLink] = useState("");
   const [, setActiveSection] = useRecoilState(activeSectionState);
 
-  const [, updateLinkedinExtension] = useCreateLinkedInExtensionMutation()
-  
-  const [siteSlug, ] = useRecoilState(siteSlugState);
+  const [, updateLinkedinExtension] = useCreateLinkedInExtensionMutation();
+
+  const [siteSlug] = useRecoilState(siteSlugState);
   const site = useRecoilValue(siteState(siteSlug));
 
   const [validLink, setValidLink] = useState(false);
@@ -442,12 +444,12 @@ const OnboardingCv: FC = () => {
   };
 
   const handleCvUpdate = () => {
-    if(site && isValidLink(link)) {
+    if (site && isValidLink(link)) {
       updateLinkedinExtension({
         siteId: site.id,
-        storeExtensionId: 'clbv4gdyh0000pg3ltjfyquss',
-        linkedInUrl: link
-      })
+        storeExtensionId: "clbv4gdyh0000pg3ltjfyquss",
+        linkedInUrl: link,
+      });
     }
   };
 
@@ -491,7 +493,7 @@ const OnboardingCv: FC = () => {
               disabled={!validLink}
               onClick={() => {
                 handleCvUpdate();
-                setActiveSection("projects")
+                setActiveSection("projects");
               }}
               className="mt-2 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
             >
@@ -530,11 +532,11 @@ const OnboardingProjects: FC = () => {
   const handleGithubAuth = async () => {
     await github.authorize();
     setGithubConnected(!githubConnected);
-  }
+  };
 
   const handleGitlabAuth = () => {
-    console.log('click');
-  }
+    console.log("click");
+  };
 
   return (
     <>

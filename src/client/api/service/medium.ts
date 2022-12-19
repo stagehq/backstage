@@ -1,43 +1,43 @@
 import { OAuth } from "../connector";
 
-const github = new OAuth.PKCEClient({
+const medium = new OAuth.PKCEClient({
   redirectMethod: OAuth.RedirectMethod.Web,
-  providerName: "GitHub",
-  providerIcon: "github-logo.png",
-  providerId: "github",
-  description: "GitHub OAuth",
+  providerName: "Medium",
+  providerIcon: "medium-logo.png",
+  providerId: "medium",
+  description: "Medium OAuth",
 });
 
 export const authorize = async () => {
-  const tokenSet = await github.getTokens();
+  const tokenSet = await medium.getTokens();
   if (tokenSet?.accessToken) {
     if (tokenSet.refreshToken && tokenSet.isExpired()) {
-      await github.setTokens(await refreshTokens(tokenSet.refreshToken));
+      await medium.setTokens(await refreshTokens(tokenSet.refreshToken));
     }
     return;
   }
 
-  const authRequest = await github.authorizationRequest({
-    endpoint: "https://github.com/login/oauth/authorize",
-    clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID as string,
-    scope: "read:user,repo",
+  const authRequest = await medium.authorizationRequest({
+    endpoint: "https://medium.com/m/oauth/authorize",
+    clientId: process.env.NEXT_PUBLIC_MEDIUM_CLIENT_ID as string,
+    scope: "basicProfile,listPublications",
   });
-  const { authorizationCode } = await github.authorize(authRequest);
-  await github.setTokens(await fetchTokens(authRequest, authorizationCode));
+  const { authorizationCode } = await medium.authorize(authRequest);
+  await medium.setTokens(await fetchTokens(authRequest, authorizationCode));
 };
 
 async function fetchTokens(
   authRequest: OAuth.AuthorizationRequest,
   authCode: string
 ): Promise<OAuth.TokenResponse> {
-  const response = await fetch("/api/oauth/github/access_token", {
+  const response = await fetch("/api/oauth/medium/access_token", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       codeVerifier: authRequest.codeVerifier,
-      redirectURI: authRequest.redirectURI,
+      redirectURI: "https://getstage.app",
       authCode,
     }),
   });
@@ -47,11 +47,11 @@ async function fetchTokens(
 async function refreshTokens(
   refreshToken: string
 ): Promise<OAuth.TokenResponse> {
-  const response = await fetch("/api/oauth/github/refresh_token", {
+  const response = await fetch("/api/oauth/medium/refresh_token", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
+      clientId: process.env.NEXT_PUBLIC_MEDIUM_CLIENT_ID,
       refreshToken: refreshToken,
       grantType: "refresh_token",
     }),
@@ -65,4 +65,4 @@ async function refreshTokens(
   return tokenResponse;
 }
 
-export default github;
+export default medium;

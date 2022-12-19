@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import * as github from "../../api/service/github";
+import * as medium from "../../api/service/medium";
 import Banner from "../../components/Banner";
 import Container from "../../components/Container";
 import Content from "../../components/Content";
@@ -25,7 +25,7 @@ const Dashboard = () => {
   // );
 
   const handleClick = async () => {
-    github.authorize();
+    medium.authorize();
   };
 
   return (
@@ -35,7 +35,7 @@ const Dashboard = () => {
           <Banner />
           <Title />
           <More />
-          <span onClick={handleClick}>Connect GitHub</span>
+          <span onClick={handleClick}>Connect Medium</span>
         </Container>
       </Content>
     </>

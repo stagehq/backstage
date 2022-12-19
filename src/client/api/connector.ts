@@ -127,7 +127,7 @@ export namespace OAuth {
         code_challenge: await codeChallenge,
         code_challenge_method: "S256",
         state,
-        redirect_uri: redirectURI,
+        redirect_uri: getRedirectURI(),
         ...extraParameters,
       });
       console.log(params.toString());

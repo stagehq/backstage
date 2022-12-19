@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { siteSlugState, siteState } from "../store/site";
 
-
 const Repositories = () => {
   const { siteId } = useParams();
 
@@ -24,10 +23,10 @@ const Repositories = () => {
       let mergedData = [];
 
       // merge data from GitHub and GitLab
-      site.extensions[0].underlayingApis?.forEach(underlayingApi => {
+      site.extensions[0].underlayingApis?.forEach((underlayingApi) => {
         if (underlayingApi.apiConnector?.name === "GitHub") {
-          underlayingApi.apiResponses?.forEach(apiResponse => {
-            apiResponse.response.forEach(repository => {
+          underlayingApi.apiResponses?.forEach((apiResponse) => {
+            apiResponse.response.forEach((repository) => {
               mergedData.push({
                 source: "GitHub",
                 url: repository.html_url,
@@ -35,13 +34,13 @@ const Repositories = () => {
                 full_name: repository.full_name,
                 description: repository.description,
                 star_count: repository.stargazers_count,
-              })
-            })
-          })
+              });
+            });
+          });
         }
         if (underlayingApi.apiConnector?.name === "GitLab") {
-          underlayingApi.apiResponses?.forEach(apiResponse => {
-            apiResponse.response.forEach(repository => {
+          underlayingApi.apiResponses?.forEach((apiResponse) => {
+            apiResponse.response.forEach((repository) => {
               mergedData.push({
                 source: "GitLab",
                 url: repository.web_url,
@@ -49,9 +48,9 @@ const Repositories = () => {
                 full_name: repository.path_with_namespace,
                 description: repository.description,
                 star_count: repository.star_count,
-              })
-            })
-          })
+              });
+            });
+          });
         }
       });
 
@@ -59,11 +58,14 @@ const Repositories = () => {
       mergedData.sort((a, b) => b.star_count - a.star_count);
 
       // remove duplicates
-      mergedData = mergedData.filter((repository, index, self) => self.findIndex(t => t.name === repository.name) === index);
-      
+      mergedData = mergedData.filter(
+        (repository, index, self) =>
+          self.findIndex((t) => t.name === repository.name) === index
+      );
+
       // reduce to 3 items for now
       mergedData = mergedData.slice(0, 3);
-      
+
       setData(mergedData);
       console.log(data);
     }
@@ -90,21 +92,22 @@ const Repositories = () => {
           pills={languages}
         /> */}
         <List>
-          {data.map((project, index) => (         
+          {data.map((project, index) => (
             <List.Item
               type={"card"}
               title={project.name}
               additional={project.full_name}
               subtitle={project.description}
-              count={
-                {
-                  value: project.star_count,
-                  icon: "StarIcon",
-                }
-              }
+              count={{
+                value: project.star_count,
+                icon: "StarIcon",
+              }}
               actions={
                 <Actions>
-                  <Action.Link url={project.url} text={`View on ${project.source}`} />
+                  <Action.Link
+                    url={project.url}
+                    text={`View on ${project.source}`}
+                  />
                 </Actions>
               }
               key={"repository" + index}

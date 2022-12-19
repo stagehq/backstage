@@ -1,29 +1,13 @@
-import {
-  Action,
-  Actions,
-  Cards,
-  Header,
-  List,
-  Section,
-  Seperator,
-} from "@stagehq/ui";
-import { Pills } from "@stagehq/ui/dist/components/Pills";
+import { Section } from "@stagehq/ui";
 import clsx from "clsx";
 import { FC, useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { siteSlugState, siteState } from "../../store/site";
 import ImageUpload from "../crop/ImageUpload";
 import { Icon, IconEnum } from "../Icons";
 import EditSidebarPortal from "./EditSidebarPortal";
 import { PageAsidePortal, PageMainPortal } from "./PagePortal";
-import {
-  blogPosts,
-  experience,
-  openSource,
-  spotify,
-  university,
-} from "./testData";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { siteSlugState, siteState } from "../../store/site";
 
 export enum SectionType {
   HEADER = "Header",
@@ -69,7 +53,7 @@ export interface SectionListProps {
 }
 
 const SectionList = () => {
-  const [siteSlug, ] = useRecoilState(siteSlugState);
+  const [siteSlug] = useRecoilState(siteSlugState);
   const site = useRecoilValue(siteState(siteSlug));
 
   // sections state to be used in the list with website section names and ids
@@ -97,10 +81,10 @@ const SectionList = () => {
   }, [sections]);
 
   useEffect(() => {
-    if(site?.extensions){
+    if (site?.extensions) {
       site.extensions.map((extension) => {
         console.log(extension);
-      })
+      });
     }
   }, [site]);
 

@@ -7,9 +7,8 @@ import SectionList from "../../components/sidebars/SectionList";
 import SectionWrapper from "../../components/sidebars/SectionWrapper";
 import { personal } from "../../components/sidebars/testData";
 import ShareBar from "../../components/studio/ShareBar";
-import { siteSlugState, siteState } from "../../store/site";
 import { useCreateOAuthExtensionMutation } from "../../graphql/createOAuthExtension.generated";
-import { decodeGlobalID } from "@pothos/plugin-relay";
+import { siteSlugState, siteState } from "../../store/site";
 
 const Site = () => {
   const { siteId } = useParams();
@@ -32,7 +31,7 @@ const Site = () => {
         siteId: "clbnmzq4o0000eo5vrnfms2tm",
         storeExtensionId: "clbuudful0000pgngwvt3p3z1",
         apiConnectorId: "clbun6dc00000ushocqfxscdc",
-        accessToken: "token"
+        accessToken: "token",
         //@ts-ignore
       }).then((result) => {
         console.log(result);

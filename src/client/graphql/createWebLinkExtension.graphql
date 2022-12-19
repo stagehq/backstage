@@ -1,5 +1,13 @@
-mutation CreateWebLinkExtension($siteId: String!, $storeExtensionId: String!, $webLinks: [String!]!) {
-  createWebLinkExtension(siteId: $siteId, storeExtensionId: $storeExtensionId, webLinks: $webLinks) {
+mutation CreateWebLinkExtension(
+  $siteId: String!
+  $storeExtensionId: String!
+  $webLinks: [String!]!
+) {
+  createWebLinkExtension(
+    siteId: $siteId
+    storeExtensionId: $storeExtensionId
+    webLinks: $webLinks
+  ) {
     __typename
     id
     createdAt
