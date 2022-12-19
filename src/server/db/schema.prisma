@@ -111,8 +111,13 @@ model Api {
   id                    String                @id @default(cuid())
   createdAt             DateTime              @default(now())
   modifiedAt            DateTime              @default(now())
-  refreshToken          String
   accessToken           String
+  isExpired             Boolean               @default(false)
+
+  expiresIn             Int?
+  idToken               String?
+  refreshToken          String?
+  scope                 String?
 
   apiConnectorId        String
   apiConnector          ApiConnector          @relation(fields: [apiConnectorId], references: [id])
@@ -127,7 +132,7 @@ model ApiResponse {
   id                    String                @id @default(cuid())
   createdAt             DateTime              @default(now())
   modifiedAt            DateTime              @default(now())
-  response              String
+  response              Json?
 
   apiId                 String
   api                   Api                   @relation(fields: [apiId], references: [id])
