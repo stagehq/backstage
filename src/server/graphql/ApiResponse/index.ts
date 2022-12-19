@@ -4,10 +4,10 @@ builder.prismaNode('ApiResponse', {
   findUnique: (id) => ({ id: id }),
   id: { resolve: (apiResponses) => apiResponses.id },
   fields: (t) => ({
-    createdAt: t.string({ resolve: site => site.createdAt.toString()}),
-    modifiedAt: t.string({ resolve: site => site.modifiedAt.toString()}),
+    createdAt: t.string({ resolve: apiResponse => apiResponse.createdAt.toString()}),
+    modifiedAt: t.string({ resolve: apiResponse => apiResponse.modifiedAt.toString()}),
     
-    response: t.exposeString('response'),
+    response: t.string({ resolve: apiResponse => apiResponse.response?.toString()}),
     apiConnectorRoute: t.relation('apiConnectorRoute')
   }),
 });
