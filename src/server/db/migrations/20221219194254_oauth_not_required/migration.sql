@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Api" ALTER COLUMN "accessToken" DROP NOT NULL,
+ALTER COLUMN "isExpired" DROP NOT NULL;

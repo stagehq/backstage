@@ -86,7 +86,11 @@ builder.mutationField('createOAuthExtension', (t) =>
                     id: args.apiConnectorId
                   }
                 },
-                accessToken: args.accessToken
+                oAuth: {
+                  create: {
+                    accessToken: args.accessToken
+                  }
+                }
               }
             },
             sortOrder: extensionCount ? extensionCount.length ? extensionCount.length > 0 ? extensionCount.length + 1  : 1 : 1 : 1
@@ -106,7 +110,11 @@ builder.mutationField('createOAuthExtension', (t) =>
                     id: args.apiConnectorId
                   }
                 },
-                accessToken: args.accessToken
+                oAuth: {
+                  create: {
+                    accessToken: args.accessToken
+                  }
+                }
               }
             }
           }

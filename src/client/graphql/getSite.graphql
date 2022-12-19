@@ -25,8 +25,10 @@ query GetSite($subdomain: String!) {
         id
         modifiedAt
         createdAt
-        accessToken
-        isExpired
+
+        oAuth {
+          accessToken
+        }
 
         apiConnector {
           id

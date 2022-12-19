@@ -22,6 +22,8 @@ import {
   spotify,
   university,
 } from "./testData";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { siteSlugState, siteState } from "../../store/site";
 
 export enum SectionType {
   HEADER = "Header",
@@ -67,6 +69,9 @@ export interface SectionListProps {
 }
 
 const SectionList = () => {
+  const [siteSlug, ] = useRecoilState(siteSlugState);
+  const site = useRecoilValue(siteState(siteSlug));
+
   // sections state to be used in the list with website section names and ids
   const [sections, setSections] = useState<Section[]>([
     {
@@ -79,214 +84,6 @@ const SectionList = () => {
     },
     {
       id: 2,
-      text: "Blogs",
-      type: SectionType.EXTENSION,
-      icon: "DocumentIcon",
-      locked: false,
-      selected: false,
-      apis: [ExtensionAPIEnum.MEDIUM, ExtensionAPIEnum.DEVTO],
-      position: ExtensionPosition.MAIN,
-      component: (
-        <Section>
-          <Header
-            title="Recent Blogs"
-            icon="BookOpenIcon"
-            actions={
-              <Actions>
-                <Action.Link url="https://google.com" text="DEV.to" />
-              </Actions>
-            }
-          />
-          <List>
-            {blogPosts.map((post: any, index) => (
-              <List.Item
-                type={post.type}
-                title={post.title}
-                additional={post.additional}
-                subtitle={post.subtitle}
-                actions={
-                  <Action.Link url="https://google.com" text="Read article" />
-                }
-                key={"blogPosts" + index}
-              />
-            ))}
-          </List>
-        </Section>
-      ),
-    },
-    {
-      id: 3,
-      text: "Repositories",
-      type: SectionType.EXTENSION,
-      icon: "CodeBracketIcon",
-      locked: false,
-      selected: false,
-      apis: [ExtensionAPIEnum.GITHUB, ExtensionAPIEnum.GITLAB],
-      position: ExtensionPosition.MAIN,
-      component: (
-        <Section>
-          <Header
-            title="Open Source"
-            icon="CodeBracketSquareIcon"
-            actions={
-              <Actions>
-                <Action.Link url="https://github.com" text="GitHub profile" />
-              </Actions>
-            }
-          />
-          <Pills
-            pills={[
-              "react.js",
-              "vue.js",
-              "angular.js",
-              "ember.js",
-              "svelte.js",
-            ]}
-          />
-          <List>
-            {openSource.map((project: any, index) => (
-              <List.Item
-                type={project.type}
-                title={project.title}
-                additional={project.additional}
-                subtitle={project.subtitle}
-                count={
-                  project.count && {
-                    value: project.count?.value,
-                    icon: project.count?.icon,
-                  }
-                }
-                key={"openSource" + index}
-              />
-            ))}
-          </List>
-        </Section>
-      ),
-    },
-    {
-      id: 4,
-      text: "Music",
-      type: SectionType.EXTENSION,
-      icon: "MusicalNoteIcon",
-      locked: false,
-      selected: false,
-      apis: [ExtensionAPIEnum.SPOTIFY],
-      position: ExtensionPosition.MAIN,
-      component: (
-        <Section>
-          <Header
-            title="My Music"
-            icon="MusicalNoteIcon"
-            actions={
-              <Actions>
-                <Action.Link url="https://github.com" text="Spotify profile" />
-              </Actions>
-            }
-          />
-          <Cards>
-            <Cards.Item
-              type="horizontal"
-              title="This album title"
-              subtitle="Artist Name"
-              image="https://placeimg.com/640/480/arch"
-              icon="PlayIcon"
-            />
-          </Cards>
-          <List>
-            {spotify.map((album: any, index) => (
-              <List.Item
-                index={index + 1}
-                type={album.type}
-                title={album.title}
-                subtitle={album.subtitle}
-                image={album.image}
-                count={
-                  album.count && {
-                    value: album.count.value,
-                    icon: album.count.icon,
-                  }
-                }
-                key={album.title}
-              />
-            ))}
-          </List>
-        </Section>
-      ),
-    },
-    {
-      id: 5,
-      text: "Hire me!",
-      type: SectionType.EXTENSION,
-      icon: "UserIcon",
-      locked: false,
-      selected: false,
-      apis: [ExtensionAPIEnum.LINKEDIN],
-      position: ExtensionPosition.ASIDE,
-      component: (
-        <Section>
-          <Cards>
-            <Cards.Item
-              type="vertical"
-              title="Hire me!"
-              subtitle="I build web apps for startups, businesses and public institutions as a freelance web developer and designer. Let's discuss your needs and see how I can help."
-              icon="BoltIcon"
-              actions={
-                <Actions>
-                  <Action.Button
-                    link="https://google.com"
-                    text="Contact me"
-                    icon="EnvelopeIcon"
-                    primary
-                  />
-                </Actions>
-              }
-            />
-          </Cards>
-        </Section>
-      ),
-    },
-    {
-      id: 6,
-      text: "LinkedIn",
-      type: SectionType.EXTENSION,
-      icon: "BriefcaseIcon",
-      locked: false,
-      selected: false,
-      apis: [ExtensionAPIEnum.LINKEDIN],
-      position: ExtensionPosition.ASIDE,
-      component: (
-        <Section>
-          <Header title="Experience" icon="BriefcaseIcon" />
-          <List>
-            {experience.map((job: any, index) => (
-              <List.Item
-                type={job.type}
-                title={job.subtitle}
-                subtitle={job.title}
-                additional={job.additional}
-                image={job.image}
-                key={"experience" + index}
-              />
-            ))}
-          </List>
-          <Seperator />
-          <List>
-            {university.map((job: any, index) => (
-              <List.Item
-                type={job.type}
-                title={job.title}
-                subtitle={job.subtitle}
-                additional={job.additional}
-                image={job.image}
-                key={"university" + index}
-              />
-            ))}
-          </List>
-        </Section>
-      ),
-    },
-    {
-      id: 7,
       text: "Footer",
       type: SectionType.FOOTER,
       icon: "QueueListIcon",
@@ -294,9 +91,18 @@ const SectionList = () => {
       selected: false,
     },
   ]);
+
   useEffect(() => {
     console.log("sections", sections);
   }, [sections]);
+
+  useEffect(() => {
+    if(site?.extensions){
+      site.extensions.map((extension) => {
+        console.log(extension);
+      })
+    }
+  }, [site]);
 
   // a little function to help us with reordering the result
   const reorder = (list: Section[], startIndex: number, endIndex: number) => {

@@ -6,6 +6,9 @@ import './StoreExtension'
 import './ApiResponse'
 import './ApiConnector'
 import './ApiConnectorRoute'
+import './Preference'
+import './OAuth'
+
 
 import { lexicographicSortSchema, printSchema } from 'graphql'
 

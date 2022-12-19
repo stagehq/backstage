@@ -111,13 +111,9 @@ model Api {
   id                    String                @id @default(cuid())
   createdAt             DateTime              @default(now())
   modifiedAt            DateTime              @default(now())
-  accessToken           String
-  isExpired             Boolean               @default(false)
 
-  expiresIn             Int?
-  idToken               String?
-  refreshToken          String?
-  scope                 String?
+  oAuth                 OAuth?  
+  preferences           Preference[]              
 
   apiConnectorId        String
   apiConnector          ApiConnector          @relation(fields: [apiConnectorId], references: [id])
@@ -126,6 +122,32 @@ model Api {
 
   extensionId           String
   extension             Extension             @relation(fields: [extensionId], references: [id])
+}
+
+model OAuth {
+  id                    String                @id @default(cuid())
+  createdAt             DateTime              @default(now())
+  modifiedAt            DateTime              @default(now())
+
+  accessToken           String
+  isExpired             Boolean               @default(false)
+
+  expiresIn             Int?
+  idToken               String?
+  refreshToken          String?
+  scope                 String?
+
+  apiId                 String                @unique
+  api                   Api                   @relation(fields: [apiId], references: [id])
+}
+
+model Preference {
+  id                    String                @id @default(cuid())
+  key                   String
+  value                 String
+
+  apiId                 String                @unique
+  api                   Api                   @relation(fields: [apiId], references: [id])
 }
 
 model ApiResponse {
