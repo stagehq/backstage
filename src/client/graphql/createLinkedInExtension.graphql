@@ -1,0 +1,8 @@
+mutation CreateLinkedInExtension($siteId: String!, $storeExtensionId: String!, $linkedInUrl: String!) {
+  createLinkedInExtension(siteId: $siteId, storeExtensionId: $storeExtensionId, linkedInUrl: $linkedInUrl) {
+    __typename
+    id
+    createdAt
+    modifiedAt
+  }
+}

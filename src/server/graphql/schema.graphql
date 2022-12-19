@@ -46,7 +46,9 @@ type Extension implements Node {
 
 type Mutation {
   createApi(accessToken: String, apiConnectorId: String, extensionId: String): Api
+  createLinkedInExtension(linkedInUrl: String, siteId: String, storeExtensionId: String): Extension
   createOAuthExtension(accessToken: String, apiConnectorId: String, siteId: String, storeExtensionId: String): Extension
+  createWebLinkExtension(siteId: String, storeExtensionId: String, webLinks: [String!]): Extension
   updateUser(alias: String, coverImageUrl: String, firstName: String, image: String, lastName: String): User
   upsertSite(bio: String!, subdomain: String!, tagline: String!): Site
 }

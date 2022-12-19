@@ -76,3 +76,104 @@ builder.mutationField('createOAuthExtension', (t) =>
     }
   })
 );
+
+builder.mutationField('createLinkedInExtension', (t) => 
+  t.prismaField({
+    type: "Extension",
+    args: {
+      storeExtensionId: t.arg.string(),
+      siteId: t.arg.string(),
+      linkedInUrl: t.arg.string(),
+    },
+    resolve: async (query, root, args, ctx) => {
+      if (!ctx.session.user.email || args.linkedInUrl == null || args.siteId == null || args.storeExtensionId == null) return null;
+
+      //check if 
+      const check = await prisma.extension.findFirst({
+        where: {
+          site: {
+            id: args.siteId
+          },
+          storeExtension: {
+            id: args.storeExtensionId
+          }
+        }
+      })
+      if (check) return null;
+      
+      const extensionCount = await prisma.site.findFirst({
+        where: {
+          id: args.siteId
+        }
+      }).extensions();
+
+      const extension = await prisma.extension.create({
+        data: {
+          site: {
+            connect: {
+              id: args.siteId
+            }
+          },
+          storeExtension: {
+            connect: {
+              id: args.storeExtensionId
+            }
+          },
+          urls: [args.linkedInUrl],
+          sortOrder: extensionCount ? extensionCount.length ? extensionCount.length > 0 ? extensionCount.length + 1  : 1 : 1 : 1
+        }
+      })
+      return extension;
+    }
+  })
+);
+
+builder.mutationField('createWebLinkExtension', (t) => 
+  t.prismaField({
+    type: "Extension",
+    args: {
+      storeExtensionId: t.arg.string(),
+      siteId: t.arg.string(),
+      webLinks: t.arg.stringList(),
+    },
+    resolve: async (query, root, args, ctx) => {
+      if (!ctx.session.user.email || args.webLinks == null || args.webLinks.length === 0 || args.siteId == null || args.storeExtensionId == null) return null;
+      //check if 
+      const check = await prisma.extension.findFirst({
+        where: {
+          site: {
+            id: args.siteId
+          },
+          storeExtension: {
+            id: args.storeExtensionId
+          }
+        }
+      })
+      if (check) return null;
+      
+      const extensionCount = await prisma.site.findFirst({
+        where: {
+          id: args.siteId
+        }
+      }).extensions();
+
+      const extension = await prisma.extension.create({
+        data: {
+          site: {
+            connect: {
+              id: args.siteId
+            }
+          },
+          storeExtension: {
+            connect: {
+              id: args.storeExtensionId
+            }
+          },
+          urls: args.webLinks,
+          sortOrder: extensionCount ? extensionCount.length ? extensionCount.length > 0 ? extensionCount.length + 1  : 1 : 1 : 1
+        }
+      })
+      return extension;
+    }
+  })
+);
