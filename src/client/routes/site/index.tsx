@@ -8,7 +8,7 @@ import SectionWrapper from "../../components/sidebars/SectionWrapper";
 import { personal } from "../../components/sidebars/testData";
 import ShareBar from "../../components/studio/ShareBar";
 import { siteSlugState, siteState } from "../../store/site";
-import { useCreateWebLinkExtensionMutation } from "../../graphql/createWebLinkExtension.generated";
+import { useUpsertApiResponseMutation } from "../../graphql/upsertApiResponse.generated";
 import { decodeGlobalID } from "@pothos/plugin-relay";
 
 const Site = () => {
@@ -17,7 +17,7 @@ const Site = () => {
   const [siteSlug, setSiteSlug] = useRecoilState(siteSlugState);
   const site = useRecoilValue(siteState(siteSlug));
 
-  const [, createWebLinkExtension] = useCreateWebLinkExtensionMutation();
+  const [, upsertApiResponse] = useUpsertApiResponseMutation();
 
   useEffect(() => {
     if (siteId) {
@@ -28,10 +28,11 @@ const Site = () => {
   useEffect(() => {
     if (site) {
       console.log(site);
-      createWebLinkExtension({
-        siteId: decodeGlobalID(site.id).id,
-        storeExtensionId: "clbuudful0000pgngwvt3p3z1",
-        webLinks: ["https://zirkular.dev", "https://getstage.app"],
+      upsertApiResponse({
+        apiId: "clbuz1ru90001pg7wjyewwuql",
+        apiConnectorRouteId: "clbun8uwg0002ushom4pwd3xm",
+        response: "[{'Test': 'test'}]"
+
         //@ts-ignore
       }).then((result) => {
         console.log(result);

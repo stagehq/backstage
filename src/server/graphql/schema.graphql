@@ -26,6 +26,7 @@ type ApiConnectorRoute implements Node {
 }
 
 type ApiResponse implements Node {
+  api: Api
   apiConnectorRoute: ApiConnectorRoute
   createdAt: String
   id: ID!
@@ -50,6 +51,7 @@ type Mutation {
   createOAuthExtension(accessToken: String, apiConnectorId: String, siteId: String, storeExtensionId: String): Extension
   createWebLinkExtension(siteId: String, storeExtensionId: String, webLinks: [String!]): Extension
   updateUser(alias: String, coverImageUrl: String, firstName: String, image: String, lastName: String): User
+  upsertApiResponse(apiConnectorRouteId: String, apiId: String, response: String): ApiResponse
   upsertSite(bio: String!, subdomain: String!, tagline: String!): Site
 }
 
