@@ -28,8 +28,27 @@ builder.mutationField('createOAuthExtension', (t) =>
     resolve: async (query, root, args, ctx) => {
       if (!ctx.session.user.email || args.apiConnectorId == null || args.accessToken == null || args.siteId == null || args.storeExtensionId == null) return null;
 
-      //check if 
+      //check if api extension is already added
       const check = await prisma.extension.findFirst({
+        where: {
+          site: {
+            id: args.siteId
+          },
+          storeExtension: {
+            id: args.storeExtensionId
+          },
+          underlayingApis: {
+            some: {
+              apiConnector: {
+                id: args.apiConnectorId
+              }
+            }
+          }
+        }
+      })
+      if (check) return null;
+
+      const oldExtension = await prisma.extension.findFirst({
         where: {
           site: {
             id: args.siteId
@@ -47,32 +66,53 @@ builder.mutationField('createOAuthExtension', (t) =>
         }
       }).extensions();
 
-      const extension = await prisma.extension.create({
-        data: {
-          site: {
-            connect: {
-              id: args.siteId
-            }
+      if(!oldExtension){
+        const extension = await prisma.extension.create({
+          data: {
+            site: {
+              connect: {
+                id: args.siteId
+              }
+            },
+            storeExtension: {
+              connect: {
+                id: args.storeExtensionId
+              }
+            },
+            underlayingApis: {
+              create: {
+                apiConnector: {
+                  connect: {
+                    id: args.apiConnectorId
+                  }
+                },
+                accessToken: args.accessToken
+              }
+            },
+            sortOrder: extensionCount ? extensionCount.length ? extensionCount.length > 0 ? extensionCount.length + 1  : 1 : 1 : 1
+          }
+        })
+        return extension;
+      } else {
+        const extension = await prisma.extension.update({
+          where: {
+            id: oldExtension.id
           },
-          storeExtension: {
-            connect: {
-              id: args.storeExtensionId
+          data: {
+            underlayingApis: {
+              create: {
+                apiConnector: {
+                  connect: {
+                    id: args.apiConnectorId
+                  }
+                },
+                accessToken: args.accessToken
+              }
             }
-          },
-          underlayingApis: {
-            create: {
-              apiConnector: {
-                connect: {
-                  id: args.apiConnectorId
-                }
-              },
-              accessToken: args.accessToken
-            }
-          },
-          sortOrder: extensionCount ? extensionCount.length ? extensionCount.length > 0 ? extensionCount.length + 1  : 1 : 1 : 1
-        }
-      })
-      return extension;
+          }
+        })
+        return extension;
+      }   
     }
   })
 );
