@@ -1,0 +1,16 @@
+mutation CreateApi($extensionId: String!, $apiConnectorId: String!, $accessToken: String!) {
+  createApi(extensionId: $extensionId, apiConnectorId: $apiConnectorId, accessToken: $accessToken) {
+    __typename
+    id
+    createdAt
+    modifiedAt
+    accessToken
+    isExpired
+    apiConnector{
+        name
+    }
+    extension{
+        id
+    }
+  }
+}

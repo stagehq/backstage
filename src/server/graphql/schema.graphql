@@ -3,9 +3,10 @@ type Api implements Node {
   apiConnector: ApiConnector
   apiResponses: [ApiResponse!]
   createdAt: String
+  extension: Extension
   id: ID!
+  isExpired: Boolean
   modifiedAt: String
-  refreshToken: String
 }
 
 type ApiConnector implements Node {
@@ -43,6 +44,7 @@ type Extension implements Node {
 }
 
 type Mutation {
+  createApi(accessToken: String, apiConnectorId: String, extensionId: String): Api
   updateUser(alias: String, coverImageUrl: String, firstName: String, image: String, lastName: String): User
   upsertSite(bio: String!, subdomain: String!, tagline: String!): Site
 }
