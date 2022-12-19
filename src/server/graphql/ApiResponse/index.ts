@@ -8,7 +8,7 @@ builder.prismaNode('ApiResponse', {
     createdAt: t.string({ resolve: apiResponse => apiResponse.createdAt.toString()}),
     modifiedAt: t.string({ resolve: apiResponse => apiResponse.modifiedAt.toString()}),
     
-    response: t.string({ resolve: apiResponse => apiResponse.response?.toString()}),
+    response: t.field({ type: 'JSON', resolve: apiResponse => apiResponse.response}),
     apiConnectorRoute: t.relation('apiConnectorRoute'),
     api: t.relation('api')
   }),
@@ -19,7 +19,7 @@ builder.mutationField('upsertApiResponse', (t) =>
     type: "ApiResponse",
     args: {
       apiConnectorRouteId: t.arg.string(),
-      response: t.arg.string(),
+      response: t.arg({ type: 'JSON' }),
       apiId: t.arg.string(), 
     },
     resolve: async (query, root, args, ctx) => {
@@ -67,3 +67,4 @@ builder.mutationField('upsertApiResponse', (t) =>
     }
   })
 );
+   

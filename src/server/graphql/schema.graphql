@@ -31,7 +31,7 @@ type ApiResponse implements Node {
   createdAt: String
   id: ID!
   modifiedAt: String
-  response: String
+  response: JSON
 }
 
 type Extension implements Node {
@@ -44,6 +44,8 @@ type Extension implements Node {
   underlayingApis: [Api!]
   urls: [String!]
 }
+
+scalar JSON
 
 type Mutation {
   createApi(accessToken: String, apiConnectorId: String, extensionId: String): Api
