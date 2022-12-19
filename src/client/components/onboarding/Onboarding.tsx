@@ -445,7 +445,7 @@ const OnboardingCv: FC = () => {
     if(site && isValidLink(link)) {
       updateLinkedinExtension({
         siteId: site.id,
-        storeExtensionId: 'linkedin',
+        storeExtensionId: 'clbv4gdyh0000pg3ltjfyquss',
         linkedInUrl: link
       })
     }
