@@ -2,10 +2,13 @@ import clsx from "clsx";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
+import * as github from "../../api/service/github";
+import { useCreateLinkedInExtensionMutation } from "../../graphql/createLinkedInExtension.generated";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
 import { onboardingState } from "../../store/onboarding";
+import { siteSlugState, siteState } from "../../store/site";
 import {
   activeSectionState,
   OnboardingSection,
@@ -29,8 +32,6 @@ const renderOnboardingSection = (activeSection: OnboardingSection) => {
       return <OnboardingStart />;
     case "profile":
       return <OnboardingProfile />;
-    case "api":
-      return <OnboardingApi />;
     case "cv":
       return <OnboardingCv />;
     case "projects":
@@ -272,7 +273,7 @@ const OnboardingProfile = () => {
             user.lastName === ""
           }
           onClick={() => {
-            setActiveSection("cv");
+            setActiveSection("subdomain");
             changeNames();
           }}
           className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
@@ -284,11 +285,111 @@ const OnboardingProfile = () => {
   );
 };
 
-const OnboardingApi: FC = () => {
+const OnboardingSubdomain: FC = () => {
+  const [, setActiveSection] = useRecoilState(activeSectionState);
+  const [onboarding, setOnboarding] = useRecoilState(onboardingState);
+  // site recoil state
+  const [, setSiteSlug] = useRecoilState(siteSlugState);
+
+  const [subdomainValid, setSubdomainValid] = useState(false);
+
+  const [, upsertSite] = useUpsertSiteMutation();
+
+  const handleSubdomainChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value === "") {
+      setOnboarding({ ...onboarding, subdomain: value });
+      setSubdomainValid(false);
+    } else if (value.match(/^[a-z]+$/)) {
+      setOnboarding({ ...onboarding, subdomain: value });
+      if (value.length > 3) {
+        setSubdomainValid(true);
+      } else {
+        setSubdomainValid(false);
+      }
+    }
+  };
+
+  const handleUpsertSite = () => {
+    if (subdomainValid) {
+      upsertSite({
+        subdomain: onboarding.subdomain,
+        tagline: onboarding.tagline,
+        bio: onboarding.bio,
+      }).then((res) => {
+        if (res.data?.upsertSite?.subdomain) {
+          setSiteSlug(res.data.upsertSite.subdomain);
+        } else {
+          console.log("Alias could not be created.");
+        }
+      });
+    }
+  };
+
   return (
-    <div>
-      <h1>Onboarding API</h1>
-    </div>
+    <>
+      <div className="relative h-[50vh] sm:h-64">
+        <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
+          <DomainIcon />
+        </div>
+        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
+        <Gradient />
+      </div>
+      <div className="mt-auto flex flex-col justify-start items-start gap-2 pt-8 px-4 sm:px-6">
+        <p className="text-xl font-semibold text-left text-zinc-900">
+          Get your alias
+        </p>
+        <p className="text-xs font-medium text-left text-zinc-500">
+          The alias is the name which is displayed in your url.{" "}
+          {onboarding.subdomain.length === 0 ? (
+            <>
+              For example: getstage.app/<span className="underline">nilsjacobsen</span>
+            </>
+          ) : (
+            <>
+              Your domain: getstage.app/<span className="underline">{onboarding.subdomain}</span>
+            </>
+          )}
+        </p>
+      </div>
+      <div className="flex flex-col justify-start items-start gap-2 px-4 py-6 sm:px-6">
+        <div className="w-full">
+          <div className="w-full">
+            <label
+              htmlFor="link"
+              className="block text-sm font-medium text-zinc-600"
+            >
+              Alias
+            </label>
+            <div className="mt-1 relative">
+              <input
+                onChange={handleSubdomainChange}
+                value={onboarding.subdomain}
+                id="subdomain"
+                maxLength={20}
+                name="subdomain"
+                type="text"
+                autoComplete="subdomain"
+                className="appearance-none block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+              />
+            </div>
+          </div>
+          <Link href={"/s"}>
+            <button
+              type="button"
+              disabled={!subdomainValid}
+              onClick={() => {
+                handleUpsertSite();
+                setActiveSection("cv");
+              }}
+              className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
+            >
+              Claim alias
+            </button>
+          </Link>
+        </div>
+      </div>
+    </>
   );
 };
 
@@ -325,8 +426,13 @@ const OnboardingDotMenu = () => {
 const OnboardingCv: FC = () => {
   const [link, setLink] = useState("");
   const [, setActiveSection] = useRecoilState(activeSectionState);
+
+  const [, updateLinkedinExtension] = useCreateLinkedInExtensionMutation()
+  
+  const [siteSlug, ] = useRecoilState(siteSlugState);
+  const site = useRecoilValue(siteState(siteSlug));
+
   const [validLink, setValidLink] = useState(false);
-  const [username, setUsername] = useState("");
 
   const isValidLink = (url: string): boolean => {
     // Regular expression to check for a valid LinkedIn profile URL
@@ -335,24 +441,15 @@ const OnboardingCv: FC = () => {
     return regex.test(url);
   };
 
-  const usernameFromLink = (url: string): string => {
-    const regex = /\/in\/(.*)\//;
-    const match = url.match(regex);
-    if (match) {
-      return match[1];
+  const handleCvUpdate = () => {
+    if(site && isValidLink(link)) {
+      updateLinkedinExtension({
+        siteId: site.id,
+        storeExtensionId: 'linkedin',
+        linkedInUrl: link
+      })
     }
-    return "";
   };
-
-  useEffect(() => {
-    setValidLink(isValidLink(link));
-  }, [link]);
-
-  useEffect(() => {
-    if (validLink) {
-      setUsername(usernameFromLink(link));
-    }
-  }, [validLink, link]);
 
   return (
     <>
@@ -392,7 +489,10 @@ const OnboardingCv: FC = () => {
             <button
               type="button"
               disabled={!validLink}
-              onClick={() => setActiveSection("projects")}
+              onClick={() => {
+                handleCvUpdate();
+                setActiveSection("projects")
+              }}
               className="mt-2 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
             >
               Import
@@ -426,6 +526,15 @@ const OnboardingProjects: FC = () => {
   const [, setActiveSection] = useRecoilState(activeSectionState);
   const [githubConnected, setGithubConnected] = useState(false);
   const [gitlabConnected, setGitlabConnected] = useState(false);
+
+  const handleGithubAuth = async () => {
+    await github.authorize();
+    setGithubConnected(!githubConnected);
+  }
+
+  const handleGitlabAuth = () => {
+    console.log('click');
+  }
 
   return (
     <>
@@ -467,7 +576,9 @@ const OnboardingProjects: FC = () => {
               {!githubConnected ? (
                 <button
                   type="button"
-                  onClick={() => setGithubConnected(!githubConnected)}
+                  onClick={() => {
+                    handleGithubAuth();
+                  }}
                   className="flex justify-start items-center h-8 overflow-hidden gap-2 px-4 py-2 rounded border border-zinc-200"
                 >
                   <p className="text-sm font-medium text-left text-zinc-700">
@@ -682,110 +793,6 @@ const OnboardingStore: FC = () => {
           >
             Claim domain
           </button>
-        </div>
-      </div>
-    </>
-  );
-};
-
-const OnboardingSubdomain: FC = () => {
-  const [, setActiveSection] = useRecoilState(activeSectionState);
-  const [onboarding, setOnboarding] = useRecoilState(onboardingState);
-
-  const [subdomainValid, setSubdomainValid] = useState(false);
-
-  const [, upsertSite] = useUpsertSiteMutation();
-
-  const handleSubdomainChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value === "") {
-      setOnboarding({ ...onboarding, subdomain: value });
-      setSubdomainValid(false);
-    } else if (value.match(/^[a-z]+$/)) {
-      setOnboarding({ ...onboarding, subdomain: value });
-      if (value.length > 3) {
-        setSubdomainValid(true);
-      } else {
-        setSubdomainValid(false);
-      }
-    }
-  };
-
-  const handleUpsertSite = () => {
-    if (subdomainValid) {
-      upsertSite({
-        subdomain: onboarding.subdomain,
-        tagline: onboarding.tagline,
-        bio: onboarding.bio,
-      });
-      setActiveSection("done");
-    }
-  };
-
-  return (
-    <>
-      <div className="relative h-[50vh] sm:h-64">
-        <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
-          <DomainIcon />
-        </div>
-        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
-        <Gradient />
-      </div>
-      <div className="mt-auto flex flex-col justify-start items-start gap-2 pt-8 px-4 sm:px-6">
-        <p className="text-xl font-semibold text-left text-zinc-900">
-          Choose a subdomain
-        </p>
-        <p className="text-xs font-medium text-left text-zinc-500">
-          The subdomain is the name which is displayed in your url.{" "}
-          {onboarding.subdomain.length === 0 ? (
-            <>
-              For example: <span className="underline">nilsjacobsen</span>
-              .getstage.app
-            </>
-          ) : (
-            <>
-              Your domain:{" "}
-              <span className="underline">{onboarding.subdomain}</span>
-              .getstage.app
-            </>
-          )}
-        </p>
-      </div>
-      <div className="flex flex-col justify-start items-start gap-2 px-4 py-6 sm:px-6">
-        <div className="w-full">
-          <div className="w-full">
-            <label
-              htmlFor="link"
-              className="block text-sm font-medium text-zinc-600"
-            >
-              Subdomain
-            </label>
-            <div className="mt-1 relative">
-              <input
-                onChange={handleSubdomainChange}
-                value={onboarding.subdomain}
-                id="subdomain"
-                maxLength={20}
-                name="subdomain"
-                type="text"
-                autoComplete="subdomain"
-                className="appearance-none block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
-              />
-            </div>
-          </div>
-          <Link href={"/s"}>
-            <button
-              type="button"
-              disabled={!subdomainValid}
-              onClick={() => {
-                handleUpsertSite();
-                setActiveSection("subdomain");
-              }}
-              className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
-            >
-              Generate website
-            </button>
-          </Link>
         </div>
       </div>
     </>

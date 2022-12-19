@@ -4,7 +4,6 @@ import { atom } from "recoil";
 export type OnboardingSection =
   | "start"
   | "profile"
-  | "api"
   | "cv"
   | "projects"
   | "blogs"
