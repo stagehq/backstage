@@ -19,7 +19,7 @@ builder.mutationField('upsertApiResponse', (t) =>
     type: "ApiResponse",
     args: {
       apiConnectorRouteId: t.arg.string(),
-      response: t.arg({ type: 'JSON' }),
+      response: t.arg.string(),
       apiId: t.arg.string(), 
     },
     resolve: async (query, root, args, ctx) => {
