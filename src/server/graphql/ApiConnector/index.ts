@@ -4,8 +4,8 @@ builder.prismaNode('ApiConnector', {
   findUnique: (id) => ({ id: id }),
   id: { resolve: (apiConnector) => apiConnector.id },
   fields: (t) => ({
-    createdAt: t.string({ resolve: site => site.createdAt.toString()}),
-    modifiedAt: t.string({ resolve: site => site.modifiedAt.toString()}),
+    createdAt: t.string({ resolve: apiConnector => apiConnector.createdAt.toString()}),
+    modifiedAt: t.string({ resolve: apiConnector => apiConnector.modifiedAt.toString()}),
     
     name: t.exposeString('name'),
     markdown: t.exposeString('markdown'),

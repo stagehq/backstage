@@ -5,8 +5,8 @@ builder.prismaNode('Api', {
   findUnique: (id) => ({ id: id }),
   id: { resolve: (api) => api.id },
   fields: (t) => ({
-    createdAt: t.string({ resolve: site => site.createdAt.toString()}),
-    modifiedAt: t.string({ resolve: site => site.modifiedAt.toString()}),
+    createdAt: t.string({ resolve: api => api.createdAt.toString()}),
+    modifiedAt: t.string({ resolve: api => api.modifiedAt.toString()}),
     accessToken: t.exposeString('accessToken'),
     isExpired: t.exposeBoolean('isExpired'),
 

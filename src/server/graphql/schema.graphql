@@ -37,6 +37,7 @@ type Extension implements Node {
   createdAt: String
   id: ID!
   modifiedAt: String
+  site: Site
   sortOrder: Int
   storeExtension: StoreExtension
   underlayingApis: [Api!]
@@ -45,6 +46,7 @@ type Extension implements Node {
 
 type Mutation {
   createApi(accessToken: String, apiConnectorId: String, extensionId: String): Api
+  createOAuthExtension(accessToken: String, apiConnectorId: String, siteId: String, storeExtensionId: String): Extension
   updateUser(alias: String, coverImageUrl: String, firstName: String, image: String, lastName: String): User
   upsertSite(bio: String!, subdomain: String!, tagline: String!): Site
 }

@@ -8,12 +8,16 @@ import SectionWrapper from "../../components/sidebars/SectionWrapper";
 import { personal } from "../../components/sidebars/testData";
 import ShareBar from "../../components/studio/ShareBar";
 import { siteSlugState, siteState } from "../../store/site";
+import { useCreateOAuthExtensionMutation } from "../../graphql/createOAuthExtension.generated";
+import { decodeGlobalID } from "@pothos/plugin-relay";
 
 const Site = () => {
   const { siteId } = useParams();
 
   const [siteSlug, setSiteSlug] = useRecoilState(siteSlugState);
   const site = useRecoilValue(siteState(siteSlug));
+
+  const [, createOAuthExtension] = useCreateOAuthExtensionMutation();
 
   useEffect(() => {
     if (siteId) {
@@ -24,6 +28,15 @@ const Site = () => {
   useEffect(() => {
     if (site) {
       console.log(site);
+      // createOAuthExtension({
+      //   siteId: decodeGlobalID(site.id).id,
+      //   storeExtensionId: "clbuudful0000pgngwvt3p3z1",
+      //   apiConnectorId: "clbun6dc00000ushocqfxscdc",
+      //   accessToken: "token"
+      //   //@ts-ignore
+      // }).then((result) => {
+      //   console.log(result);
+      // });
     }
   }, [site]);
 
