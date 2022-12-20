@@ -91,12 +91,14 @@ const SectionList = () => {
         );
 
         console.log(extension);
-        console.log(extension.storeExtension?.icon)
+        console.log(extension.storeExtension?.icon);
         const section = {
           id: sections.length,
           text: extension.storeExtension?.name,
           type: SectionType.EXTENSION,
-          icon: extension.storeExtension?.icon ? extension.storeExtension?.icon : "QueueListIcon",
+          icon: extension.storeExtension?.icon
+            ? extension.storeExtension?.icon
+            : "QueueListIcon",
           locked: false,
           selected: false,
           apis: [ExtensionAPIEnum.GITHUB, ExtensionAPIEnum.GITLAB],

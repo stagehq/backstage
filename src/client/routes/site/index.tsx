@@ -27,7 +27,7 @@ const Site = () => {
       setSiteSlug(siteId);
     }
   }, [siteId, setSiteSlug]);
-  
+
   return (
     <>
       <Content>

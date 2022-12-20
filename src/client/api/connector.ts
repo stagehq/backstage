@@ -1,5 +1,5 @@
-import { CreateOAuthforApiDocument } from './../graphql/createOAuthforApi.generated';
 import { client } from "../graphql/client";
+import { CreateOAuthforApiDocument } from "./../graphql/createOAuthforApi.generated";
 /* eslint-disable @typescript-eslint/no-namespace */
 export namespace OAuth {
   export enum RedirectMethod {
@@ -200,7 +200,6 @@ export namespace OAuth {
         idToken: response.data?.createOAuthforApi.idToken,
         ...response.data?.createOAuthforApi,
       };
-      
 
       localStorage.setItem(
         `${this.providerId}-tokens`,
@@ -213,10 +212,11 @@ export namespace OAuth {
       if (tokens) {
         const tokenObject = JSON.parse(tokens);
         tokenObject.isExpired = () => {
-          if(!tokenObject.expiresIn) return false;
+          if (!tokenObject.expiresIn) return false;
           const now = new Date();
           const expiresAt = new Date(
-            new Date(tokenObject.updatedAt).getTime() + tokenObject.expiresIn * 1000
+            new Date(tokenObject.updatedAt).getTime() +
+              tokenObject.expiresIn * 1000
           );
           return now > expiresAt;
         };

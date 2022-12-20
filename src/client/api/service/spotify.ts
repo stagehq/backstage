@@ -12,7 +12,7 @@ export const authorize = async () => {
   const tokenSet = await spotify.getTokens();
   if (tokenSet?.accessToken) {
     console.log(tokenSet.isExpired());
-    
+
     if (tokenSet.refreshToken && tokenSet.isExpired()) {
       await spotify.setTokens(await refreshTokens(tokenSet.refreshToken));
     }

@@ -1,4 +1,4 @@
-import { URLSearchParams } from 'url';
+import { URLSearchParams } from "url";
 // nextjs api route for spotify
 
 import type { NextApiRequest, NextApiResponse } from "next";
