@@ -89,6 +89,7 @@ type Query {
   currentUser: User
   getApi(apiConnectorName: String): Api
   getSite(subdomain: String!): Site
+  getStoreExtensions: [StoreExtension!]
   getValidAlias(alias: String): User
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
@@ -108,9 +109,11 @@ type StoreExtension implements Node {
   createdAt: String
   icon: String
   id: ID!
+  integratedExtensions: [Extension!]
   markdown: String
   modifiedAt: String
   name: String
+  routes: [ApiConnectorRoute!]
 }
 
 type User implements Node {

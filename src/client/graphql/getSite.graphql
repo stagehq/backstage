@@ -33,7 +33,7 @@ query GetSite($subdomain: String!) {
 
         apiResponses {
           id
-          response 
+          response
 
           apiConnectorRoute {
             id

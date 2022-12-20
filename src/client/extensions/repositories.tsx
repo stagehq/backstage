@@ -2,7 +2,7 @@ import { Action, Actions, Header, List, Section } from "@stagehq/ui";
 import { Pills } from "@stagehq/ui/dist/components/Pills";
 import { useEffect, useState } from "react";
 
-const Repositories = (props: { underlayingApis: unknown; }) => {
+const Repositories = (props: { underlayingApis: unknown }) => {
   const [data, setData] = useState<any[]>([]);
   const [profileLink, setProfileLink] = useState("");
   const [linkSource, setLinkSource] = useState("");
@@ -14,55 +14,63 @@ const Repositories = (props: { underlayingApis: unknown; }) => {
       let collectLanguages: any[] = [];
 
       // merge data from GitHub and GitLab
-      props.underlayingApis?.forEach((api: { apiConnector: { name: string; }; apiResponses: any[]; }) => {
-        if (api.apiConnector?.name === "GitHub") {       
-          api.apiResponses.forEach((apiResponse: { response: any[]; }) => {
-            apiResponse.response.forEach((repository: any) => {
-              if (profileLink === "") {
-                setProfileLink(repository.owner.html_url);
-                setLinkSource("GitHub");
-              }
-              if (repository.language) {
-                collectLanguages.push(repository.language)
-              }
-              mergedData.push({
-                source: "GitHub",
-                url: repository.html_url,
-                name: repository.name,
-                full_name: repository.full_name,
-                description: repository.description,
-                star_count: repository.stargazers_count,
+      props.underlayingApis?.forEach(
+        (api: { apiConnector: { name: string }; apiResponses: any[] }) => {
+          if (api.apiConnector?.name === "GitHub") {
+            api.apiResponses.forEach((apiResponse: { response: any[] }) => {
+              apiResponse.response.forEach((repository: any) => {
+                if (profileLink === "") {
+                  setProfileLink(repository.owner.html_url);
+                  setLinkSource("GitHub");
+                }
+                if (repository.language) {
+                  collectLanguages.push(repository.language);
+                }
+                mergedData.push({
+                  source: "GitHub",
+                  url: repository.html_url,
+                  name: repository.name,
+                  full_name: repository.full_name,
+                  description: repository.description,
+                  star_count: repository.stargazers_count,
+                });
               });
             });
-          });   
-        }
-        if (api.apiConnector?.name === "GitLab") {
-          api.apiResponses.forEach((apiResponse: { response: any[]; }) => {
-            apiResponse.response.forEach((repository: any) => {
-              if (profileLink === "") {
-                setProfileLink(repository.namespace.web_url);
-                setLinkSource("GitLab");
-              }
-              mergedData.push({
-                source: "GitLab",
-                url: repository.web_url,
-                name: repository.name,
-                full_name: repository.path_with_namespace,
-                description: repository.description,
-                star_count: repository.star_count,
+          }
+          if (api.apiConnector?.name === "GitLab") {
+            api.apiResponses.forEach((apiResponse: { response: any[] }) => {
+              apiResponse.response.forEach((repository: any) => {
+                if (profileLink === "") {
+                  setProfileLink(repository.namespace.web_url);
+                  setLinkSource("GitLab");
+                }
+                mergedData.push({
+                  source: "GitLab",
+                  url: repository.web_url,
+                  name: repository.name,
+                  full_name: repository.path_with_namespace,
+                  description: repository.description,
+                  star_count: repository.star_count,
+                });
               });
             });
-          });
+          }
         }
-      });
+      );
 
       // sort by star count
       mergedData.sort((a, b) => b.star_count - a.star_count);
 
       // remove duplicates
-      mergedData = mergedData.filter((repository, index, self) => self.findIndex(t => t.name === repository.name) === index);
-      collectLanguages = collectLanguages.filter((language, index, self) => self.findIndex(t => t === language) === index);
-      
+      mergedData = mergedData.filter(
+        (repository, index, self) =>
+          self.findIndex((t) => t.name === repository.name) === index
+      );
+      collectLanguages = collectLanguages.filter(
+        (language, index, self) =>
+          self.findIndex((t) => t === language) === index
+      );
+
       // reduce to 3 items for now
       if (mergedData.length > 3) {
         mergedData = mergedData.slice(0, 3);
@@ -70,7 +78,7 @@ const Repositories = (props: { underlayingApis: unknown; }) => {
       if (languages.length > 5) {
         collectLanguages = collectLanguages.slice(0, 5);
       }
-      
+
       setLanguages(collectLanguages);
       setData(mergedData);
     }
@@ -88,9 +96,7 @@ const Repositories = (props: { underlayingApis: unknown; }) => {
             </Actions>
           }
         />
-        <Pills
-          pills={languages}
-        />
+        <Pills pills={languages} />
         <List>
           {data.map((project, index) => (
             <List.Item

@@ -1,5 +1,5 @@
-import { CreateOAuthApiDocument } from './../graphql/createOAuthApi.generated';
 import { client } from "../graphql/client";
+import { CreateOAuthApiDocument } from "./../graphql/createOAuthApi.generated";
 /* eslint-disable @typescript-eslint/no-namespace */
 export namespace OAuth {
   export enum RedirectMethod {
@@ -177,21 +177,24 @@ export namespace OAuth {
         tokens;
 
       const response = await client
-      .mutation(CreateOAuthApiDocument, {
-        apiConnectorName: this.providerId,
-        accessToken: access_token,
-        refreshToken: refresh_token ? refresh_token : null,
-        idToken: id_token ? id_token : null,
-        expiresIn: expires_in ? expires_in : null,
-        scope: scope ? scope : null,
-      })
-      .toPromise();
+        .mutation(CreateOAuthApiDocument, {
+          apiConnectorName: this.providerId,
+          accessToken: access_token,
+          refreshToken: refresh_token ? refresh_token : null,
+          idToken: id_token ? id_token : null,
+          expiresIn: expires_in ? expires_in : null,
+          scope: scope ? scope : null,
+        })
+        .toPromise();
 
-      if(!response.data?.createOAuthApi) {
-        console.log('Error creating OAuth API');
+      if (!response.data?.createOAuthApi) {
+        console.log("Error creating OAuth API");
       }
 
-      localStorage.setItem(`${this.providerId}-tokens`, JSON.stringify(response.data.createOAuthApi));
+      localStorage.setItem(
+        `${this.providerId}-tokens`,
+        JSON.stringify(response.data.createOAuthApi)
+      );
     };
 
     getTokens = (): TokenSet | null => {

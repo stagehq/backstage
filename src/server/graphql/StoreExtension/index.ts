@@ -1,3 +1,4 @@
+import prisma from '../../db/prisma';
 import { builder } from '../builder';
 
 builder.prismaNode('StoreExtension', {
@@ -9,5 +10,22 @@ builder.prismaNode('StoreExtension', {
     name: t.exposeString('name'),
     markdown: t.exposeString('markdown'),
     icon: t.exposeString('icon'),
+    
+    integratedExtensions: t.relation('integratedExtensions'),
+    routes: t.relation('routes'),
   }),
 });
+
+// get all store extensions
+builder.queryField('getStoreExtensions', (t) =>
+  t.prismaField({
+    type: ['StoreExtension'],
+    resolve: async (query, root, args, ctx) => {
+      if (!ctx.session.user.email) return null;
+
+      const storeExtensions = await prisma.storeExtension.findMany();
+
+      return storeExtensions;
+    },
+  })
+);

@@ -19,11 +19,10 @@ export default function useThemeActions() {
       keywords: "dark theme",
       section: "",
       perform: () => {
-        
         const isDark = theme === "dark";
         setThemeState("dark");
         return () => {
-          if(isDark) setThemeState("light");
+          if (isDark) setThemeState("light");
         };
       },
       parent: "theme",
@@ -38,7 +37,7 @@ export default function useThemeActions() {
         setThemeState("light");
 
         return () => {
-          if(isLight) setThemeState("dark");
+          if (isLight) setThemeState("dark");
         };
       },
       parent: "theme",

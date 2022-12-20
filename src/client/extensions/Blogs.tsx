@@ -81,6 +81,6 @@ const Blogs = (props: { underlayingApis: unknown; }) => {
       </List>
     </Section>
   );
-}
+};
 
 export default Blogs;

@@ -1,0 +1,21 @@
+query GetStoreExtensions {
+  getStoreExtensions {
+    id
+    createdAt
+    modifiedAt
+    name
+    markdown
+    integratedExtensions {
+      id
+    }
+    routes {
+      id
+      name
+      url
+      apiConnector {
+        id
+        name
+      }
+    }
+  }
+}

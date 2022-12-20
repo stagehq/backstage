@@ -4,6 +4,7 @@ import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import Content from "../../components/Content";
+import { useStoreExtensionActions } from "../../components/kbar/hooks/useStoreExtensionActions";
 import useThemeActions from "../../components/kbar/hooks/useThemeActions";
 import SectionList from "../../components/sidebars/SectionList";
 import SectionWrapper from "../../components/sidebars/SectionWrapper";
@@ -80,7 +81,7 @@ interface SectionSidebar {
 
 const SectionSidebar: FC<SectionSidebar> = ({ children }) => {
   return (
-    <div className="z-10 hidden md:flex flex-col absolute left-0 w-[270px] h-full bg-white border-r border-zinc-100 gap-2 py-3">
+    <div className="hidden md:flex flex-col absolute left-0 w-[270px] h-full bg-white border-r border-zinc-100 gap-2 py-3">
       {children}
     </div>
   );
@@ -97,7 +98,7 @@ const EditSidebar: FC<EditSidebar> = ({ children }) => {
       id={
         process.env.NEXT_PUBLIC_EDIT_SIDEBAR_PORTAL_NAME || "editSidebarPortal"
       }
-      className="z-10 hidden md:flex flex-col absolute right-0 w-[270px] h-full bg-white border-l border-zinc-100 gap-2 py-3"
+      className="hidden md:flex flex-col absolute right-0 w-[270px] h-full bg-white border-l border-zinc-100 gap-2 py-3"
     >
       {children}
     </div>
@@ -120,37 +121,37 @@ export const Page = () => {
   const [theme, setTheme] = useRecoilState(themeState);
 
   useThemeActions();
+  useStoreExtensionActions();
 
   return (
     <div className={clsx(theme)}>
-          <div className="bg-zinc-50 dark:bg-black">
-      <div className="relative bg-white max-w-screen-xl mx-auto px-6 md:px-24 ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20">
-        <PageHeader
+      <div className="bg-zinc-50 dark:bg-black">
+        <div className="relative bg-white max-w-screen-xl mx-auto px-6 md:px-24 ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20">
+          <PageHeader
+            {...{
+              title: personal.name,
+              description: personal.description,
+              image: personal.image,
+              lightMode: true,
+              toggleLightMode: () => {
+                setTheme(theme === "light" ? "dark" : "light");
+              },
+            }}
+          />
+          <div className="flex flex-col lg:flex-row gap-6 md:gap-16 py-12 md:py-16">
+            <PageMain></PageMain>
+            <PageAside></PageAside>
+          </div>
+        </div>
+        <PageFooter
           {...{
-            title: personal.name,
-            description: personal.description,
-            image: personal.image,
-            lightMode: true,
-            toggleLightMode: () => {
-              setTheme(theme === "light" ? "dark" : "light");
-            },
+            title: "John Doe",
+            location: personal.location,
+            privacyPolicy: "https://google.com",
           }}
         />
-        <div className="flex flex-col lg:flex-row gap-6 md:gap-16 py-12 md:py-16">
-          <PageMain></PageMain>
-          <PageAside></PageAside>
-        </div>
       </div>
-      <PageFooter
-        {...{
-          title: "John Doe",
-          location: personal.location,
-          privacyPolicy: "https://google.com",
-        }}
-      />
     </div>
-    </div>
-
   );
 };
 

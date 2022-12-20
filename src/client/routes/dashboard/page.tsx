@@ -1,13 +1,10 @@
 import useSWR from "swr";
-import * as medium from "../../api/service/medium";
-import * as github from "../../api/service/github";
-import * as gitlab from "../../api/service/gitlab";
+import * as spotify from "../../api/service/spotify";
 import Banner from "../../components/Banner";
 import Container from "../../components/Container";
 import Content from "../../components/Content";
 import More from "../../components/More";
 import Title from "../../components/Title";
-import { getPreferenceValues } from "../../preferences";
 
 const useLinkedin = (url: string) => {
   const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -28,10 +25,11 @@ const Dashboard = () => {
   // );
 
   const handleClick = async () => {
-    //await gitlab.authorize();
-    const projects = await gitlab.route(`/api/v4/projects`);
-    console.log(projects);
-    
+    const response = await spotify.authorize();
+    console.log(response);
+
+    // const projects = await gitlab.route(`/api/v4/projects`);
+    // console.log(projects);
   };
 
   return (
@@ -41,7 +39,7 @@ const Dashboard = () => {
           <Banner />
           <Title />
           <More />
-          <span onClick={handleClick}>Connect GitLab</span>
+          <span onClick={handleClick}>Connect spotify</span>
         </Container>
       </Content>
     </>

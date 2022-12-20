@@ -1,7 +1,5 @@
 import clsx from "clsx";
 import {
-  ActionId,
-  ActionImpl,
   KBarAnimator,
   KBarPortal,
   KBarPositioner,
@@ -29,11 +27,12 @@ const RenderResults: FC = () => {
         items={results}
         onRender={({ item, active }) => {
           if (typeof item === "string") {
-            return (
-              <div className="flex cursor-default select-none items-center rounded-md px-3 py-2">
-                {item}
-              </div>
-            );
+            return <span></span>;
+            // return (
+            //   <div className="flex cursor-default select-none items-center rounded-md px-3 py-2">
+            //     {item}
+            //   </div>
+            // );
           } else {
             return (
               <div
@@ -90,19 +89,18 @@ const CommandBar: FC<CommandBarProps> = ({ children }) => {
       actions={actions}
     >
       <KBarPortal>
-        <KBarPositioner className="fixed inset-0 bg-zinc-500 bg-opacity-25 transition-opacity">
+        <KBarPositioner className="fixed inset-0 bg-zinc-500 bg-opacity-25 transition-opacity w-screen h-screen">
           <KBarAnimator>
-            <div className="mx-auto max-w-2xl w-96 transform divide-y divide-zinc-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
+            <div className="w-[50vw] max-w-[50vw] transform divide-y divide-zinc-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
               <div className="flex items-center p-2">
+                <KBarSearch
+                  defaultPlaceholder="Search..."
+                  className="h-12 w-full border-0 bg-transparent pl-4 text-zinc-800 placeholder-zinc-500 focus:ring-0 sm:text-sm outline-none"
+                />
                 <div className="px-3 py-2">
                   <Icon name="MagnifyingGlassIcon" size="md" color="dark" />
                 </div>
-                <KBarSearch
-                  defaultPlaceholder="Search..."
-                  className="h-12 w-full border-0 bg-transparent pr-4 text-zinc-800 placeholder-zinc-500 focus:ring-0 sm:text-sm outline-none"
-                />
               </div>
-
               <div className="max-h-80 scroll-py-2 divide-y divide-zinc-100 overflow-y-auto">
                 <RenderResults />
               </div>

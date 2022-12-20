@@ -86,7 +86,9 @@ const SectionList = () => {
       console.log(site.extensions);
       site.extensions.map((extension) => {
         console.log(extension);
-        const Extension = dynamic(() => import(`../../extensions/${extension.storeExtension?.name}`));
+        const Extension = dynamic(
+          () => import(`../../extensions/${extension.storeExtension?.name}`)
+        );
 
         console.log(extension);
         console.log(extension.storeExtension?.icon)
