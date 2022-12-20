@@ -31,6 +31,8 @@ model User {
   sites                Site[]                @relation("tailorings")
 
   mainSite             Site?                  @relation("mainSite")
+
+  apis                 Api[]
 }
 
 model Account {
@@ -102,9 +104,8 @@ model Extension {
   storeExtensionId      String
   storeExtension        StoreExtension        @relation(fields: [storeExtensionId], references: [id])
 
-  underlayingApis        Api[]
-
-  urls                  String[]
+  underlayingApis       Api[]
+  apiResponses          ApiResponse[]
 }
 
 model Api {
@@ -118,10 +119,10 @@ model Api {
   apiConnectorId        String
   apiConnector          ApiConnector          @relation(fields: [apiConnectorId], references: [id])
 
-  apiResponses          ApiResponse[]
+  inExtensions          Extension[]
 
-  extensionId           String
-  extension             Extension             @relation(fields: [extensionId], references: [id])
+  userId                String
+  user                  User             @relation(fields: [userId], references: [id])
 }
 
 model OAuth {
@@ -156,8 +157,8 @@ model ApiResponse {
   modifiedAt            DateTime              @default(now())
   response              Json?
 
-  apiId                 String
-  api                   Api                   @relation(fields: [apiId], references: [id])
+  extensionId           String
+  extension             Extension             @relation(fields: [extensionId], references: [id])
 
   apiConnectorRouteId   String
   apiConnectorRoute     ApiConnectorRoute     @relation(fields: [apiConnectorRouteId], references: [id])

@@ -9,5 +9,7 @@ builder.prismaNode('ApiConnectorRoute', {
     
     name: t.exposeString('name'),
     url: t.exposeString('url'),
+
+    apiConnector: t.relation('apiConnector')
   }),
 });

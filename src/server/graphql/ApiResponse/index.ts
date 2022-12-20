@@ -10,7 +10,7 @@ builder.prismaNode('ApiResponse', {
     
     response: t.field({ type: 'JSON', resolve: apiResponse => apiResponse.response}),
     apiConnectorRoute: t.relation('apiConnectorRoute'),
-    api: t.relation('api')
+    extension: t.relation('extension')
   }),
 });
 
@@ -20,18 +20,18 @@ builder.mutationField('upsertApiResponse', (t) =>
     args: {
       apiConnectorRouteId: t.arg.string(),
       response: t.arg.string(),
-      apiId: t.arg.string(), 
+      extensionId: t.arg.string(), 
     },
     resolve: async (query, root, args, ctx) => {
-      if (!ctx.session.user.email || args.apiConnectorRouteId == null || args.response == null || args.apiId == null) return null;
+      if (!ctx.session.user.email || args.apiConnectorRouteId == null || args.response == null || args.extensionId == null) return null;
 
       const OldApiResponse = await prisma.apiResponse.findFirst({
         where: {
           apiConnectorRoute: {
             id: args.apiConnectorRouteId
           },
-          api: {
-            id: args.apiId
+          extension: {
+            id: args.extensionId
           }
         },
       })
@@ -54,9 +54,9 @@ builder.mutationField('upsertApiResponse', (t) =>
                 id: args.apiConnectorRouteId
               }
             },
-            api: {
+            extension: {
               connect: {
-                id: args.apiId
+                id: args.extensionId
               }
             },
             response: args.response
