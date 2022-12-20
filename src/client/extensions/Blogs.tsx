@@ -11,7 +11,7 @@ const Blogs = (props: { underlayingApis: unknown; }) => {
       let blogPosts: any[] = [];
   
       props.underlayingApis?.forEach((api: { apiConnector: { name: string; }; apiResponses: any[]; }) => {
-        if (api.apiConnector?.name === "Dev") {
+        if (api.apiConnector?.name === "dev") {
           api.apiResponses.forEach((apiResponse: { response: any[]; }) => {
             apiResponse.response.forEach((post: any) => {
               // get post.url and shorten it to the profilelink
@@ -23,8 +23,8 @@ const Blogs = (props: { underlayingApis: unknown; }) => {
                 source: "DEV.to",
                 type: "text",
                 title: post.title,
-                description: post.description,
-                published: post.readable_publish_date,
+                subtitle: post.description,
+                additional: post.readable_publish_date,
                 published_at: post.published_at,
                 url: post.url,
               });
@@ -70,8 +70,8 @@ const Blogs = (props: { underlayingApis: unknown; }) => {
           <List.Item
             type={post.type}
             title={post.title}
-            additional={post.published}
-            subtitle={post.description}
+            additional={post.additional}
+            subtitle={post.subtitle}
             actions={
               <Action.Link url={post.url} text="Read article" />
             }
