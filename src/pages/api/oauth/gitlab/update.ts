@@ -3,9 +3,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { route, token } = req.body;
+  const {route, token} = await JSON.parse(req.body);
 
-  const response = await fetch("https://gitlab.com/" + route, {
+  const response = await fetch("https://gitlab.com" + route, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

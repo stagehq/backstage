@@ -10,17 +10,24 @@ import SectionList from "../../components/sidebars/SectionList";
 import SectionWrapper from "../../components/sidebars/SectionWrapper";
 import { personal } from "../../components/sidebars/testData";
 import ShareBar from "../../components/studio/ShareBar";
-import { useCreateOAuthforApiMutation } from "../../graphql/createOAuthforApi.generated";
 import { siteSlugState, siteState } from "../../store/site";
 import { themeState } from "../../store/ui/theme";
+import useSWR from "swr";
+import { ApiConnectorRoute } from "../../graphql/types.generated";
+
+export interface QueryTestTypes {
+  oAuthId: string,
+  siteId: string,
+  apiConnectorName: string,
+  storeExtensionId: string,
+  routes: ApiConnectorRoute[]
+}
 
 const Site = () => {
   const { siteId } = useParams();
 
   const [siteSlug, setSiteSlug] = useRecoilState(siteSlugState);
   const site = useRecoilValue(siteState(siteSlug));
-
-  const [, createOAuthforApi] = useCreateOAuthforApiMutation();
 
   useEffect(() => {
     if (siteId) {
