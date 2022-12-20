@@ -1,3 +1,6 @@
+import { useRecoilValue } from "recoil";
+import { useCreateOAuthExtensionMutation } from "./../graphql/createOAuthExtension.generated";
+import { siteSlugState, siteState } from "./../store/site";
 /* eslint-disable @typescript-eslint/no-namespace */
 export namespace OAuth {
   export enum RedirectMethod {
@@ -60,7 +63,7 @@ export namespace OAuth {
     redirectMethod: RedirectMethod;
     providerName: string;
     providerIcon: string;
-    providerId?: string;
+    providerId: string;
     description?: string;
   }
 
@@ -68,7 +71,7 @@ export namespace OAuth {
     redirectMethod: RedirectMethod;
     providerName: string;
     providerIcon: string;
-    providerId: string | undefined;
+    providerId: string;
     description: string | undefined;
 
     constructor(options: PKCEClientOptions) {
@@ -171,7 +174,26 @@ export namespace OAuth {
     };
 
     setTokens = (tokens: TokenResponse) => {
-      localStorage.setItem("tokens", JSON.stringify(tokens));
+      // recoil state site id
+      const siteSlug = useRecoilValue(siteSlugState);
+      const site = useRecoilValue(siteState(siteSlug));
+      const [, addOAuthToken] = useCreateOAuthExtensionMutation();
+      const { access_token, refresh_token, id_token, expires_in, scope } =
+        tokens;
+
+      if (!site) return null;
+
+      addOAuthToken({
+        siteId: site.id,
+        storeExtensionId: "string",
+        apiConnectorId: this.providerId,
+        accessToken: access_token,
+        refreshToken: refresh_token ? refresh_token : null,
+        idToken: id_token ? id_token : null,
+        expiresIn: expires_in ? expires_in : null,
+        scope: scope ? scope : null,
+      });
+      localStorage.setItem(`${this.providerId}-tokens`, JSON.stringify(tokens));
     };
 
     getTokens = (): TokenSet | null => {

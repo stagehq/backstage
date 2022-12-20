@@ -2,12 +2,15 @@ interface preferenceArgs {
   [key: string]: any;
 }
 
-export const getPreferenceValues = async (extensionId: string, options: preferenceArgs) => {
+export const getPreferenceValues = async (
+  extensionId: string,
+  options: preferenceArgs
+) => {
   // fetch the prefrences from the extention in database
   const [, preferences] = useGetPreferencesQuery({
     extensionId,
     // map over the options and return an array of keys
-    keys: Object.keys(options)
+    keys: Object.keys(options),
   });
   // if the preference is not found in the database, give notification or open modal to enter it
   if (!preferences) {
@@ -17,5 +20,4 @@ export const getPreferenceValues = async (extensionId: string, options: preferen
   }
   // return the preference
   return preferences;
-}
-
+};

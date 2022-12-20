@@ -5,6 +5,11 @@ export const settingsOpenState = atom({
   default: false,
 });
 
+export const soonOpenState = atom({
+  key: "soonOpenState",
+  default: false,
+});
+
 export const publishingOpenState = atom({
   key: "publishingOpenState",
   default: false,
