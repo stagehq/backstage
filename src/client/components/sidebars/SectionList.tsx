@@ -98,7 +98,7 @@ const SectionList = () => {
           selected: false,
           apis: [ExtensionAPIEnum.GITHUB, ExtensionAPIEnum.GITLAB],
           position: ExtensionPosition.MAIN,
-          component: <Extension apiResponses={extension.apiResponses} />,
+          component: <Extension underlayingApis={extension.underlayingApis} />,
         };
         // insert section into the sections array but before the footer section
         // don't insert if the section already exists
