@@ -1,7 +1,8 @@
 import { Header, List, Section, Seperator } from "@stagehq/ui";
 import { useEffect, useState } from "react";
+import { Api } from "../graphql/types.generated";
 
-const Resume = (props: { underlayingApis: unknown }) => {
+const Resume = (props: { underlayingApis: Api[] }) => {
   const [experience, setExperience] = useState<any[]>([]);
   const [university, setUniversity] = useState<any[]>([]);
 
@@ -11,9 +12,9 @@ const Resume = (props: { underlayingApis: unknown }) => {
       let education: any[] = [];
 
       props.underlayingApis?.forEach(
-        (api: { apiConnector: { name: string }; apiResponses: any[] }) => {
+        (api) => {
           if (api.apiConnector?.name === "linkedin") {
-            api.apiResponses.forEach((apiResponse: { response: any[] }) => {
+            api.apiResponses?.forEach((apiResponse) => {
               apiResponse.response.experiences.forEach((job: any) => {
                 jobs.push({
                   type: "bullet",

@@ -1,7 +1,8 @@
 import { Action, Actions, Header, List, Section } from "@stagehq/ui";
 import { useEffect, useState } from "react";
+import { Api } from "../graphql/types.generated";
 
-const Blogs = (props: { underlayingApis: unknown }) => {
+const Blogs = (props: { underlayingApis: Api[] }) => {
   const [data, setData] = useState<any[]>([]);
   const [profileLink, setProfileLink] = useState("");
   const [linkSource, setLinkSource] = useState("");
@@ -11,9 +12,9 @@ const Blogs = (props: { underlayingApis: unknown }) => {
       let blogPosts: any[] = [];
 
       props.underlayingApis?.forEach(
-        (api: { apiConnector: { name: string }; apiResponses: any[] }) => {
+        (api) => {
           if (api.apiConnector?.name === "dev") {
-            api.apiResponses.forEach((apiResponse: { response: any[] }) => {
+            api.apiResponses?.forEach((apiResponse) => {
               apiResponse.response.forEach((post: any) => {
                 // get post.url and shorten it to the profilelink
                 if (profileLink === "") {

@@ -1,8 +1,9 @@
 import { Action, Actions, Header, List, Section } from "@stagehq/ui";
 import { Pills } from "@stagehq/ui/dist/components/Pills";
 import { useEffect, useState } from "react";
+import { Api } from "../graphql/types.generated";
 
-const Repositories = (props: { underlayingApis: unknown }) => {
+const Repositories = (props: { underlayingApis: Api[] }) => {
   const [data, setData] = useState<any[]>([]);
   const [profileLink, setProfileLink] = useState("");
   const [linkSource, setLinkSource] = useState("");
@@ -15,9 +16,9 @@ const Repositories = (props: { underlayingApis: unknown }) => {
 
       // merge data from GitHub and GitLab
       props.underlayingApis?.forEach(
-        (api: { apiConnector: { name: string }; apiResponses: any[] }) => {
+        (api) => {
           if (api.apiConnector?.name === "github") {
-            api.apiResponses.forEach((apiResponse: { response: any[] }) => {
+            api.apiResponses?.forEach((apiResponse) => {
               apiResponse.response.forEach((repository: any) => {
                 if (profileLink === "") {
                   setProfileLink(repository.owner.html_url);
@@ -38,7 +39,7 @@ const Repositories = (props: { underlayingApis: unknown }) => {
             });
           }
           if (api.apiConnector?.name === "gitlab") {
-            api.apiResponses.forEach((apiResponse: { response: any[] }) => {
+            api.apiResponses?.forEach((apiResponse) => {
               apiResponse.response.forEach((repository: any) => {
                 if (profileLink === "") {
                   setProfileLink(repository.namespace.web_url);
@@ -82,7 +83,7 @@ const Repositories = (props: { underlayingApis: unknown }) => {
       setLanguages(collectLanguages);
       setData(mergedData);
     }
-  }, [props.apiResponses]);
+  }, [props.underlayingApis]);
 
   return (
     data && (

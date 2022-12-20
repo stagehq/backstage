@@ -89,9 +89,6 @@ const SectionList = () => {
         const Extension = dynamic(
           () => import(`../../extensions/${extension.storeExtension?.name}`)
         );
-
-        console.log(extension);
-        console.log(extension.storeExtension?.icon);
         const section = {
           id: sections.length,
           text: extension.storeExtension?.name,
