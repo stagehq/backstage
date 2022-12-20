@@ -1,0 +1,22 @@
+mutation CreateOAuthApi(
+  $apiConnectorId: String!
+  $accessToken: String!
+  $expiresIn: Int
+  $idToken: String
+  $refreshToken: String
+  $scope: String
+) {
+  createOAuthApi(
+    apiConnectorId: $apiConnectorId
+    accessToken: $accessToken
+    expiresIn: $expiresIn
+    idToken: $idToken
+    refreshToken: $refreshToken
+    scope: $scope
+  ) {
+    __typename
+    id
+    createdAt
+    modifiedAt
+  }
+}

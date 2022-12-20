@@ -49,6 +49,7 @@ scalar JSON
 
 type Mutation {
   createLinkedInExtension(linkedInUrl: String, siteId: String, storeExtensionId: String): Extension
+  createOAuthApi(accessToken: String, apiConnectorId: String, expiresIn: Int, idToken: String, refreshToken: String, scope: String): Api
   createOAuthExtension(accessToken: String, apiConnectorId: String, siteId: String, storeExtensionId: String): Extension
   createWebLinkExtension(siteId: String, storeExtensionId: String, webLinks: [String!]): Extension
   updateUser(alias: String, coverImageUrl: String, firstName: String, image: String, lastName: String): User
