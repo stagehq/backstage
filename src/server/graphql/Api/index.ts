@@ -19,7 +19,7 @@ builder.mutationField('createOAuthApi', (t) =>
   t.prismaField({
     type: "Api",
     args: {
-      apiConnectorId: t.arg.string(),
+      apiConnectorName: t.arg.string(),
       accessToken: t.arg.string(),
       expiresIn: t.arg.int({ required: false }),
       idToken: t.arg.string({ required: false }),
@@ -27,7 +27,7 @@ builder.mutationField('createOAuthApi', (t) =>
       scope: t.arg.string({ required: false })
     },
     resolve: async (query, root, args, ctx) => {
-      if (!ctx.session.user.email || args.apiConnectorId == null || args.accessToken == null) return null;
+      if (!ctx.session.user.email || args.apiConnectorName == null || args.accessToken == null) return null;
 
       //check if api extension is already added
       const check = await prisma.api.findFirst({
@@ -36,7 +36,7 @@ builder.mutationField('createOAuthApi', (t) =>
             email: ctx.session.user.email
           },
           apiConnector: {
-            id: args.apiConnectorId
+            name: args.apiConnectorName
           },
         }
       })
@@ -51,7 +51,7 @@ builder.mutationField('createOAuthApi', (t) =>
           },
           apiConnector: {
             connect: {
-              id: args.apiConnectorId
+              name: args.apiConnectorName
             }
           },
           oAuth: {
