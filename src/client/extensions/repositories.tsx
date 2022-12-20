@@ -1,4 +1,5 @@
 import { Action, Actions, Header, List, Section } from "@stagehq/ui";
+import { Pills } from "@stagehq/ui/dist/components/Pills";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -11,6 +12,9 @@ const Repositories = () => {
   const site = useRecoilValue(siteState(siteSlug));
 
   const [data, setData] = useState<any[]>([]);
+  const [profileLink, setProfileLink] = useState("");
+  const [linkSource, setLinkSource] = useState("");
+  const [languages, setLanguages] = useState<string[]>([]);
 
   useEffect(() => {
     if (siteId) {
@@ -19,14 +23,22 @@ const Repositories = () => {
   }, [siteId, setSiteSlug]);
 
   useEffect(() => {
-    if (site) {
-      let mergedData = [];
+    if (site && site.extensions && site.extensions[0]) {
+      let mergedData: any[] = [];
+      let collectLanguages: any[] = [];
 
       // merge data from GitHub and GitLab
       site.extensions[0].underlayingApis?.forEach((underlayingApi) => {
         if (underlayingApi.apiConnector?.name === "GitHub") {
-          underlayingApi.apiResponses?.forEach((apiResponse) => {
-            apiResponse.response.forEach((repository) => {
+          underlayingApi.apiResponses?.forEach(apiResponse => {
+            apiResponse.response.forEach(repository => {
+              if (profileLink === "") {
+                setProfileLink(repository.owner.html_url);
+                setLinkSource("GitHub");
+              }
+              if (repository.language) {
+                collectLanguages.push(repository.language)
+              }
               mergedData.push({
                 source: "GitHub",
                 url: repository.html_url,
@@ -39,8 +51,12 @@ const Repositories = () => {
           });
         }
         if (underlayingApi.apiConnector?.name === "GitLab") {
-          underlayingApi.apiResponses?.forEach((apiResponse) => {
-            apiResponse.response.forEach((repository) => {
+          underlayingApi.apiResponses?.forEach(apiResponse => {
+            apiResponse.response.forEach(repository => {
+              if (profileLink === "") {
+                setProfileLink(repository.namespace.web_url);
+                setLinkSource("GitLab");
+              }
               mergedData.push({
                 source: "GitLab",
                 url: repository.web_url,
@@ -58,23 +74,21 @@ const Repositories = () => {
       mergedData.sort((a, b) => b.star_count - a.star_count);
 
       // remove duplicates
-      mergedData = mergedData.filter(
-        (repository, index, self) =>
-          self.findIndex((t) => t.name === repository.name) === index
-      );
-
+      mergedData = mergedData.filter((repository, index, self) => self.findIndex(t => t.name === repository.name) === index);
+      collectLanguages = collectLanguages.filter((language, index, self) => self.findIndex(t => t === language) === index);
+      
       // reduce to 3 items for now
-      mergedData = mergedData.slice(0, 3);
-
+      if (mergedData.length > 3) {
+        mergedData = mergedData.slice(0, 3);
+      }
+      if (languages.length > 5) {
+        collectLanguages = collectLanguages.slice(0, 5);
+      }
+      
+      setLanguages(collectLanguages);
       setData(mergedData);
-      console.log(data);
     }
   }, [site]);
-
-  // map all project languages to array of strings for pills component an filter out duplicates
-  // const languages = Object.entries(data)
-  //   .map(project => project[1].language)
-  //   .filter((language, index, self) => self.indexOf(language) === index);
 
   return (
     data && (
@@ -84,13 +98,13 @@ const Repositories = () => {
           icon="CodeBracketSquareIcon"
           actions={
             <Actions>
-              <Action.Link url="https://github.com" text="GitHub profile" />
+              <Action.Link url={profileLink} text={`${linkSource} profile`} />
             </Actions>
           }
         />
-        {/* <Pills
+        <Pills
           pills={languages}
-        /> */}
+        />
         <List>
           {data.map((project, index) => (
             <List.Item
