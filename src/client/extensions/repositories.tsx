@@ -52,9 +52,9 @@ const Repositories = (props: { underlayingApis: unknown }) => {
                 star_count: repository.star_count,
               });
             });
-          }
+          });
         }
-      );
+      });
 
       // sort by star count
       mergedData.sort((a, b) => b.star_count - a.star_count);
