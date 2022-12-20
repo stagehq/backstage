@@ -16,6 +16,7 @@ query GetSite($subdomain: String!) {
       storeExtension {
         id
         name
+        icon
       }
 
       underlayingApis {

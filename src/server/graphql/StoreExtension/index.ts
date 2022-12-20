@@ -7,6 +7,7 @@ builder.prismaNode('StoreExtension', {
     createdAt: t.string({ resolve: storeExtension => storeExtension.createdAt.toString()}),
     modifiedAt: t.string({ resolve: storeExtension => storeExtension.modifiedAt.toString()}),
     name: t.exposeString('name'),
-    markdown: t.exposeString('markdown')
+    markdown: t.exposeString('markdown'),
+    icon: t.exposeString('icon'),
   }),
 });

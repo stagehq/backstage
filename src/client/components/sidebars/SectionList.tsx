@@ -83,17 +83,18 @@ const SectionList = () => {
 
   useEffect(() => {
     if (site?.extensions) {
+      console.log(site.extensions);
       site.extensions.map((extension) => {
         console.log(extension);
         const Extension = dynamic(() => import(`../../extensions/${extension.storeExtension?.name}`));
 
         console.log(extension);
-
+        console.log(extension.storeExtension?.icon)
         const section = {
           id: sections.length,
           text: extension.storeExtension?.name,
           type: SectionType.EXTENSION,
-          icon: "CodeBracketSquareIcon",
+          icon: extension.storeExtension?.icon ? extension.storeExtension?.icon : "QueueListIcon",
           locked: false,
           selected: false,
           apis: [ExtensionAPIEnum.GITHUB, ExtensionAPIEnum.GITLAB],
