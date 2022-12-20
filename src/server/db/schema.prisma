@@ -140,7 +140,7 @@ model OAuth {
   refreshToken          String?
   scope                 String?
 
-  userId                String                @unique
+  userId                String                
   user                  User                  @relation(fields: [userId], references: [id])
 
   apis                  Api[]
@@ -151,7 +151,7 @@ model Preference {
   key                   String
   value                 String
 
-  userId                String                @unique
+  userId                String               
   user                  User                  @relation(fields: [userId], references: [id])
 
   apis                  Api[]
