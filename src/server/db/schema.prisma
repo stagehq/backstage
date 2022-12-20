@@ -32,7 +32,8 @@ model User {
 
   mainSite             Site?                  @relation("mainSite")
 
-  apis                 Api[]
+  oAuths               OAuth[]
+  preferences          Preference[]
 }
 
 model Account {
@@ -105,7 +106,6 @@ model Extension {
   storeExtension        StoreExtension        @relation(fields: [storeExtensionId], references: [id])
 
   underlayingApis       Api[]
-  apiResponses          ApiResponse[]
 }
 
 model Api {
@@ -113,16 +113,18 @@ model Api {
   createdAt             DateTime              @default(now())
   modifiedAt            DateTime              @default(now())
 
-  oAuth                 OAuth?  
-  preferences           Preference[]              
-
   apiConnectorId        String
   apiConnector          ApiConnector          @relation(fields: [apiConnectorId], references: [id])
 
-  inExtensions          Extension[]
+  extensionId           String
+  extension             Extension             @relation(fields: [extensionId], references: [id])
 
-  userId                String
-  user                  User             @relation(fields: [userId], references: [id])
+  apiResponses          ApiResponse[]
+
+  oAuthId               String
+  oAuth                 OAuth                 @relation(fields: [oAuthId], references: [id])
+
+  preferences           Preference[]
 }
 
 model OAuth {
@@ -138,8 +140,10 @@ model OAuth {
   refreshToken          String?
   scope                 String?
 
-  apiId                 String                @unique
-  api                   Api                   @relation(fields: [apiId], references: [id])
+  userId                String                @unique
+  user                  User                  @relation(fields: [userId], references: [id])
+
+  apis                  Api[]
 }
 
 model Preference {
@@ -147,8 +151,10 @@ model Preference {
   key                   String
   value                 String
 
-  apiId                 String                @unique
-  api                   Api                   @relation(fields: [apiId], references: [id])
+  userId                String                @unique
+  user                  User                  @relation(fields: [userId], references: [id])
+
+  apis                  Api[]
 }
 
 model ApiResponse {
@@ -157,8 +163,8 @@ model ApiResponse {
   modifiedAt            DateTime              @default(now())
   response              Json?
 
-  extensionId           String
-  extension             Extension             @relation(fields: [extensionId], references: [id])
+  apiId                 String
+  api                   Api                   @relation(fields: [apiId], references: [id])
 
   apiConnectorRouteId   String
   apiConnectorRoute     ApiConnectorRoute     @relation(fields: [apiConnectorRouteId], references: [id])
@@ -201,6 +207,7 @@ model StoreExtension {
   modifiedAt            DateTime              @default(now())
   name                  String                @unique
   markdown              String?
+  icon                  String?
 
   integratedExtensions  Extension[]
   routes                ApiConnectorRoute[]

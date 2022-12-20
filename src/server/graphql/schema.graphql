@@ -1,8 +1,9 @@
 type Api implements Node {
   apiConnector: ApiConnector
+  apiResponses: [ApiResponse!]
   createdAt: String
+  extension: Extension
   id: ID!
-  inExtensions: [Extension!]
   modifiedAt: String
   oAuth: OAuth
   preferences: [Preference!]
@@ -26,16 +27,15 @@ type ApiConnectorRoute implements Node {
 }
 
 type ApiResponse implements Node {
+  api: Api
   apiConnectorRoute: ApiConnectorRoute
   createdAt: String
-  extension: Extension
   id: ID!
   modifiedAt: String
   response: JSON
 }
 
 type Extension implements Node {
-  apiResponses: [ApiResponse!]
   createdAt: String
   id: ID!
   modifiedAt: String
@@ -49,11 +49,12 @@ scalar JSON
 
 type Mutation {
   createLinkedInExtension(linkedInUrl: String, siteId: String, storeExtensionId: String): Extension
-  createOAuthApi(accessToken: String, apiConnectorId: String, expiresIn: Int, idToken: String, refreshToken: String, scope: String): Api
-  createOAuthExtension(accessToken: String, apiConnectorId: String, siteId: String, storeExtensionId: String): Extension
+  createOAuthApi(accessToken: String, apiConnectorName: String, expiresIn: Int, idToken: String, refreshToken: String, scope: String): Api
+  createOAuthExtension(apiId: String, siteId: String, storeExtensionId: String): Extension
   createWebLinkExtension(siteId: String, storeExtensionId: String, webLinks: [String!]): Extension
+  updateOAuthApi(accessToken: String, apiConnectorName: String, expiresIn: Int, idToken: String, isExpired: Boolean, refreshToken: String, scope: String): Api
   updateUser(alias: String, coverImageUrl: String, firstName: String, image: String, lastName: String): User
-  upsertApiResponse(apiConnectorRouteId: String, extensionId: String, response: String): ApiResponse
+  upsertApiResponse(apiConnectorRouteId: String, apiId: String, response: String): ApiResponse
   upsertSite(bio: String!, subdomain: String!, tagline: String!): Site
 }
 
@@ -63,7 +64,7 @@ interface Node {
 
 type OAuth implements Node {
   accessToken: String
-  api: Api
+  apis: [Api!]
   createdAt: String
   expiresIn: Int
   id: ID!
@@ -72,17 +73,20 @@ type OAuth implements Node {
   modifiedAt: String
   refreshToken: String
   scope: String
+  user: User
 }
 
 type Preference implements Node {
-  api: Api
+  apis: [Api!]
   id: ID!
   key: String
+  user: User
   value: String
 }
 
 type Query {
   currentUser: User
+  getApi(apiConnectorName: String): Api
   getSite(subdomain: String!): Site
   getValidAlias(alias: String): User
   node(id: ID!): Node

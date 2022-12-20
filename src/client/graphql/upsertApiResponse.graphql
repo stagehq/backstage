@@ -1,12 +1,12 @@
 mutation UpsertApiResponse(
   $apiConnectorRouteId: String!
   $response: String!
-  $extensionId: String!
+  $apiId: String!
 ) {
   upsertApiResponse(
     apiConnectorRouteId: $apiConnectorRouteId
     response: $response
-    extensionId: $extensionId
+    apiId: $apiId
   ) {
     __typename
     id

@@ -11,8 +11,7 @@ builder.prismaNode('Extension', {
 
     storeExtension: t.relation('storeExtension'),
     underlayingApis: t.relation('underlayingApis'),
-    site: t.relation('site'),
-    apiResponses: t.relation('apiResponses')
+    site: t.relation('site')
   }),
 });
 
@@ -22,53 +21,31 @@ builder.mutationField('createOAuthExtension', (t) =>
     args: {
       storeExtensionId: t.arg.string(),
       siteId: t.arg.string(),
-      apiConnectorId: t.arg.string(),
-      accessToken: t.arg.string()
+      apiId: t.arg.string(),
     },
     resolve: async (query, root, args, ctx) => {
-      if (!ctx.session.user.email || args.apiConnectorId == null || args.accessToken == null || args.siteId == null || args.storeExtensionId == null) return null;
-
-      //check if api extension is already added
-      const check = await prisma.extension.findFirst({
-        where: {
-          site: {
-            id: args.siteId
-          },
-          storeExtension: {
-            id: args.storeExtensionId
-          },
-          underlayingApis: {
-            some: {
-              apiConnector: {
-                id: args.apiConnectorId
-              }
-            }
-          }
-        }
-      })
-      if (check) return null;
-
-      const oldExtension = await prisma.extension.findFirst({
-        where: {
-          site: {
-            id: args.siteId
-          },
-          storeExtension: {
-            id: args.storeExtensionId
-          }
-        }
-      })
-      if (check) return null;
+      if (!ctx.session.user.email || args.siteId == null || args.storeExtensionId == null || args.apiId == null) return null;
       
-      const extensionCount = await prisma.site.findFirst({
+      // check if extension is already there
+      const extension = await prisma.extension.findFirst({
         where: {
-          id: args.siteId
+          site: {
+            id: args.siteId
+          },
+          storeExtension: {
+            id: args.storeExtensionId
+          },
         }
-      }).extensions();
+      })
+      if (extension) {
 
-      if(!oldExtension){
-        const extension = await prisma.extension.create({
+        //only connect new api
+        const newExtension = await prisma.extension.update({
+          where: {
+            id: extension.id
+          },
           data: {
+            sortOrder: 0,
             site: {
               connect: {
                 id: args.siteId
@@ -79,49 +56,42 @@ builder.mutationField('createOAuthExtension', (t) =>
                 id: args.storeExtensionId
               }
             },
-            // underlayingApis: {
-            //   create: {
-            //     apiConnector: {
-            //       connect: {
-            //         id: args.apiConnectorId
-            //       }
-            //     },
-            //     oAuth: {
-            //       create: {
-            //         accessToken: args.accessToken
-            //       }
-            //     }
-            //   }
-            // },
-            sortOrder: extensionCount ? extensionCount.length ? extensionCount.length > 0 ? extensionCount.length + 1  : 1 : 1 : 1
+            underlayingApis: {
+              connect: {
+                id: args.apiId
+              }
+            }
           }
         })
-        return extension;
+
+        return newExtension;
+
       } else {
-        const extension = await prisma.extension.update({
-          where: {
-            id: oldExtension.id
-          },
+
+        //create new extension
+        const newExtension = await prisma.extension.create({
           data: {
-            // underlayingApis: {
-            //   create: {
-            //     apiConnector: {
-            //       connect: {
-            //         id: args.apiConnectorId
-            //       }
-            //     },
-            //     oAuth: {
-            //       create: {
-            //         accessToken: args.accessToken
-            //       }
-            //     }
-            //   }
-            // }
+            sortOrder: 0,
+            site: {
+              connect: {
+                id: args.siteId
+              }
+            },
+            storeExtension: {
+              connect: {
+                id: args.storeExtensionId
+              }
+            },
+            underlayingApis: {
+              connect: {
+                id: args.apiId
+              }
+            }
           }
         })
-        return extension;
-      }   
-    }
+        return newExtension;
+      }     
+    } 
   })
 );
 

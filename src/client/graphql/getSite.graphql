@@ -13,48 +13,32 @@ query GetSite($subdomain: String!) {
       createdAt
       sortOrder
 
-      apiResponses {
-        id
-        modifiedAt
-        createdAt
-        response
-
-        apiConnectorRoute {
-          id
-          modifiedAt
-          createdAt
-          name
-          url
-
-          apiConnector {
-            name
-          }
-        }
-      }
-
       storeExtension {
         id
-        modifiedAt
-        createdAt
         name
-        markdown
       }
 
       underlayingApis {
         id
-        modifiedAt
         createdAt
+        modifiedAt
+        apiConnector {
+          name
+        }
 
         oAuth {
           accessToken
         }
 
-        apiConnector {
+        apiResponses {
           id
-          modifiedAt
-          createdAt
-          name
-          markdown
+          response 
+
+          apiConnectorRoute {
+            id
+            name
+            url
+          }
         }
       }
     }

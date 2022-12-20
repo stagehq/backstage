@@ -1,14 +1,12 @@
 mutation CreateOAuthExtension(
   $siteId: String!
   $storeExtensionId: String!
-  $apiConnectorId: String!
-  $accessToken: String!
+  $apiId: String!
 ) {
   createOAuthExtension(
     siteId: $siteId
     storeExtensionId: $storeExtensionId
-    apiConnectorId: $apiConnectorId
-    accessToken: $accessToken
+    apiId: $apiId
   ) {
     __typename
     id

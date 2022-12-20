@@ -16,6 +16,7 @@ builder.prismaNode('OAuth', {
     refreshToken: t.exposeString('refreshToken'),
     scope: t.exposeString('scope'),
 
-    api: t.relation('api')
+    apis: t.relation('apis'),
+    user: t.relation('user')
   }),
 });

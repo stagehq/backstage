@@ -8,6 +8,7 @@ builder.prismaNode('Preference', {
     key: t.exposeString('key'),
     value: t.exposeString('value'),
 
-    api: t.relation('api')
+    apis: t.relation('apis'),
+    user: t.relation('user')
   }),
 });

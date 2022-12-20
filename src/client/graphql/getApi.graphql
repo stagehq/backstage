@@ -1,0 +1,15 @@
+query GetApi($apiConnectorName: String!) {
+  getApi(apiConnectorName: $apiConnectorName) {
+    id
+    modifiedAt
+    oAuth {
+      id
+      accessToken
+      isExpired
+      expiresIn
+      idToken
+      refreshToken
+      scope
+    }
+  }
+}
