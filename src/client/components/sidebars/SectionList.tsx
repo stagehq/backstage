@@ -1,5 +1,6 @@
 import { Section } from "@stagehq/ui";
 import clsx from "clsx";
+import dynamic from "next/dynamic";
 import { FC, useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -84,6 +85,28 @@ const SectionList = () => {
     if (site?.extensions) {
       site.extensions.map((extension) => {
         console.log(extension);
+        const Extension = dynamic(() => import(`../../extensions/${extension.storeExtension?.name}`));
+
+        console.log(extension);
+
+        const section = {
+          id: sections.length,
+          text: extension.storeExtension?.name,
+          type: SectionType.EXTENSION,
+          icon: "CodeBracketSquareIcon",
+          locked: false,
+          selected: false,
+          apis: [ExtensionAPIEnum.GITHUB, ExtensionAPIEnum.GITLAB],
+          position: ExtensionPosition.MAIN,
+          component: <Extension apiResponses={extension.apiResponses} />,
+        };
+        // insert section into the sections array but before the footer section
+        // don't insert if the section already exists
+        if (!sections.find((s) => s.text === section.text)) {
+          // increase footer id by 1
+          sections[sections.length - 1].id += 1;
+          sections.splice(sections.length - 1, 0, section);
+        }
       });
     }
   }, [site]);

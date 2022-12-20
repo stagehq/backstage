@@ -1,70 +1,52 @@
 import { Action, Actions, Header, List, Section } from "@stagehq/ui";
 import { Pills } from "@stagehq/ui/dist/components/Pills";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { siteSlugState, siteState } from "../store/site";
 
-const Repositories = () => {
-  const { siteId } = useParams();
-
-  const [siteSlug, setSiteSlug] = useRecoilState(siteSlugState);
-  const site = useRecoilValue(siteState(siteSlug));
-
+const Repositories = (props: { apiResponses: unknown; }) => {
   const [data, setData] = useState<any[]>([]);
   const [profileLink, setProfileLink] = useState("");
   const [linkSource, setLinkSource] = useState("");
   const [languages, setLanguages] = useState<string[]>([]);
 
   useEffect(() => {
-    if (siteId) {
-      setSiteSlug(siteId);
-    }
-  }, [siteId, setSiteSlug]);
-
-  useEffect(() => {
-    if (site && site.extensions && site.extensions[0]) {
+    if (props.apiResponses) {
       let mergedData: any[] = [];
       let collectLanguages: any[] = [];
 
       // merge data from GitHub and GitLab
-      site.extensions[0].underlayingApis?.forEach((underlayingApi) => {
-        if (underlayingApi.apiConnector?.name === "GitHub") {
-          underlayingApi.apiResponses?.forEach(apiResponse => {
-            apiResponse.response.forEach(repository => {
-              if (profileLink === "") {
-                setProfileLink(repository.owner.html_url);
-                setLinkSource("GitHub");
-              }
-              if (repository.language) {
-                collectLanguages.push(repository.language)
-              }
-              mergedData.push({
-                source: "GitHub",
-                url: repository.html_url,
-                name: repository.name,
-                full_name: repository.full_name,
-                description: repository.description,
-                star_count: repository.stargazers_count,
-              });
+      props.apiResponses?.forEach((apiResponse) => {
+        if (apiResponse.apiConnectorRoute.apiConnector?.name === "GitHub") {
+          apiResponse.response?.forEach(repository => {
+            if (profileLink === "") {
+              setProfileLink(repository.owner.html_url);
+              setLinkSource("GitHub");
+            }
+            if (repository.language) {
+              collectLanguages.push(repository.language)
+            }
+            mergedData.push({
+              source: "GitHub",
+              url: repository.html_url,
+              name: repository.name,
+              full_name: repository.full_name,
+              description: repository.description,
+              star_count: repository.stargazers_count,
             });
           });
         }
-        if (underlayingApi.apiConnector?.name === "GitLab") {
-          underlayingApi.apiResponses?.forEach(apiResponse => {
-            apiResponse.response.forEach(repository => {
-              if (profileLink === "") {
-                setProfileLink(repository.namespace.web_url);
-                setLinkSource("GitLab");
-              }
-              mergedData.push({
-                source: "GitLab",
-                url: repository.web_url,
-                name: repository.name,
-                full_name: repository.path_with_namespace,
-                description: repository.description,
-                star_count: repository.star_count,
-              });
+        if (apiResponse.apiConnectorRoute.apiConnector?.name === "GitLab") {
+          apiResponse.response?.forEach(repository => {
+            if (profileLink === "") {
+              setProfileLink(repository.namespace.web_url);
+              setLinkSource("GitLab");
+            }
+            mergedData.push({
+              source: "GitLab",
+              url: repository.web_url,
+              name: repository.name,
+              full_name: repository.path_with_namespace,
+              description: repository.description,
+              star_count: repository.star_count,
             });
           });
         }
@@ -88,7 +70,7 @@ const Repositories = () => {
       setLanguages(collectLanguages);
       setData(mergedData);
     }
-  }, [site]);
+  }, [props.apiResponses]);
 
   return (
     data && (
