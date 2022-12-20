@@ -27,20 +27,7 @@ const Site = () => {
       setSiteSlug(siteId);
     }
   }, [siteId, setSiteSlug]);
-
-  useEffect(() => {
-    if (site) {
-      console.log(site);
-      createOAuthforApi({
-        apiConnectorName: "Dev",
-        accessToken: "token",
-        //@ts-ignore
-      }).then((result) => {
-        console.log(result);
-      });
-    }
-  }, [site]);
-
+  
   return (
     <>
       <Content>

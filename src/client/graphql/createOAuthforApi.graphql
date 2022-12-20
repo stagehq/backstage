@@ -18,5 +18,10 @@ mutation CreateOAuthforApi(
     id
     createdAt
     modifiedAt
+    accessToken
+    expiresIn
+    idToken
+    refreshToken
+    scope
   }
 }

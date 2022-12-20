@@ -11,6 +11,8 @@ const spotify = new OAuth.PKCEClient({
 export const authorize = async () => {
   const tokenSet = await spotify.getTokens();
   if (tokenSet?.accessToken) {
+    console.log(tokenSet.isExpired());
+    
     if (tokenSet.refreshToken && tokenSet.isExpired()) {
       await spotify.setTokens(await refreshTokens(tokenSet.refreshToken));
     }
@@ -24,10 +26,7 @@ export const authorize = async () => {
       "user-read-currently-playing user-top-read user-read-recently-played",
   });
   const { authorizationCode } = await spotify.authorize(authRequest);
-  const response = await fetchTokens(authRequest, authorizationCode);
-  console.log(response);
-
-  //await spotify.setTokens(await fetchTokens(authRequest, authorizationCode));
+  await spotify.setTokens(await fetchTokens(authRequest, authorizationCode));
 };
 
 async function fetchTokens(

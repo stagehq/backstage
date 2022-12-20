@@ -1,5 +1,5 @@
+import { CreateOAuthforApiDocument } from './../graphql/createOAuthforApi.generated';
 import { client } from "../graphql/client";
-import { CreateOAuthApiDocument } from "./../graphql/createOAuthApi.generated";
 /* eslint-disable @typescript-eslint/no-namespace */
 export namespace OAuth {
   export enum RedirectMethod {
@@ -177,7 +177,7 @@ export namespace OAuth {
         tokens;
 
       const response = await client
-        .mutation(CreateOAuthApiDocument, {
+        .mutation(CreateOAuthforApiDocument, {
           apiConnectorName: this.providerId,
           accessToken: access_token,
           refreshToken: refresh_token ? refresh_token : null,
@@ -187,20 +187,41 @@ export namespace OAuth {
         })
         .toPromise();
 
-      if (!response.data?.createOAuthApi) {
+      if (!response.data?.createOAuthforApi) {
         console.log("Error creating OAuth API");
       }
 
+      const tokenSet: TokenSet = {
+        accessToken: response.data?.createOAuthforApi.accessToken,
+        updatedAt: new Date(),
+        expiresIn: response.data?.createOAuthforApi.expiresIn,
+        refreshToken: response.data?.createOAuthforApi.refreshToken,
+        scope: response.data?.createOAuthforApi.scope,
+        idToken: response.data?.createOAuthforApi.idToken,
+        ...response.data?.createOAuthforApi,
+      };
+      
+
       localStorage.setItem(
         `${this.providerId}-tokens`,
-        JSON.stringify(response.data.createOAuthApi)
+        JSON.stringify(tokenSet)
       );
     };
 
     getTokens = (): TokenSet | null => {
       const tokens = localStorage.getItem(`${this.providerId}-tokens`);
       if (tokens) {
-        return JSON.parse(tokens);
+        const tokenObject = JSON.parse(tokens);
+        tokenObject.isExpired = () => {
+          if(!tokenObject.expiresIn) return false;
+          const now = new Date();
+          const expiresAt = new Date(
+            new Date(tokenObject.updatedAt).getTime() + tokenObject.expiresIn * 1000
+          );
+          return now > expiresAt;
+        };
+
+        return tokenObject;
       }
       return null;
     };
