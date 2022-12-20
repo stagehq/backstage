@@ -1,9 +1,8 @@
 type Api implements Node {
   apiConnector: ApiConnector
-  apiResponses: [ApiResponse!]
   createdAt: String
-  extension: Extension
   id: ID!
+  inExtensions: [Extension!]
   modifiedAt: String
   oAuth: OAuth
   preferences: [Preference!]
@@ -18,6 +17,7 @@ type ApiConnector implements Node {
 }
 
 type ApiConnectorRoute implements Node {
+  apiConnector: ApiConnector
   createdAt: String
   id: ID!
   modifiedAt: String
@@ -26,15 +26,16 @@ type ApiConnectorRoute implements Node {
 }
 
 type ApiResponse implements Node {
-  api: Api
   apiConnectorRoute: ApiConnectorRoute
   createdAt: String
+  extension: Extension
   id: ID!
   modifiedAt: String
   response: JSON
 }
 
 type Extension implements Node {
+  apiResponses: [ApiResponse!]
   createdAt: String
   id: ID!
   modifiedAt: String
@@ -42,7 +43,6 @@ type Extension implements Node {
   sortOrder: Int
   storeExtension: StoreExtension
   underlayingApis: [Api!]
-  urls: [String!]
 }
 
 scalar JSON
@@ -52,7 +52,7 @@ type Mutation {
   createOAuthExtension(accessToken: String, apiConnectorId: String, siteId: String, storeExtensionId: String): Extension
   createWebLinkExtension(siteId: String, storeExtensionId: String, webLinks: [String!]): Extension
   updateUser(alias: String, coverImageUrl: String, firstName: String, image: String, lastName: String): User
-  upsertApiResponse(apiConnectorRouteId: String, apiId: String, response: String): ApiResponse
+  upsertApiResponse(apiConnectorRouteId: String, extensionId: String, response: String): ApiResponse
   upsertSite(bio: String!, subdomain: String!, tagline: String!): Site
 }
 

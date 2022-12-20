@@ -10,10 +10,7 @@ builder.prismaNode('Api', {
 
     oAuth: t.relation('oAuth'),
     preferences: t.relation('preferences'),
-
-    apiResponses: t.relation('apiResponses'),
     apiConnector: t.relation('apiConnector'),
-
-    extension: t.relation('extension')
+    inExtensions: t.relation('inExtensions')
   }),
 });

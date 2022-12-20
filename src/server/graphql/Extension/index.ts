@@ -12,7 +12,7 @@ builder.prismaNode('Extension', {
     storeExtension: t.relation('storeExtension'),
     underlayingApis: t.relation('underlayingApis'),
     site: t.relation('site'),
-    urls: t.stringList({ resolve: extension => extension.urls }),
+    apiResponses: t.relation('apiResponses')
   }),
 });
 
@@ -79,20 +79,20 @@ builder.mutationField('createOAuthExtension', (t) =>
                 id: args.storeExtensionId
               }
             },
-            underlayingApis: {
-              create: {
-                apiConnector: {
-                  connect: {
-                    id: args.apiConnectorId
-                  }
-                },
-                oAuth: {
-                  create: {
-                    accessToken: args.accessToken
-                  }
-                }
-              }
-            },
+            // underlayingApis: {
+            //   create: {
+            //     apiConnector: {
+            //       connect: {
+            //         id: args.apiConnectorId
+            //       }
+            //     },
+            //     oAuth: {
+            //       create: {
+            //         accessToken: args.accessToken
+            //       }
+            //     }
+            //   }
+            // },
             sortOrder: extensionCount ? extensionCount.length ? extensionCount.length > 0 ? extensionCount.length + 1  : 1 : 1 : 1
           }
         })
@@ -103,20 +103,20 @@ builder.mutationField('createOAuthExtension', (t) =>
             id: oldExtension.id
           },
           data: {
-            underlayingApis: {
-              create: {
-                apiConnector: {
-                  connect: {
-                    id: args.apiConnectorId
-                  }
-                },
-                oAuth: {
-                  create: {
-                    accessToken: args.accessToken
-                  }
-                }
-              }
-            }
+            // underlayingApis: {
+            //   create: {
+            //     apiConnector: {
+            //       connect: {
+            //         id: args.apiConnectorId
+            //       }
+            //     },
+            //     oAuth: {
+            //       create: {
+            //         accessToken: args.accessToken
+            //       }
+            //     }
+            //   }
+            // }
           }
         })
         return extension;
@@ -167,7 +167,6 @@ builder.mutationField('createLinkedInExtension', (t) =>
               id: args.storeExtensionId
             }
           },
-          urls: [args.linkedInUrl],
           sortOrder: extensionCount ? extensionCount.length ? extensionCount.length > 0 ? extensionCount.length + 1  : 1 : 1 : 1
         }
       })
@@ -217,7 +216,6 @@ builder.mutationField('createWebLinkExtension', (t) =>
               id: args.storeExtensionId
             }
           },
-          urls: args.webLinks,
           sortOrder: extensionCount ? extensionCount.length ? extensionCount.length > 0 ? extensionCount.length + 1  : 1 : 1 : 1
         }
       })
