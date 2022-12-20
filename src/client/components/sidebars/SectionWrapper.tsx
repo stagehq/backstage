@@ -1,3 +1,5 @@
+import { useKBar } from "kbar";
+import { useRef } from "react";
 import { Icon } from "../Icons";
 
 interface Props {

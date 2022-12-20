@@ -4,7 +4,7 @@ import { themeState } from "../../../store/ui/theme";
 
 export default function useThemeActions() {
   // recoil theme state
-  const [, setThemeState] = useRecoilState(themeState);
+  const [theme, setThemeState] = useRecoilState(themeState);
 
   useRegisterActions([
     {
@@ -18,7 +18,14 @@ export default function useThemeActions() {
       name: "Dark",
       keywords: "dark theme",
       section: "",
-      perform: () => setThemeState("dark"),
+      perform: () => {
+        
+        const isDark = theme === "dark";
+        setThemeState("dark");
+        return () => {
+          if(isDark) setThemeState("light");
+        };
+      },
       parent: "theme",
     },
     {
@@ -26,7 +33,14 @@ export default function useThemeActions() {
       name: "Light",
       keywords: "light theme",
       section: "",
-      perform: () => setThemeState("light"),
+      perform: () => {
+        const isLight = theme === "light";
+        setThemeState("light");
+
+        return () => {
+          if(isLight) setThemeState("dark");
+        };
+      },
       parent: "theme",
     },
   ]);

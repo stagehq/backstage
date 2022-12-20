@@ -18,5 +18,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }),
   }).then((response) => response.json());
 
-  res.status(200).json({ gitlab: response });
+  res.status(200).json(response);
 };

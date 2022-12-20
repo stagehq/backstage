@@ -1,5 +1,7 @@
 import clsx from "clsx";
 import {
+  ActionId,
+  ActionImpl,
   KBarAnimator,
   KBarPortal,
   KBarPositioner,
@@ -11,7 +13,7 @@ import {
 } from "kbar";
 import { signOut } from "next-auth/react";
 
-import { FC } from "react";
+import React, { FC } from "react";
 import { Icon } from "../Icons";
 
 interface CommandBarProps {

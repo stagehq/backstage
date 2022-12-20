@@ -1,6 +1,5 @@
-import { useRecoilValue } from "recoil";
-import { useCreateOAuthExtensionMutation } from "./../graphql/createOAuthExtension.generated";
-import { siteSlugState, siteState } from "./../store/site";
+import { CreateOAuthApiDocument } from './../graphql/createOAuthApi.generated';
+import { client } from "../graphql/client";
 /* eslint-disable @typescript-eslint/no-namespace */
 export namespace OAuth {
   export enum RedirectMethod {
@@ -173,31 +172,30 @@ export namespace OAuth {
       return response;
     };
 
-    setTokens = (tokens: TokenResponse) => {
-      // recoil state site id
-      const siteSlug = useRecoilValue(siteSlugState);
-      const site = useRecoilValue(siteState(siteSlug));
-      const [, addOAuthToken] = useCreateOAuthExtensionMutation();
+    setTokens = async (tokens: TokenResponse) => {
       const { access_token, refresh_token, id_token, expires_in, scope } =
         tokens;
 
-      if (!site) return null;
-
-      addOAuthToken({
-        siteId: site.id,
-        storeExtensionId: "string",
-        apiConnectorId: this.providerId,
+      const response = await client
+      .mutation(CreateOAuthApiDocument, {
+        apiConnectorName: this.providerId,
         accessToken: access_token,
         refreshToken: refresh_token ? refresh_token : null,
         idToken: id_token ? id_token : null,
         expiresIn: expires_in ? expires_in : null,
         scope: scope ? scope : null,
-      });
-      localStorage.setItem(`${this.providerId}-tokens`, JSON.stringify(tokens));
+      })
+      .toPromise();
+
+      if(!response.data?.createOAuthApi) {
+        console.log('Error creating OAuth API');
+      }
+
+      localStorage.setItem(`${this.providerId}-tokens`, JSON.stringify(response.data.createOAuthApi));
     };
 
     getTokens = (): TokenSet | null => {
-      const tokens = localStorage.getItem("tokens");
+      const tokens = localStorage.getItem(`${this.providerId}-tokens`);
       if (tokens) {
         return JSON.parse(tokens);
       }

@@ -4,7 +4,7 @@ const github = new OAuth.PKCEClient({
   redirectMethod: OAuth.RedirectMethod.Web,
   providerName: "GitHub",
   providerIcon: "github-logo.png",
-  providerId: "github",
+  providerId: "GitHub",
   description: "GitHub OAuth",
 });
 

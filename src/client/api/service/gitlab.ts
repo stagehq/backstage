@@ -4,7 +4,7 @@ const gitlab = new OAuth.PKCEClient({
   redirectMethod: OAuth.RedirectMethod.Web,
   providerName: "GitLab",
   providerIcon: "gitlab-logo.png",
-  providerId: "gitlab",
+  providerId: "GitLab",
   description: "GitLab OAuth",
 });
 
@@ -63,6 +63,30 @@ async function refreshTokens(
   const tokenResponse = (await response.json()) as OAuth.TokenResponse;
   tokenResponse.refresh_token = tokenResponse.refresh_token ?? refreshToken;
   return tokenResponse;
+}
+
+export async function route(route: string) {
+  const tokenSet = await gitlab.getTokens();
+  if (!tokenSet) {
+    throw new Error("no token set");
+  }
+
+  const response = await fetch('/api/oauth/gitlab/update', {
+    headers: {
+      Authorization: `Bearer ${tokenSet.accessToken}`,
+    },
+    body: JSON.stringify({
+      route,
+      token: tokenSet.accessToken
+    }),
+  });
+
+  if (!response.ok) {
+    console.error("route error:", await response.text());
+    throw new Error(response.statusText);
+  }
+
+  return await response.json();
 }
 
 export default gitlab;

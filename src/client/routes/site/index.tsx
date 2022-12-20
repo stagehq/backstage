@@ -1,14 +1,17 @@
 import { PageFooter, PageHeader } from "@stagehq/ui";
+import clsx from "clsx";
 import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import Content from "../../components/Content";
+import useThemeActions from "../../components/kbar/hooks/useThemeActions";
 import SectionList from "../../components/sidebars/SectionList";
 import SectionWrapper from "../../components/sidebars/SectionWrapper";
 import { personal } from "../../components/sidebars/testData";
 import ShareBar from "../../components/studio/ShareBar";
 import { useCreateOAuthExtensionMutation } from "../../graphql/createOAuthExtension.generated";
 import { siteSlugState, siteState } from "../../store/site";
+import { themeState } from "../../store/ui/theme";
 
 const Site = () => {
   const { siteId } = useParams();
@@ -116,8 +119,13 @@ export const PageWrapper: FC<PageWrapperProps> = ({ children }) => {
 };
 
 export const Page = () => {
+  const [theme, setTheme] = useRecoilState(themeState);
+
+  useThemeActions();
+
   return (
-    <div className="bg-zinc-50 dark:bg-black">
+    <div className={clsx(theme)}>
+          <div className="bg-zinc-50 dark:bg-black">
       <div className="relative bg-white max-w-screen-xl mx-auto px-6 md:px-24 ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20">
         <PageHeader
           {...{
@@ -126,7 +134,7 @@ export const Page = () => {
             image: personal.image,
             lightMode: true,
             toggleLightMode: () => {
-              "toggle light mode";
+              setTheme(theme === "light" ? "dark" : "light");
             },
           }}
         />
@@ -143,6 +151,8 @@ export const Page = () => {
         }}
       />
     </div>
+    </div>
+
   );
 };
 
