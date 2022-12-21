@@ -82,6 +82,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const apiCheck = await checkApi(extensionCheck.id, data.apiConnectorName);
     if (!apiCheck) {
       //add api to extension
+      console.log("add api to extension");
+      
       await prisma.extension.update({
         where: {
           id: extensionCheck.id,
@@ -94,13 +96,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                   name: data.apiConnectorName,
                 },
               },
-              oAuth: data.authType === AuthType.preferences ? {} : {
-                connect: {
-                  id: data.oAuthId,
+              ...(data.authType !== AuthType.preferences && {
+                oAuth: {
+                  connect: {
+                    id: data.oAuthId,
+                  },
                 },
-              },
+              }),
               apiResponses: {
                 create: prismaCreateRoutesArray,
+              },
+              preferences: {
+                create: prismaCreatePreferencesArray,
               },
             },
           },

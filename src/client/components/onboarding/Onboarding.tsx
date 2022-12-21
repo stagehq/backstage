@@ -488,6 +488,7 @@ const OnboardingCv: FC = () => {
       console.log(storeExtension);
 
       if (storeExtension && storeExtension.routes) {
+        /* TODO: Update the apiConnectorName and key to dynamic values */
         upsertExtension({
           siteId: decodeGlobalID(site.id).id,
           storeExtensionId: storeExtensionId,
@@ -500,6 +501,10 @@ const OnboardingCv: FC = () => {
           }),
           authType: AuthType.preferences,
           apiConnectorName: "linkedin",
+          preferences: [{
+            key: 'linkedinUrl',
+            value: link,
+          }],
         })
       }
     }
