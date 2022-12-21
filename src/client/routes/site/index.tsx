@@ -14,14 +14,6 @@ import { siteSlugState, siteState } from "../../store/site";
 import { themeState } from "../../store/ui/theme";
 import { ApiConnectorRoute } from "../../graphql/types.generated";
 
-export interface QueryTestTypes {
-  oAuthId: string,
-  siteId: string,
-  apiConnectorName: string,
-  storeExtensionId: string,
-  routes: ApiConnectorRoute[]
-}
-
 const Site = () => {
   const { siteId } = useParams();
 
@@ -38,13 +30,13 @@ const Site = () => {
     const response = fetch("http://localhost:3000/api/dbInsertion/fetchAndCreate", {
       method: 'POST',
       body: JSON.stringify({
-        oAuthId: "clbxgja470002zrnu3emyfdjy",
         siteId: "clbnmzq4o0000eo5vrnfms2tm",
-        apiConnectorName: "gitlab",
-        storeExtensionId: "clbwmhivz0002pgqo9rsqg420",
+        apiConnectorName: "linkedin",
+        storeExtensionId: "clbv4gdyh0000pg3ltjfyquss",
         routes: [{
           id: "clbwmin5a0006pgqoqp120et5",
-          url: "/api/v4/projects"
+          url: "/api/v4/projects",
+          urlParameter: "test"
         }]
       }),
     }).then((response) => {

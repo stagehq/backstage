@@ -1,32 +1,43 @@
+import { AuthType } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../server/db/prisma";
 
 type Route = {
   id: string,
   url: string,
+  urlParameter?: string[]
 };
 
 export interface FetchAndCreateProps {
-  oAuthId: string,
+  oAuthId?: string,
   siteId: string,
   apiConnectorName: string,
   storeExtensionId: string,
-  routes: Route[]
+  routes: Route[],
+  authType: AuthType
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const data: FetchAndCreateProps = await JSON.parse(req.body);
+  let prismaCreateManyArray;
 
   //Get token
-  const oAuth = await getOAuthToken(data.oAuthId);
-  if(!oAuth) res.status(500).json({ error: "oAuth is not in database" });
+  if(data.authType !== AuthType.preferences && data.oAuthId){
+    //handle oauth adn oath with preferences
+    const oAuth = await getOAuthToken(data.oAuthId);
+    if(!oAuth) res.status(500).json({ error: "oAuth is not in database" });
+  
 
-  //Fetch data from routes
-  let prismaCreateManyArray;
-  if(oAuth?.accessToken)
-  prismaCreateManyArray = await fetchDataFromRoutes(oAuth.accessToken, data.routes, data.apiConnectorName);
+    //Fetch data from routes
+    if(oAuth?.accessToken)
+    prismaCreateManyArray = await fetchDataFromRoutes(oAuth.accessToken, data.routes, data.apiConnectorName);
 
-  if(prismaCreateManyArray == null) res.status(500).json({ error: "Data fetching failed" });
+    if(prismaCreateManyArray == null) res.status(500).json({ error: "Data fetching failed" });
+
+  } else {
+    prismaCreateManyArray = await fetchDataFromRoutesWithoutOAuth(data.routes, data.apiConnectorName);
+    console.log(prismaCreateManyArray);
+  }
 
   //Check if extension is already there
   const extensionCheck = await checkExtension(data.siteId, data.storeExtensionId);
@@ -125,6 +136,38 @@ const fetchDataFromRoutes = async (token: string, routes: Route[], apiConnectorN
       body: JSON.stringify({
         route: route.url,
         token: token,
+      }),
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+
+    prismaCreationArr.push({
+      response: response,
+      apiConnectorRoute: { connect: { id: route.id} },
+    });
+  }));
+  
+  return prismaCreationArr;
+}
+
+//fetch data from routes
+const fetchDataFromRoutesWithoutOAuth = async (routes: Route[], apiConnectorName: string) => {
+  const prismaCreationArr: {
+    response: string;
+    apiConnectorRoute: { connect: { id: string } };
+  }[] = [];
+
+  await Promise.all(routes.map(async (route) => {
+    const response = await fetch("http://localhost:3000/api/nonOAuth/" + apiConnectorName + "/update", {
+      method: 'POST',
+      body: JSON.stringify({
+        route: route.url,
       }),
     }).then((response) => {
       if (!response.ok) {

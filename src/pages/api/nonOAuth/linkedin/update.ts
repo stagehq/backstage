@@ -3,12 +3,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { url } = req.query;
-  console.log(req.body);
+  const {route, preferences} = await JSON.parse(req.body);
 
   // fetch linkedin profile data with this url https://nubela.co/proxycurl/api/v2/linkedin and store in data
   const params = new URLSearchParams({
-    url: `${url}`,
+    url: `${preferences.url}`,
     fallback_to_cache: "on-error",
     use_cache: "if-present",
     skills: "include",
@@ -21,8 +20,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     extra: "include",
   });
 
-  const profileData = await fetch(
-    "https://nubela.co/proxycurl/api/v2/linkedin?" + params,
+  const response = await fetch(
+    route + "?" + params,
     {
       method: "GET",
       headers: {
@@ -32,5 +31,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   ).then((response) => response.json());
 
-  res.status(200).json({ profile: profileData });
+  res.status(200).json(response);
 };
