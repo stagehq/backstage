@@ -4,7 +4,7 @@ const gitlab = new OAuth.PKCEClient({
   redirectMethod: OAuth.RedirectMethod.Web,
   providerName: "GitLab",
   providerIcon: "gitlab-logo.png",
-  providerId: "GitLab",
+  providerId: "gitlab",
   description: "GitLab OAuth",
 });
 

@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import * as spotify from "../../api/service/spotify";
+import * as gitlab from "../../api/service/gitlab";
 import Banner from "../../components/Banner";
 import Container from "../../components/Container";
 import Content from "../../components/Content";
@@ -25,7 +25,7 @@ const Dashboard = () => {
   // );
 
   const handleClick = async () => {
-    const response = await spotify.authorize();
+    const response = await gitlab.authorize();
     console.log(response);
 
     // const projects = await gitlab.route(`/api/v4/projects`);
@@ -39,7 +39,7 @@ const Dashboard = () => {
           <Banner />
           <Title />
           <More />
-          <span onClick={handleClick}>Connect spotify</span>
+          <span onClick={handleClick}>Connect gitlab</span>
         </Container>
       </Content>
     </>

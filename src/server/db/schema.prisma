@@ -144,6 +144,9 @@ model OAuth {
   user                  User                  @relation(fields: [userId], references: [id])
 
   apis                  Api[]
+  
+  apiConnectorId        String
+  apiConnector          ApiConnector          @relation(fields: [apiConnectorId], references: [id])
 }
 
 model Preference {
@@ -166,7 +169,7 @@ model ApiResponse {
   apiId                 String
   api                   Api                   @relation(fields: [apiId], references: [id])
 
-  apiConnectorRouteId   String
+  apiConnectorRouteId   String                @default("clbnod4jm0002eo372w1i5dp1")
   apiConnectorRoute     ApiConnectorRoute     @relation(fields: [apiConnectorRouteId], references: [id])
 }
 
@@ -183,6 +186,7 @@ model ApiConnector {
 
   integratedApis        Api[]
   apiConnectorRoute     ApiConnectorRoute[]
+  integratedOAuths      OAuth[]
 }
 
 model ApiConnectorRoute {

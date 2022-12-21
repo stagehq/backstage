@@ -17,7 +17,8 @@ builder.prismaNode('OAuth', {
     scope: t.exposeString('scope'),
 
     apis: t.relation('apis'),
-    user: t.relation('user')
+    user: t.relation('user'),
+    apiConnector: t.relation('apiConnector')
   }),
 });
 
@@ -35,24 +36,22 @@ builder.mutationField('createOAuthforApi', (t) =>
     resolve: async (query, root, args, ctx) => {
       if (!ctx.session.user.email || args.accessToken == null || args.apiConnectorName == null) return null;
 
+      console.log(args.apiConnectorName, ctx.session.user.email);
       //check if api extension is already added
       const check = await prisma.oAuth.findFirst({
         where: {
-          apis: {
-            some: {
-              apiConnector: {
-                name: args.apiConnectorName
-              }
-            }
+          apiConnector: {
+            name: args.apiConnectorName
           },
           user: {
             email: ctx.session.user.email
           }
         }
       })
-
+      console.log(check);
       if (check) {
         //update oAuth
+        console.log("update");
         const oAuth = await prisma.oAuth.update({
           where: {
             id: check.id
@@ -69,11 +68,17 @@ builder.mutationField('createOAuthforApi', (t) =>
 
       } else {
         //create oAuth
+        console.log("create");
         const oAuth = await prisma.oAuth.create({
           data: {
             user: {
               connect: {
                 email: ctx.session.user.email
+              }
+            },
+            apiConnector: {
+              connect: {
+                name: args.apiConnectorName
               }
             },
             accessToken: args.accessToken,
