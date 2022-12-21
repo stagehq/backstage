@@ -1,9 +1,11 @@
+import { AuthType } from "@prisma/client";
 import { PageFooter, PageHeader } from "@stagehq/ui";
 import clsx from "clsx";
 import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import Content from "../../components/Content";
+import { upsertExtension } from "../../components/helper/upsertExtension";
 import { useStoreExtensionActions } from "../../components/kbar/hooks/useStoreExtensionActions";
 import useThemeActions from "../../components/kbar/hooks/useThemeActions";
 import SectionList from "../../components/sidebars/SectionList";
@@ -26,35 +28,55 @@ const Site = () => {
   }, [siteId, setSiteSlug]);
 
   useEffect(() => {
-    const response = fetch(
-      "http://localhost:3000/api/dbInsertion/fetchAndCreate",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          preferences: [
-            {
-              key: "linkedinUrl",
-              value: "https://www.linkedin.com/in/jan-groenefeld-8833947b",
-            },
-          ],
-          userId: "83476874837465",
-          siteId: "clbnmzq4o0000eo5vrnfms2tm",
-          apiConnectorName: "linkedin",
-          storeExtensionId: "clbv4gdyh0000pg3ltjfyquss",
-          routes: [
-            {
-              id: "clbwmin5a0006pgqoqp120et5",
-              url: "/api/v2/linkedin",
-              urlParameter: "test",
-            },
-          ],
-        }),
-      }
-    ).then((response) => {
-      response.json().then((responseData) => {
-        console.log(responseData);
+    async function fetchData() {
+      const response = await upsertExtension({
+        userId: "clbf32lpi0000pgpvvchsxpal",
+        siteId: "clbnmzq4o0000eo5vrnfms2tm",
+        apiConnectorName: "linkedin",
+        storeExtensionId: "clbv4gdyh0000pg3ltjfyquss",
+        routes: [{ id: "clbwm5r9j0004us2tfh2snuaj", url: "/api/v2/linkedin" }],
+        preferences: [
+          {
+            key: "linkedinUrl",
+            value: "https://www.linkedin.com/in/jan-groenefeld-8833947b",
+          },
+        ],
+        authType: AuthType.preferences,
       });
-    });
+      console.log(response);
+    }
+
+    fetchData();
+    
+    // const response = fetch(
+    //   "http://localhost:3000/api/dbInsertion/fetchAndCreate",
+    //   {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       preferences: [
+    //         {
+    //           key: "linkedinUrl",
+    //           value: "https://www.linkedin.com/in/jan-groenefeld-8833947b",
+    //         },
+    //       ],
+    //       userId: "83476874837465",
+    //       siteId: "clbnmzq4o0000eo5vrnfms2tm",
+    //       apiConnectorName: "linkedin",
+    //       storeExtensionId: "clbv4gdyh0000pg3ltjfyquss",
+    //       routes: [
+    //         {
+    //           id: "clbwmin5a0006pgqoqp120et5",
+    //           url: "/api/v2/linkedin",
+    //           urlParameter: "test",
+    //         },
+    //       ],
+    //     }),
+    //   }
+    // ).then((response) => {
+    //   response.json().then((responseData) => {
+    //     console.log(responseData);
+    //   });
+    // });
   }, []);
 
   return (

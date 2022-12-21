@@ -5,7 +5,6 @@ import prisma from "../../../server/db/prisma";
 type Route = {
   id: string;
   url: string;
-  urlParameter?: string[];
 };
 
 type Preference = {
