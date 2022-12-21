@@ -3,7 +3,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const {route, token} = await JSON.parse(req.body);
+  const {route, token, preferences} = await JSON.parse(req.body);
 
   const response = await fetch("https://gitlab.com" + route, {
     method: "GET",
