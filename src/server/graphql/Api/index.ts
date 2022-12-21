@@ -42,94 +42,94 @@ builder.queryField('getApi', (t) =>
   }),
 );
 
-builder.mutationField('createOAuthApi', (t) => 
-  t.prismaField({
-    type: "Api",
-    args: {
-      apiConnectorName: t.arg.string(),
-      accessToken: t.arg.string(),
-      expiresIn: t.arg.int({ required: false }),
-      idToken: t.arg.string({ required: false }),
-      refreshToken: t.arg.string({ required: false }),
-      scope: t.arg.string({ required: false })
-    },
-    resolve: async (query, root, args, ctx) => {
-      if (!ctx.session.user.email || args.apiConnectorName == null || args.accessToken == null) return null;
+// builder.mutationField('createOAuthApi', (t) => 
+//   t.prismaField({
+//     type: "Api",
+//     args: {
+//       apiConnectorName: t.arg.string(),
+//       accessToken: t.arg.string(),
+//       expiresIn: t.arg.int({ required: false }),
+//       idToken: t.arg.string({ required: false }),
+//       refreshToken: t.arg.string({ required: false }),
+//       scope: t.arg.string({ required: false })
+//     },
+//     resolve: async (query, root, args, ctx) => {
+//       if (!ctx.session.user.email || args.apiConnectorName == null || args.accessToken == null) return null;
 
-      //check if api extension is already added
-      const check = await prisma.api.findFirst({
-        where: {
-          // user: {
-          //   email: ctx.session.user.email
-          // },
-          apiConnector: {
-            name: args.apiConnectorName
-          },
-        }
-      })
-      if (check) return null;
+//       //check if api extension is already added
+//       const check = await prisma.api.findFirst({
+//         where: {
+//           // user: {
+//           //   email: ctx.session.user.email
+//           // },
+//           apiConnector: {
+//             name: args.apiConnectorName
+//           },
+//         }
+//       })
+//       if (check) return null;
 
-      // const api = await prisma.api.create({
-      //   data: {
-      //     apiConnector: {
-      //       connect: {
-      //         name: args.apiConnectorName
-      //       }
-      //     }
-      //   }
-      // })
-      return check;
-    }
-  })
-);
+//       // const api = await prisma.api.create({
+//       //   data: {
+//       //     apiConnector: {
+//       //       connect: {
+//       //         name: args.apiConnectorName
+//       //       }
+//       //     }
+//       //   }
+//       // })
+//       return check;
+//     }
+//   })
+// );
 
-builder.mutationField('updateOAuthApi', (t) => 
-  t.prismaField({
-    type: "Api",
-    args: {
-      apiConnectorName: t.arg.string(),
-      accessToken: t.arg.string({ required: false }),
-      expiresIn: t.arg.int({ required: false }),
-      idToken: t.arg.string({ required: false }),
-      refreshToken: t.arg.string({ required: false }),
-      scope: t.arg.string({ required: false }),
-      isExpired: t.arg.boolean({ required: false })
-    },
-    resolve: async (query, root, args, ctx) => {
-      if (!ctx.session.user.email || args.apiConnectorName == null) return null;
+// builder.mutationField('updateOAuthApi', (t) => 
+//   t.prismaField({
+//     type: "Api",
+//     args: {
+//       apiConnectorName: t.arg.string(),
+//       accessToken: t.arg.string({ required: false }),
+//       expiresIn: t.arg.int({ required: false }),
+//       idToken: t.arg.string({ required: false }),
+//       refreshToken: t.arg.string({ required: false }),
+//       scope: t.arg.string({ required: false }),
+//       isExpired: t.arg.boolean({ required: false })
+//     },
+//     resolve: async (query, root, args, ctx) => {
+//       if (!ctx.session.user.email || args.apiConnectorName == null) return null;
 
-      const api = await prisma.api.findFirst({
-        where: {
-          // user: {
-          //   email: ctx.session.user.email
-          // },
-          apiConnector: {
-            name: args.apiConnectorName
-          }
-        }
-      })
+//       const api = await prisma.api.findFirst({
+//         where: {
+//           // user: {
+//           //   email: ctx.session.user.email
+//           // },
+//           apiConnector: {
+//             name: args.apiConnectorName
+//           }
+//         }
+//       })
 
-      if(!api) return null
+//       if(!api) return null
 
-      const newApi = await prisma.api.update({
-        where: {
-          id: api.id
-        },
-        data: {
-          oAuth: {
-            update: {
-              isExpired: args.isExpired || undefined,
-              accessToken: args.accessToken || undefined,
-              expiresIn: args.expiresIn || undefined,
-              idToken: args.idToken || undefined,
-              refreshToken: args.refreshToken || undefined,
-              scope: args.scope || undefined
-            }
-          }
-        }
-      });
+//       const newApi = await prisma.api.update({
+//         where: {
+//           id: api.id
+//         },
+//         data: {
+//           oAuth: {
+//             update: {
+//               isExpired: args.isExpired || undefined,
+//               accessToken: args.accessToken || undefined,
+//               expiresIn: args.expiresIn || undefined,
+//               idToken: args.idToken || undefined,
+//               refreshToken: args.refreshToken || undefined,
+//               scope: args.scope || undefined
+//             }
+//           }
+//         }
+//       });
 
-      return newApi;
-    }
-  })
-);
+//       return newApi;
+//     }
+//   })
+// );

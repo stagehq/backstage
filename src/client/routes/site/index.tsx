@@ -12,7 +12,6 @@ import { personal } from "../../components/sidebars/testData";
 import ShareBar from "../../components/studio/ShareBar";
 import { siteSlugState, siteState } from "../../store/site";
 import { themeState } from "../../store/ui/theme";
-import { ApiConnectorRoute } from "../../graphql/types.generated";
 
 const Site = () => {
   const { siteId } = useParams();
@@ -26,30 +25,37 @@ const Site = () => {
     }
   }, [siteId, setSiteSlug]);
 
-  useEffect( () => {
-    const response = fetch("http://localhost:3000/api/dbInsertion/fetchAndCreate", {
-      method: 'POST',
-      body: JSON.stringify({
-        preferences: [{
-          key: "linkedinUrl",
-          value: "https://www.linkedin.com/in/jan-groenefeld-8833947b"
-        }],
-        userEmail: "nils.jacobsen98@gmail.com",
-        siteId: "clbnmzq4o0000eo5vrnfms2tm",
-        apiConnectorName: "linkedin",
-        storeExtensionId: "clbv4gdyh0000pg3ltjfyquss",
-        routes: [{
-          id: "clbwmin5a0006pgqoqp120et5",
-          url: "/api/v2/linkedin",
-          urlParameter: "test"
-        }]
-      }),
-    }).then((response) => {
+  useEffect(() => {
+    const response = fetch(
+      "http://localhost:3000/api/dbInsertion/fetchAndCreate",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          preferences: [
+            {
+              key: "linkedinUrl",
+              value: "https://www.linkedin.com/in/jan-groenefeld-8833947b",
+            },
+          ],
+          userEmail: "nils.jacobsen98@gmail.com",
+          siteId: "clbnmzq4o0000eo5vrnfms2tm",
+          apiConnectorName: "linkedin",
+          storeExtensionId: "clbv4gdyh0000pg3ltjfyquss",
+          routes: [
+            {
+              id: "clbwmin5a0006pgqoqp120et5",
+              url: "/api/v2/linkedin",
+              urlParameter: "test",
+            },
+          ],
+        }),
+      }
+    ).then((response) => {
       response.json().then((responseData) => {
         console.log(responseData);
       });
     });
-  }, [])
+  }, []);
 
   return (
     <>

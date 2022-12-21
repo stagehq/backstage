@@ -1,10 +1,10 @@
 import { builder } from '../builder';
-import prisma from "../../db/prisma";
+//import prisma from "../../db/prisma";
 
-interface PreferenceProps {
-  key: string,
-  value: string
-}
+// interface PreferenceProps {
+//   key: string,
+//   value: string
+// }
 
 builder.prismaNode('Preference', {
   findUnique: (id) => ({ id: id }),

@@ -14,49 +14,47 @@ const Repositories = (props: { underlayingApis: Api[] }) => {
       let collectLanguages: any[] = [];
 
       // merge data from GitHub and GitLab
-      props.underlayingApis?.forEach(
-        (api) => {
-          if (api.apiConnector?.name === "github") {
-            api.apiResponses?.forEach((apiResponse) => {
-              apiResponse.response.forEach((repository: any) => {
-                if (profileLink === "") {
-                  setProfileLink(repository.owner.html_url);
-                  setLinkSource("GitHub");
-                }
-                if (repository.language) {
-                  collectLanguages.push(repository.language);
-                }
-                mergedData.push({
-                  source: "GitHub",
-                  url: repository.html_url,
-                  name: repository.name,
-                  full_name: repository.full_name,
-                  description: repository.description,
-                  star_count: repository.stargazers_count,
-                });
+      props.underlayingApis?.forEach((api) => {
+        if (api.apiConnector?.name === "github") {
+          api.apiResponses?.forEach((apiResponse) => {
+            apiResponse.response.forEach((repository: any) => {
+              if (profileLink === "") {
+                setProfileLink(repository.owner.html_url);
+                setLinkSource("GitHub");
+              }
+              if (repository.language) {
+                collectLanguages.push(repository.language);
+              }
+              mergedData.push({
+                source: "GitHub",
+                url: repository.html_url,
+                name: repository.name,
+                full_name: repository.full_name,
+                description: repository.description,
+                star_count: repository.stargazers_count,
               });
             });
-          }
-          if (api.apiConnector?.name === "gitlab") {
-            api.apiResponses?.forEach((apiResponse) => {
-              apiResponse.response.forEach((repository: any) => {
-                if (profileLink === "") {
-                  setProfileLink(repository.namespace.web_url);
-                  setLinkSource("GitLab");
-                }
-                mergedData.push({
-                  source: "GitLab",
-                  url: repository.web_url,
-                  name: repository.name,
-                  full_name: repository.path_with_namespace,
-                  description: repository.description,
-                  star_count: repository.star_count,
-                });
-              });
-            });
-          }
+          });
         }
-      );
+        if (api.apiConnector?.name === "gitlab") {
+          api.apiResponses?.forEach((apiResponse) => {
+            apiResponse.response.forEach((repository: any) => {
+              if (profileLink === "") {
+                setProfileLink(repository.namespace.web_url);
+                setLinkSource("GitLab");
+              }
+              mergedData.push({
+                source: "GitLab",
+                url: repository.web_url,
+                name: repository.name,
+                full_name: repository.path_with_namespace,
+                description: repository.description,
+                star_count: repository.star_count,
+              });
+            });
+          });
+        }
+      });
 
       // sort by star count
       mergedData.sort((a, b) => b.star_count - a.star_count);
@@ -96,9 +94,7 @@ const Repositories = (props: { underlayingApis: Api[] }) => {
             </Actions>
           }
         />
-        {languages.length > 0 && (
-          <Pills pills={languages} />
-        )}
+        {languages.length > 0 && <Pills pills={languages} />}
         <List>
           {data.map((project, index) => (
             <List.Item

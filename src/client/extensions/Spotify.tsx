@@ -9,25 +9,25 @@ const Spotify = (props: { underlayingApis: Api[] }) => {
     if (props.underlayingApis) {
       let favoriteTracks: any[] = [];
 
-      props.underlayingApis?.forEach(
-        (api) => {
-          if (api.apiConnector?.name === "spotify") {
-            api.apiResponses?.forEach((apiResponse) => {
-              apiResponse.response.items.forEach((track: any) => {                  
-                favoriteTracks.push({
-                  source: "Spotify",
-                  type: "cover",
-                  title: track.name,
-                  subtitle: track.artists.map((artist: any) => artist.name).join(", "),
-                  additional: track.album.release_date.slice(0, 4),
-                  image: track.album.images[0].url,
-                  link: track.external_urls.spotify,
-                });
+      props.underlayingApis?.forEach((api) => {
+        if (api.apiConnector?.name === "spotify") {
+          api.apiResponses?.forEach((apiResponse) => {
+            apiResponse.response.items.forEach((track: any) => {
+              favoriteTracks.push({
+                source: "Spotify",
+                type: "cover",
+                title: track.name,
+                subtitle: track.artists
+                  .map((artist: any) => artist.name)
+                  .join(", "),
+                additional: track.album.release_date.slice(0, 4),
+                image: track.album.images[0].url,
+                link: track.external_urls.spotify,
               });
             });
-          }
+          });
         }
-      );
+      });
 
       // reduce to 5 items for now
       if (favoriteTracks.length > 5) {
@@ -50,42 +50,44 @@ const Spotify = (props: { underlayingApis: Api[] }) => {
         // }
       />
       <Cards>
-        {data.map((track: any, index) => (
-          index === 0 && (
-            <Cards.Item
-              type="horizontal"
-              title={data[0].title}
-              subtitle={data[0].subtitle}
-              image={data[0].image}
-              icon="PlayIcon"
-              actions={
-                <Actions>
-                  <Action.Link url={data[0].link} text="Play on Spotify" />
-                </Actions>
-              }
-            />
-          )
-        ))}
+        {data.map(
+          (track: any, index) =>
+            index === 0 && (
+              <Cards.Item
+                type="horizontal"
+                title={data[0].title}
+                subtitle={data[0].subtitle}
+                image={data[0].image}
+                icon="PlayIcon"
+                actions={
+                  <Actions>
+                    <Action.Link url={data[0].link} text="Play on Spotify" />
+                  </Actions>
+                }
+              />
+            )
+        )}
       </Cards>
       <List>
-        {data.map((track: any, index) => (
-          index !== 0 && (
-            <List.Item
-              index={index + 1}
-              type={track.type}
-              title={track.title}
-              subtitle={track.subtitle}
-              image={track.image}
-              count={
-                track.count && {
-                  // value: track.count.value,
-                  icon: "PlayCircleIcon",
+        {data.map(
+          (track: any, index) =>
+            index !== 0 && (
+              <List.Item
+                index={index + 1}
+                type={track.type}
+                title={track.title}
+                subtitle={track.subtitle}
+                image={track.image}
+                count={
+                  track.count && {
+                    // value: track.count.value,
+                    icon: "PlayCircleIcon",
+                  }
                 }
-              }
-              key={track.title + index}
-            />
-          )
-        ))}
+                key={track.title + index}
+              />
+            )
+        )}
       </List>
     </Section>
   );

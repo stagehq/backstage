@@ -48,12 +48,7 @@ type Extension implements Node {
 scalar JSON
 
 type Mutation {
-  createLinkedInExtension(linkedInUrl: String, siteId: String, storeExtensionId: String): Extension
-  createOAuthApi(accessToken: String, apiConnectorName: String, expiresIn: Int, idToken: String, refreshToken: String, scope: String): Api
-  createOAuthExtension(apiId: String, siteId: String, storeExtensionId: String): Extension
   createOAuthforApi(accessToken: String, apiConnectorName: String, expiresIn: Int, idToken: String, refreshToken: String, scope: String): OAuth
-  createWebLinkExtension(siteId: String, storeExtensionId: String, webLinks: [String!]): Extension
-  updateOAuthApi(accessToken: String, apiConnectorName: String, expiresIn: Int, idToken: String, isExpired: Boolean, refreshToken: String, scope: String): Api
   updateUser(alias: String, coverImageUrl: String, firstName: String, image: String, lastName: String): User
   upsertApiResponse(apiConnectorRouteId: String, apiId: String, response: String): ApiResponse
   upsertSite(bio: String!, subdomain: String!, tagline: String!): Site
