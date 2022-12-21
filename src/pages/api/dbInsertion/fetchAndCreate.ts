@@ -46,7 +46,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (!oAuth) res.status(404).json({ error: "oAuth is not in database" });
 
     //Fetch data from routes
-    if (oAuth?.accessToken && data.preferences) {
+    if (oAuth?.accessToken) {
       prismaCreateRoutesArray = await fetchDataFromRoutes(
         oAuth.accessToken,
         data.routes,
@@ -196,12 +196,15 @@ const fetchDataFromRoutes = async (
   token: string,
   routes: Route[],
   apiConnectorName: string,
-  preferences: Preference[]
+  preferences: Preference[] | undefined
 ) => {
   const prismaCreationArr: {
     response: string;
     apiConnectorRoute: { connect: { id: string } };
   }[] = [];
+
+  console.log("fetch data from routes");
+  
 
   await Promise.all(
     routes.map(async (route) => {

@@ -598,7 +598,7 @@ const OnboardingProjects: FC = () => {
   const user = useRecoilValue(currentUserState);
   const storeExtensions = useRecoilValue(storeExtensionState);
 
-  const storeExtensionId = "clbv4gdyh0000pg3ltjfyquss";
+  const storeExtensionId = "clbnoei3q0004eo37isjmdgp0";
   const storeExtension = storeExtensions?.find(
     (extension) => decodeGlobalID(extension.id).id === storeExtensionId
   ) as StoreExtension | undefined;
