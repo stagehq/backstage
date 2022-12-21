@@ -1,4 +1,5 @@
 import { decodeGlobalID } from "@pothos/plugin-relay";
+import { AuthType } from "@prisma/client";
 import clsx from "clsx";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
@@ -7,8 +8,10 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import * as github from "../../api/service/github";
 import * as gitlab from "../../api/service/github";
 import { useCreateLinkedInExtensionMutation } from "../../graphql/createLinkedInExtension.generated";
+import { StoreExtension } from "../../graphql/types.generated";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
+import { storeExtensionState } from "../../store/extensions";
 import { onboardingState } from "../../store/onboarding";
 import { siteSlugState, siteState } from "../../store/site";
 import {
@@ -18,6 +21,7 @@ import {
 import { currentUserState } from "../../store/user";
 import ImageUpload from "../crop/ImageUpload";
 import Gradient from "../Gradient";
+import { upsertExtension } from "../helper/upsertExtension";
 import LoginCard from "../LoginCard";
 import Logo from "../Logo";
 import { parseName } from "../modals/settings/helper/parseName";
@@ -298,7 +302,7 @@ const OnboardingProfile = () => {
 const OnboardingSubdomain: FC = () => {
   const [, setActiveSection] = useRecoilState(activeSectionState);
   const [onboarding, setOnboarding] = useRecoilState(onboardingState);
-  const [, setSiteSlug] = useRecoilState(siteSlugState);
+  const [siteSlug, setSiteSlug] = useRecoilState(siteSlugState);
   const user = useRecoilValue(currentUserState);
 
   const [subdomainValid, setSubdomainValid] = useState(false);
@@ -335,6 +339,9 @@ const OnboardingSubdomain: FC = () => {
         }
       });
     } else {
+      if (user?.mainSite?.subdomain) {
+        setSiteSlug(user?.mainSite?.subdomain);
+      }
       setActiveSection("cv");
     }
   };
@@ -451,9 +458,13 @@ const OnboardingCv: FC = () => {
 
   const [, updateLinkedinExtension] = useCreateLinkedInExtensionMutation();
 
-  const [siteSlug] = useRecoilState(siteSlugState);
+  const siteSlug = useRecoilValue(siteSlugState);
   const site = useRecoilValue(siteState(siteSlug));
 
+  const user = useRecoilValue(currentUserState);
+  const storeExtensions = useRecoilValue(storeExtensionState);
+
+  console.log(storeExtensions);
   console.log(site);
 
   const [validLink, setValidLink] = useState(false);
@@ -467,11 +478,30 @@ const OnboardingCv: FC = () => {
 
   const handleCvUpdate = () => {
     if (site && isValidLink(link)) {
-      updateLinkedinExtension({
-        siteId: decodeGlobalID(site.id).id,
-        storeExtensionId: "clbv4gdyh0000pg3ltjfyquss",
-        linkedInUrl: link,
-      });
+      if(!storeExtensions || !user) return;
+
+      const storeExtensionId = "clbv4gdyh0000pg3ltjfyquss";
+      const storeExtension = storeExtensions?.find(
+        (extension) => decodeGlobalID(extension.id).id === storeExtensionId
+      ) as StoreExtension | undefined;
+
+      console.log(storeExtension);
+
+      if (storeExtension && storeExtension.routes) {
+        upsertExtension({
+          siteId: decodeGlobalID(site.id).id,
+          storeExtensionId: storeExtensionId,
+          userId: decodeGlobalID(user.id).id,
+          routes: storeExtension.routes.map((route) => {
+            return {
+              id: decodeGlobalID(route.id).id,
+              url: route.url ? route.url : "",
+            }
+          }),
+          authType: AuthType.preferences,
+          apiConnectorName: "linkedin",
+        })
+      }
     }
   };
 

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { useGetAllSitesQuery } from "../graphql/getAllSites.generated";
 import { siteSlugState, siteState } from "../store/site";
 import { currentUserState } from "../store/user";
 
@@ -9,11 +8,6 @@ const Title = () => {
   const user = useRecoilValue(currentUserState);
   const siteSlug = useRecoilValue(siteSlugState);
   const site = useRecoilValue(siteState(siteSlug));
-
-  const [{ data, fetching, error }] = useGetAllSitesQuery();
-  const subdomains = data?.getAllSites?.map((site) => site.subdomain);
-
-  console.log(subdomains);
 
   if (!user) return null;
 

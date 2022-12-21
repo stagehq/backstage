@@ -94,7 +94,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                   name: data.apiConnectorName,
                 },
               },
-              oAuth: {
+              oAuth: data.authType === AuthType.preferences ? {} : {
                 connect: {
                   id: data.oAuthId,
                 },
