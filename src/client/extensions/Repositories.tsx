@@ -1,5 +1,4 @@
-import { Action, Actions, Header, List, Section } from "@stagehq/ui";
-import { Pills } from "@stagehq/ui/dist/components/Pills";
+import { Action, Actions, Header, List, Pills, Section } from "@stagehq/ui";
 import { useEffect, useState } from "react";
 import { Api } from "../graphql/types.generated";
 
@@ -97,7 +96,9 @@ const Repositories = (props: { underlayingApis: Api[] }) => {
             </Actions>
           }
         />
-        <Pills pills={languages} />
+        {languages.length > 0 && (
+          <Pills pills={languages} />
+        )}
         <List>
           {data.map((project, index) => (
             <List.Item

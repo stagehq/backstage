@@ -53,7 +53,6 @@ const Resume = (props: { underlayingApis: Api[] }) => {
 
       setExperience(jobs);
       setUniversity(education);
-      console.log(experience);
     }
   }, [props.underlayingApis]);
 

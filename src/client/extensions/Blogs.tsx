@@ -51,7 +51,6 @@ const Blogs = (props: { underlayingApis: Api[] }) => {
       }
 
       setData(blogPosts);
-      console.log(data);
     }
   }, [props.underlayingApis]);
 

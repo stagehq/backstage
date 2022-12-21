@@ -65,6 +65,7 @@ interface Node {
 
 type OAuth implements Node {
   accessToken: String
+  apiConnector: ApiConnector
   apis: [Api!]
   createdAt: String
   expiresIn: Int
