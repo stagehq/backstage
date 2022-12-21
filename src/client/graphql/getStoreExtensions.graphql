@@ -12,6 +12,7 @@ query GetStoreExtensions {
       id
       name
       url
+      urlParameter
       apiConnector {
         id
         name

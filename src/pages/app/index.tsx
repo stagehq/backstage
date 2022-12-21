@@ -15,8 +15,8 @@ export default function App() {
   return (
     <>
       <Router>
-        <Modals />
         <Suspense fallback={<LoadingPage />}>
+          <Modals />
           <Routes>
             {/* Backstage */}
             <Route path="/s" element={<Header />}>

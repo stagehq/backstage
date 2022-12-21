@@ -24,6 +24,7 @@ type ApiConnectorRoute implements Node {
   modifiedAt: String
   name: String
   url: String
+  urlParameter: [String!]
 }
 
 type ApiResponse implements Node {

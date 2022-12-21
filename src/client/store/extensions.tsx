@@ -1,9 +1,9 @@
 // fetch store extensions and create atom for it
 
-import { StoreExtension } from "@prisma/client";
 import { atom, selector } from "recoil";
 import { client } from "../graphql/client";
 import { GetStoreExtensionsDocument } from "../graphql/getStoreExtensions.generated";
+import { StoreExtension } from "../graphql/types.generated";
 
 const storeExtensionSelector = selector({
   key: "storeExtensionSelector",
@@ -12,7 +12,7 @@ const storeExtensionSelector = selector({
       const response = await client
         .query(GetStoreExtensionsDocument)
         .toPromise();
-      console.log(response.data.storeExtensions);
+      //console.log(response.data.getStoreExtensions);
       return (response.data.getStoreExtensions as StoreExtension[]) || null;
     } catch (error) {
       console.error(`getStoreExtensions -> client.query() ERROR: \n${error}`);

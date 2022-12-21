@@ -10,6 +10,16 @@ export const soonOpenState = atom({
   default: false,
 });
 
+export const preferencesOpenState = atom({
+  key: "preferencesOpenState",
+  default: false,
+});
+
+export const preferencesExtensionState = atom({
+  key: "preferencesExtensionState",
+  default: "clbv4gdyh0000pg3ltjfyquss",
+});
+
 export const publishingOpenState = atom({
   key: "publishingOpenState",
   default: false,

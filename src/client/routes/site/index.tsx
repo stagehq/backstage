@@ -21,6 +21,7 @@ const Site = () => {
   const [siteSlug, setSiteSlug] = useRecoilState(siteSlugState);
   const site = useRecoilValue(siteState(siteSlug));
 
+
   useEffect(() => {
     if (siteId) {
       setSiteSlug(siteId);
@@ -46,37 +47,7 @@ const Site = () => {
       console.log(response);
     }
 
-    fetchData();
-    
-    // const response = fetch(
-    //   "http://localhost:3000/api/dbInsertion/fetchAndCreate",
-    //   {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       preferences: [
-    //         {
-    //           key: "linkedinUrl",
-    //           value: "https://www.linkedin.com/in/jan-groenefeld-8833947b",
-    //         },
-    //       ],
-    //       userId: "83476874837465",
-    //       siteId: "clbnmzq4o0000eo5vrnfms2tm",
-    //       apiConnectorName: "linkedin",
-    //       storeExtensionId: "clbv4gdyh0000pg3ltjfyquss",
-    //       routes: [
-    //         {
-    //           id: "clbwmin5a0006pgqoqp120et5",
-    //           url: "/api/v2/linkedin",
-    //           urlParameter: "test",
-    //         },
-    //       ],
-    //     }),
-    //   }
-    // ).then((response) => {
-    //   response.json().then((responseData) => {
-    //     console.log(responseData);
-    //   });
-    // });
+    //fetchData();
   }, []);
 
   return (
