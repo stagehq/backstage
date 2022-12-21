@@ -121,8 +121,8 @@ model Api {
 
   apiResponses          ApiResponse[]
 
-  oAuthId               String
-  oAuth                 OAuth                 @relation(fields: [oAuthId], references: [id])
+  oAuthId               String?
+  oAuth                 OAuth?                @relation(fields: [oAuthId], references: [id])
 
   preferences           Preference[]
 }
