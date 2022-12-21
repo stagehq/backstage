@@ -4,7 +4,7 @@ const spotify = new OAuth.PKCEClient({
   redirectMethod: OAuth.RedirectMethod.Web,
   providerName: "Spotify",
   providerIcon: "spotify-logo.png",
-  providerId: "Spotify",
+  providerId: "spotify",
   description: "Spotify OAuth",
 });
 
