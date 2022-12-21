@@ -35,35 +35,36 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     //check if api is already there
     const apiCheck = await checkApi(extensionCheck.id, data.apiConnectorName);
-    if(apiCheck) res.status(500).json({ error: "Api already added" });
-    
-    //add api to extension
-    await prisma.extension.update({
-      where: {
-        id: extensionCheck.id
-      },
-      data: {
-        underlayingApis: {
-          create: {
-            apiConnector: {
-              connect: {
-                name: data.apiConnectorName,
+    if(!apiCheck) {
+      //add api to extension
+      await prisma.extension.update({
+        where: {
+          id: extensionCheck.id
+        },
+        data: {
+          underlayingApis: {
+            create: {
+              apiConnector: {
+                connect: {
+                  name: data.apiConnectorName,
+                },
               },
-            },
-            oAuth: {
-              connect: {
-                id: data.oAuthId,
+              oAuth: {
+                connect: {
+                  id: data.oAuthId,
+                },
               },
-            },
-            apiResponses: {
-              create: prismaCreateManyArray
+              apiResponses: {
+                create: prismaCreateManyArray
+              },
             },
           },
-        },
-      }
-    })
-
-    res.status(200).json({ data: "The extension was successfully updated" });
+        }
+      })
+      res.status(200).json({ data: "The extension was successfully updated" });
+    } else {
+      res.status(500).json({ error: "Api already added" });
+    }
   } else {
     //create extension
     await prisma.extension.create({
