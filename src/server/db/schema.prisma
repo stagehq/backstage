@@ -187,6 +187,8 @@ model ApiConnector {
   integratedApis        Api[]
   apiConnectorRoute     ApiConnectorRoute[]
   integratedOAuths      OAuth[]
+
+  authType              AuthType
 }
 
 model ApiConnectorRoute {
@@ -202,6 +204,7 @@ model ApiConnectorRoute {
   apiResponses          ApiResponse[]
 
   storeExtensions       StoreExtension[]
+  urlParameter          String[]
 }
 
 // Generated Extension Store ---------------------------------------------------------
@@ -217,3 +220,8 @@ model StoreExtension {
   routes                ApiConnectorRoute[]
 }
 
+enum AuthType {
+  oAuth
+  preferences
+  oAuthWithPreferences
+}
