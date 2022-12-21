@@ -50,24 +50,41 @@ builder.mutationField('createOAuthforApi', (t) =>
           }
         }
       })
-      console.log(check);
-      if (check) return null;
 
-      const oAuth = await prisma.oAuth.create({
-        data: {
-          user: {
-            connect: {
-              email: ctx.session.user.email
-            }
+      if (check) {
+        //update oAuth
+        const oAuth = await prisma.oAuth.update({
+          where: {
+            id: check.id
           },
-          accessToken: args.accessToken,
-          expiresIn: args.expiresIn || undefined,
-          idToken: args.idToken || undefined,
-          refreshToken: args.refreshToken || undefined,
-          scope: args.scope || undefined
-        }
-      })
-      return oAuth;
+          data: {
+            accessToken: args.accessToken,
+            expiresIn: args.expiresIn || undefined,
+            idToken: args.idToken || undefined,
+            refreshToken: args.refreshToken || undefined,
+            scope: args.scope || undefined
+          }
+        })
+        return oAuth;
+
+      } else {
+        //create oAuth
+        const oAuth = await prisma.oAuth.create({
+          data: {
+            user: {
+              connect: {
+                email: ctx.session.user.email
+              }
+            },
+            accessToken: args.accessToken,
+            expiresIn: args.expiresIn || undefined,
+            idToken: args.idToken || undefined,
+            refreshToken: args.refreshToken || undefined,
+            scope: args.scope || undefined
+          }
+        })
+        return oAuth;
+      }  
     }
   })
 );
