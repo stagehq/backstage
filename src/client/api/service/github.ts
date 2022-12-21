@@ -65,4 +65,8 @@ async function refreshTokens(
   return tokenResponse;
 }
 
+export function getTokens() {
+  return github.getTokens();
+}
+
 export default github;

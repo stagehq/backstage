@@ -1,11 +1,19 @@
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
+import { useGetAllSitesQuery } from "../graphql/getAllSites.generated";
+import { siteSlugState, siteState } from "../store/site";
 import { currentUserState } from "../store/user";
 
 const Title = () => {
   // get current user from recoil state
   const user = useRecoilValue(currentUserState);
-  console.log(user);
+  const siteSlug = useRecoilValue(siteSlugState);
+  const site = useRecoilValue(siteState(siteSlug));
+
+  const [{ data, fetching, error }] = useGetAllSitesQuery();
+  const subdomains = data?.getAllSites?.map((site) => site.subdomain);
+
+  console.log(subdomains);
 
   if (!user) return null;
 
@@ -32,7 +40,7 @@ const Title = () => {
           </p>
         </div>
       </div>
-      <Link key="editing" to={"/s/" + "nilsjacobsen"}>
+      <Link key="editing" to={"/s/" + site?.subdomain}>
         <div className="flex justify-start items-start relative gap-2 px-4 py-2 rounded border border-zinc-200 hover:bg-zinc-100 cursor-pointer text-zinc-700 hover:text-zinc-900">
           <p className="text-sm font-medium text-left">Edit</p>
         </div>

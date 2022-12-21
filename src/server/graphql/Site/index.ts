@@ -35,6 +35,19 @@ builder.queryField('getSite', (t) =>
   })
 );
 
+builder.queryField('getAllSites', (t) => {
+  return t.prismaField({
+    type: ['Site'],
+    resolve: async (query, root, args, ctx) => {
+      if(process.env.ALLOW_FETCH_ALL_SITES !== 'true') return null;
+
+      const sites = await prisma.site.findMany();
+
+      return sites;
+    },
+  });
+});
+
 builder.mutationField('upsertSite', (t) => {
   return t.prismaField({
     type: 'Site',

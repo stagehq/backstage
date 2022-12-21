@@ -1,9 +1,11 @@
+import { decodeGlobalID } from "@pothos/plugin-relay";
 import clsx from "clsx";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import * as github from "../../api/service/github";
+import * as gitlab from "../../api/service/github";
 import { useCreateLinkedInExtensionMutation } from "../../graphql/createLinkedInExtension.generated";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
@@ -110,6 +112,14 @@ const OnboardingProfile = () => {
         ...user,
         firstName: parsedName.name,
         lastName: parsedName.lastName,
+      });
+    }
+
+    if (user.mainSite?.bio && user.mainSite?.tagline) {
+      setOnboarding({
+        ...onboarding,
+        bio: user.mainSite?.bio,
+        tagline: user.mainSite?.tagline,
       });
     }
   }, []);
@@ -288,8 +298,8 @@ const OnboardingProfile = () => {
 const OnboardingSubdomain: FC = () => {
   const [, setActiveSection] = useRecoilState(activeSectionState);
   const [onboarding, setOnboarding] = useRecoilState(onboardingState);
-  // site recoil state
   const [, setSiteSlug] = useRecoilState(siteSlugState);
+  const user = useRecoilValue(currentUserState);
 
   const [subdomainValid, setSubdomainValid] = useState(false);
 
@@ -311,7 +321,7 @@ const OnboardingSubdomain: FC = () => {
   };
 
   const handleUpsertSite = () => {
-    if (subdomainValid) {
+    if (subdomainValid && !user?.mainSite?.subdomain) {
       upsertSite({
         subdomain: onboarding.subdomain,
         tagline: onboarding.tagline,
@@ -319,12 +329,25 @@ const OnboardingSubdomain: FC = () => {
       }).then((res) => {
         if (res.data?.upsertSite?.subdomain) {
           setSiteSlug(res.data.upsertSite.subdomain);
+          setActiveSection("cv");
         } else {
           console.log("Alias could not be created.");
         }
       });
+    } else {
+      setActiveSection("cv");
     }
   };
+
+  useEffect(() => {
+    if (user?.mainSite?.subdomain) {
+      setOnboarding({
+        ...onboarding,
+        subdomain: user.mainSite.subdomain,
+      });
+      setSubdomainValid(true);
+    }
+  }, []);
 
   return (
     <>
@@ -376,19 +399,16 @@ const OnboardingSubdomain: FC = () => {
               />
             </div>
           </div>
-          <Link href={"/s"}>
-            <button
-              type="button"
-              disabled={!subdomainValid}
-              onClick={() => {
-                handleUpsertSite();
-                setActiveSection("cv");
-              }}
-              className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
-            >
-              Claim alias
-            </button>
-          </Link>
+          <button
+            type="button"
+            disabled={!subdomainValid}
+            onClick={() => {
+              handleUpsertSite();
+            }}
+            className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
+          >
+            Claim alias
+          </button>
         </div>
       </div>
     </>
@@ -434,6 +454,8 @@ const OnboardingCv: FC = () => {
   const [siteSlug] = useRecoilState(siteSlugState);
   const site = useRecoilValue(siteState(siteSlug));
 
+  console.log(site);
+
   const [validLink, setValidLink] = useState(false);
 
   const isValidLink = (url: string): boolean => {
@@ -446,12 +468,20 @@ const OnboardingCv: FC = () => {
   const handleCvUpdate = () => {
     if (site && isValidLink(link)) {
       updateLinkedinExtension({
-        siteId: site.id,
+        siteId: decodeGlobalID(site.id).id,
         storeExtensionId: "clbv4gdyh0000pg3ltjfyquss",
         linkedInUrl: link,
       });
     }
   };
+
+  useEffect(() => {
+    if (isValidLink(link)) {
+      setValidLink(true);
+    } else {
+      setValidLink(false);
+    }
+  }, [link]);
 
   return (
     <>
@@ -529,14 +559,37 @@ const OnboardingProjects: FC = () => {
   const [githubConnected, setGithubConnected] = useState(false);
   const [gitlabConnected, setGitlabConnected] = useState(false);
 
+  // connect to github
   const handleGithubAuth = async () => {
     await github.authorize();
-    setGithubConnected(!githubConnected);
+
+    if (!github.getTokens()?.isExpired()) {
+      setGithubConnected(true);
+    }
   };
 
-  const handleGitlabAuth = () => {
-    console.log("click");
+  // connect to gitlab
+  const handleGitlabAuth = async () => {
+    await gitlab.authorize();
+
+    if (!gitlab.getTokens()?.isExpired()) {
+      setGitlabConnected(true);
+    }
   };
+
+  // get initial state
+  useEffect(() => {
+    const isGithubExpired = github.getTokens()?.isExpired();
+    const isGitlabExpired = gitlab.getTokens()?.isExpired();
+
+    if (!isGithubExpired) {
+      setGithubConnected(true);
+    }
+
+    if (!isGitlabExpired) {
+      setGitlabConnected(true);
+    }
+  }, []);
 
   return (
     <>
@@ -614,7 +667,9 @@ const OnboardingProjects: FC = () => {
               {!gitlabConnected ? (
                 <button
                   type="button"
-                  onClick={() => setGitlabConnected(!gitlabConnected)}
+                  onClick={() => {
+                    handleGitlabAuth();
+                  }}
                   className="flex justify-start items-center h-8 overflow-hidden gap-2 px-4 py-2 rounded border border-zinc-200"
                 >
                   <p className="text-sm font-medium text-left text-zinc-700">
@@ -788,13 +843,15 @@ const OnboardingStore: FC = () => {
             In our extension store your can find extensions for the latest
             tools, platforms and services.
           </p>
-          <button
-            type="button"
-            onClick={() => setActiveSection("subdomain")}
-            className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500"
-          >
-            Claim domain
-          </button>
+          <Link href={"/s"}>
+            <button
+              type="button"
+              onClick={() => setActiveSection("store")}
+              className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500"
+            >
+              Let's go!
+            </button>
+          </Link>
         </div>
       </div>
     </>

@@ -83,6 +83,7 @@ type Preference implements Node {
 
 type Query {
   currentUser: User
+  getAllSites: [Site!]
   getApi(apiConnectorName: String): Api
   getSite(subdomain: String!): Site
   getStoreExtensions: [StoreExtension!]

@@ -207,7 +207,7 @@ export namespace OAuth {
       );
     };
 
-    getTokens = (): TokenSet | null => {
+    getTokens = (): TokenSet | undefined => {
       const tokens = localStorage.getItem(`${this.providerId}-tokens`);
       if (tokens) {
         const tokenObject = JSON.parse(tokens);
@@ -223,7 +223,7 @@ export namespace OAuth {
 
         return tokenObject;
       }
-      return null;
+      return;
     };
 
     removeToken = () => {

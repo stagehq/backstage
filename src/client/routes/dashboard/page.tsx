@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import * as gitlab from "../../api/service/gitlab";
+import * as github from "../../api/service/github";
 import Banner from "../../components/Banner";
 import Container from "../../components/Container";
 import Content from "../../components/Content";
@@ -25,7 +25,7 @@ const Dashboard = () => {
   // );
 
   const handleClick = async () => {
-    const response = await gitlab.authorize();
+    const response = await github.authorize();
     console.log(response);
 
     // const projects = await gitlab.route(`/api/v4/projects`);
