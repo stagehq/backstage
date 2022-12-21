@@ -12,7 +12,6 @@ import { personal } from "../../components/sidebars/testData";
 import ShareBar from "../../components/studio/ShareBar";
 import { siteSlugState, siteState } from "../../store/site";
 import { themeState } from "../../store/ui/theme";
-import useSWR from "swr";
 import { ApiConnectorRoute } from "../../graphql/types.generated";
 
 export interface QueryTestTypes {
@@ -34,6 +33,26 @@ const Site = () => {
       setSiteSlug(siteId);
     }
   }, [siteId, setSiteSlug]);
+
+  useEffect( () => {
+    const response = fetch("http://localhost:3000/api/dbInsertion/fetchAndCreate", {
+      method: 'POST',
+      body: JSON.stringify({
+        oAuthId: "clbxgja470002zrnu3emyfdjy",
+        siteId: "clbnmzq4o0000eo5vrnfms2tm",
+        apiConnectorName: "gitlab",
+        storeExtensionId: "clbwmhivz0002pgqo9rsqg420",
+        routes: [{
+          id: "clbwmin5a0006pgqoqp120et5",
+          url: "/api/v4/projects"
+        }]
+      }),
+    }).then((response) => {
+      response.json().then((responseData) => {
+        console.log(responseData);
+      });
+    });
+  }, [])
 
   return (
     <>
