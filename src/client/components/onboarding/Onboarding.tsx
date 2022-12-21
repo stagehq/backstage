@@ -485,8 +485,6 @@ const OnboardingCv: FC = () => {
         (extension) => decodeGlobalID(extension.id).id === storeExtensionId
       ) as StoreExtension | undefined;
 
-      console.log(storeExtension);
-
       if (storeExtension && storeExtension.routes) {
         /* TODO: Update the apiConnectorName and key to dynamic values */
         upsertExtension({
@@ -594,11 +592,41 @@ const OnboardingProjects: FC = () => {
   const [githubConnected, setGithubConnected] = useState(false);
   const [gitlabConnected, setGitlabConnected] = useState(false);
 
+  const siteSlug = useRecoilValue(siteSlugState);
+  const site = useRecoilValue(siteState(siteSlug));
+
+  const user = useRecoilValue(currentUserState);
+  const storeExtensions = useRecoilValue(storeExtensionState);
+
+  const storeExtensionId = "clbv4gdyh0000pg3ltjfyquss";
+  const storeExtension = storeExtensions?.find(
+    (extension) => decodeGlobalID(extension.id).id === storeExtensionId
+  ) as StoreExtension | undefined;
+
   // connect to github
   const handleGithubAuth = async () => {
     await github.authorize();
 
+    console.log(github.getTokens());
+    
+
     if (!github.getTokens()?.isExpired()) {
+      if(!site || !user || !storeExtension || !storeExtension.routes) return;
+      await upsertExtension({
+        siteId: decodeGlobalID(site.id).id,
+        storeExtensionId: storeExtensionId,
+        userId: decodeGlobalID(user.id).id,
+        routes: storeExtension.routes.map((route) => {
+          return {
+            id: decodeGlobalID(route.id).id,
+            url: route.url ? route.url : "",
+          }
+        }),
+        oAuthId: github.getTokens()?.idToken,
+        authType: AuthType.oAuth,
+        apiConnectorName: "github",
+      })
+
       setGithubConnected(true);
     }
   };
@@ -608,23 +636,41 @@ const OnboardingProjects: FC = () => {
     await gitlab.authorize();
 
     if (!gitlab.getTokens()?.isExpired()) {
+      if(!site || !user || !storeExtension || !storeExtension.routes) return;
+      
+      await upsertExtension({
+        siteId: decodeGlobalID(site.id).id,
+        storeExtensionId: storeExtensionId,
+        userId: decodeGlobalID(user.id).id,
+        routes: storeExtension.routes.map((route) => {
+          return {
+            id: decodeGlobalID(route.id).id,
+            url: route.url ? route.url : "",
+          }
+        }),
+        oAuthId: github.getTokens()?.idToken,
+        authType: AuthType.oAuth,
+        apiConnectorName: "gitlab",
+      })
+
       setGitlabConnected(true);
     }
   };
 
   // get initial state
-  useEffect(() => {
-    const isGithubExpired = github.getTokens()?.isExpired();
-    const isGitlabExpired = gitlab.getTokens()?.isExpired();
+  // useEffect(() => {
+  //   const isGithubExpired = github.getTokens()?.isExpired();
+  //   const isGitlabExpired = gitlab.getTokens()?.isExpired();
 
-    if (!isGithubExpired) {
-      setGithubConnected(true);
-    }
+  //   if (!isGithubExpired) {
+  //     setGithubConnected(true);
+  //   }
 
-    if (!isGitlabExpired) {
-      setGitlabConnected(true);
-    }
-  }, []);
+  //   if (!isGitlabExpired) {
+  //     setGitlabConnected(true);
+  //   }
+  // }, []);
+
 
   return (
     <>

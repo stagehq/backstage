@@ -1,3 +1,4 @@
+import { decodeGlobalID } from "@pothos/plugin-relay";
 import { client } from "../graphql/client";
 import { CreateOAuthforApiDocument } from "./../graphql/createOAuthforApi.generated";
 /* eslint-disable @typescript-eslint/no-namespace */
@@ -191,14 +192,18 @@ export namespace OAuth {
         console.log("Error creating OAuth API");
       }
 
+      const idToken = decodeGlobalID(response.data?.createOAuthforApi.id)?.id
+
       const tokenSet: TokenSet = {
         accessToken: response.data?.createOAuthforApi.accessToken,
         updatedAt: new Date(),
         expiresIn: response.data?.createOAuthforApi.expiresIn,
         refreshToken: response.data?.createOAuthforApi.refreshToken,
         scope: response.data?.createOAuthforApi.scope,
-        idToken: response.data?.createOAuthforApi.idToken,
-        ...response.data?.createOAuthforApi,
+        idToken: idToken,
+        isExpired: () => {
+          return true;
+        }
       };
 
       localStorage.setItem(

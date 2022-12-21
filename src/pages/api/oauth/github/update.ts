@@ -1,15 +1,16 @@
-// nextjs api route for gitlab
+// nextjs api route for github
 
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { route, token, preferences } = await JSON.parse(req.body);
 
-  const response = await fetch("https://gitlab.com" + route, {
+  const response = await fetch("https://api.github.com" + route, {
     method: "GET",
     headers: {
-      Accept: "application/json",
+      Accept: "application/vnd.github+json",
       Authorization: `Bearer ${token}`,
+      "X-GitHub-Api-Version": "2022-11-28",
     },
   }).then((response) => response.json());
 
