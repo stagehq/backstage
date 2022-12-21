@@ -16,7 +16,7 @@ type Preference = {
 export interface FetchAndCreateProps {
   oAuthId?: string;
   preferences?: Preference[];
-  userEmail: string;
+  userId: string;
   siteId: string;
   apiConnectorName: string;
   storeExtensionId: string;
@@ -33,7 +33,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (data.preferences) {
     prismaCreatePreferencesArray = await generatePreferencesArray(
       data.preferences,
-      data.userEmail
+      data.userId
     );
     console.log(prismaCreatePreferencesArray);
   }
@@ -164,12 +164,12 @@ const getOAuthToken = async (oAuthId: string) => {
 //generate preferences array
 const generatePreferencesArray = async (
   preferences: Preference[],
-  userEmail: string
+  userId: string
 ) => {
   const prismaCreationArr: {
     key: string;
     value: string;
-    user: { connect: { email: string } };
+    user: { connect: { id: string } };
   }[] = [];
 
   await Promise.all(
@@ -177,7 +177,7 @@ const generatePreferencesArray = async (
       prismaCreationArr.push({
         key: preference.key,
         value: preference.value,
-        user: { connect: { email: userEmail } },
+        user: { connect: { id: userId } },
       });
     })
   );

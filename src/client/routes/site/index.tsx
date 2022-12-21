@@ -37,7 +37,7 @@ const Site = () => {
               value: "https://www.linkedin.com/in/jan-groenefeld-8833947b",
             },
           ],
-          userEmail: "nils.jacobsen98@gmail.com",
+          userId: "83476874837465",
           siteId: "clbnmzq4o0000eo5vrnfms2tm",
           apiConnectorName: "linkedin",
           storeExtensionId: "clbv4gdyh0000pg3ltjfyquss",
