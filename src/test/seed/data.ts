@@ -43,6 +43,7 @@ export const apiConnectorsData: apiConnectorSeedInput = [
 
 export const storeExtensionsData: storeExtensionSeedInput = [
   {
+    id: "clbz5lknp001ypgpx1i2lqafr",
     name: "Repositories",
     markdown:
       "Use this extension to show all your coding skills on your personal site.",
@@ -57,6 +58,7 @@ export const storeExtensionsData: storeExtensionSeedInput = [
     ],
   },
   {
+    id: "clbz5lknp001zpgpx6nbzmxez",
     name: "Resume",
     markdown: "Use this extension to show your professional experience.",
     icon: "BriefcaseIcon",
