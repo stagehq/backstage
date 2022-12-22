@@ -27,28 +27,6 @@ const Site = () => {
     }
   }, [siteId, setSiteSlug]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await upsertExtension({
-        userId: "clbf32lpi0000pgpvvchsxpal",
-        siteId: "clbnmzq4o0000eo5vrnfms2tm",
-        apiConnectorName: "linkedin",
-        storeExtensionId: "clbv4gdyh0000pg3ltjfyquss",
-        routes: [{ id: "clbwm5r9j0004us2tfh2snuaj", url: "/api/v2/linkedin" }],
-        preferences: [
-          {
-            key: "linkedinUrl",
-            value: "https://www.linkedin.com/in/jan-groenefeld-8833947b",
-          },
-        ],
-        authType: AuthType.preferences,
-      });
-      console.log(response);
-    }
-
-    //fetchData();
-  }, []);
-
   return (
     <>
       <Content>

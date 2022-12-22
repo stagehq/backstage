@@ -477,13 +477,14 @@ const OnboardingCv: FC = () => {
     if (site && isValidLink(link)) {
       if (!storeExtensions || !user) return;
 
-      const storeExtensionId = "clbv4gdyh0000pg3ltjfyquss";
+      const storeExtensionId = "clbz5lknp001zpgpx6nbzmxez";
       const storeExtension = storeExtensions?.find(
         (extension) => decodeGlobalID(extension.id).id === storeExtensionId
       ) as StoreExtension | undefined;
 
       if (storeExtension && storeExtension.routes) {
         /* TODO: Update the apiConnectorName and key to dynamic values */
+        console.log("")
         upsertExtension({
           siteId: decodeGlobalID(site.id).id,
           storeExtensionId: storeExtensionId,
@@ -600,7 +601,7 @@ const OnboardingProjects: FC = () => {
   const user = useRecoilValue(currentUserState);
   const storeExtensions = useRecoilValue(storeExtensionState);
 
-  const storeExtensionId = "clbnoei3q0004eo37isjmdgp0";
+  const storeExtensionId = "clbz5lknp001ypgpx1i2lqafr";
   const storeExtension = storeExtensions?.find(
     (extension) => decodeGlobalID(extension.id).id === storeExtensionId
   ) as StoreExtension | undefined;
@@ -612,6 +613,7 @@ const OnboardingProjects: FC = () => {
     console.log(github.getTokens());
 
     if (!github.getTokens()?.isExpired()) {
+      console.log(github.getTokens()?.idToken);
       if (!site || !user || !storeExtension || !storeExtension.routes) return;
       await upsertExtension({
         siteId: decodeGlobalID(site.id).id,
@@ -655,7 +657,7 @@ const OnboardingProjects: FC = () => {
             },
           };
         }),
-        oAuthId: github.getTokens()?.idToken,
+        oAuthId: gitlab.getTokens()?.idToken,
         authType: AuthType.oAuth,
         apiConnectorName: "gitlab",
       });
