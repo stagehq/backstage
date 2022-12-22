@@ -1,48 +1,26 @@
-import { Prisma } from "@prisma/client";
+import { AuthType, Prisma } from "@prisma/client";
 import prisma from "../../server/db/prisma";
-import { testData } from "./data";
+import { apiConnectorsData, storeExtensionsData } from "./data";
 
-export interface SeedData {
-  users: {
-    email: string;
-    image: string;
-    provider: string;
-    type: string;
-    token_type: string;
-    scope: string;
-    providerAccountId: string;
-  }[];
-  sites: {
-    id: string;
-    subdomain: string;
-    extensions: {
-      id: string;
-      storeExtension: {
-        id: string;
-        name: string;
-      };
-      underlayingApis: {
-        id: string;
-        refreshToken: string;
-        accessToken: string;
-        apiConnector: {
-          id: string;
-          name: string;
-          markdown: string;
-        };
-        apiResponses: {
-          id: string;
-          response: string;
-          apiConnectorRoute: {
-            id: string;
-            name: string;
-            url: string;
-          };
-        }[];
-      }[];
-    }[];
-  }[];
-}
+export type apiConnectorSeedInput = {
+  name: string,
+  markdown: string,
+  authType: AuthType,
+  apiConnectorRoutes: {
+    name: string,
+    url: string,
+    urlParameter?: string[]
+  }[]
+}[];
+
+export type storeExtensionSeedInput = {
+  name: string,
+  markdown: string,
+  icon: string,
+  routes: {
+    name: string,
+  }[]
+}[];
 
 // Inspired by prisma/docs#451
 async function emptyDatabase() {
@@ -52,94 +30,57 @@ async function emptyDatabase() {
     (model) => model.dbName || model.name
   );
 
-  for (const table of tables) {
-    await prisma.$executeRawUnsafe(`DELETE FROM "public"."${table}";`);
-  }
+  return Promise.all(
+    tables.map((table) => prisma.$executeRawUnsafe(`DELETE FROM "${table}";`))
+  );
 }
 
-async function seedDatabase({ users }: SeedData) {
+async function seedDatabase(apiConnectors: apiConnectorSeedInput, storeExtensions: storeExtensionSeedInput) {
   console.log("Seeding database");
-  // Insert users
-  await Promise.all(
-    users.map((user) =>
-      prisma.user.create({
-        data: user,
-      })
-    )
-  );
 
-  // Insert accounts
-  await Promise.all(
-    users.map((user) =>
-      prisma.account.create({
-        data: {
-          user: {
-            connect: {
-              email: user.email,
-            },
-          },
-          provider: user.provider,
-          type: user.type,
-          token_type: user.token_type,
-          scope: user.scope,
-          providerAccountId: user.providerAccountId,
-        },
-      })
-    )
-  );
-
-  // Insert sites & connect them to their users
-  await Promise.all(
-    testData.sites.map((site) => {
-      return prisma.site.create({
-        data: {
-          id: site.id,
-          subdomain: site.subdomain,
-          user: {
-            connect: {
-              email: testData.users[0].email,
-            },
-          },
-          extensions: {
-            create: site.extensions.map((extension) => ({
-              id: extension.id,
-              storeExtension: {
-                connect: {
-                  id: extension.storeExtension.id,
-                },
-              },
-              underlayingApis: {
-                create: extension.underlayingApis.map((underlayingApi) => ({
-                  id: underlayingApi.id,
-                  refreshToken: underlayingApi.refreshToken,
-                  accessToken: underlayingApi.accessToken,
-                  apiConnector: {
-                    connect: {
-                      id: underlayingApi.apiConnector.id,
-                    },
-                  },
-                  apiResponses: {
-                    create: underlayingApi.apiResponses.map((apiResponse) => ({
-                      id: apiResponse.id,
-                      response: apiResponse.response,
-                      apiConnectorRoute: {
-                        connect: {
-                          id: apiResponse.apiConnectorRoute.id,
-                        },
-                      },
-                    })),
-                  },
-                })),
-              },
-            })),
-          },
-        },
-      });
+  //create apiConnectors
+  await Promise.all(apiConnectors.map( async (apiConnector) => {
+    const a = await prisma.apiConnector.create({
+      data: {
+        name: apiConnector.name,
+        markdown: apiConnector.markdown,
+        authType: apiConnector.authType,
+        apiConnectorRoute: {
+          create: apiConnector.apiConnectorRoutes.map((route) => {
+            return {
+              name: route.name,
+              url: route.url,
+              urlParameter: route.urlParameter
+            }
+          })
+        }
+      }
     })
-  );
+    console.log(a);
+  }))
+
+  console.log("start with e");
+  //create storeExtensions
+  await Promise.all(storeExtensions.map( async (storeExtension) => {
+    const e = await prisma.storeExtension.create({
+      data: {
+        name: storeExtension.name,
+        markdown: storeExtension.markdown,
+        icon: storeExtension.icon,
+        routes: {
+          connect: storeExtension.routes.map((route) => {
+            return {
+              name: route.name,
+            }
+          })
+        }
+      }
+    })
+    console.log(e);
+  }))
 }
 
-export async function reseedDatabase(data: SeedData = testData) {
+export async function reseedDatabase(apiConnectors: apiConnectorSeedInput = apiConnectorsData, storeExtensions: storeExtensionSeedInput = storeExtensionsData) {
   await emptyDatabase();
-  await seedDatabase(data);
+  await seedDatabase(apiConnectors, storeExtensions);
 }

@@ -5,6 +5,9 @@ import prisma from "../../../server/db/prisma";
 type Route = {
   id: string;
   url: string;
+  apiConnector: {
+    name: string;
+  }
 };
 
 type Preference = {
@@ -208,33 +211,37 @@ const fetchDataFromRoutes = async (
 
   await Promise.all(
     routes.map(async (route) => {
-      const response = await fetch(
-        "http://localhost:3000/api/oauth/" + apiConnectorName + "/update",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            route: route.url,
-            token: token,
-            preferences: preferences,
-          }),
-        }
-      )
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Request failed");
+      if(route.apiConnector.name === apiConnectorName){
+        const response = await fetch(
+          "http://localhost:3000/api/oauth/" + apiConnectorName + "/update",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              route: route.url,
+              token: token,
+              preferences: preferences,
+            }),
           }
-          return response.json();
-        })
-        .catch((error) => {
-          console.log(error);
+        )
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Request failed");
+            }
+            return response.json();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+  
+        prismaCreationArr.push({
+          response: response,
+          apiConnectorRoute: { connect: { id: route.id } },
         });
-
-      prismaCreationArr.push({
-        response: response,
-        apiConnectorRoute: { connect: { id: route.id } },
-      });
+      }
     })
   );
+
+  console.log(prismaCreationArr);
 
   return prismaCreationArr;
 };
@@ -252,30 +259,32 @@ const fetchDataFromRoutesWithoutOAuth = async (
 
   await Promise.all(
     routes.map(async (route) => {
-      const response = await fetch(
-        "http://localhost:3000/api/nonOAuth/" + apiConnectorName + "/update",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            route: route.url,
-            preferences: preferences,
-          }),
-        }
-      )
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Request failed");
+      if(route.apiConnector.name === apiConnectorName){
+        const response = await fetch(
+          "http://localhost:3000/api/nonOAuth/" + apiConnectorName + "/update",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              route: route.url,
+              preferences: preferences,
+            }),
           }
-          return response.json();
-        })
-        .catch((error) => {
-          console.log(error);
+        )
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Request failed");
+            }
+            return response.json();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+  
+        prismaCreationArr.push({
+          response: response,
+          apiConnectorRoute: { connect: { id: route.id } },
         });
-
-      prismaCreationArr.push({
-        response: response,
-        apiConnectorRoute: { connect: { id: route.id } },
-      });
+      }
     })
   );
 

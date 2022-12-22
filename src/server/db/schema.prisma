@@ -195,7 +195,7 @@ model ApiConnectorRoute {
   id                    String                @id @default(cuid())
   createdAt             DateTime              @default(now())
   modifiedAt            DateTime              @default(now())
-  name                  String                            
+  name                  String                @unique           
   url                   String
 
   apiConnectorId        String

@@ -5,7 +5,7 @@ interface upsertExtensionType {
   siteId: string;
   apiConnectorName: string;
   storeExtensionId: string;
-  routes: { id: string; url: string; }[];
+  routes: { id: string; url: string; apiConnector: {name: string} }[];
   preferences?: { key: string; value: string; }[];
   authType: AuthType;
   oAuthId?: string;

@@ -7,7 +7,6 @@ import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import * as github from "../../api/service/github";
 import * as gitlab from "../../api/service/github";
-import { useCreateLinkedInExtensionMutation } from "../../graphql/createLinkedInExtension.generated";
 import { StoreExtension } from "../../graphql/types.generated";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
@@ -456,8 +455,6 @@ const OnboardingCv: FC = () => {
   const [link, setLink] = useState("");
   const [, setActiveSection] = useRecoilState(activeSectionState);
 
-  const [, updateLinkedinExtension] = useCreateLinkedInExtensionMutation();
-
   const siteSlug = useRecoilValue(siteSlugState);
   const site = useRecoilValue(siteState(siteSlug));
 
@@ -492,10 +489,11 @@ const OnboardingCv: FC = () => {
           storeExtensionId: storeExtensionId,
           userId: decodeGlobalID(user.id).id,
           routes: storeExtension.routes.map((route) => {
-            return {
-              id: decodeGlobalID(route.id).id,
-              url: route.url ? route.url : "",
-            }
+              return {
+                id: decodeGlobalID(route.id).id,
+                url: route.url ? route.url : "",
+                apiConnector: { name: route.apiConnector?.name ? route.apiConnector.name : ""}
+              }
           }),
           authType: AuthType.preferences,
           apiConnectorName: "linkedin",
@@ -620,6 +618,7 @@ const OnboardingProjects: FC = () => {
           return {
             id: decodeGlobalID(route.id).id,
             url: route.url ? route.url : "",
+            apiConnector: { name: route.apiConnector?.name ? route.apiConnector.name : ""}
           }
         }),
         oAuthId: github.getTokens()?.idToken,
@@ -646,6 +645,7 @@ const OnboardingProjects: FC = () => {
           return {
             id: decodeGlobalID(route.id).id,
             url: route.url ? route.url : "",
+            apiConnector: { name: route.apiConnector?.name ? route.apiConnector.name : ""}
           }
         }),
         oAuthId: github.getTokens()?.idToken,
