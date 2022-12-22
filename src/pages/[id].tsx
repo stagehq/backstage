@@ -1,12 +1,10 @@
-import { PrismaClient } from '@prisma/client';
-import { Site } from '../client/graphql/types.generated'
+import { PrismaClient } from "@prisma/client";
+import { Site } from "../client/graphql/types.generated";
 
 const SitePage: React.FC<{ site: string }> = ({ site }) => {
   // Render the page using the site data
-  const data: Site = JSON.parse(site)
-  return (
-    <pre>{JSON.stringify(data, null, 2)}</pre>
-  );
+  const data: Site = JSON.parse(site);
+  return <pre>{JSON.stringify(data, null, 2)}</pre>;
 };
 
 export async function getStaticPaths() {
@@ -14,13 +12,13 @@ export async function getStaticPaths() {
   const sites = await prisma.site.findMany({
     select: {
       subdomain: true,
-    }
+    },
   });
   const paths = sites.map((site) => ({
-    params: { id: site.subdomain }
-  }))
+    params: { id: site.subdomain },
+  }));
 
-  return { paths, fallback: 'blocking' }
+  return { paths, fallback: "blocking" };
 }
 
 // `getStaticPaths` requires using `getStaticProps`
@@ -34,15 +32,15 @@ export async function getStaticProps(params: { params: { id: string } }) {
       extensions: true,
     },
   });
-  const site = JSON.stringify(sitedata)
-  console.log(site)
+  const site = JSON.stringify(sitedata);
+  console.log(site);
   return {
     // Passed to the page component as props
-    props: { 
+    props: {
       site: site,
       revalidate: 10,
-    }
-  }
+    },
+  };
 }
 
-export default SitePage
+export default SitePage;

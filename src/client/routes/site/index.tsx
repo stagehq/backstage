@@ -1,11 +1,10 @@
-import { AuthType } from "@prisma/client";
 import { PageFooter, PageHeader } from "@stagehq/ui";
 import clsx from "clsx";
+import { Resizable } from "re-resizable";
 import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import Content from "../../components/Content";
-import { upsertExtension } from "../../components/helper/upsertExtension";
 import { useStoreExtensionActions } from "../../components/kbar/hooks/useStoreExtensionActions";
 import useThemeActions from "../../components/kbar/hooks/useThemeActions";
 import SectionList from "../../components/sidebars/SectionList";
@@ -14,8 +13,6 @@ import { personal } from "../../components/sidebars/testData";
 import ShareBar from "../../components/studio/ShareBar";
 import { siteSlugState, siteState } from "../../store/site";
 import { themeState } from "../../store/ui/theme";
-import { Resizable } from 're-resizable';
-
 
 const Site = () => {
   const { siteId } = useParams();
@@ -112,38 +109,40 @@ export const Page = () => {
   useStoreExtensionActions();
 
   return (
-    <Resizable defaultSize={{
-      width: '100%',
-      height: '100%',
-    }}>
-    <div className={clsx(theme)}>
-      <div className="bg-zinc-50 dark:bg-black">
-        <div className="relative bg-white max-w-screen-xl mx-auto px-6 md:px-24 ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20">
-          <PageHeader
+    <Resizable
+      defaultSize={{
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      <div className={clsx(theme)}>
+        <div className="bg-zinc-50 dark:bg-black">
+          <div className="relative bg-white max-w-screen-xl mx-auto px-6 md:px-24 ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20">
+            <PageHeader
+              {...{
+                title: personal.name,
+                description: personal.description,
+                image: personal.image,
+                lightMode: true,
+                toggleLightMode: () => {
+                  setTheme(theme === "light" ? "dark" : "light");
+                },
+              }}
+            />
+            <div className="flex flex-col lg:flex-row gap-6 md:gap-16 py-12 md:py-16">
+              <PageMain></PageMain>
+              <PageAside></PageAside>
+            </div>
+          </div>
+          <PageFooter
             {...{
-              title: personal.name,
-              description: personal.description,
-              image: personal.image,
-              lightMode: true,
-              toggleLightMode: () => {
-                setTheme(theme === "light" ? "dark" : "light");
-              },
+              title: "John Doe",
+              location: personal.location,
+              privacyPolicy: "https://google.com",
             }}
           />
-          <div className="flex flex-col lg:flex-row gap-6 md:gap-16 py-12 md:py-16">
-            <PageMain></PageMain>
-            <PageAside></PageAside>
-          </div>
         </div>
-        <PageFooter
-          {...{
-            title: "John Doe",
-            location: personal.location,
-            privacyPolicy: "https://google.com",
-          }}
-        />
       </div>
-    </div>
     </Resizable>
   );
 };

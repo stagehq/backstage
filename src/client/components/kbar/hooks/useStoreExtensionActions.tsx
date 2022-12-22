@@ -24,7 +24,6 @@ export function useStoreExtensionActions() {
         icon: <Icon name="RectangleGroupIcon" size="md" color="dark" />,
         action: () => {
           console.log("storeExtension.id: " + storeExtension.id);
-          
         },
       };
     });

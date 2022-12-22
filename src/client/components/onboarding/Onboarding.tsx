@@ -10,7 +10,11 @@ import * as gitlab from "../../api/service/gitlab";
 import { StoreExtension } from "../../graphql/types.generated";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
-import { preferencesApiState, preferencesExtensionState, storeExtensionState } from "../../store/extensions";
+import {
+  preferencesApiState,
+  preferencesExtensionState,
+  storeExtensionState,
+} from "../../store/extensions";
 import { onboardingState } from "../../store/onboarding";
 import { siteSlugState, siteState } from "../../store/site";
 import { preferencesOpenState } from "../../store/ui/modals";
@@ -485,7 +489,7 @@ const OnboardingCv: FC = () => {
 
       if (storeExtension && storeExtension.routes) {
         /* TODO: Update the apiConnectorName and key to dynamic values */
-        console.log("")
+        console.log("");
         upsertExtension({
           siteId: decodeGlobalID(site.id).id,
           storeExtensionId: storeExtensionId,
@@ -800,13 +804,14 @@ const OnboardingBlogs: FC = () => {
   const [, setActiveSection] = useRecoilState(activeSectionState);
 
   // open preferences modal recoil state
-  const [, setOpenPreferencesModal] = useRecoilState(
-    preferencesOpenState
-  );
+  const [, setOpenPreferencesModal] = useRecoilState(preferencesOpenState);
 
   // recoil state for prefernece extension
-  const [preferencesExtension, setPreferencesExtension] = useRecoilState(preferencesExtensionState);
-  const [preferencesApi, setPreferencesApi] = useRecoilState(preferencesApiState);
+  const [preferencesExtension, setPreferencesExtension] = useRecoilState(
+    preferencesExtensionState
+  );
+  const [preferencesApi, setPreferencesApi] =
+    useRecoilState(preferencesApiState);
 
   const storeExtensions = useRecoilValue(storeExtensionState);
 
@@ -816,9 +821,10 @@ const OnboardingBlogs: FC = () => {
   const handleDevToConnect = () => {
     if (!storeExtensions) return;
     const devtoExtension = storeExtensions.find(
-      (extension) => decodeGlobalID(extension.id).id === "clbz5lknp001zpgpx4nboixez" // DevTo 
+      (extension) =>
+        decodeGlobalID(extension.id).id === "clbz5lknp001zpgpx4nboixez" // DevTo
     );
-    
+
     if (devtoExtension) {
       console.log("moin");
       setPreferencesApi("devto");
@@ -826,8 +832,7 @@ const OnboardingBlogs: FC = () => {
       setOpenPreferencesModal(true);
       setDevtoConnected(true);
     }
-  }
-    
+  };
 
   return (
     <>

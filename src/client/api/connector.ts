@@ -177,7 +177,7 @@ export namespace OAuth {
       const { access_token, refresh_token, id_token, expires_in, scope } =
         tokens;
 
-        console.log("connector");
+      console.log("connector");
 
       const response = await client
         .mutation(CreateOAuthforApiDocument, {

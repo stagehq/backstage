@@ -15,7 +15,7 @@ export type apiConnectorSeedInput = {
 }[];
 
 export type storeExtensionSeedInput = {
-  id: string,
+  id: string;
   name: string;
   markdown: string;
   icon: string;
@@ -28,18 +28,18 @@ export type storeExtensionSeedInput = {
 async function emptyDatabase() {
   const tablenames = await prisma.$queryRaw<
     Array<{ tablename: string }>
-  >`SELECT tablename FROM pg_tables WHERE schemaname='public'`
+  >`SELECT tablename FROM pg_tables WHERE schemaname='public'`;
 
   const tables = tablenames
     .map(({ tablename }) => tablename)
-    .filter((name) => name !== '_prisma_migrations')
+    .filter((name) => name !== "_prisma_migrations")
     .map((name) => `"public"."${name}"`)
-    .join(', ')
+    .join(", ");
 
   try {
-    await prisma.$executeRawUnsafe(`TRUNCATE TABLE ${tables} CASCADE;`)
+    await prisma.$executeRawUnsafe(`TRUNCATE TABLE ${tables} CASCADE;`);
   } catch (error) {
-    console.log({ error })
+    console.log({ error });
   }
 }
 

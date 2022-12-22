@@ -1,4 +1,4 @@
-import { Action, Actions, Header, List, Pills, Section } from "@stagehq/ui";
+import { Action, Actions, Header, List, Section } from "@stagehq/ui";
 import { useEffect, useState } from "react";
 import { Api } from "../graphql/types.generated";
 

@@ -94,7 +94,7 @@ export const storeExtensionsData: storeExtensionSeedInput = [
       },
     ],
   },
-    {
+  {
     id: "clbz5lknp001zpgpx4nboixez",
     name: "Blog Posts",
     markdown: "This is a extension for your best blog posts.",

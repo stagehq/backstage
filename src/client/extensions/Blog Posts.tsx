@@ -52,7 +52,6 @@ const Blogs = (props: { underlayingApis: Api[] }) => {
     }
   }, [props.underlayingApis]);
 
-
   return (
     <Section>
       <Header

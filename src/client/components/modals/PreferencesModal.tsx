@@ -1,18 +1,18 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { decodeGlobalID } from "@pothos/plugin-relay";
 import { AuthType } from "@prisma/client";
-import { stringify } from "querystring";
 import { FC, Fragment, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   ApiConnectorRoute,
   StoreExtension,
 } from "../../graphql/types.generated";
-import { preferencesApiState, preferencesExtensionState } from "../../store/extensions";
-import { siteSlugState, siteState } from "../../store/site";
 import {
-  preferencesOpenState,
-} from "../../store/ui/modals";
+  preferencesApiState,
+  preferencesExtensionState,
+} from "../../store/extensions";
+import { siteSlugState, siteState } from "../../store/site";
+import { preferencesOpenState } from "../../store/ui/modals";
 import { currentUserState } from "../../store/user";
 import { upsertExtension } from "../helper/upsertExtension";
 import { Icon } from "../Icons";
@@ -35,10 +35,10 @@ const PreferencesModal: FC = () => {
       setPreferences(fillPreferences(preferencesExtension, preferencesApi));
     }
   }, [preferencesExtension, preferencesApi]);
-  
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    if(!preferencesExtension || !preferencesApi || !user) return;
-    const processedPreferences: {key: string, value: string}[] = [];
+    if (!preferencesExtension || !preferencesApi || !user) return;
+    const processedPreferences: { key: string; value: string }[] = [];
     event.preventDefault();
 
     const keyArr = fillPreferences(preferencesExtension, preferencesApi);
@@ -48,13 +48,13 @@ const PreferencesModal: FC = () => {
     });
     console.log(processedPreferences);
 
-    if(!site) throw new Error("Site not found");
+    if (!site) throw new Error("Site not found");
     if (!preferencesExtension.routes) throw new Error("No routes found");
     if (!preferencesApi) throw new Error("No preferences api found");
     if (!processedPreferences) throw new Error("No preferences found");
 
     await upsertExtension({
-      userId: decodeGlobalID(user.id).id, 
+      userId: decodeGlobalID(user.id).id,
       siteId: decodeGlobalID(site.id).id,
       storeExtensionId: decodeGlobalID(preferencesExtension.id).id,
       apiConnectorName: preferencesApi,
@@ -63,13 +63,13 @@ const PreferencesModal: FC = () => {
           id: decodeGlobalID(route.id).id,
           url: route.url as string,
           apiConnector: {
-            name: route.apiConnector?.name as string
-          }
-        }
+            name: route.apiConnector?.name as string,
+          },
+        };
       }),
       preferences: processedPreferences,
-      authType: AuthType.preferences
-    })
+      authType: AuthType.preferences,
+    });
     setPreferencesOpen(false);
   };
 
@@ -81,7 +81,7 @@ const PreferencesModal: FC = () => {
     const extensionRoutes = preferencesExtension.routes;
     if (extensionRoutes) {
       extensionRoutes.map((route: ApiConnectorRoute) => {
-        if(route.apiConnector?.name === preferencesApi){
+        if (route.apiConnector?.name === preferencesApi) {
           if (route.urlParameter) {
             route.urlParameter.map((param) => {
               myPreferences.push(param);

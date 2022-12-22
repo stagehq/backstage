@@ -15,25 +15,25 @@ const Resume = (props: { underlayingApis: Api[] }) => {
         if (api.apiConnector?.name === "linkedin") {
           api.apiResponses?.forEach((apiResponse) => {
             apiResponse.response.experiences &&
-            apiResponse.response.experiences.forEach((job: any) => {
-              jobs.push({
-                type: "bullet",
-                title: job.title,
-                subtitle: job.company,
-                additional: job.starts_at.year,
-                image: job.logo_url,
+              apiResponse.response.experiences.forEach((job: any) => {
+                jobs.push({
+                  type: "bullet",
+                  title: job.title,
+                  subtitle: job.company,
+                  additional: job.starts_at.year,
+                  image: job.logo_url,
+                });
               });
-            });
             apiResponse.response.education &&
-            apiResponse.response.education.forEach((edu: any) => {
-              education.push({
-                type: "bullet",
-                title: edu.field_of_study + " - " + edu.degree,
-                subtitle: edu.school,
-                additional: edu.starts_at?.year ? edu.starts_at.year : "",
-                image: edu.logo_url,
+              apiResponse.response.education.forEach((edu: any) => {
+                education.push({
+                  type: "bullet",
+                  title: edu.field_of_study + " - " + edu.degree,
+                  subtitle: edu.school,
+                  additional: edu.starts_at?.year ? edu.starts_at.year : "",
+                  image: edu.logo_url,
+                });
               });
-            });
           });
         }
       });

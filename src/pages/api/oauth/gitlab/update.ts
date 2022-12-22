@@ -11,7 +11,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     method: "GET",
     headers: {
       Accept: "application/json",
-      "test": `Bearer ${token}`,
+      test: `Bearer ${token}`,
     },
   }).then((response) => response.json());
 
