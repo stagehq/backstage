@@ -10,7 +10,7 @@ export const apiConnectorsData: apiConnectorSeedInput = [
     apiConnectorRoutes: [
       {
         name: "github_projects",
-        url: "/user/projects",
+        url: "/user/repos",
       },
     ],
   },
@@ -22,7 +22,7 @@ export const apiConnectorsData: apiConnectorSeedInput = [
     apiConnectorRoutes: [
       {
         name: "gitlab_projects",
-        url: "/v4/projects",
+        url: "/api/v4/projects",
       },
     ],
   },

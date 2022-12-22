@@ -1,4 +1,4 @@
-import { AuthType, Prisma, PrismaClient } from "@prisma/client";
+import { AuthType, PrismaClient } from "@prisma/client";
 // import prisma from "../../server/db/prisma";
 
 const prisma = new PrismaClient();
@@ -23,17 +23,23 @@ export type storeExtensionSeedInput = {
   }[];
 }[];
 
-// Inspired by prisma/docs#451
+// Inspired by https://github.com/prisma/docs/issues/451#issuecomment-1354500062
 async function emptyDatabase() {
-  console.log("Emptying database");
+  const tablenames = await prisma.$queryRaw<
+    Array<{ tablename: string }>
+  >`SELECT tablename FROM pg_tables WHERE schemaname='public'`
 
-  const tables = Prisma.dmmf.datamodel.models.map(
-    (model) => model.dbName || model.name
-  );
+  const tables = tablenames
+    .map(({ tablename }) => tablename)
+    .filter((name) => name !== '_prisma_migrations')
+    .map((name) => `"public"."${name}"`)
+    .join(', ')
 
-  return Promise.all(
-    tables.map((table) => prisma.$executeRawUnsafe(`DELETE FROM "${table}";`))
-  );
+  try {
+    await prisma.$executeRawUnsafe(`TRUNCATE TABLE ${tables} CASCADE;`)
+  } catch (error) {
+    console.log({ error })
+  }
 }
 
 async function seedDatabase(
