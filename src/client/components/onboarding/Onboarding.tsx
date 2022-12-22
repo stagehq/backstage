@@ -6,7 +6,7 @@ import { FC, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import * as github from "../../api/service/github";
-import * as gitlab from "../../api/service/github";
+import * as gitlab from "../../api/service/gitlab";
 import { StoreExtension } from "../../graphql/types.generated";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";

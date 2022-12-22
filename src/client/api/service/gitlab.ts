@@ -65,28 +65,8 @@ async function refreshTokens(
   return tokenResponse;
 }
 
-export async function route(route: string) {
-  const tokenSet = await gitlab.getTokens();
-  if (!tokenSet) {
-    throw new Error("no token set");
-  }
-
-  const response = await fetch("/api/oauth/gitlab/update", {
-    headers: {
-      Authorization: `Bearer ${tokenSet.accessToken}`,
-    },
-    body: JSON.stringify({
-      route,
-      token: tokenSet.accessToken,
-    }),
-  });
-
-  if (!response.ok) {
-    console.error("route error:", await response.text());
-    throw new Error(response.statusText);
-  }
-
-  return await response.json();
+export function getTokens() {
+  return gitlab.getTokens();
 }
 
 export default gitlab;
