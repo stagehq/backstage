@@ -14,6 +14,8 @@ import { personal } from "../../components/sidebars/testData";
 import ShareBar from "../../components/studio/ShareBar";
 import { siteSlugState, siteState } from "../../store/site";
 import { themeState } from "../../store/ui/theme";
+import { Resizable } from 're-resizable';
+
 
 const Site = () => {
   const { siteId } = useParams();
@@ -110,6 +112,10 @@ export const Page = () => {
   useStoreExtensionActions();
 
   return (
+    <Resizable defaultSize={{
+      width: '100%',
+      height: '100%',
+    }}>
     <div className={clsx(theme)}>
       <div className="bg-zinc-50 dark:bg-black">
         <div className="relative bg-white max-w-screen-xl mx-auto px-6 md:px-24 ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20">
@@ -138,6 +144,7 @@ export const Page = () => {
         />
       </div>
     </div>
+    </Resizable>
   );
 };
 
