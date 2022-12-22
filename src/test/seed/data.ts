@@ -47,8 +47,8 @@ export const apiConnectorsData: apiConnectorSeedInput = [
     apiConnectorRoutes: [
       {
         name: "devto_posts",
-        url: "/api/articles/me/published",
-        urlParameter: ["api_key"],
+        url: "",
+        urlParameter: ["username"],
       },
     ],
   },

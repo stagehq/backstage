@@ -94,7 +94,7 @@ const Repositories = (props: { underlayingApis: Api[] }) => {
             </Actions>
           }
         />
-        {languages.length > 0 && <Pills pills={languages} />}
+        {/* {languages.length > 0 && <Pills pills={languages} />} */}
         <List>
           {data.map((project, index) => (
             <List.Item

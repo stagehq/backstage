@@ -27,15 +27,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const url = "https://nubela.co/proxycurl" + route + "?" + params;
   console.log(url);
 
-  let response = await fetch(url, {
+  const response = await fetch(url, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + process.env.PROXYCURL_TOKEN,
+      Authorization: "Bearer " + process.env.LINKEDIN_CLIENT_SECRET,
     },
   }).then((response) => response.json());
-
-  response = { test: "test" };
 
   res.status(200).json(response);
 };

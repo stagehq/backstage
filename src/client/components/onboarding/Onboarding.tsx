@@ -667,19 +667,19 @@ const OnboardingProjects: FC = () => {
     }
   };
 
-  //get initial state
-  useEffect(() => {
-    const isGithubExpired = github.getTokens()?.isExpired();
-    const isGitlabExpired = gitlab.getTokens()?.isExpired();
+  // //get initial state
+  // useEffect(() => {
+  //   const isGithubExpired = github.getTokens()?.isExpired();
+  //   const isGitlabExpired = gitlab.getTokens()?.isExpired();
 
-    if (!isGithubExpired) {
-      setGithubConnected(true);
-    }
+  //   if (!isGithubExpired) {
+  //     setGithubConnected(true);
+  //   }
 
-    if (!isGitlabExpired) {
-      setGitlabConnected(true);
-    }
-  }, []);
+  //   if (!isGitlabExpired) {
+  //     setGitlabConnected(true);
+  //   }
+  // }, []);
 
   return (
     <>
@@ -814,7 +814,6 @@ const OnboardingBlogs: FC = () => {
   const [mediumConnected, setMediumConnected] = useState(false);
 
   const handleDevToConnect = () => {
-    console.log("moin");
     if (!storeExtensions) return;
     const devtoExtension = storeExtensions.find(
       (extension) => decodeGlobalID(extension.id).id === "clbz5lknp001zpgpx4nboixez" // DevTo 
@@ -825,6 +824,7 @@ const OnboardingBlogs: FC = () => {
       setPreferencesApi("devto");
       setPreferencesExtension(devtoExtension);
       setOpenPreferencesModal(true);
+      setDevtoConnected(true);
     }
   }
     

@@ -12,7 +12,7 @@ const Blogs = (props: { underlayingApis: Api[] }) => {
       let blogPosts: any[] = [];
 
       props.underlayingApis?.forEach((api) => {
-        if (api.apiConnector?.name === "dev") {
+        if (api.apiConnector?.name === "devto") {
           api.apiResponses?.forEach((apiResponse) => {
             apiResponse.response.forEach((post: any) => {
               // get post.url and shorten it to the profilelink
@@ -51,6 +51,7 @@ const Blogs = (props: { underlayingApis: Api[] }) => {
       setData(blogPosts);
     }
   }, [props.underlayingApis]);
+
 
   return (
     <Section>
