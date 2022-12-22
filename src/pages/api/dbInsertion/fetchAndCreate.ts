@@ -7,7 +7,7 @@ type Route = {
   url: string;
   apiConnector: {
     name: string;
-  }
+  };
 };
 
 type Preference = {
@@ -86,7 +86,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (!apiCheck) {
       //add api to extension
       console.log("add api to extension");
-      
+
       await prisma.extension.update({
         where: {
           id: extensionCheck.id,
@@ -207,11 +207,10 @@ const fetchDataFromRoutes = async (
   }[] = [];
 
   console.log("fetch data from routes");
-  
 
   await Promise.all(
     routes.map(async (route) => {
-      if(route.apiConnector.name === apiConnectorName){
+      if (route.apiConnector.name === apiConnectorName) {
         const response = await fetch(
           "http://localhost:3000/api/oauth/" + apiConnectorName + "/update",
           {
@@ -232,7 +231,7 @@ const fetchDataFromRoutes = async (
           .catch((error) => {
             console.log(error);
           });
-  
+
         prismaCreationArr.push({
           response: response,
           apiConnectorRoute: { connect: { id: route.id } },
@@ -259,7 +258,7 @@ const fetchDataFromRoutesWithoutOAuth = async (
 
   await Promise.all(
     routes.map(async (route) => {
-      if(route.apiConnector.name === apiConnectorName){
+      if (route.apiConnector.name === apiConnectorName) {
         const response = await fetch(
           "http://localhost:3000/api/nonOAuth/" + apiConnectorName + "/update",
           {
@@ -279,7 +278,7 @@ const fetchDataFromRoutesWithoutOAuth = async (
           .catch((error) => {
             console.log(error);
           });
-  
+
         prismaCreationArr.push({
           response: response,
           apiConnectorRoute: { connect: { id: route.id } },

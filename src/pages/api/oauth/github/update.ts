@@ -6,7 +6,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { route, token, preferences } = await JSON.parse(req.body);
 
   console.log("route", route);
-  
 
   const response = await fetch("https://api.github.com" + route, {
     method: "GET",

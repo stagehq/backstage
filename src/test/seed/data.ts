@@ -4,53 +4,57 @@ import { apiConnectorSeedInput, storeExtensionSeedInput } from "./index";
 export const apiConnectorsData: apiConnectorSeedInput = [
   {
     name: "github",
-    markdown: "GitHub is where over 94 million developers shape the future of software, together.",
+    markdown:
+      "GitHub is where over 94 million developers shape the future of software, together.",
     authType: AuthType.oAuth,
     apiConnectorRoutes: [
       {
         name: "github_projects",
         url: "/user/projects",
-      }
-    ]
+      },
+    ],
   },
   {
     name: "gitlab",
-    markdown: "From planning to production, GitLab brings teams together to shorten cycle times, reduce costs, strengthen security, and increase developer productivity.",
+    markdown:
+      "From planning to production, GitLab brings teams together to shorten cycle times, reduce costs, strengthen security, and increase developer productivity.",
     authType: AuthType.oAuth,
     apiConnectorRoutes: [
       {
         name: "gitlab_projects",
         url: "/v4/projects",
-      }
-    ]
+      },
+    ],
   },
   {
     name: "linkedin",
-    markdown: "LinkedIn is the world's largest professional network on the internet.",
+    markdown:
+      "LinkedIn is the world's largest professional network on the internet.",
     authType: AuthType.preferences,
     apiConnectorRoutes: [
       {
         name: "linkedin_cv",
         url: "/api/linkedin",
-        urlParameter: ["linkedin_url"]
-      }
-    ]
-  }
+        urlParameter: ["linkedin_url"],
+      },
+    ],
+  },
 ];
 
 export const storeExtensionsData: storeExtensionSeedInput = [
   {
     name: "Repositories",
-    markdown: "Use this extension to show all your coding skills on your personal site.",
+    markdown:
+      "Use this extension to show all your coding skills on your personal site.",
     icon: "CodeBracketIcon",
     routes: [
       {
-        name: "github_projects"
+        name: "github_projects",
       },
       {
-        name: "gitlab_projects"
+        name: "gitlab_projects",
       },
-    ]
+    ],
   },
   {
     name: "Resume",
@@ -58,8 +62,8 @@ export const storeExtensionsData: storeExtensionSeedInput = [
     icon: "BriefcaseIcon",
     routes: [
       {
-        name: "linkedin_cv"
+        name: "linkedin_cv",
       },
-    ]
+    ],
   },
-]
+];

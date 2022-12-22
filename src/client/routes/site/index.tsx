@@ -21,7 +21,6 @@ const Site = () => {
   const [siteSlug, setSiteSlug] = useRecoilState(siteSlugState);
   const site = useRecoilValue(siteState(siteSlug));
 
-
   useEffect(() => {
     if (siteId) {
       setSiteSlug(siteId);

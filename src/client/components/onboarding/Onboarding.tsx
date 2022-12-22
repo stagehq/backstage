@@ -475,7 +475,7 @@ const OnboardingCv: FC = () => {
 
   const handleCvUpdate = () => {
     if (site && isValidLink(link)) {
-      if(!storeExtensions || !user) return;
+      if (!storeExtensions || !user) return;
 
       const storeExtensionId = "clbv4gdyh0000pg3ltjfyquss";
       const storeExtension = storeExtensions?.find(
@@ -489,19 +489,23 @@ const OnboardingCv: FC = () => {
           storeExtensionId: storeExtensionId,
           userId: decodeGlobalID(user.id).id,
           routes: storeExtension.routes.map((route) => {
-              return {
-                id: decodeGlobalID(route.id).id,
-                url: route.url ? route.url : "",
-                apiConnector: { name: route.apiConnector?.name ? route.apiConnector.name : ""}
-              }
+            return {
+              id: decodeGlobalID(route.id).id,
+              url: route.url ? route.url : "",
+              apiConnector: {
+                name: route.apiConnector?.name ? route.apiConnector.name : "",
+              },
+            };
           }),
           authType: AuthType.preferences,
           apiConnectorName: "linkedin",
-          preferences: [{
-            key: 'linkedinUrl',
-            value: link,
-          }],
-        })
+          preferences: [
+            {
+              key: "linkedinUrl",
+              value: link,
+            },
+          ],
+        });
       }
     }
   };
@@ -606,10 +610,9 @@ const OnboardingProjects: FC = () => {
     await github.authorize();
 
     console.log(github.getTokens());
-    
 
     if (!github.getTokens()?.isExpired()) {
-      if(!site || !user || !storeExtension || !storeExtension.routes) return;
+      if (!site || !user || !storeExtension || !storeExtension.routes) return;
       await upsertExtension({
         siteId: decodeGlobalID(site.id).id,
         storeExtensionId: storeExtensionId,
@@ -618,13 +621,15 @@ const OnboardingProjects: FC = () => {
           return {
             id: decodeGlobalID(route.id).id,
             url: route.url ? route.url : "",
-            apiConnector: { name: route.apiConnector?.name ? route.apiConnector.name : ""}
-          }
+            apiConnector: {
+              name: route.apiConnector?.name ? route.apiConnector.name : "",
+            },
+          };
         }),
         oAuthId: github.getTokens()?.idToken,
         authType: AuthType.oAuth,
         apiConnectorName: "github",
-      })
+      });
 
       setGithubConnected(true);
     }
@@ -635,8 +640,8 @@ const OnboardingProjects: FC = () => {
     await gitlab.authorize();
 
     if (!gitlab.getTokens()?.isExpired()) {
-      if(!site || !user || !storeExtension || !storeExtension.routes) return;
-      
+      if (!site || !user || !storeExtension || !storeExtension.routes) return;
+
       await upsertExtension({
         siteId: decodeGlobalID(site.id).id,
         storeExtensionId: storeExtensionId,
@@ -645,13 +650,15 @@ const OnboardingProjects: FC = () => {
           return {
             id: decodeGlobalID(route.id).id,
             url: route.url ? route.url : "",
-            apiConnector: { name: route.apiConnector?.name ? route.apiConnector.name : ""}
-          }
+            apiConnector: {
+              name: route.apiConnector?.name ? route.apiConnector.name : "",
+            },
+          };
         }),
         oAuthId: github.getTokens()?.idToken,
         authType: AuthType.oAuth,
         apiConnectorName: "gitlab",
-      })
+      });
 
       setGitlabConnected(true);
     }
@@ -670,7 +677,6 @@ const OnboardingProjects: FC = () => {
   //     setGitlabConnected(true);
   //   }
   // }, []);
-
 
   return (
     <>

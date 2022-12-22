@@ -192,7 +192,7 @@ export namespace OAuth {
         console.log("Error creating OAuth API");
       }
 
-      const idToken = decodeGlobalID(response.data?.createOAuthforApi.id)?.id
+      const idToken = decodeGlobalID(response.data?.createOAuthforApi.id)?.id;
 
       const tokenSet: TokenSet = {
         accessToken: response.data?.createOAuthforApi.accessToken,
@@ -203,7 +203,7 @@ export namespace OAuth {
         idToken: idToken,
         isExpired: () => {
           return true;
-        }
+        },
       };
 
       localStorage.setItem(

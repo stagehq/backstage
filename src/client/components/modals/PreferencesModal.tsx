@@ -1,62 +1,71 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { FC, FormEventHandler, Fragment, useEffect, useRef, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { storeExtensionState } from "../../store/extensions";
-import { preferencesExtensionState, preferencesOpenState } from "../../store/ui/modals";
-import { Icon } from "../Icons";
 import { decodeGlobalID } from "@pothos/plugin-relay";
-import { ApiConnectorRoute, StoreExtension } from "../../graphql/types.generated";
-import { useKeyboardSensor } from "react-beautiful-dnd";
+import { FC, Fragment, useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  ApiConnectorRoute,
+  StoreExtension,
+} from "../../graphql/types.generated";
+import { storeExtensionState } from "../../store/extensions";
+import {
+  preferencesExtensionState,
+  preferencesOpenState,
+} from "../../store/ui/modals";
+import { Icon } from "../Icons";
 
 const PreferencesModal: FC = () => {
-  const [preferencesOpen, setPreferencesOpen] = useRecoilState(preferencesOpenState);
-  const [preferencesExtension, ] = useRecoilState(preferencesExtensionState);
+  const [preferencesOpen, setPreferencesOpen] =
+    useRecoilState(preferencesOpenState);
+  const [preferencesExtension] = useRecoilState(preferencesExtensionState);
   const storeExtensions = useRecoilValue(storeExtensionState);
 
   const [preferences, setPreferences] = useState<string[]>([]);
 
   useEffect(() => {
     console.log(storeExtensions, preferencesExtension, preferences);
-    if(storeExtensions && preferencesExtension && preferences){
+    if (storeExtensions && preferencesExtension && preferences) {
       setPreferences(fillPreferences(storeExtensions, preferencesExtension));
     }
-  }, [])
+  }, []);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const processedPreferences: string[] = [];
     event.preventDefault();
-    if(storeExtensions){
+    if (storeExtensions) {
       const keyArr = fillPreferences(storeExtensions, preferencesExtension);
       keyArr.map((key) => {
         // @ts-ignore
-        processedPreferences.push({"key": key, "value": event.target[key].value});
-      })
+        processedPreferences.push({ key: key, value: event.target[key].value });
+      });
       console.log(processedPreferences);
     }
-  }
+  };
 
-  const fillPreferences = (storeExtensions: StoreExtension[], preferencesExtension: string) => {
+  const fillPreferences = (
+    storeExtensions: StoreExtension[],
+    preferencesExtension: string
+  ) => {
     const myPreferences: string[] = [];
-    const extensionRoutes = storeExtensions.find((e: StoreExtension) => decodeGlobalID(e.id).id === preferencesExtension)?.routes;
-    if(extensionRoutes){
+    const extensionRoutes = storeExtensions.find(
+      (e: StoreExtension) => decodeGlobalID(e.id).id === preferencesExtension
+    )?.routes;
+    if (extensionRoutes) {
       extensionRoutes.map((route: ApiConnectorRoute) => {
-        if(route.urlParameter){
+        if (route.urlParameter) {
           route.urlParameter.map((param) => {
             myPreferences.push(param);
-          })
+          });
         }
-      })
+      });
     }
-    return myPreferences.filter((v,i,a)=>a.findIndex(v2=>(v2===v))===i);
-  }
+    return myPreferences.filter(
+      (v, i, a) => a.findIndex((v2) => v2 === v) === i
+    );
+  };
 
   return (
     <Transition.Root show={preferencesOpen} as={Fragment}>
-      <Dialog
-        as="div"
-        className="relative z-10"
-        onClose={setPreferencesOpen}
-      >
+      <Dialog as="div" className="relative z-10" onClose={setPreferencesOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -98,7 +107,10 @@ const PreferencesModal: FC = () => {
                     <Icon name="XMarkIcon" />
                   </button>
                 </div>
-                <form className="mt-2 flex flex-col gap-4" onSubmit={handleSubmit}>
+                <form
+                  className="mt-2 flex flex-col gap-4"
+                  onSubmit={handleSubmit}
+                >
                   <div className="w-full flex flex-col justify-start items-start gap-2 pb-4">
                     <p className="text-xl font-semibold text-left text-zinc-900">
                       Preferences
@@ -107,7 +119,7 @@ const PreferencesModal: FC = () => {
                       Insert required preferences to access api data.
                     </p>
                   </div>
-                  {preferences.map((preference, index)=>(
+                  {preferences.map((preference, index) => (
                     <div key={index} className="w-full">
                       <label
                         htmlFor={preference}

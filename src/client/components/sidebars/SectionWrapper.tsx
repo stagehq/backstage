@@ -14,7 +14,10 @@ const SectionWrapper = (props: Props) => {
         <p className="text-sm font-semibold text-left text-zinc-900">
           Sections
         </p>
-        <div onClick={query.toggle} className="flex justify-center items-center w-6 h-6 gap-2 hover:bg-zinc-100 rounded">
+        <div
+          onClick={query.toggle}
+          className="flex justify-center items-center w-6 h-6 gap-2 hover:bg-zinc-100 rounded"
+        >
           <Icon name="PlusSmallIcon" color="dark" size="md" />
         </div>
       </div>
