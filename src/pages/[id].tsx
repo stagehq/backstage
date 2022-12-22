@@ -1,59 +1,48 @@
 import { PrismaClient } from '@prisma/client';
-import { GetStaticPaths, GetStaticProps } from 'next';
-import { client } from '../client/graphql/client'
-import { GetAllSitesDocument } from '../client/graphql/getAllSites.generated'
-import { GetSiteDocument } from '../client/graphql/getSite.generated'
 import { Site } from '../client/graphql/types.generated'
 
-
-const SitePage: React.FC<{ site: Site }> = ({ site }) => {
+const SitePage: React.FC<{ site: string }> = ({ site }) => {
   // Render the page using the site data
-  console.log(site);
-  return <div>Site: {site.subdomain}</div>;
+  const data: Site = JSON.parse(site)
+  return (
+    <pre>{JSON.stringify(data, null, 2)}</pre>
+  );
 };
 
-export async function getStaticProps({ params }) {
-  console.log(client)
-  return {
-    props: {
-      site: await client.query(GetSiteDocument, { subdomain: params.id }).toPromise(),
-    },
-    revalidate: 60,
-  }
-}
-
 export async function getStaticPaths() {
-  const subdomains = await client.query(GetAllSitesDocument).toPromise();
-  const data = subdomains.data.map((site: Site) => site.subdomain)
-  const paths = data.map((subdomain: string) => ({ 
-    params: { id: subdomain }
+  const prisma = new PrismaClient();
+  const sites = await prisma.site.findMany({
+    select: {
+      subdomain: true,
+    }
+  });
+  const paths = sites.map((site) => ({
+    params: { id: site.subdomain }
   }))
-
-  // const prisma = new PrismaClient();
-  // const subdomains = await prisma.site.findMany();
-  // const paths = subdomains.map((site: Site) => ({
-  //   params: { id: site.subdomain }
-  // }))
 
   return { paths, fallback: 'blocking' }
 }
 
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const subdomains = await client.query(GetAllSitesDocument).toPromise();
-//   const data = subdomains.data.map((site: Site) => site.subdomain)
-//   return {
-//     paths: data.map((subdomain: string) => `/${subdomain}`) || [],
-//     fallback: 'blocking',
-//   }
-// }
-
-// export const getStaticProps: GetStaticProps = async ({ params }) => {
-//   return {
-//     props: {
-//       site: await client.query(GetSiteDocument, { subdomain: params?.id }).toPromise(),
-//     },
-//     revalidate: 10,
-//   }
-// }
+// `getStaticPaths` requires using `getStaticProps`
+export async function getStaticProps(params: { params: { id: string } }) {
+  const prisma = new PrismaClient();
+  const sitedata = await prisma.site.findFirst({
+    where: {
+      subdomain: params.params.id,
+    },
+    include: {
+      extensions: true,
+    },
+  });
+  const site = JSON.stringify(sitedata)
+  console.log(site)
+  return {
+    // Passed to the page component as props
+    props: { 
+      site: site,
+      revalidate: 10,
+    }
+  }
+}
 
 export default SitePage
