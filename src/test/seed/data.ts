@@ -34,7 +34,7 @@ export const apiConnectorsData: apiConnectorSeedInput = [
     apiConnectorRoutes: [
       {
         name: "linkedin_cv",
-        url: "/api/linkedin",
+        url: "/api/v2/linkedin",
         urlParameter: ["linkedin_url"],
       },
     ],
