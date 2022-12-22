@@ -21,7 +21,17 @@ const storeExtensionSelector = selector({
   },
 });
 
-export const storeExtensionState = atom({
+export const storeExtensionState = atom<StoreExtension[] | null>({
   key: "storeExtensionState",
   default: storeExtensionSelector,
+});
+
+export const preferencesExtensionState = atom<StoreExtension | null>({
+  key: "preferencesExtensionState",
+  default: null,
+});
+
+export const preferencesApiState = atom<string | null>({
+  key: "preferencesApiState",
+  default: null,
 });

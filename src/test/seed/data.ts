@@ -39,6 +39,19 @@ export const apiConnectorsData: apiConnectorSeedInput = [
       },
     ],
   },
+    {
+    name: "devto",
+    markdown:
+      "Dev.to is the blog platform developers love for their simplicity.",
+    authType: AuthType.preferences,
+    apiConnectorRoutes: [
+      {
+        name: "devto_posts",
+        url: "/api/articles/me/published",
+        urlParameter: ["api_key"],
+      },
+    ],
+  },
 ];
 
 export const storeExtensionsData: storeExtensionSeedInput = [
@@ -65,6 +78,17 @@ export const storeExtensionsData: storeExtensionSeedInput = [
     routes: [
       {
         name: "linkedin_cv",
+      },
+    ],
+  },
+    {
+    id: "clbz5lknp001zpgpx4nboixez",
+    name: "Blog Posts",
+    markdown: "This is a extension for your best blog posts.",
+    icon: "BriefcaseIcon",
+    routes: [
+      {
+        name: "devto_posts",
       },
     ],
   },
