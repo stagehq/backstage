@@ -39,7 +39,7 @@ export const apiConnectorsData: apiConnectorSeedInput = [
       },
     ],
   },
-    {
+  {
     name: "devto",
     markdown:
       "Dev.to is the blog platform developers love for their simplicity.",
@@ -49,6 +49,19 @@ export const apiConnectorsData: apiConnectorSeedInput = [
         name: "devto_posts",
         url: "/api/articles/me/published",
         urlParameter: ["api_key"],
+      },
+    ],
+  },
+  {
+    name: "medium",
+    markdown:
+      "Medium is the blog platform everybody love for their simplicity.",
+    authType: AuthType.preferences,
+    apiConnectorRoutes: [
+      {
+        name: "medium_posts",
+        url: "/api/articles/me/published",
+        urlParameter: ["medium_key"],
       },
     ],
   },

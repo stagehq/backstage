@@ -29,6 +29,7 @@ export interface FetchAndCreateProps {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   console.log("I am on the fetch route");
   const data: FetchAndCreateProps = await JSON.parse(req.body);
+  console.log(data);
   let prismaCreateRoutesArray;
   let prismaCreatePreferencesArray;
 
@@ -264,6 +265,9 @@ const fetchDataFromRoutesWithoutOAuth = async (
     response: string;
     apiConnectorRoute: { connect: { id: string } };
   }[] = [];
+
+  console.log(apiConnectorName);
+  console.log(routes);
 
   await Promise.all(
     routes.map(async (route) => {

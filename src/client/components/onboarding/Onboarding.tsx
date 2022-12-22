@@ -814,12 +814,14 @@ const OnboardingBlogs: FC = () => {
   const [mediumConnected, setMediumConnected] = useState(false);
 
   const handleDevToConnect = () => {
+    console.log("moin");
     if (!storeExtensions) return;
     const devtoExtension = storeExtensions.find(
       (extension) => decodeGlobalID(extension.id).id === "clbz5lknp001zpgpx4nboixez" // DevTo 
     );
     
     if (devtoExtension) {
+      console.log("moin");
       setPreferencesApi("devto");
       setPreferencesExtension(devtoExtension);
       setOpenPreferencesModal(true);
