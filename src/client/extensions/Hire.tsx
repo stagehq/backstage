@@ -8,14 +8,14 @@ interface HireProps {
   text: string;
 }
 
-const Hire = (props: { underlayingApis: Api[] }) => {
+const Hire = () => {
   const dataHire = {
-    title: "Hire me!",
-    subtitle:
-      "I build web apps for startups, businesses and public institutions as a freelance web developer and designer. Let's discuss your needs and see how I can help.",
-    link: "mailto:kontakt@felixhaeberle.de",
-    text: "Contect me",
-  };
+      title: "Hire me!",
+      subtitle: 
+        "I build web apps for startups, businesses and public institutions as a freelance web developer and designer. Let's discuss your needs and see how I can help.",
+      link: "mailto:kontakt@felixhaeberle.de",
+      text: "Contect me",
+    }
   const [data, setData] = useState<HireProps>(dataHire);
 
   return (
@@ -44,8 +44,4 @@ const Hire = (props: { underlayingApis: Api[] }) => {
 
 export default Hire;
 
-// {
-//   id: 5,
-//   text: "Hire me!",
-//   type: SectionType.EXTENSION,
 //   icon: "UserIcon",
