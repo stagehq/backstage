@@ -14,6 +14,7 @@ const Resume = (props: { underlayingApis: Api[] }) => {
       props.underlayingApis?.forEach((api) => {
         if (api.apiConnector?.name === "linkedin") {
           api.apiResponses?.forEach((apiResponse) => {
+            apiResponse.response.experiences &&
             apiResponse.response.experiences.forEach((job: any) => {
               jobs.push({
                 type: "bullet",
@@ -23,6 +24,7 @@ const Resume = (props: { underlayingApis: Api[] }) => {
                 image: job.logo_url,
               });
             });
+            apiResponse.response.education &&
             apiResponse.response.education.forEach((edu: any) => {
               education.push({
                 type: "bullet",
