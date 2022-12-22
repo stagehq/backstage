@@ -1,60 +1,92 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { decodeGlobalID } from "@pothos/plugin-relay";
+import { AuthType } from "@prisma/client";
+import { stringify } from "querystring";
 import { FC, Fragment, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   ApiConnectorRoute,
   StoreExtension,
 } from "../../graphql/types.generated";
-import { storeExtensionState } from "../../store/extensions";
+import { preferencesApiState, preferencesExtensionState } from "../../store/extensions";
+import { siteSlugState, siteState } from "../../store/site";
 import {
-  preferencesExtensionState,
   preferencesOpenState,
 } from "../../store/ui/modals";
+import { currentUserState } from "../../store/user";
+import { upsertExtension } from "../helper/upsertExtension";
 import { Icon } from "../Icons";
 
 const PreferencesModal: FC = () => {
   const [preferencesOpen, setPreferencesOpen] =
     useRecoilState(preferencesOpenState);
   const [preferencesExtension] = useRecoilState(preferencesExtensionState);
-  const storeExtensions = useRecoilValue(storeExtensionState);
+  const preferencesApi = useRecoilValue(preferencesApiState);
+
+  const siteSlug = useRecoilValue(siteSlugState);
+  const site = useRecoilValue(siteState(siteSlug));
+  const user = useRecoilValue(currentUserState);
 
   const [preferences, setPreferences] = useState<string[]>([]);
 
   useEffect(() => {
-    console.log(storeExtensions, preferencesExtension, preferences);
-    if (storeExtensions && preferencesExtension && preferences) {
-      setPreferences(fillPreferences(storeExtensions, preferencesExtension));
+    console.log(preferencesExtension, preferencesApi);
+    if (preferencesExtension && preferencesApi) {
+      setPreferences(fillPreferences(preferencesExtension, preferencesApi));
     }
-  }, []);
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    const processedPreferences: string[] = [];
+  }, [preferencesExtension, preferencesApi]);
+  
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    if(!preferencesExtension || !preferencesApi || !user) return;
+    const processedPreferences: {key: string, value: string}[] = [];
     event.preventDefault();
-    if (storeExtensions) {
-      const keyArr = fillPreferences(storeExtensions, preferencesExtension);
-      keyArr.map((key) => {
-        // @ts-ignore
-        processedPreferences.push({ key: key, value: event.target[key].value });
-      });
-      console.log(processedPreferences);
-    }
+
+    const keyArr = fillPreferences(preferencesExtension, preferencesApi);
+    keyArr.map((key) => {
+      // @ts-ignore
+      processedPreferences.push({ key: key, value: event.target[key].value });
+    });
+    console.log(processedPreferences);
+
+    if(!site) throw new Error("Site not found");
+    if (!preferencesExtension.routes) throw new Error("No routes found");
+    if (!preferencesApi) throw new Error("No preferences api found");
+    if (!processedPreferences) throw new Error("No preferences found");
+
+    await upsertExtension({
+      userId: decodeGlobalID(user.id).id, 
+      siteId: decodeGlobalID(site.id).id,
+      storeExtensionId: decodeGlobalID(preferencesExtension.id).id,
+      apiConnectorName: preferencesApi,
+      routes: preferencesExtension.routes.map((route) => {
+        return {
+          id: decodeGlobalID(route.id).id,
+          url: route.url as string,
+          apiConnector: {
+            name: route.apiConnector?.name as string
+          }
+        }
+      }),
+      preferences: processedPreferences,
+      authType: AuthType.preferences
+    })
+    setPreferencesOpen(false);
   };
 
   const fillPreferences = (
-    storeExtensions: StoreExtension[],
-    preferencesExtension: string
+    preferencesExtension: StoreExtension,
+    preferencesApi: string
   ) => {
     const myPreferences: string[] = [];
-    const extensionRoutes = storeExtensions.find(
-      (e: StoreExtension) => decodeGlobalID(e.id).id === preferencesExtension
-    )?.routes;
+    const extensionRoutes = preferencesExtension.routes;
     if (extensionRoutes) {
       extensionRoutes.map((route: ApiConnectorRoute) => {
-        if (route.urlParameter) {
-          route.urlParameter.map((param) => {
-            myPreferences.push(param);
-          });
+        if(route.apiConnector?.name === preferencesApi){
+          if (route.urlParameter) {
+            route.urlParameter.map((param) => {
+              myPreferences.push(param);
+            });
+          }
         }
       });
     }
@@ -116,7 +148,7 @@ const PreferencesModal: FC = () => {
                       Preferences
                     </p>
                     <p className="text-xs font-medium text-left text-zinc-500">
-                      Insert required preferences to access api data.
+                      Insert required preferences to access API data.
                     </p>
                   </div>
                   {preferences.map((preference, index) => (

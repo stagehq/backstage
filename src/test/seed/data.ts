@@ -39,10 +39,37 @@ export const apiConnectorsData: apiConnectorSeedInput = [
       },
     ],
   },
+  {
+    name: "devto",
+    markdown:
+      "Dev.to is the blog platform developers love for their simplicity.",
+    authType: AuthType.preferences,
+    apiConnectorRoutes: [
+      {
+        name: "devto_posts",
+        url: "/api/articles/me/published",
+        urlParameter: ["api_key"],
+      },
+    ],
+  },
+  {
+    name: "medium",
+    markdown:
+      "Medium is the blog platform everybody love for their simplicity.",
+    authType: AuthType.preferences,
+    apiConnectorRoutes: [
+      {
+        name: "medium_posts",
+        url: "/api/articles/me/published",
+        urlParameter: ["medium_key"],
+      },
+    ],
+  },
 ];
 
 export const storeExtensionsData: storeExtensionSeedInput = [
   {
+    id: "clbz5lknp001ypgpx1i2lqafr",
     name: "Repositories",
     markdown:
       "Use this extension to show all your coding skills on your personal site.",
@@ -57,12 +84,24 @@ export const storeExtensionsData: storeExtensionSeedInput = [
     ],
   },
   {
+    id: "clbz5lknp001zpgpx6nbzmxez",
     name: "Resume",
     markdown: "Use this extension to show your professional experience.",
     icon: "BriefcaseIcon",
     routes: [
       {
         name: "linkedin_cv",
+      },
+    ],
+  },
+    {
+    id: "clbz5lknp001zpgpx4nboixez",
+    name: "Blog Posts",
+    markdown: "This is a extension for your best blog posts.",
+    icon: "BriefcaseIcon",
+    routes: [
+      {
+        name: "devto_posts",
       },
     ],
   },

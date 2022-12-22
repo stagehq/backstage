@@ -15,6 +15,7 @@ export type apiConnectorSeedInput = {
 }[];
 
 export type storeExtensionSeedInput = {
+  id: string,
   name: string;
   markdown: string;
   icon: string;
@@ -77,6 +78,7 @@ async function seedDatabase(
     storeExtensions.map(async (storeExtension) => {
       const e = await prisma.storeExtension.create({
         data: {
+          id: storeExtension.id,
           name: storeExtension.name,
           markdown: storeExtension.markdown,
           icon: storeExtension.icon,

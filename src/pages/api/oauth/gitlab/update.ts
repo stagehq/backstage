@@ -11,11 +11,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     method: "GET",
     headers: {
       Accept: "application/json",
-      Authorization: `Bearer ${token}`,
+      "test": `Bearer ${token}`,
     },
   }).then((response) => response.json());
 
   console.log(response);
 
-  res.status(200).json(response);
+  if (response.status === 401) {
+    res.status(401).json({ error: "The token is not correct." });
+  } else {
+    res.status(200).json(response);
+  }
 };

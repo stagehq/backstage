@@ -10,9 +10,10 @@ import * as gitlab from "../../api/service/gitlab";
 import { StoreExtension } from "../../graphql/types.generated";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
-import { storeExtensionState } from "../../store/extensions";
+import { preferencesApiState, preferencesExtensionState, storeExtensionState } from "../../store/extensions";
 import { onboardingState } from "../../store/onboarding";
 import { siteSlugState, siteState } from "../../store/site";
+import { preferencesOpenState } from "../../store/ui/modals";
 import {
   activeSectionState,
   OnboardingSection,
@@ -477,13 +478,14 @@ const OnboardingCv: FC = () => {
     if (site && isValidLink(link)) {
       if (!storeExtensions || !user) return;
 
-      const storeExtensionId = "clbv4gdyh0000pg3ltjfyquss";
+      const storeExtensionId = "clbz5lknp001zpgpx6nbzmxez";
       const storeExtension = storeExtensions?.find(
         (extension) => decodeGlobalID(extension.id).id === storeExtensionId
       ) as StoreExtension | undefined;
 
       if (storeExtension && storeExtension.routes) {
         /* TODO: Update the apiConnectorName and key to dynamic values */
+        console.log("")
         upsertExtension({
           siteId: decodeGlobalID(site.id).id,
           storeExtensionId: storeExtensionId,
@@ -600,7 +602,7 @@ const OnboardingProjects: FC = () => {
   const user = useRecoilValue(currentUserState);
   const storeExtensions = useRecoilValue(storeExtensionState);
 
-  const storeExtensionId = "clbnoei3q0004eo37isjmdgp0";
+  const storeExtensionId = "clbz5lknp001ypgpx1i2lqafr";
   const storeExtension = storeExtensions?.find(
     (extension) => decodeGlobalID(extension.id).id === storeExtensionId
   ) as StoreExtension | undefined;
@@ -612,6 +614,7 @@ const OnboardingProjects: FC = () => {
     console.log(github.getTokens());
 
     if (!github.getTokens()?.isExpired()) {
+      console.log(github.getTokens()?.idToken);
       if (!site || !user || !storeExtension || !storeExtension.routes) return;
       await upsertExtension({
         siteId: decodeGlobalID(site.id).id,
@@ -655,7 +658,7 @@ const OnboardingProjects: FC = () => {
             },
           };
         }),
-        oAuthId: github.getTokens()?.idToken,
+        oAuthId: gitlab.getTokens()?.idToken,
         authType: AuthType.oAuth,
         apiConnectorName: "gitlab",
       });
@@ -664,19 +667,19 @@ const OnboardingProjects: FC = () => {
     }
   };
 
-  // get initial state
-  // useEffect(() => {
-  //   const isGithubExpired = github.getTokens()?.isExpired();
-  //   const isGitlabExpired = gitlab.getTokens()?.isExpired();
+  //get initial state
+  useEffect(() => {
+    const isGithubExpired = github.getTokens()?.isExpired();
+    const isGitlabExpired = gitlab.getTokens()?.isExpired();
 
-  //   if (!isGithubExpired) {
-  //     setGithubConnected(true);
-  //   }
+    if (!isGithubExpired) {
+      setGithubConnected(true);
+    }
 
-  //   if (!isGitlabExpired) {
-  //     setGitlabConnected(true);
-  //   }
-  // }, []);
+    if (!isGitlabExpired) {
+      setGitlabConnected(true);
+    }
+  }, []);
 
   return (
     <>
@@ -795,8 +798,36 @@ const OnboardingProjects: FC = () => {
 
 const OnboardingBlogs: FC = () => {
   const [, setActiveSection] = useRecoilState(activeSectionState);
+
+  // open preferences modal recoil state
+  const [, setOpenPreferencesModal] = useRecoilState(
+    preferencesOpenState
+  );
+
+  // recoil state for prefernece extension
+  const [preferencesExtension, setPreferencesExtension] = useRecoilState(preferencesExtensionState);
+  const [preferencesApi, setPreferencesApi] = useRecoilState(preferencesApiState);
+
+  const storeExtensions = useRecoilValue(storeExtensionState);
+
   const [devtoConnected, setDevtoConnected] = useState(false);
   const [mediumConnected, setMediumConnected] = useState(false);
+
+  const handleDevToConnect = () => {
+    console.log("moin");
+    if (!storeExtensions) return;
+    const devtoExtension = storeExtensions.find(
+      (extension) => decodeGlobalID(extension.id).id === "clbz5lknp001zpgpx4nboixez" // DevTo 
+    );
+    
+    if (devtoExtension) {
+      console.log("moin");
+      setPreferencesApi("devto");
+      setPreferencesExtension(devtoExtension);
+      setOpenPreferencesModal(true);
+    }
+  }
+    
 
   return (
     <>
@@ -838,7 +869,7 @@ const OnboardingBlogs: FC = () => {
               {!devtoConnected ? (
                 <button
                   type="button"
-                  onClick={() => setDevtoConnected(!devtoConnected)}
+                  onClick={() => handleDevToConnect()}
                   className="flex justify-start items-center h-8 overflow-hidden gap-2 px-4 py-2 rounded border border-zinc-200"
                 >
                   <p className="text-sm font-medium text-left text-zinc-700">
