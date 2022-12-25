@@ -34,5 +34,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     },
   }).then((response) => response.json());
 
-  res.status(200).json(response);
+  if (response.status === 401) {
+    res.status(401).json({ error: "The token is not correct." });
+  } else {
+    res.status(200).json(response);
+  }
 };
