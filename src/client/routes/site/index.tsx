@@ -5,6 +5,7 @@ import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import Content from "../../components/Content";
+import DndPage from "../../components/dnd/dndPage";
 import { useStoreExtensionActions } from "../../components/kbar/hooks/useStoreExtensionActions";
 import useThemeActions from "../../components/kbar/hooks/useThemeActions";
 import SectionList from "../../components/sidebars/SectionList";
@@ -31,17 +32,7 @@ const Site = () => {
       <Content>
         <ShareBar state="published" />
         <Studio>
-          <SectionSidebar>
-            <SectionWrapper>
-              <SectionList />
-            </SectionWrapper>
-          </SectionSidebar>
-          <PageWrapper>
-            <Page />
-          </PageWrapper>
-          <EditSidebar>
-            {/* React Portal: do not place something insde here */}
-          </EditSidebar>
+          <DndPage />
         </Studio>
       </Content>
     </>
@@ -109,58 +100,6 @@ export const Page = () => {
   useStoreExtensionActions();
 
   return (
-    <Resizable
-      defaultSize={{
-        width: "100%",
-        height: "100%",
-      }}
-    >
-      <div className={clsx(theme)}>
-        <div className="bg-zinc-50 dark:bg-black">
-          <div className="relative bg-white max-w-screen-xl mx-auto px-6 md:px-24 ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20">
-            <PageHeader
-              {...{
-                title: personal.name,
-                description: personal.description,
-                image: personal.image,
-                lightMode: true,
-                toggleLightMode: () => {
-                  setTheme(theme === "light" ? "dark" : "light");
-                },
-              }}
-            />
-            <div className="flex flex-col lg:flex-row gap-6 md:gap-16 py-12 md:py-16">
-              <PageMain></PageMain>
-              <PageAside></PageAside>
-            </div>
-          </div>
-          <PageFooter
-            {...{
-              title: "John Doe",
-              location: personal.location,
-              privacyPolicy: "https://google.com",
-            }}
-          />
-        </div>
-      </div>
-    </Resizable>
-  );
-};
-
-export const PageMain = () => {
-  return (
-    <main
-      id={process.env.NEXT_PUBLIC_MAIN_PORTAL_NAME || "pageMainPortal"}
-      className="flex flex-col items-start gap-12 md:gap-16 lg:w-2/3"
-    ></main>
-  );
-};
-
-export const PageAside = () => {
-  return (
-    <aside
-      id={process.env.NEXT_PUBLIC_ASIDE_PORTAL_NAME || "pageAsidePortal"}
-      className="flex flex-col items-start gap-12 md:gap-16 lg:w-1/3"
-    ></aside>
+    <div>Test</div>
   );
 };

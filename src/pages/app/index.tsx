@@ -19,7 +19,7 @@ export default function App() {
           <Modals />
           <Routes>
             {/* Backstage */}
-            <Route path="/s" element={<Header />}>
+            <Route path="/s">
               {/* Dashboard */}
               <Route index element={<Dashboard />} />
 
