@@ -100,7 +100,6 @@
   font-family: "jetBrainsMono";
 }
 
-
 /* Following styles are from dnd lib */
 
 .react-grid-layout {
@@ -113,7 +112,7 @@
 }
 .react-grid-item img {
   pointer-events: none;
-  user-select: none;  
+  user-select: none;
 }
 .react-grid-item.cssTransforms {
   transition-property: transform;

@@ -1,6 +1,3 @@
-import { PageFooter, PageHeader } from "@stagehq/ui";
-import clsx from "clsx";
-import { Resizable } from "re-resizable";
 import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -8,9 +5,6 @@ import Content from "../../components/Content";
 import DndPage from "../../components/dnd/dndPage";
 import { useStoreExtensionActions } from "../../components/kbar/hooks/useStoreExtensionActions";
 import useThemeActions from "../../components/kbar/hooks/useThemeActions";
-import SectionList from "../../components/sidebars/SectionList";
-import SectionWrapper from "../../components/sidebars/SectionWrapper";
-import { personal } from "../../components/sidebars/testData";
 import ShareBar from "../../components/studio/ShareBar";
 import { siteSlugState, siteState } from "../../store/site";
 import { themeState } from "../../store/ui/theme";
@@ -99,7 +93,5 @@ export const Page = () => {
   useThemeActions();
   useStoreExtensionActions();
 
-  return (
-    <div>Test</div>
-  );
+  return <div>Test</div>;
 };
