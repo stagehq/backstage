@@ -1,27 +1,26 @@
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import clsx from 'clsx'
-import { Link } from 'react-router-dom'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { currentUserState } from '../store/user'
-import { settingsOpenState } from '../store/ui/modals'
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import clsx from "clsx";
 import { signOut } from "next-auth/react";
+import { Fragment } from "react";
+import { Link } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { settingsOpenState } from "../store/ui/modals";
+import { currentUserState } from "../store/user";
 import { Icon } from "./Icons";
 
 const user = {
-  name: 'Debbie Lewis',
-  handle: 'deblewis',
-  email: 'debbielewis@example.com',
+  name: "Debbie Lewis",
+  handle: "deblewis",
+  email: "debbielewis@example.com",
   imageUrl:
-    'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=320&h=320&q=80',
-}
+    "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=320&h=320&q=80",
+};
 const userNavigation = [
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
+  { name: "Settings", href: "#" },
+  { name: "Sign out", href: "#" },
+];
 
 export default function DashboardHeader() {
-
   const user = useRecoilValue(currentUserState);
   const [, setSettingsOpen] = useRecoilState(settingsOpenState);
 
@@ -34,17 +33,19 @@ export default function DashboardHeader() {
           <>
             <nav
               className={clsx(
-                open ? 'bg-zinc-50 border-b border-zinc-200' : 'bg-transparent',
-                'relative z-10 border-opacity-25 w-full'
+                open ? "bg-zinc-50 border-b border-zinc-200" : "bg-transparent",
+                "relative z-10 border-opacity-25 w-full"
               )}
             >
               <div className="w-full">
                 <div className="relative flex h-16 items-center justify-between">
                   <div className="flex items-center gap-4">
                     <div className="flex-shrink-0 w-10 h-10 overflow-hidden rounded-md">
-                     <Logo />
+                      <Logo />
                     </div>
-                    <div className=" font-semibold text-lg text-zinc-700">Stage</div>
+                    <div className=" font-semibold text-lg text-zinc-700">
+                      Stage
+                    </div>
                   </div>
                   <div className="relative z-10 flex items-center md:hidden">
                     {/* Mobile menu button */}
@@ -155,12 +156,22 @@ export default function DashboardHeader() {
               <Disclosure.Panel className="lg:hidden">
                 <div className="pt-4 pb-3">
                   <div className="flex items-center px-4">
-                    {user.image && <div className="flex-shrink-0">
-                      <img className="h-10 w-10 rounded-full" src={user.image} alt="" />
-                    </div>}
+                    {user.image && (
+                      <div className="flex-shrink-0">
+                        <img
+                          className="h-10 w-10 rounded-full"
+                          src={user.image}
+                          alt=""
+                        />
+                      </div>
+                    )}
                     <div className="ml-3">
-                      <div className="text-base font-medium text-zinc-800">{user.name}</div>
-                      <div className="text-sm font-medium text-zinc-600">{user.email}</div>
+                      <div className="text-base font-medium text-zinc-800">
+                        {user.name}
+                      </div>
+                      <div className="text-sm font-medium text-zinc-600">
+                        {user.email}
+                      </div>
                     </div>
                   </div>
                   <div className="mt-3 px-2">
@@ -182,7 +193,7 @@ export default function DashboardHeader() {
         )}
       </Disclosure>
     </div>
-  )
+  );
 }
 
 function Logo() {
