@@ -3,11 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Suspense } from "react";
 import LoadingPage from "../../client/components/loading/Page";
 import Modals from "../../client/components/Modals";
-import Analytics from "../../client/routes/analytics";
 import Dashboard from "../../client/routes/dashboard/page";
 import Site from "../../client/routes/site";
-import Sections from "../../client/routes/site/sections";
-import SectionEditing from "../../client/routes/site/sections/sectionEditing";
 import SiteSettings from "../../client/routes/site/siteSettings";
 
 export default function App() {
@@ -21,12 +18,10 @@ export default function App() {
             <Route path="/s">
               {/* Dashboard */}
               <Route index element={<Dashboard />} />
-
-              {/* Personal Analytics */}
-              <Route path="analytics" element={<Analytics />} />
-
-              {/* Personal Analytics */}
-              <Route path="settings" element={<Analytics />} />
+              
+              {/* 
+              Personal Settings
+              <Route path="settings" element={<Analytics />} /> */}
 
               {/* Website Editing */}
               <Route path=":siteId">
@@ -35,12 +30,6 @@ export default function App() {
 
                 {/* Site settings */}
                 <Route path="settings" element={<SiteSettings />} />
-
-                {/* Mobile site sections */}
-                <Route path="sections" element={<Sections />}>
-                  {/* Mobile site sections editing */}
-                  <Route path=":sectionId" element={<SectionEditing />} />
-                </Route>
               </Route>
             </Route>
           </Routes>

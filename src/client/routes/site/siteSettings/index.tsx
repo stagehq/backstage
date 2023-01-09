@@ -1,12 +1,11 @@
 import Container from "../../../components/Container";
-import Content from "../../../components/Content";
 
 const SiteSettings = () => {
   return (
     <>
-      <Content>
+      <div>
         <Container>Settings</Container>
-      </Content>
+      </div>
     </>
   );
 };

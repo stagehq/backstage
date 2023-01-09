@@ -29,7 +29,7 @@ const userNavigation = [
 export default function DashboardHeader() {
 
   return (
-    <div className="w-full">
+    <div className="w-full px-4">
       <Disclosure as="div" className="relative w-full">
         {({ open }) => (
           <>
