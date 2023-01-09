@@ -18,7 +18,7 @@ export default function App() {
             <Route path="/s">
               {/* Dashboard */}
               <Route index element={<Dashboard />} />
-              
+
               {/* 
               Personal Settings
               <Route path="settings" element={<Analytics />} /> */}

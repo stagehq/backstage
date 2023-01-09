@@ -5,7 +5,6 @@ import ListHeader from "../../components/ListHeader";
 import Title from "../../components/Title";
 
 const Dashboard = () => {
-
   return (
     <>
       <div>

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { siteSlugState, siteState } from "../store/site";
 import { currentUserState } from "../store/user";

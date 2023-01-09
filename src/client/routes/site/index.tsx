@@ -1,11 +1,9 @@
-import { FC, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import DndPage from "../../components/dnd/dndPage";
-import { useStoreExtensionActions } from "../../components/kbar/hooks/useStoreExtensionActions";
-import useThemeActions from "../../components/kbar/hooks/useThemeActions";
+import Navigation from "../../components/studio/Navigation";
 import { siteSlugState, siteState } from "../../store/site";
-import { themeState } from "../../store/ui/theme";
 
 const Site = () => {
   const { siteId } = useParams();
@@ -21,7 +19,8 @@ const Site = () => {
 
   return (
     <>
-      <div>
+      <div className="flex h-full w-full">
+        <Navigation />
         <DndPage />
       </div>
     </>

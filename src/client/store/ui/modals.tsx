@@ -5,6 +5,16 @@ export const settingsOpenState = atom<boolean>({
   default: false,
 });
 
+export const siteSettingsOpenState = atom<boolean>({
+  key: "siteSettingsOpenState",
+  default: false,
+});
+
+export const analyticsOpenState = atom<boolean>({
+  key: "analyticsOpenState",
+  default: false,
+});
+
 export const soonOpenState = atom<boolean>({
   key: "soonOpenState",
   default: false,
@@ -12,20 +22,5 @@ export const soonOpenState = atom<boolean>({
 
 export const preferencesOpenState = atom<boolean>({
   key: "preferencesOpenState",
-  default: false,
-});
-
-export const publishingOpenState = atom<boolean>({
-  key: "publishingOpenState",
-  default: false,
-});
-
-export const projectCreateOpenState = atom<boolean>({
-  key: "projectCreateOpenState",
-  default: false,
-});
-
-export const labelEditModalOpenState = atom<boolean>({
-  key: "labelEditModalOpenState",
   default: false,
 });
