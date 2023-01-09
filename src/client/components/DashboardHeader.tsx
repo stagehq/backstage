@@ -1,12 +1,12 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import {
-  Bars3Icon,
-  BellIcon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline'
 import clsx from 'clsx'
+import { Link } from 'react-router-dom'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { currentUserState } from '../store/user'
+import { settingsOpenState } from '../store/ui/modals'
+import { signOut } from "next-auth/react";
+import { Icon } from "./Icons";
 
 const user = {
   name: 'Debbie Lewis',
@@ -15,18 +15,17 @@ const user = {
   imageUrl:
     'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=320&h=320&q=80',
 }
-const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Jobs', href: '#', current: false },
-  { name: 'Applicants', href: '#', current: false },
-  { name: 'Company', href: '#', current: false },
-]
 const userNavigation = [
   { name: 'Settings', href: '#' },
   { name: 'Sign out', href: '#' },
 ]
 
 export default function DashboardHeader() {
+
+  const user = useRecoilValue(currentUserState);
+  const [, setSettingsOpen] = useRecoilState(settingsOpenState);
+
+  if (!user) return null;
 
   return (
     <div className="w-full px-4">
@@ -43,69 +42,112 @@ export default function DashboardHeader() {
                 <div className="relative flex h-16 items-center justify-between">
                   <div className="flex items-center gap-4">
                     <div className="flex-shrink-0 w-10 h-10 overflow-hidden rounded-md">
-                     <Icon />
+                     <Logo />
                     </div>
                     <div className=" font-semibold text-lg text-zinc-700">Stage</div>
                   </div>
-                  <div className="flex lg:hidden">
+                  <div className="relative z-10 flex items-center md:hidden">
                     {/* Mobile menu button */}
-                    <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-zinc-600 hover:bg-zinc-200 hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-zinc-900">
-                      <span className="sr-only">Open main menu</span>
+                    <Disclosure.Button className="rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-zinc-500">
+                      <span className="sr-only">Open menu</span>
                       {open ? (
-                        <XMarkIcon className="block h-6 w-6 flex-shrink-0" aria-hidden="true" />
+                        <Icon name={"XMarkIcon"} color="dark" />
                       ) : (
-                        <Bars3Icon className="block h-6 w-6 flex-shrink-0" aria-hidden="true" />
+                        <Icon name={"Bars2Icon"} color="dark" />
                       )}
                     </Disclosure.Button>
                   </div>
-                  <div className="hidden lg:ml-4 lg:block">
-                    <div className="flex items-center gap-1">
-                      <div className="flex items-center h-8 text-zinc-600 border border-zinc-400 text-sm rounded px-3 cursor-pointer hover:bg-zinc-200 hover:text-zinc-900">
-                        Feedback
-                      </div>
-                      <div className="flex items-center h-8 text-zinc-600 text-sm rounded px-3 cursor-pointer hover:bg-zinc-200 hover:text-zinc-900">
-                        Docs
-                      </div>
-                      <div className="flex items-center h-8 text-zinc-600 text-sm rounded px-3 cursor-pointer hover:bg-zinc-200 hover:text-zinc-900">
-                        Community
-                      </div>
-                      {/* Profile dropdown */}
-                      <Menu as="div" className="relative ml-4 flex-shrink-0">
-                        <div>
-                          <Menu.Button className="flex rounded-full text-sm text-white focus:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-zinc-900">
-                            <span className="sr-only">Open user menu</span>
-                            <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
-                          </Menu.Button>
-                        </div>
-                        <Transition
-                          as={Fragment}
-                          enter="transition ease-out duration-100"
-                          enterFrom="transform opacity-0 scale-95"
-                          enterTo="transform opacity-100 scale-100"
-                          leave="transition ease-in duration-75"
-                          leaveFrom="transform opacity-100 scale-100"
-                          leaveTo="transform opacity-0 scale-95"
-                        >
-                          <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            {userNavigation.map((item) => (
-                              <Menu.Item key={item.name}>
-                                {({ active }) => (
-                                  <a
-                                    href={item.href}
-                                    className={clsx(
-                                      active ? 'bg-gray-100' : '',
-                                      'block py-2 px-4 text-sm text-zinc-700'
-                                    )}
-                                  >
-                                    {item.name}
-                                  </a>
-                                )}
-                              </Menu.Item>
-                            ))}
-                          </Menu.Items>
-                        </Transition>
-                      </Menu>
+                  <div className="hidden md:relative md:z-10 md:ml-4 md:flex  md:items-center">
+                    <div className="flex justify-start items-center gap-1">
+                      <a
+                        href=""
+                        className="cursor-pointer text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 flex justify-start items-center h-8 overflow-hidden gap-2 px-4 py-2 rounded border border-zinc-200"
+                      >
+                        <p className="text-sm font-medium">Feedback</p>
+                      </a>
+                      <a
+                        href="https://developers.getstage.app/introduction/readme"
+                        className="cursor-pointer text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 flex justify-start items-center h-8 overflow-hidden gap-2 py-2 px-4 rounded"
+                      >
+                        <p className="text-sm font-medium">Docs</p>
+                      </a>
+                      <a
+                        href=""
+                        className="cursor-pointer text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 flex justify-start items-center h-8 overflow-hidden gap-2 py-2 px-4 rounded"
+                      >
+                        <p className="text-sm font-medium">Community</p>
+                      </a>
                     </div>
+                    {/* Profile dropdown */}
+                    <Menu as="div" className="flex-shrink-0 relative ml-4">
+                      <div>
+                        <Menu.Button className="bg-white rounded-full flex focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500">
+                          <span className="sr-only">Open user menu</span>
+                          <img
+                            className="h-8 w-8 rounded-full"
+                            src={user.image ? user.image : ""}
+                            referrerPolicy="no-referrer"
+                            alt="profile image"
+                          />
+                        </Menu.Button>
+                      </div>
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                      >
+                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none cursor-pointer">
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Link
+                                to={`/s/profile/${user.alias}`}
+                                className={clsx(
+                                  active ? "bg-gray-100" : "",
+                                  "block py-2 px-4 text-sm text-gray-700"
+                                )}
+                              >
+                                Your Profile
+                              </Link>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <div
+                                onClick={() => setSettingsOpen(true)}
+                                className={clsx(
+                                  active ? "bg-gray-100" : "",
+                                  "block py-2 px-4 text-sm text-gray-700"
+                                )}
+                              >
+                                Settings
+                              </div>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <div
+                                onClick={() =>
+                                  signOut({
+                                    callbackUrl:
+                                      process.env.NEXT_PUBLIC_NEXTAUTH_URL,
+                                  })
+                                }
+                                className={clsx(
+                                  active ? "bg-gray-100" : "",
+                                  "block py-2 px-4 text-sm text-gray-700"
+                                )}
+                              >
+                                Sign out
+                              </div>
+                            )}
+                          </Menu.Item>
+                        </Menu.Items>
+                      </Transition>
+                    </Menu>
                   </div>
                 </div>
               </div>
@@ -113,9 +155,9 @@ export default function DashboardHeader() {
               <Disclosure.Panel className="lg:hidden">
                 <div className="pt-4 pb-3">
                   <div className="flex items-center px-4">
-                    <div className="flex-shrink-0">
-                      <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
-                    </div>
+                    {user.image && <div className="flex-shrink-0">
+                      <img className="h-10 w-10 rounded-full" src={user.image} alt="" />
+                    </div>}
                     <div className="ml-3">
                       <div className="text-base font-medium text-zinc-800">{user.name}</div>
                       <div className="text-sm font-medium text-zinc-600">{user.email}</div>
@@ -143,7 +185,7 @@ export default function DashboardHeader() {
   )
 }
 
-function Icon() {
+function Logo() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
