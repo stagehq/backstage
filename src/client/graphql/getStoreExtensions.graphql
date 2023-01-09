@@ -4,6 +4,7 @@ query GetStoreExtensions {
     createdAt
     modifiedAt
     name
+    description
     markdown
     integratedExtensions {
       id

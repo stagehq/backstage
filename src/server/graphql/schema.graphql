@@ -105,6 +105,7 @@ type Site implements Node {
 
 type StoreExtension implements Node {
   createdAt: String
+  description: String
   icon: String
   id: ID!
   integratedExtensions: [Extension!]
