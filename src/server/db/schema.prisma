@@ -216,6 +216,7 @@ model StoreExtension {
   description           String?
   markdown              String?
   icon                  String?
+  image                 String?
 
   integratedExtensions  Extension[]
   routes                ApiConnectorRoute[]

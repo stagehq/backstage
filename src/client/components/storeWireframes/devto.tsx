@@ -1,6 +1,6 @@
 import React from "react";
 
-function Dev() {
+function Devto() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -104,4 +104,4 @@ function Dev() {
   );
 }
 
-export default Dev;
+export default Devto;

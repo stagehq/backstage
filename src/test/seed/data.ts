@@ -53,25 +53,26 @@ export const apiConnectorsData: apiConnectorSeedInput = [
     ],
   },
   {
-    name: "medium",
+    name: "spotify",
     markdown:
-      "Medium is the blog platform everybody love for their simplicity.",
+      "best player ever",
     authType: AuthType.preferences,
     apiConnectorRoutes: [
       {
-        name: "medium_posts",
-        url: "/api/articles/me/published",
-        urlParameter: ["medium_key"],
+        name: "spotify_toptracks",
+        url: "",
+        urlParameter: [],
       },
     ],
-  },
+  }
 ];
 
 export const storeExtensionsData: storeExtensionSeedInput = [
   {
     id: "clbz5lknp001ypgpx1i2lqafr",
-    name: "Repositories",
+    name: "Github",
     description: "Coding Skills",
+    image: "/github.tsx",
     markdown:
       "Use this extension to show all your coding skills on your personal site.",
     icon: "CodeBracketIcon",
@@ -79,6 +80,17 @@ export const storeExtensionsData: storeExtensionSeedInput = [
       {
         name: "github_projects",
       },
+    ],
+  },
+  {
+    id: "clbz5lknp001ypgpx1i2lqafy",
+    name: "Gitlab",
+    description: "Coding Skills",
+    image: "/gitlab.tsx",
+    markdown:
+      "Use this extension to show all your coding skills on your personal site.",
+    icon: "CodeBracketIcon",
+    routes: [
       {
         name: "gitlab_projects",
       },
@@ -86,8 +98,9 @@ export const storeExtensionsData: storeExtensionSeedInput = [
   },
   {
     id: "clbz5lknp001zpgpx6nbzmxez",
-    name: "Resume",
+    name: "LinkedIn",
     description: "Professional Experience",
+    image: "/linkedin.tsx",
     markdown: "Use this extension to show your professional experience.",
     icon: "BriefcaseIcon",
     routes: [
@@ -98,8 +111,9 @@ export const storeExtensionsData: storeExtensionSeedInput = [
   },
   {
     id: "clbz5lknp001zpgpx4nboixez",
-    name: "Blog Posts",
+    name: "DEV",
     description: "Writings",
+    image: "/devto.tsx",
     markdown: "This is a extension for your best blog posts.",
     icon: "BriefcaseIcon",
     routes: [
@@ -107,5 +121,27 @@ export const storeExtensionsData: storeExtensionSeedInput = [
         name: "devto_posts",
       },
     ],
+  },
+  {
+    id: "clbz5lknp001zpgpx4nboixep",
+    name: "Spotify",
+    description: "Personality through music",
+    image: "/spotify.tsx",
+    markdown: "This is a extension where you show your musik",
+    icon: "BriefcaseIcon",
+    routes: [
+      {
+        name: "spotify_toptracks",
+      },
+    ],
+  },
+  {
+    id: "clbz5lknp001zpgpx4nboixes",
+    name: "Funnel",
+    description: "Grow your personal brand",
+    image: "/funnel.tsx",
+    markdown: "This is a extension where you could grow your brand",
+    icon: "BriefcaseIcon",
+    routes: [],
   },
 ];
