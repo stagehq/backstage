@@ -213,6 +213,7 @@ model StoreExtension {
   createdAt             DateTime              @default(now())
   modifiedAt            DateTime              @default(now())
   name                  String                @unique
+  description           String?
   markdown              String?
   icon                  String?
 

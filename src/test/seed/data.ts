@@ -71,6 +71,7 @@ export const storeExtensionsData: storeExtensionSeedInput = [
   {
     id: "clbz5lknp001ypgpx1i2lqafr",
     name: "Repositories",
+    description: "Coding Skills",
     markdown:
       "Use this extension to show all your coding skills on your personal site.",
     icon: "CodeBracketIcon",
@@ -86,6 +87,7 @@ export const storeExtensionsData: storeExtensionSeedInput = [
   {
     id: "clbz5lknp001zpgpx6nbzmxez",
     name: "Resume",
+    description: "Professional Experience",
     markdown: "Use this extension to show your professional experience.",
     icon: "BriefcaseIcon",
     routes: [
@@ -97,6 +99,7 @@ export const storeExtensionsData: storeExtensionSeedInput = [
   {
     id: "clbz5lknp001zpgpx4nboixez",
     name: "Blog Posts",
+    description: "Writings",
     markdown: "This is a extension for your best blog posts.",
     icon: "BriefcaseIcon",
     routes: [

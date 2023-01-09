@@ -17,6 +17,7 @@ export type apiConnectorSeedInput = {
 export type storeExtensionSeedInput = {
   id: string;
   name: string;
+  description: string;
   markdown: string;
   icon: string;
   routes: {
@@ -80,6 +81,7 @@ async function seedDatabase(
         data: {
           id: storeExtension.id,
           name: storeExtension.name,
+          description: storeExtension.description,
           markdown: storeExtension.markdown,
           icon: storeExtension.icon,
           routes: {
