@@ -1,0 +1,6 @@
+mutation UpdateExtensionTitle($id: String!, $title: String!) {
+  updateExtensionTitle(id: $id, title: $title) {
+    id
+    title
+  }
+}

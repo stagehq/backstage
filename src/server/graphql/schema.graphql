@@ -43,6 +43,7 @@ type Extension implements Node {
   site: Site
   sortOrder: Int
   storeExtension: StoreExtension
+  title: String
   underlayingApis: [Api!]
 }
 
@@ -50,6 +51,7 @@ scalar JSON
 
 type Mutation {
   createOAuthforApi(accessToken: String, apiConnectorName: String, expiresIn: Int, idToken: String, refreshToken: String, scope: String): OAuth
+  updateExtensionTitle(id: String!, title: String!): Extension
   updateUser(alias: String, coverImageUrl: String, firstName: String, image: String, lastName: String): User
   upsertApiResponse(apiConnectorRouteId: String, apiId: String, response: String): ApiResponse
   upsertSite(bio: String!, subdomain: String!, tagline: String!): Site

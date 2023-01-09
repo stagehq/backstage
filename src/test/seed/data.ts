@@ -54,8 +54,7 @@ export const apiConnectorsData: apiConnectorSeedInput = [
   },
   {
     name: "spotify",
-    markdown:
-      "best player ever",
+    markdown: "best player ever",
     authType: AuthType.preferences,
     apiConnectorRoutes: [
       {
@@ -64,7 +63,7 @@ export const apiConnectorsData: apiConnectorSeedInput = [
         urlParameter: [],
       },
     ],
-  }
+  },
 ];
 
 export const storeExtensionsData: storeExtensionSeedInput = [

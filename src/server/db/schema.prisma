@@ -96,6 +96,7 @@ model Extension {
   id                    String                @id @default(cuid())
   createdAt             DateTime              @default(now())
   modifiedAt            DateTime              @default(now())
+  title                 String?
 
   sortOrder             Int                                
 

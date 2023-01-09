@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import Navigation from "../../components/studio/Navigation";
-import { siteSlugState, siteState } from "../../store/site";
 import StudioEditor from "../../components/studio/StudioEditor";
+import { siteSlugState } from "../../store/site";
 
 const Site = () => {
   const { siteId } = useParams();

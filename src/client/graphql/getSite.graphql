@@ -12,6 +12,7 @@ query GetSite($subdomain: String!) {
       modifiedAt
       createdAt
       sortOrder
+      title
 
       storeExtension {
         id
