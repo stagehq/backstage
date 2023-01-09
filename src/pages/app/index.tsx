@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { Suspense } from "react";
-import { Header } from "../../client/components/Header";
 import LoadingPage from "../../client/components/loading/Page";
 import Modals from "../../client/components/Modals";
 import Analytics from "../../client/routes/analytics";
@@ -19,7 +18,7 @@ export default function App() {
           <Modals />
           <Routes>
             {/* Backstage */}
-            <Route path="/s" element={<Header />}>
+            <Route path="/s">
               {/* Dashboard */}
               <Route index element={<Dashboard />} />
 
