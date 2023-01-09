@@ -1,15 +1,13 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import DndPage from "../../components/dnd/dndPage";
 import Navigation from "../../components/studio/Navigation";
 import { siteSlugState, siteState } from "../../store/site";
+import StudioEditor from "../../components/studio/StudioEditor";
 
 const Site = () => {
   const { siteId } = useParams();
-
-  const [siteSlug, setSiteSlug] = useRecoilState(siteSlugState);
-  const site = useRecoilValue(siteState(siteSlug));
+  const [, setSiteSlug] = useRecoilState(siteSlugState);
 
   useEffect(() => {
     if (siteId) {
@@ -19,9 +17,9 @@ const Site = () => {
 
   return (
     <>
-      <div className="flex h-full w-full">
+      <div className="flex h-screen w-full">
         <Navigation />
-        <DndPage />
+        <StudioEditor />
       </div>
     </>
   );
