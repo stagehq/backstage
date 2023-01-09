@@ -1,3 +1,4 @@
+import wretch from "wretch";
 // nextjs api route for linkedin
 
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -27,16 +28,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const url = "https://nubela.co/proxycurl" + route + "?" + params;
   console.log(url);
 
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      Authorization: "Bearer " + process.env.LINKEDIN_CLIENT_SECRET,
-    },
-  }).then((response) => response.json());
+  try {
+    const response = await wretch(url)
+      .headers({
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + process.env.LINKEDIN_CLIENT_SECRET,
+      })
+      .get()
+      .json();
 
-  if (response.status === 401) {
-    res.status(401).json({ error: "The token is not correct." });
-  } else {
     res.status(200).json(response);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error });
   }
 };
