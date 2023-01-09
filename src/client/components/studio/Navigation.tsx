@@ -13,6 +13,7 @@ import { siteSlugState, siteState } from "../../store/site";
 import {
   analyticsOpenState,
   siteSettingsOpenState,
+  storeOpenState,
 } from "../../store/ui/modals";
 
 export default function Navigation() {
@@ -27,6 +28,9 @@ export default function Navigation() {
 
   /* Analytics modal state */
   const [, setAnalyticsOpen] = useRecoilState(analyticsOpenState);
+
+  /* Store modal state */
+  const [, setStoreOpen] = useRecoilState(storeOpenState);
 
   const handleCopyLink = () => {
     console.log("Copy link");
@@ -55,7 +59,7 @@ export default function Navigation() {
   };
 
   const handleAddBlockClick = () => {
-    // open store modal
+    setStoreOpen(true);
   };
 
   const navigation = [

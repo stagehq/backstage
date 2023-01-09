@@ -108,6 +108,7 @@ type StoreExtension implements Node {
   description: String
   icon: String
   id: ID!
+  image: String
   integratedExtensions: [Extension!]
   markdown: String
   modifiedAt: String

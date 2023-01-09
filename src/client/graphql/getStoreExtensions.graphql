@@ -5,6 +5,7 @@ query GetStoreExtensions {
     modifiedAt
     name
     description
+    image
     markdown
     integratedExtensions {
       id

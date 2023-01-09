@@ -4,6 +4,7 @@ import SoonModal from "./modals/ComingSoon";
 import PreferencesModal from "./modals/PreferencesModal";
 import SettingsModal from "./modals/SettingsModal";
 import SiteSettingsModal from "./modals/SiteSettingsModal";
+import StoreModal from "./modals/store";
 
 const Modals = () => {
   const { status } = useSession();
@@ -16,6 +17,7 @@ const Modals = () => {
         <PreferencesModal />
         <SiteSettingsModal />
         <AnalyticsModal />
+        <StoreModal />
       </>
     );
   }

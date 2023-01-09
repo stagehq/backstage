@@ -24,3 +24,8 @@ export const preferencesOpenState = atom<boolean>({
   key: "preferencesOpenState",
   default: false,
 });
+
+export const storeOpenState = atom<boolean>({
+  key: "storeOpenState",
+  default: false,
+});
