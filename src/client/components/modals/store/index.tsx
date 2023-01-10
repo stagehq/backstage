@@ -1,26 +1,32 @@
 import { Dialog, Transition } from "@headlessui/react";
+import { decodeGlobalID } from "@pothos/plugin-relay";
+import { AuthType } from "@prisma/client";
 import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { StoreExtension } from "../../../graphql/types.generated";
 import { storeExtensionState } from "../../../store/extensions";
+import { siteSlugState, siteState } from "../../../store/site";
 import { storeOpenState } from "../../../store/ui/modals";
 import { currentUserState } from "../../../store/user";
 import { Icon } from "../../Icons";
+import { filterArray, getApiNameOfExtension } from "./helper";
 import Search from "./search";
 import StoreItem from "./storeItem";
+import { upsertExtension } from "../../helper/upsertExtension";
 
 const StoreModal: FC = () => {
   const [storeOpen, setStoreOpen] = useRecoilState(storeOpenState);
   const user = useRecoilValue(currentUserState);
   const storeExtensions = useRecoilValue(storeExtensionState);
+  const siteSlug = useRecoilValue(siteSlugState);
+  const site = useRecoilValue(siteState(siteSlug));
 
   const [search, setSearch] = useState<string >("");
   const [filteredStoreExtensions, setFilteredStoreExtensions] = useState<StoreExtension[] | null>(storeExtensions);
 
   useEffect(() => {
     if(storeExtensions != null && search != null){
-      const filtered = storeExtensions.filter((x) => x.name?.toLowerCase().includes(search.toLowerCase()));
-      setFilteredStoreExtensions(filtered);  
+      setFilteredStoreExtensions(filterArray(storeExtensions, search));
     }
   },[search, storeExtensions])
 
@@ -28,6 +34,39 @@ const StoreModal: FC = () => {
 
   if (!user) return null;
   if (!filteredStoreExtensions) return null;
+
+  const clickHandler = async (storeExtension: StoreExtension) => {
+    const apiName = getApiNameOfExtension(storeExtension);
+    const serviceModule = await import("../../../api/service/" + apiName)
+    console.log(apiName);
+    console.log(serviceModule);
+    await serviceModule.authorize();
+
+    console.log(serviceModule.getTokens());
+
+    if (!serviceModule.getTokens()?.isExpired()) {
+      if (!site || !user || !storeExtension || !storeExtension.routes || !apiName) return;
+      await upsertExtension({
+        siteId: decodeGlobalID(site.id).id,
+        storeExtensionId: decodeGlobalID(storeExtension.id).id,
+        userId: decodeGlobalID(user.id).id,
+        routes: storeExtension.routes.map((route) => {
+          return {
+            id: decodeGlobalID(route.id).id,
+            url: route.url ? route.url : "",
+            apiConnector: {
+              name: route.apiConnector?.name ? route.apiConnector.name : "",
+            },
+          };
+        }),
+        oAuthId: serviceModule.getTokens()?.idToken,
+        authType: AuthType.oAuth,
+        apiConnectorName: apiName,
+      });
+
+      // setGithubConnected(true);
+    }
+  }
 
   return (
     <Transition.Root show={storeOpen} as={Fragment}>
@@ -91,7 +130,7 @@ const StoreModal: FC = () => {
                   <div className="flex-1 overflow-y-scroll">
                     <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 px-4 pt-3">
                       {filteredStoreExtensions.map((storeExtension) => (
-                        <div className="col-span-1 divide-y divide-gray-200 rounded-lg">
+                        <div className="col-span-1 divide-y divide-gray-200 rounded-lg" onClick={() => clickHandler(storeExtension)}>
                           <StoreItem storeExtension={storeExtension}/>
                         </div>
                       ))}

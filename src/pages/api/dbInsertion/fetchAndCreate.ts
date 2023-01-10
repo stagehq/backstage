@@ -131,6 +131,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } else {
     //create extension
     console.log("create extension");
+    console.log(prismaCreateRoutesArray);
     await prisma.extension.create({
       data: {
         sortOrder: 0,
@@ -222,7 +223,7 @@ const fetchDataFromRoutes = async (
   await Promise.all(
     routes.map(async (route) => {
       if (route.apiConnector.name === apiConnectorName) {
-        wretch(`http://localhost:3000/api/oauth/${apiConnectorName}/update`)
+        await wretch(`http://localhost:3000/api/oauth/${apiConnectorName}/update`)
           .post({
             route: route.url,
             token: token,

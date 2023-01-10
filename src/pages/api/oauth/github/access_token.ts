@@ -1,6 +1,7 @@
 // nextjs api route for github
 import { NextApiRequest, NextApiResponse } from "next";
 import wretch from "wretch";
+import queryString from 'query-string';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -15,8 +16,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         grant_type: "authorization_code",
         redirect_uri: redirectURI,
       })
-      .json();
-
+      .text((text) => {
+        return queryString.parse(text);
+      });
     res.status(200).json(response);
   } catch (error) {
     console.error(error);
