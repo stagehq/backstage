@@ -49,7 +49,7 @@ const Breadcrumb = () => {
           </div>
           <Link to={`/s/${siteId}`}>
             <div className="text-sm font-medium px-4 h-8 flex items-center hover:bg-zinc-100 rounded text-zinc-700 hover:text-zinc-900">
-              <p>{`${currentUser.firstName}'s portfolio website`}</p>
+              <p>{`${currentUser.firstName}'s sites`}</p>
             </div>
           </Link>
         </div>

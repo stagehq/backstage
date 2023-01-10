@@ -88,8 +88,7 @@ const OnboardingStart = () => {
             Welcome on Stage
           </p>
           <p className="text-xs font-medium text-left text-zinc-500">
-            Let’s get started, by connecting some API’s to your developer
-            portfolio.
+            Let’s get started, by connecting some API’s to your site.
           </p>
           <button
             type="button"
@@ -155,7 +154,7 @@ const OnboardingProfile = () => {
         </p>
         <p className="text-xs font-medium text-left text-zinc-500">
           <span className="text-xs font-medium text-left text-zinc-500">
-            To generate the portfolio we need some basic{" "}
+            To generate the site we need some basic{" "}
           </span>
           <br />
           <span className="text-xs font-medium text-left text-zinc-500">
