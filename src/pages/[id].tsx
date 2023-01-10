@@ -33,7 +33,6 @@ export async function getStaticProps(params: { params: { id: string } }) {
     },
   });
   const site = JSON.stringify(sitedata);
-  console.log(site);
   return {
     // Passed to the page component as props
     props: {

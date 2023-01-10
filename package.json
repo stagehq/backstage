@@ -75,6 +75,7 @@
     "notion-types": "^6.11.0",
     "notion-utils": "^6.11.0",
     "postmark": "^3.0.1",
+    "query-string": "^8.1.0",
     "raw-body": "^2.5.1",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.1",

@@ -27,7 +27,7 @@ export default function DashboardHeader() {
   if (!user) return null;
 
   return (
-    <div className="w-full px-4">
+    <div className="w-full sm:w-full md:w-[750] lg:w-[1200px] px-2 sm:px-4 mx-auto">
       <Disclosure as="div" className="relative w-full">
         {({ open }) => (
           <>

@@ -15,15 +15,15 @@ const ListHeader = () => {
             <input
               id="search"
               name="search"
-              className="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
-              placeholder="Search portfolio ..."
+              className="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-zink-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-zink-500 sm:text-sm"
+              placeholder="Search sites ..."
               type="search"
             />
           </div>
         </div>
       </div>
       <div className="flex justify-start items-start relative gap-2 px-4 py-2 rounded-md border shadow border-zinc-200 bg-zinc-900 hover:bg-zinc-800 cursor-pointer text-zinc-100">
-        <p className="text-sm font-medium text-left">Create portfolio</p>
+        <p className="text-sm font-medium text-left">Create site</p>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ export default function GridList() {
   if (!user) return null;
 
   return (
-    <div className="mt-8 mb-16 sm:grid sm:grid-cols-2 gap-4 w-full">
+    <div className="mt-8 mb-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
       {user?.sites &&
         user.sites.map((site) => (
           <div

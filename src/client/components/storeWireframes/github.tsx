@@ -2,10 +2,10 @@ function Github() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="224"
-      height="146"
+      width="100%"
+      height="auto"
       fill="none"
-      viewBox="0 0 224 146"
+      viewBox="0 0 224 140"
     >
       <path fill="#F4F4F5" d="M0 0H224V140H0z"></path>
       <g filter="url(#filter0_d_623_54719)">

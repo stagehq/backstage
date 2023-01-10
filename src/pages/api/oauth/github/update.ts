@@ -5,7 +5,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const { route, token, preferences } = await JSON.parse(req.body);
+    const { route, token, preferences } = req.body;
 
     const response = await wretch(`https://api.github.com${route}`)
       .auth(`Bearer ${token}`)

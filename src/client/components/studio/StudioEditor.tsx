@@ -24,35 +24,35 @@ const StudioEditor = () => {
 
   const [, updateExtensionTitle] = useUpdateExtensionTitleMutation();
 
-  const changeExtensionTitle = async (id: string, title: string) => {
-    try {
-      // update extension in database
-      await updateExtensionTitle({
-        id,
-        title,
-      });
+  // const changeExtensionTitle = async (id: string, title: string) => {
+  //   try {
+  //     // update extension in database
+  //     await updateExtensionTitle({
+  //       id,
+  //       title,
+  //     });
 
-      // update extension in recoil site store with id
-      if (!site) return null;
-      setSite((site) => {
-        if (site) {
-          const newSite = { ...site };
-          if (!newSite.extensions) return null;
-          const index = newSite.extensions.findIndex(
-            (extension) => extension.id === id
-          );
-          if (index !== -1) {
-            newSite.extensions[index].title = title;
-          }
-          return newSite;
-        } else {
-          return site;
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     // update extension in recoil site store with id
+  //     if (!site) return null;
+  //     setSite((site) => {
+  //       if (site) {
+  //         const newSite = { ...site };
+  //         if (!newSite.extensions) return null;
+  //         const index = newSite.extensions.findIndex(
+  //           (extension) => extension.id === id
+  //         );
+  //         if (index !== -1) {
+  //           newSite.extensions[index].title = title;
+  //         }
+  //         return newSite;
+  //       } else {
+  //         return site;
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
     if (document.readyState === "complete") {
@@ -66,7 +66,7 @@ const StudioEditor = () => {
   console.log("Site: ", site);
 
   const changeTitleHandler = (id: string, title: string) => {
-    changeExtensionTitle(id, title);
+    // changeExtensionTitle(id, title);
   };
 
   const exampleChangeSize = (size: number) => {

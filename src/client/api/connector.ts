@@ -178,6 +178,8 @@ export namespace OAuth {
         tokens;
 
       console.log("connector");
+      console.log(tokens);
+      console.log(access_token);
 
       const response = await client
         .mutation(CreateOAuthforApiDocument, {
@@ -189,6 +191,8 @@ export namespace OAuth {
           scope: scope ? scope : null,
         })
         .toPromise();
+
+      console.log(response);
 
       if (!response.data?.createOAuthforApi) {
         console.log("Error creating OAuth API");

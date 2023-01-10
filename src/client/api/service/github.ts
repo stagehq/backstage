@@ -1,4 +1,5 @@
 import { OAuth } from "../connector";
+import wretch from "wretch";
 
 const github = new OAuth.PKCEClient({
   redirectMethod: OAuth.RedirectMethod.Web,
@@ -30,32 +31,30 @@ async function fetchTokens(
   authRequest: OAuth.AuthorizationRequest,
   authCode: string
 ): Promise<OAuth.TokenResponse> {
-  const response = await fetch("/api/oauth/github/access_token", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+  console.log("test");
+  const response = await wretch("/api/oauth/github/access_token")
+    .post({
       codeVerifier: authRequest.codeVerifier,
       redirectURI: authRequest.redirectURI,
       authCode,
-    }),
-  });
-  return await response.json();
+    })
+    .json()
+    console.log(response);
+  return await response as OAuth.TokenResponse;
 }
 
 async function refreshTokens(
   refreshToken: string
 ): Promise<OAuth.TokenResponse> {
-  const response = await fetch("/api/oauth/github/refresh_token", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
+  const response = await wretch("/api/oauth/github/refresh_token")
+    .post({
       clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
       refreshToken: refreshToken,
       grantType: "refresh_token",
-    }),
-  });
+    })
+    .json((json) => {
+      return json;
+    })
   if (!response.ok) {
     console.error("refresh tokens error:", await response.text());
     throw new Error(response.statusText);
