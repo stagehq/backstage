@@ -9,5 +9,6 @@ builder.prismaNode('ApiConnector', {
     
     name: t.exposeString('name'),
     markdown: t.exposeString('markdown'),
+    authType: t.exposeString('authType'),
   }),
 });

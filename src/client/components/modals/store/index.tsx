@@ -4,12 +4,12 @@ import { AuthType } from "@prisma/client";
 import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { StoreExtension } from "../../../graphql/types.generated";
-import { storeExtensionState } from "../../../store/extensions";
+import { preferencesApiState, preferencesExtensionState, storeExtensionState } from "../../../store/extensions";
 import { siteSlugState, siteState } from "../../../store/site";
-import { storeOpenState } from "../../../store/ui/modals";
+import { preferencesOpenState, storeOpenState } from "../../../store/ui/modals";
 import { currentUserState } from "../../../store/user";
 import { Icon } from "../../Icons";
-import { filterArray, getApiNameOfExtension } from "./helper";
+import { addOAuthExtension, filterArray, getApiNameOfExtension, getAuthTypeOfExtension, isExtensionPartOfSite } from "./helper";
 import Search from "./search";
 import StoreItem from "./storeItem";
 import { upsertExtension } from "../../helper/upsertExtension";
@@ -20,6 +20,12 @@ const StoreModal: FC = () => {
   const storeExtensions = useRecoilValue(storeExtensionState);
   const siteSlug = useRecoilValue(siteSlugState);
   const site = useRecoilValue(siteState(siteSlug));
+  const [, setOpenPreferencesModal] = useRecoilState(preferencesOpenState);
+  const [, setPreferencesExtension] = useRecoilState(
+    preferencesExtensionState
+  );
+  const [, setPreferencesApi] =
+    useRecoilState(preferencesApiState);
 
   const [search, setSearch] = useState<string >("");
   const [filteredStoreExtensions, setFilteredStoreExtensions] = useState<StoreExtension[] | null>(storeExtensions);
@@ -35,36 +41,26 @@ const StoreModal: FC = () => {
   if (!user) return null;
   if (!filteredStoreExtensions) return null;
 
+  
+
   const clickHandler = async (storeExtension: StoreExtension) => {
     const apiName = getApiNameOfExtension(storeExtension);
-    const serviceModule = await import("../../../api/service/" + apiName)
-    console.log(apiName);
-    console.log(serviceModule);
-    await serviceModule.authorize();
+    const authType = getAuthTypeOfExtension(storeExtension);
 
-    console.log(serviceModule.getTokens());
-
-    if (!serviceModule.getTokens()?.isExpired()) {
-      if (!site || !user || !storeExtension || !storeExtension.routes || !apiName) return;
-      await upsertExtension({
-        siteId: decodeGlobalID(site.id).id,
-        storeExtensionId: decodeGlobalID(storeExtension.id).id,
-        userId: decodeGlobalID(user.id).id,
-        routes: storeExtension.routes.map((route) => {
-          return {
-            id: decodeGlobalID(route.id).id,
-            url: route.url ? route.url : "",
-            apiConnector: {
-              name: route.apiConnector?.name ? route.apiConnector.name : "",
-            },
-          };
-        }),
-        oAuthId: serviceModule.getTokens()?.idToken,
-        authType: AuthType.oAuth,
-        apiConnectorName: apiName,
-      });
-
-      // setGithubConnected(true);
+    if (!site || !storeExtension) return null;
+    const isAdded = isExtensionPartOfSite(storeExtension, site);
+    if (isAdded) return null;
+    
+    if(authType === AuthType.oAuth){
+      addOAuthExtension(apiName, storeExtension, site, user)
+    }else if(authType === AuthType.preferences){
+      setPreferencesApi(apiName);
+      setPreferencesExtension(storeExtension);
+      setOpenPreferencesModal(true);
+    }else if(authType === AuthType.oAuthWithPreferences){
+      console.log("oAuthWithPreferences");
+    }else{
+      console.log("noAuth")
     }
   }
 

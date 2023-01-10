@@ -18,6 +18,7 @@ query GetStoreExtensions {
       apiConnector {
         id
         name
+        authType
       }
     }
   }

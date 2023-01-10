@@ -4,11 +4,10 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import wretch from "wretch";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { route, preferences } = await JSON.parse(req.body);
+  const { route, preferences } = req.body;
 
-  const username = preferences.find(
-    (x: { key: string; value: string }) => x.key === "username"
-  ).value;
+  const {value} = preferences[0];
+  const username = value;
 
   //fetch dev.to profile data with this url https://dev.to/api/articles and store in data
   const params = new URLSearchParams({

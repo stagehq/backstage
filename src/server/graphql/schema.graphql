@@ -10,6 +10,7 @@ type Api implements Node {
 }
 
 type ApiConnector implements Node {
+  authType: String
   createdAt: String
   id: ID!
   markdown: String
