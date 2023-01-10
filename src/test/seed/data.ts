@@ -85,7 +85,7 @@ export const storeExtensionsData: storeExtensionSeedInput = [
     id: "clbz5lknp001ypgpx1i2lqafy",
     name: "Gitlab",
     description: "Coding Skills",
-    image: "/gitlab.tsx",
+    image: "gitlab",
     markdown:
       "Use this extension to show all your coding skills on your personal site.",
     icon: "CodeBracketIcon",
@@ -99,7 +99,7 @@ export const storeExtensionsData: storeExtensionSeedInput = [
     id: "clbz5lknp001zpgpx6nbzmxez",
     name: "LinkedIn",
     description: "Professional Experience",
-    image: "/linkedin.tsx",
+    image: "linkedin",
     markdown: "Use this extension to show your professional experience.",
     icon: "BriefcaseIcon",
     routes: [
@@ -112,7 +112,7 @@ export const storeExtensionsData: storeExtensionSeedInput = [
     id: "clbz5lknp001zpgpx4nboixez",
     name: "DEV",
     description: "Writings",
-    image: "/devto.tsx",
+    image: "devto",
     markdown: "This is a extension for your best blog posts.",
     icon: "BriefcaseIcon",
     routes: [
@@ -125,7 +125,7 @@ export const storeExtensionsData: storeExtensionSeedInput = [
     id: "clbz5lknp001zpgpx4nboixep",
     name: "Spotify",
     description: "Personality through music",
-    image: "/spotify.tsx",
+    image: "spotify",
     markdown: "This is a extension where you show your musik",
     icon: "BriefcaseIcon",
     routes: [
@@ -138,7 +138,7 @@ export const storeExtensionsData: storeExtensionSeedInput = [
     id: "clbz5lknp001zpgpx4nboixes",
     name: "Funnel",
     description: "Grow your personal brand",
-    image: "/funnel.tsx",
+    image: "funnel",
     markdown: "This is a extension where you could grow your brand",
     icon: "BriefcaseIcon",
     routes: [],

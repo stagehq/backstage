@@ -2,10 +2,10 @@ function Funnel() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="224"
-      height="141"
+      width="100%"
+      height="auto"
       fill="none"
-      viewBox="0 0 224 141"
+      viewBox="0 0 224 140"
     >
       <g clipPath="url(#clip0_623_54698)">
         <path fill="url(#paint0_radial_623_54698)" d="M0 0H224V141H0z"></path>
