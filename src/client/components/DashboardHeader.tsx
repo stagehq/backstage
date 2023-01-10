@@ -8,13 +8,6 @@ import { settingsOpenState } from "../store/ui/modals";
 import { currentUserState } from "../store/user";
 import { Icon } from "./Icons";
 
-const user = {
-  name: "Debbie Lewis",
-  handle: "deblewis",
-  email: "debbielewis@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=320&h=320&q=80",
-};
 const userNavigation = [
   { name: "Settings", href: "#" },
   { name: "Sign out", href: "#" },
@@ -61,7 +54,7 @@ export default function DashboardHeader() {
                   <div className="hidden md:relative md:z-10 md:ml-4 md:flex  md:items-center">
                     <div className="flex justify-start items-center gap-1">
                       <a
-                        href=""
+                        href="mailto:office@getstage.app"
                         className="cursor-pointer text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 flex justify-start items-center h-8 overflow-hidden gap-2 px-4 py-2 rounded border border-zinc-200"
                       >
                         <p className="text-sm font-medium">Feedback</p>
@@ -73,7 +66,7 @@ export default function DashboardHeader() {
                         <p className="text-sm font-medium">Docs</p>
                       </a>
                       <a
-                        href=""
+                        href="https://twitter.com/stage_hq"
                         className="cursor-pointer text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 flex justify-start items-center h-8 overflow-hidden gap-2 py-2 px-4 rounded"
                       >
                         <p className="text-sm font-medium">Community</p>
