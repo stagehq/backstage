@@ -1,18 +1,18 @@
 import { Block, Card, List, PageHeader } from "@stagehq/ui";
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
-import { Responsive, WidthProvider } from "react-grid-layout";
+import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { useUpdateExtensionTitleMutation } from "../../graphql/updateExtensionTitle.generated";
 import { siteSlugState, siteState } from "../../store/site";
 import { themeState } from "../../store/ui/theme";
 import { currentUserState } from "../../store/user";
-import { initalData, LayoutType, updateLayout } from "../dnd/utils";
+import { initalData, updateLayout } from "../dnd/utils";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const StudioEditor = () => {
-  const [items, setItems] = useState<LayoutType[]>(initalData);
+  const [layouts, setLayouts] = useState<Layouts>(initalData);
+  const [breakpoint, setBreakpoint] = useState("lg");
   const itemsRef = useRef<HTMLDivElement>(null);
 
   const [theme, setTheme] = useRecoilState(themeState);
@@ -22,42 +22,11 @@ const StudioEditor = () => {
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
 
-  const [, updateExtensionTitle] = useUpdateExtensionTitleMutation();
-
-  // const changeExtensionTitle = async (id: string, title: string) => {
-  //   try {
-  //     // update extension in database
-  //     await updateExtensionTitle({
-  //       id,
-  //       title,
-  //     });
-
-  //     // update extension in recoil site store with id
-  //     if (!site) return null;
-  //     setSite((site) => {
-  //       if (site) {
-  //         const newSite = { ...site };
-  //         if (!newSite.extensions) return null;
-  //         const index = newSite.extensions.findIndex(
-  //           (extension) => extension.id === id
-  //         );
-  //         if (index !== -1) {
-  //           newSite.extensions[index].title = title;
-  //         }
-  //         return newSite;
-  //       } else {
-  //         return site;
-  //       }
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   useEffect(() => {
     if (document.readyState === "complete") {
-      const newItems = updateLayout(items, itemsRef);
-      setItems(newItems);
+      // const newLayout = updateLayout(layouts[breakpoint], itemsRef);
+      // layouts[breakpoint] = newLayout;
+      // setLayouts(layouts);
     }
   }, []);
 
@@ -73,14 +42,6 @@ const StudioEditor = () => {
     console.log("size: " + size);
   };
 
-  const siteX = [
-    {
-      id: "123",
-      title: "Open Source",
-      action: (title: string) => changeTitleHandler("id", title),
-    },
-  ];
-
   return (
     <div
       className={clsx(
@@ -89,7 +50,7 @@ const StudioEditor = () => {
       )}
     >
       <div
-        className="sm:w-full md:w-[750] lg:w-[1200px] h-full bg-white dark:bg-black mx-auto p-12"
+        className="w-full mx-auto max-w-6xl lg: h-full bg-white dark:bg-black p-12"
         ref={itemsRef}
       >
         <div className="p-8">
@@ -105,15 +66,25 @@ const StudioEditor = () => {
         </div>
 
         <ResponsiveGridLayout
-          layouts={{ lg: items }}
-          breakpoints={{ lg: 1000, sm: 768, xs: 0 }}
-          cols={{ lg: 3, sm: 2, xs: 1 }}
+          layouts={layouts}
+          breakpoints={{ lg: 991, md: 768, sm: 0 }}
+          cols={{ lg: 3, md: 2, sm: 1}}
           rowHeight={1}
           width={1000}
           margin={[24, 24]}
-          onLayoutChange={(layout: LayoutType[]) =>
-            setItems(updateLayout(layout, itemsRef))
-          }
+          onBreakpointChange={(breakpoint) => {
+            setBreakpoint(breakpoint);
+          }}
+          onLayoutChange={(layout: Layout[], layouts: Layouts) => {
+            if(breakpoint) {
+              const currentLayout = layouts[breakpoint];
+              const adjustedLayout = updateLayout(currentLayout, itemsRef)
+              layouts[breakpoint] = adjustedLayout;
+            } else {
+              updateLayout(layout, itemsRef)
+            }
+            setLayouts(layouts)
+          }}
         >
           <div key="a" id="a" className="bg-white dark:bg-black">
             <Block
