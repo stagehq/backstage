@@ -1,17 +1,20 @@
-import { Action, Actions, Header, List, Section } from "@stagehq/ui";
+import { Block, List } from "@stagehq/ui";
 import { useEffect, useState } from "react";
-import { Api } from "../graphql/types.generated";
+import { useChangeExtensionTitle } from "../components/studio/hooks/useChangeExtensionTitle";
+import { Extension } from "../graphql/types.generated";
 
-const Blogs = (props: { underlayingApis: Api[] }) => {
+const Blogs = (extension: Extension) => {
   const [data, setData] = useState<any[]>([]);
   const [profileLink, setProfileLink] = useState("");
   const [linkSource, setLinkSource] = useState("");
 
+  const { changeExtensionTitle } = useChangeExtensionTitle();
+
   useEffect(() => {
-    if (props.underlayingApis) {
+    if (extension.underlayingApis) {
       let blogPosts: any[] = [];
 
-      props.underlayingApis?.forEach((api) => {
+      extension.underlayingApis?.forEach((api) => {
         if (api.apiConnector?.name === "devto") {
           api.apiResponses?.forEach((apiResponse) => {
             apiResponse.response.forEach((post: any) => {
@@ -50,32 +53,32 @@ const Blogs = (props: { underlayingApis: Api[] }) => {
 
       setData(blogPosts);
     }
-  }, [props.underlayingApis]);
+  }, [extension, profileLink]);
 
   return (
-    <Section>
-      <Header
-        title="Recent Blogs"
-        icon="BookOpenIcon"
-        actions={
-          <Actions>
-            <Action.Link url={profileLink} text={linkSource} />
-          </Actions>
-        }
-      />
+    <Block
+      actions={{ link: { url: profileLink } }}
+      handleTitleChange={(title: string) =>
+        changeExtensionTitle(extension.id, title)
+      }
+      handleSizeChange={exampleChangeSize}
+      title={"Open Source"}
+      imagePath={"https://avatars.githubusercontent.com/u/65030610?s=200&v=4"}
+      size={1}
+    >
       <List>
-        {data.map((post: any, index) => (
+        {data.map((post, index) => (
           <List.Item
             type={post.type}
             title={post.title}
             additional={post.additional}
             subtitle={post.subtitle}
-            actions={<Action.Link url={post.url} text="Read article" />}
-            key={"blogPosts" + index}
+            key={`Block-${index}`}
+            actions={{ open: { url: "https://dev.to" } }}
           />
         ))}
       </List>
-    </Section>
+    </Block>
   );
 };
 
