@@ -12,7 +12,7 @@ export default function GridList() {
       {user?.sites &&
         user.sites.map((site) => (
           <div 
-            className="flex flex-col justify-between relative group bg-white p-6 border border-zinc-200 rounded-lg hover:shadow-lg"
+            className="flex flex-col justify-between relative group bg-white p-6 border border-zinc-200 rounded-lg hover:shadow-lg focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800"
             key={site.id}
           >
             <div>
@@ -27,8 +27,8 @@ export default function GridList() {
                 <h3 className="text-lg font-medium">
                   {site.subdomain && (
                     <Link
-                    to={"/s/" + site.subdomain}
-                    className="focus:outline-none"
+                      to={"/s/" + site.subdomain}
+                      className="focus:outline-none"
                     >
                       {/* Extend touch target to entire panel */}
                       <span className="absolute inset-0" aria-hidden="true" />

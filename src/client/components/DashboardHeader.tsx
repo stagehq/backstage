@@ -8,11 +8,6 @@ import { settingsOpenState } from "../store/ui/modals";
 import { currentUserState } from "../store/user";
 import { Icon } from "./Icons";
 
-const userNavigation = [
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
-];
-
 export default function DashboardHeader() {
   const user = useRecoilValue(currentUserState);
   const [, setSettingsOpen] = useRecoilState(settingsOpenState);
@@ -42,7 +37,7 @@ export default function DashboardHeader() {
                   </div>
                   <div className="relative z-10 flex items-center md:hidden">
                     {/* Mobile menu button */}
-                    <Disclosure.Button className="rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-zinc-500">
+                    <Disclosure.Button className="rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-zinc-800">
                       <span className="sr-only">Open menu</span>
                       {open ? (
                         <Icon name={"XMarkIcon"} color="dark" />
@@ -75,7 +70,7 @@ export default function DashboardHeader() {
                     {/* Profile dropdown */}
                     <Menu as="div" className="flex-shrink-0 relative ml-4">
                       <div>
-                        <Menu.Button className="bg-white rounded-full flex focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500">
+                        <Menu.Button className="bg-white rounded-full flex focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-800">
                           <span className="sr-only">Open user menu</span>
                           <img
                             className="h-8 w-8 rounded-full"
@@ -95,7 +90,7 @@ export default function DashboardHeader() {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none cursor-pointer">
-                          <Menu.Item>
+                          {/* <Menu.Item>
                             {({ active }) => (
                               <Link
                                 to={`/s/profile/${user.alias}`}
@@ -107,7 +102,7 @@ export default function DashboardHeader() {
                                 Your Profile
                               </Link>
                             )}
-                          </Menu.Item>
+                          </Menu.Item> */}
                           <Menu.Item>
                             {({ active }) => (
                               <div
@@ -154,7 +149,7 @@ export default function DashboardHeader() {
                         <img
                           className="h-10 w-10 rounded-full"
                           src={user.image}
-                          alt=""
+                          alt="profile image"
                         />
                       </div>
                     )}
@@ -168,16 +163,33 @@ export default function DashboardHeader() {
                     </div>
                   </div>
                   <div className="mt-3 px-2">
-                    {userNavigation.map((item) => (
+                    {/* <Link
+                      to={`/s/profile/${user.alias}`}>
                       <Disclosure.Button
-                        key={item.name}
-                        as="a"
-                        href={item.href}
                         className="block rounded-md py-2 px-3 text-base font-medium text-zinc-600 hover:bg-zinc-200 hover:text-zinc-900"
                       >
-                        {item.name}
+                        Your Profile
                       </Disclosure.Button>
-                    ))}
+                    </Link> */}
+                    <Disclosure.Button
+                      as = "div"
+                      onClick={() => setSettingsOpen(true)}
+                      className="block rounded-md py-2 px-3 text-base font-medium text-zinc-600 hover:bg-zinc-200 hover:text-zinc-900"
+                    >
+                      Settings
+                    </Disclosure.Button>
+                    <Disclosure.Button
+                      as = "div"
+                      onClick={() =>
+                        signOut({
+                          callbackUrl:
+                            process.env.NEXT_PUBLIC_NEXTAUTH_URL,
+                        })
+                      }
+                      className="block rounded-md py-2 px-3 text-base font-medium text-zinc-600 hover:bg-zinc-200 hover:text-zinc-900"
+                    >
+                      Sign out
+                    </Disclosure.Button>
                   </div>
                 </div>
               </Disclosure.Panel>

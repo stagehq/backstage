@@ -15,7 +15,7 @@ const ListHeader = () => {
             <input
               id="search"
               name="search"
-              className="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-zink-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-zink-500 sm:text-sm"
+              className="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-zinc-800 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-zinc-800 sm:text-sm"
               placeholder="Search sites ..."
               type="search"
             />
