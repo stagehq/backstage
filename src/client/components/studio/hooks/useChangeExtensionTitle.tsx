@@ -47,5 +47,5 @@ export const useChangeExtensionTitle = () => {
     }
   };
 
-  return { changeExtensionTitle };
+  return changeExtensionTitle;
 };

@@ -1,18 +1,20 @@
 import { Block, Card, List, PageHeader } from "@stagehq/ui";
 import clsx from "clsx";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { siteSlugState, siteState } from "../../store/site";
+import { gridBreakpointState, gridLayoutState } from "../../store/ui/grid-dnd";
 import { themeState } from "../../store/ui/theme";
 import { currentUserState } from "../../store/user";
-import { initalData, updateLayout } from "../dnd/utils";
+import { updateLayout } from "../dnd/utils";
+import { useChangeExtensionSize } from "./hooks/useChangeSize";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const StudioEditor = () => {
-  const [layouts, setLayouts] = useState<Layouts>(initalData);
-  const [breakpoint, setBreakpoint] = useState("lg");
+  const [layouts, setLayouts] = useRecoilState<Layouts>(gridLayoutState);
+  const [breakpoint, setBreakpoint] = useRecoilState(gridBreakpointState);
   const itemsRef = useRef<HTMLDivElement>(null);
 
   const [theme, setTheme] = useRecoilState(themeState);
@@ -21,6 +23,8 @@ const StudioEditor = () => {
 
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
+
+  const changeExtensionSize = useChangeExtensionSize();
 
   useEffect(() => {
     if (document.readyState === "complete") {
@@ -38,143 +42,157 @@ const StudioEditor = () => {
     // changeExtensionTitle(id, title);
   };
 
-  const exampleChangeSize = (size: number) => {
-    console.log("size: " + size);
+  const changeSizeHandler = (id: string, size: 1 | 2 | 3) => {
+    changeExtensionSize(id, size);
   };
 
   return (
     <div
       className={clsx(
-        "w-full h-full @container overflow-scroll",
-        theme === "dark" && "dark"
+        theme === "dark" && "dark",
+        "w-full h-full overflow-scroll"
       )}
     >
-      <div
-        className="w-full mx-auto max-w-6xl lg: h-full bg-white dark:bg-black p-12"
-        ref={itemsRef}
-      >
-        <div className="p-8">
-          <PageHeader
-            title={site.tagline ? site.tagline : "Oops! No tagline found"}
-            description={site?.bio ? site.bio : "Oops! No bio found"}
-            image={user.image ? user.image : "https://via.placeholder.com/150"}
-            lightMode={theme === "light" ? true : false}
-            toggleLightMode={() =>
-              setTheme(theme === "light" ? "dark" : "light")
-            }
-          />
-        </div>
-
-        <ResponsiveGridLayout
-          layouts={layouts}
-          breakpoints={{ lg: 991, md: 768, sm: 0 }}
-          cols={{ lg: 3, md: 2, sm: 1 }}
-          rowHeight={1}
-          width={1000}
-          margin={[24, 24]}
-          onBreakpointChange={(breakpoint) => {
-            setBreakpoint(breakpoint);
-          }}
-          onLayoutChange={(layout: Layout[], layouts: Layouts) => {
-            if (breakpoint) {
-              const currentLayout = layouts[breakpoint];
-              const adjustedLayout = updateLayout(currentLayout, itemsRef);
-              layouts[breakpoint] = adjustedLayout;
-            } else {
-              updateLayout(layout, itemsRef);
-            }
-            setLayouts(layouts);
-          }}
+      <div className={clsx("@container bg-white dark:bg-zinc-900")}>
+        <div
+          className="w-full mx-auto max-w-6xl lg: h-full p-12"
+          ref={itemsRef}
         >
-          <div key="a" id="a" className="bg-white dark:bg-black">
-            <Block
-              actions={{ link: { url: "https://www.google.com" } }}
-              handleTitleChange={(title: string) =>
-                changeTitleHandler("id", title)
+          <div className="p-8">
+            <PageHeader
+              title={site.tagline ? site.tagline : "Oops! No tagline found"}
+              description={site?.bio ? site.bio : "Oops! No bio found"}
+              image={
+                user.image ? user.image : "https://via.placeholder.com/150"
               }
-              handleSizeChange={exampleChangeSize}
-              title={"Open Source"}
-              imagePath={
-                "https://avatars.githubusercontent.com/u/65030610?s=200&v=4"
+              lightMode={theme === "light" ? true : false}
+              toggleLightMode={() =>
+                setTheme(theme === "light" ? "dark" : "light")
               }
-              size={1}
-            >
-              <List>
-                {blogPosts.map((post, index) => (
-                  <List.Item
-                    type={"text"}
-                    title={post.title}
-                    additional={post.additional}
-                    subtitle={post.subtitle}
-                    key={`Block-${index}`}
-                    actions={{ open: { url: "https://dev.to" } }}
-                  />
-                ))}
-              </List>
-            </Block>
+            />
           </div>
-          <div key="b" id="b" className="bg-white dark:bg-black">
-            <Block
-              actions={{ link: { url: "https://www.google.com" } }}
-              handleTitleChange={(title) => changeTitleHandler("id-123", title)}
-              handleSizeChange={exampleChangeSize}
-              title={"Repositories"}
-              imagePath={
-                "https://avatars.githubusercontent.com/u/9919?s=200&v=4"
+
+          <ResponsiveGridLayout
+            layouts={layouts}
+            breakpoints={{ lg: 991, md: 768, sm: 0 }}
+            cols={{ lg: 3, md: 2, sm: 1 }}
+            rowHeight={1}
+            width={1000}
+            margin={[24, 24]}
+            onBreakpointChange={(breakpoint) => {
+              setBreakpoint(breakpoint);
+            }}
+            onLayoutChange={(layout: Layout[], layouts: Layouts) => {
+              if (breakpoint) {
+                const currentLayout = layouts[breakpoint];
+                const adjustedLayout = updateLayout(currentLayout, itemsRef);
+                layouts[breakpoint] = adjustedLayout;
+              } else {
+                updateLayout(layout, itemsRef);
               }
-              size={2}
-            >
-              <List>
-                {openSource.map((project, index) => (
-                  <List.Item
-                    type={"card"}
-                    title={project.title}
-                    additional={project.additional}
-                    subtitle={project.subtitle}
-                    count={{
-                      value: 3214,
-                      icon: "StarIcon",
-                    }}
-                    key={`Block-${index}`}
-                    actions={{ open: { url: "https://github.com" } }}
-                  />
-                ))}
-              </List>
-            </Block>
-          </div>
-          <div key="c" id="c" className="bg-white dark:bg-black">
-            <Block
-              actions={{ link: { url: "https://www.google.com" } }}
-              handleTitleChange={(title) => changeTitleHandler("id-123", title)}
-              handleSizeChange={exampleChangeSize}
-              title={"Vibes"}
-              imagePath={
-                "https://avatars.githubusercontent.com/u/251374?s=200&v=4"
-              }
-              size={3}
-            >
-              <Card
-                title="New York, New York (Live At Budokan Hall)"
-                subtitle="Frank Sinatra"
-                type="small"
-                image="https://placeimg.com/640/480/arch"
-              />
-              <List>
-                {spotify.map((track, index) => (
-                  <List.Item
-                    type={"cover"}
-                    title={track.title}
-                    subtitle={track.subtitle}
-                    image={track.image}
-                    index={index + 1}
-                    key={`Block-${index}`}
-                    actions={{ open: { url: "https://spotify.com" } }}
-                  />
-                ))}
-              </List>
-            </Block>
-          </div>
-        </ResponsiveGridLayout>
+              setLayouts(layouts);
+            }}
+          >
+            <div key="a" id="a">
+              <Block
+                actions={{ link: { url: "https://www.google.com" } }}
+                handleTitleChange={(title: string) =>
+                  changeTitleHandler("id", title)
+                }
+                handleSizeChange={(size) => changeSizeHandler("a", size)}
+                title={"Open Source"}
+                imagePath={
+                  "https://avatars.githubusercontent.com/u/65030610?s=200&v=4"
+                }
+                size={
+                  layouts[breakpoint].find((l) => l.i === "a")?.w as 1 | 2 | 3
+                }
+              >
+                <List>
+                  {blogPosts.map((post, index) => (
+                    <List.Item
+                      type={"text"}
+                      title={post.title}
+                      additional={post.additional}
+                      subtitle={post.subtitle}
+                      key={`Block-${index}`}
+                      actions={{ open: { url: "https://dev.to" } }}
+                    />
+                  ))}
+                </List>
+              </Block>
+            </div>
+            <div key="b" id="b">
+              <Block
+                actions={{ link: { url: "https://www.google.com" } }}
+                handleTitleChange={(title) =>
+                  changeTitleHandler("id-123", title)
+                }
+                handleSizeChange={(size) => changeSizeHandler("b", size)}
+                title={"Repositories"}
+                imagePath={
+                  "https://avatars.githubusercontent.com/u/9919?s=200&v=4"
+                }
+                size={
+                  layouts[breakpoint].find((l) => l.i === "b")?.w as 1 | 2 | 3
+                }
+              >
+                <List>
+                  {openSource.map((project, index) => (
+                    <List.Item
+                      type={"card"}
+                      title={project.title}
+                      additional={project.additional}
+                      subtitle={project.subtitle}
+                      count={{
+                        value: 3214,
+                        icon: "StarIcon",
+                      }}
+                      key={`Block-${index}`}
+                      actions={{ open: { url: "https://github.com" } }}
+                    />
+                  ))}
+                </List>
+              </Block>
+            </div>
+            <div key="c" id="c">
+              <Block
+                actions={{ link: { url: "https://www.google.com" } }}
+                handleTitleChange={(title) =>
+                  changeTitleHandler("id-123", title)
+                }
+                handleSizeChange={(size) => changeSizeHandler("c", size)}
+                title={"Vibes"}
+                imagePath={
+                  "https://avatars.githubusercontent.com/u/251374?s=200&v=4"
+                }
+                size={
+                  layouts[breakpoint].find((l) => l.i === "c")?.w as 1 | 2 | 3
+                }
+              >
+                <Card
+                  title="New York, New York (Live At Budokan Hall)"
+                  subtitle="Frank Sinatra"
+                  type="small"
+                  image="https://placeimg.com/640/480/arch"
+                />
+                <List>
+                  {spotify.map((track, index) => (
+                    <List.Item
+                      type={"cover"}
+                      title={track.title}
+                      subtitle={track.subtitle}
+                      image={track.image}
+                      index={index + 1}
+                      key={`Block-${index}`}
+                      actions={{ open: { url: "https://spotify.com" } }}
+                    />
+                  ))}
+                </List>
+              </Block>
+            </div>
+          </ResponsiveGridLayout>
+        </div>
       </div>
     </div>
   );
