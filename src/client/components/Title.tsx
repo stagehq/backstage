@@ -1,12 +1,9 @@
 import { useRecoilValue } from "recoil";
-import { siteSlugState, siteState } from "../store/site";
 import { currentUserState } from "../store/user";
 
 const Title = () => {
   // get current user from recoil state
   const user = useRecoilValue(currentUserState);
-  const siteSlug = useRecoilValue(siteSlugState);
-  const site = useRecoilValue(siteState(siteSlug));
 
   if (!user) return null;
 

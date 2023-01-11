@@ -11,6 +11,7 @@ const github = new OAuth.PKCEClient({
 
 export const authorize = async () => {
   const tokenSet = await github.getTokens();
+  console.log(tokenSet?.isExpired());
   if (tokenSet?.accessToken) {
     if (tokenSet.refreshToken && tokenSet.isExpired()) {
       await github.setTokens(await refreshTokens(tokenSet.refreshToken));
@@ -31,7 +32,6 @@ async function fetchTokens(
   authRequest: OAuth.AuthorizationRequest,
   authCode: string
 ): Promise<OAuth.TokenResponse> {
-  console.log("test");
   const response = await wretch("/api/oauth/github/access_token")
     .post({
       codeVerifier: authRequest.codeVerifier,
@@ -39,7 +39,6 @@ async function fetchTokens(
       authCode,
     })
     .json();
-  console.log(response);
   return (await response) as OAuth.TokenResponse;
 }
 

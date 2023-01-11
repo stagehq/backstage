@@ -22,6 +22,31 @@ builder.prismaNode('OAuth', {
   }),
 });
 
+builder.queryField('getOAuth', (t) =>
+  t.prismaField({
+    type: "OAuth",
+    args: {
+      apiConnectorName: t.arg.string({ required: true }),
+    },
+    resolve: async (query, root, { apiConnectorName }, ctx) => {
+      if (!ctx.session.user.email || !apiConnectorName) return null;
+
+      const oAuth = await prisma.oAuth.findFirst({
+        where: {
+          apiConnector: {
+            name: apiConnectorName
+          },
+          user: {
+            email: ctx.session.user.email
+          }
+        },
+      });
+
+      return oAuth;
+    },
+  })
+);
+
 builder.mutationField('createOAuthforApi', (t) => 
   t.prismaField({
     type: "OAuth",

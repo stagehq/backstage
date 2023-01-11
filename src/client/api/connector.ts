@@ -1,6 +1,7 @@
 import { decodeGlobalID } from "@pothos/plugin-relay";
 import { client } from "../graphql/client";
 import { CreateOAuthforApiDocument } from "./../graphql/createOAuthforApi.generated";
+import { GetOAuthDocument } from "./../graphql/getOAuth.generated";
 /* eslint-disable @typescript-eslint/no-namespace */
 export namespace OAuth {
   export enum RedirectMethod {
@@ -134,7 +135,6 @@ export namespace OAuth {
         ...extraParameters,
       });
       console.log(params.toString());
-
       const url = `${endpoint}?${params.toString()}`;
       return {
         codeVerifier,
@@ -177,10 +177,6 @@ export namespace OAuth {
       const { access_token, refresh_token, id_token, expires_in, scope } =
         tokens;
 
-      console.log("connector");
-      console.log(tokens);
-      console.log(access_token);
-
       const response = await client
         .mutation(CreateOAuthforApiDocument, {
           apiConnectorName: this.providerId,
@@ -191,8 +187,6 @@ export namespace OAuth {
           scope: scope ? scope : null,
         })
         .toPromise();
-
-      console.log(response);
 
       if (!response.data?.createOAuthforApi) {
         console.log("Error creating OAuth API");
@@ -218,7 +212,7 @@ export namespace OAuth {
       );
     };
 
-    getTokens = (): TokenSet | undefined => {
+    getTokens = async (): Promise<TokenSet | undefined> => {
       const tokens = localStorage.getItem(`${this.providerId}-tokens`);
       if (tokens) {
         const tokenObject = JSON.parse(tokens);
@@ -231,6 +225,13 @@ export namespace OAuth {
           );
           return now > expiresAt;
         };
+        const response = await client
+          .query(GetOAuthDocument, {
+            apiConnectorName: this.providerId,
+          })
+          .toPromise();
+
+        if (response.data.getOAuth == null) return;
 
         return tokenObject;
       }

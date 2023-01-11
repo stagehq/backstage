@@ -90,6 +90,7 @@ type Query {
   currentUser: User
   getAllSites: [Site!]
   getApi(apiConnectorName: String): Api
+  getOAuth(apiConnectorName: String!): OAuth
   getSite(subdomain: String!): Site
   getStoreExtensions: [StoreExtension!]
   getValidAlias(alias: String): User

@@ -32,3 +32,8 @@ export const siteState = atomFamily<Site | null, string | null>({
     },
   }),
 });
+
+export const staleSiteState = atom<Site | null>({
+  key: "staleSiteState",
+  default: null,
+});
