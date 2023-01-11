@@ -68,7 +68,7 @@ const StudioEditor = () => {
         <ResponsiveGridLayout
           layouts={layouts}
           breakpoints={{ lg: 991, md: 768, sm: 0 }}
-          cols={{ lg: 3, md: 2, sm: 1}}
+          cols={{ lg: 3, md: 2, sm: 1 }}
           rowHeight={1}
           width={1000}
           margin={[24, 24]}
@@ -76,14 +76,14 @@ const StudioEditor = () => {
             setBreakpoint(breakpoint);
           }}
           onLayoutChange={(layout: Layout[], layouts: Layouts) => {
-            if(breakpoint) {
+            if (breakpoint) {
               const currentLayout = layouts[breakpoint];
-              const adjustedLayout = updateLayout(currentLayout, itemsRef)
+              const adjustedLayout = updateLayout(currentLayout, itemsRef);
               layouts[breakpoint] = adjustedLayout;
             } else {
-              updateLayout(layout, itemsRef)
+              updateLayout(layout, itemsRef);
             }
-            setLayouts(layouts)
+            setLayouts(layouts);
           }}
         >
           <div key="a" id="a" className="bg-white dark:bg-black">

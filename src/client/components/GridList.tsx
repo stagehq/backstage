@@ -11,18 +11,18 @@ export default function GridList() {
     <div className="mt-8 mb-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
       {user?.sites &&
         user.sites.map((site) => (
-          <div 
+          <div
             className="flex flex-col justify-between relative group bg-white p-6 border border-zinc-200 rounded-lg hover:shadow-lg focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800"
             key={site.id}
           >
             <div>
               {user.image && (
                 <img
-                className="w-12 h-12 bg-cover rounded-full border border-zinc-200"
-                src={user.image}
-                alt="site profile picture"
+                  className="w-12 h-12 bg-cover rounded-full border border-zinc-200"
+                  src={user.image}
+                  alt="site profile picture"
                 />
-                )}
+              )}
               <div className="mt-4">
                 <h3 className="text-lg font-medium">
                   {site.subdomain && (
@@ -45,7 +45,9 @@ export default function GridList() {
               </p>
             </div>
             <a
-              {...( (process.env.NODE_ENV === "development" ) ? { href: `http://localhost:3000/${site.subdomain}` } : { href: `https://getstage.app/${site.subdomain}` })}
+              {...(process.env.NODE_ENV === "development"
+                ? { href: `http://localhost:3000/${site.subdomain}` }
+                : { href: `https://getstage.app/${site.subdomain}` })}
               target="_blank"
               rel="noopener"
               className="absolute top-6 right-6 flex items-center w-10 h-10 justify-center rounded-3xl border border-zinc-200 hover:border-zinc-300 bg-white hover:shadow shadow-sm"
@@ -58,11 +60,15 @@ export default function GridList() {
                 className="w-5 h-5"
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"></path>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+                ></path>
               </svg>
             </a>
           </div>
         ))}
-        </div>
+    </div>
   );
 }

@@ -1,5 +1,5 @@
 import wretch from "wretch";
-import QueryStringAddon from "wretch/addons/queryString"
+import QueryStringAddon from "wretch/addons/queryString";
 // nextjs api route for linkedin
 
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -9,14 +9,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   console.log(preferences);
 
-  const {value} = preferences[0];
+  const { value } = preferences[0];
 
   // fetch linkedin profile data with this url https://nubela.co/proxycurl/api/v2/linkedin and store in data
 
   const url = "https://nubela.co/proxycurl" + route;
 
   try {
-    const response = await wretch(url).addon(QueryStringAddon)
+    const response = await wretch(url)
+      .addon(QueryStringAddon)
       .auth(`Bearer ${process.env.LINKEDIN_CLIENT_SECRET}`)
       .query({
         url: `${value}`,
@@ -34,7 +35,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .get()
       .json();
 
-      console.log(response);
+    console.log(response);
     res.status(200).json(response);
   } catch (error) {
     console.error(error);

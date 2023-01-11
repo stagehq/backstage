@@ -13,8 +13,7 @@ const More: FC = () => {
         </div>
         <p className="text-xs font-medium text-left text-zinc-500">
           Is there a upcoming job application? A specific client? No need to
-          waste time on tailoring your site by hand! Let us handle that for
-          you.
+          waste time on tailoring your site by hand! Let us handle that for you.
         </p>
       </div>
       <div className="flex justify-start items-end md:justify-end w-full md:w-1/3">

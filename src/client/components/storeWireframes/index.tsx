@@ -1,37 +1,35 @@
-import { FC } from "react"
-import Devto from "./devto"
-import Funnel from "./funnel"
-import Github from "./github"
-import Gitlab from "./gitlab"
-import Linkedin from "./linkedin"
-import Spotify from "./spotify"
-import WebLinks from "./webLinks"
-
+import { FC } from "react";
+import Devto from "./devto";
+import Funnel from "./funnel";
+import Github from "./github";
+import Gitlab from "./gitlab";
+import Linkedin from "./linkedin";
+import Spotify from "./spotify";
+import WebLinks from "./webLinks";
 
 interface StoreWireframe {
-  name: string
+  name: string;
 }
 
-const StoreWireframe:FC<StoreWireframe> = ({name}) => {
-
-  switch (name){
+const StoreWireframe: FC<StoreWireframe> = ({ name }) => {
+  switch (name) {
     case "devto":
-      return <Devto/>
+      return <Devto />;
     case "funnel":
-      return <Funnel/>
+      return <Funnel />;
     case "github":
-      return <Github/>
+      return <Github />;
     case "gitlab":
-      return <Gitlab/>
+      return <Gitlab />;
     case "linkedin":
-      return <Linkedin/>
+      return <Linkedin />;
     case "spotify":
-      return <Spotify/>
+      return <Spotify />;
     case "webLinks":
-      return <WebLinks/>
+      return <WebLinks />;
     default:
-      return <Devto/>
+      return <Devto />;
   }
-}
+};
 
 export default StoreWireframe;

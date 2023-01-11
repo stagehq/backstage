@@ -15,8 +15,6 @@ const Site = () => {
     }
   }, [siteId, setSiteSlug]);
 
-  
-
   return (
     <>
       <div className="flex h-screen w-full">

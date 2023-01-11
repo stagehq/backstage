@@ -6,7 +6,7 @@ import wretch from "wretch";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { route, preferences } = req.body;
 
-  const {value} = preferences[0];
+  const { value } = preferences[0];
   const username = value;
 
   //fetch dev.to profile data with this url https://dev.to/api/articles and store in data

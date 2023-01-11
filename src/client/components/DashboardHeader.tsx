@@ -2,7 +2,6 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import clsx from "clsx";
 import { signOut } from "next-auth/react";
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { settingsOpenState } from "../store/ui/modals";
 import { currentUserState } from "../store/user";
@@ -172,18 +171,17 @@ export default function DashboardHeader() {
                       </Disclosure.Button>
                     </Link> */}
                     <Disclosure.Button
-                      as = "div"
+                      as="div"
                       onClick={() => setSettingsOpen(true)}
                       className="block rounded-md py-2 px-3 text-base font-medium text-zinc-600 hover:bg-zinc-200 hover:text-zinc-900"
                     >
                       Settings
                     </Disclosure.Button>
                     <Disclosure.Button
-                      as = "div"
+                      as="div"
                       onClick={() =>
                         signOut({
-                          callbackUrl:
-                            process.env.NEXT_PUBLIC_NEXTAUTH_URL,
+                          callbackUrl: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
                         })
                       }
                       className="block rounded-md py-2 px-3 text-base font-medium text-zinc-600 hover:bg-zinc-200 hover:text-zinc-900"

@@ -6,7 +6,7 @@ interface SearchProps {
   setSearch: (value: string) => void;
 }
 
-const Search:FC<SearchProps> = ({search, setSearch}) => {
+const Search: FC<SearchProps> = ({ search, setSearch }) => {
   return (
     <div className="flex w-full gap-2">
       <div className="flex flex-1 items-center justify-center ">
@@ -30,7 +30,10 @@ const Search:FC<SearchProps> = ({search, setSearch}) => {
           </div>
         </div>
       </div>
-      <a href="https://developers.getstage.app/introduction/readme" className="flex justify-start items-start relative gap-2 px-4 py-2 rounded-md border border-zinc-300 hover:bg-zinc-200 cursor-pointer text-zinc-600 hover:text-zinc-900">
+      <a
+        href="https://developers.getstage.app/introduction/readme"
+        className="flex justify-start items-start relative gap-2 px-4 py-2 rounded-md border border-zinc-300 hover:bg-zinc-200 cursor-pointer text-zinc-600 hover:text-zinc-900"
+      >
         <p className="text-sm font-medium text-left">Build your own block</p>
       </a>
     </div>

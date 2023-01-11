@@ -36,19 +36,19 @@ export const updateLayout = (
 };
 
 export const initalData = {
-    sm: [  { i: "a", x: 0, y: 1, w: 2, h: 100 / 24, minW: 1, maxW: 3 },
-  { i: "b", x: 1, y: 2, w: 1, h: 100 / 24, minW: 1, maxW: 3 },
-  { i: "c", x: 2, y: 3, w: 2, h: 100 / 24, minW: 1, maxW: 3 }],
-    md: [  { i: "a", x: 0, y: 1, w: 2, h: 100 / 24, minW: 1, maxW: 3 },
-  { i: "b", x: 1, y: 2, w: 1, h: 100 / 24, minW: 1, maxW: 3 },
-  { i: "c", x: 2, y: 3, w: 2, h: 100 / 24, minW: 1, maxW: 3 }],
-    lg: [  { i: "a", x: 0, y: 1, w: 2, h: 100 / 24, minW: 1, maxW: 3 },
-  { i: "b", x: 1, y: 2, w: 1, h: 100 / 24, minW: 1, maxW: 3 },
-  { i: "c", x: 2, y: 3, w: 2, h: 100 / 24, minW: 1, maxW: 3 }]
-}
-
-export const demoData = {
-  title: "Title",
-  subtitle:
-    "I have a similar situation where I'm trying to integrate the react-grid-layout into my project with a variable number of widgets. Each widget loads with a spinner and then fetches data from different endpoints that result in variable size content.",
+  sm: [
+    { i: "a", x: 0, y: 1, w: 2, h: 100 / 24, minW: 1, maxW: 3 },
+    { i: "b", x: 2, y: 0, w: 1, h: 100 / 24, minW: 1, maxW: 3 },
+    { i: "c", x: 0, y: 2, w: 2, h: 100 / 24, minW: 1, maxW: 3 },
+  ],
+  md: [
+    { i: "a", x: 0, y: 1, w: 2, h: 100 / 24, minW: 1, maxW: 3 },
+    { i: "b", x: 2, y: 0, w: 1, h: 100 / 24, minW: 1, maxW: 3 },
+    { i: "c", x: 0, y: 2, w: 2, h: 100 / 24, minW: 1, maxW: 3 },
+  ],
+  lg: [
+    { i: "a", x: 0, y: 1, w: 2, h: 100 / 24, minW: 1, maxW: 3 },
+    { i: "b", x: 0, y: 0, w: 1, h: 100 / 24, minW: 1, maxW: 3 },
+    { i: "c", x: 0, y: 2, w: 2, h: 100 / 24, minW: 1, maxW: 3 },
+  ],
 };

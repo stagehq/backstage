@@ -1,7 +1,7 @@
 // nextjs api route for github
 import { NextApiRequest, NextApiResponse } from "next";
+import queryString from "query-string";
 import wretch from "wretch";
-import queryString from 'query-string';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {

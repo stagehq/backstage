@@ -1,5 +1,5 @@
-import { OAuth } from "../connector";
 import wretch from "wretch";
+import { OAuth } from "../connector";
 
 const github = new OAuth.PKCEClient({
   redirectMethod: OAuth.RedirectMethod.Web,
@@ -38,9 +38,9 @@ async function fetchTokens(
       redirectURI: authRequest.redirectURI,
       authCode,
     })
-    .json()
-    console.log(response);
-  return await response as OAuth.TokenResponse;
+    .json();
+  console.log(response);
+  return (await response) as OAuth.TokenResponse;
 }
 
 async function refreshTokens(
@@ -54,7 +54,7 @@ async function refreshTokens(
     })
     .json((json) => {
       return json;
-    })
+    });
   if (!response.ok) {
     console.error("refresh tokens error:", await response.text());
     throw new Error(response.statusText);
