@@ -37,6 +37,8 @@ const StudioEditor = () => {
 
   useEffect(() => {
     if (document.readyState === "complete") {
+      console.log("Document ready");
+      
       updateHeight();
     }
   }, []);
@@ -87,6 +89,7 @@ const StudioEditor = () => {
             width={1000}
             margin={[24, 24]}
             isResizable={false}
+            measureBeforeMount={true}
             onWidthChange={() => {
               updateHeight();
             }}
