@@ -55,12 +55,16 @@ export default function DashboardHeader() {
                       </a>
                       <a
                         href="https://developers.getstage.app/introduction/readme"
+                        target={"_blank"}
+                        rel={"noopener"}
                         className="cursor-pointer text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 flex justify-start items-center h-8 overflow-hidden gap-2 py-2 px-4 rounded"
                       >
                         <p className="text-sm font-medium">Docs</p>
                       </a>
                       <a
                         href="https://discord.gg/PDBGggcTyW"
+                        target={"_blank"}
+                        rel={"noopener"}
                         className="cursor-pointer text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 flex justify-start items-center h-8 overflow-hidden gap-2 py-2 px-4 rounded"
                       >
                         <p className="text-sm font-medium">Community</p>
