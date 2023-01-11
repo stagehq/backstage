@@ -1,0 +1,5 @@
+mutation DeleteExtension($id: String!, $siteId: String!) {
+  deleteExtension(id: $id, siteId: $siteId) {
+    id
+  }
+}

@@ -52,6 +52,7 @@ scalar JSON
 
 type Mutation {
   createOAuthforApi(accessToken: String, apiConnectorName: String, expiresIn: Int, idToken: String, refreshToken: String, scope: String): OAuth
+  deleteExtension(id: String!, siteId: String!): Extension
   updateExtensionTitle(id: String!, title: String!): Extension
   updateUser(alias: String, coverImageUrl: String, firstName: String, image: String, lastName: String): User
   upsertApiResponse(apiConnectorRouteId: String, apiId: String, response: String): ApiResponse

@@ -32,3 +32,25 @@ builder.mutationField('updateExtensionTitle', (t) => t.prismaField({
     return extension;
   },
 }));
+
+builder.mutationField('deleteExtension', (t) => t.prismaField({
+  type: 'Extension',
+  args: {
+    id: t.arg.string({ required: true }),
+    siteId: t.arg.string({ required: true }),
+  },
+  resolve: async (query, root, { id, siteId }, ctx) => {
+    if(!ctx.session?.user.email) return null;
+
+    const site = await prisma.site.update({
+      where: { id: siteId },
+      data: { extensions: { disconnect: { id: id } } },
+    });
+
+    const extension = await prisma.extension.delete({
+      where: { id: id },
+    });
+
+    return extension;
+  }
+}));
