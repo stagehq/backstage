@@ -60,7 +60,7 @@ export default function DashboardHeader() {
                         <p className="text-sm font-medium">Docs</p>
                       </a>
                       <a
-                        href="https://twitter.com/stage_hq"
+                        href="https://discord.gg/PDBGggcTyW"
                         className="cursor-pointer text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 flex justify-start items-center h-8 overflow-hidden gap-2 py-2 px-4 rounded"
                       >
                         <p className="text-sm font-medium">Community</p>

@@ -1,6 +1,9 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { useRecoilState } from "recoil";
+import { dashboardQueryState } from "../store/ui/dashboardSearch";
 
 const ListHeader = () => {
+  const [, setQuery] = useRecoilState(dashboardQueryState);
   return (
     <div className="flex w-full gap-2">
       <div className="flex flex-1 items-center justify-center ">
@@ -18,6 +21,7 @@ const ListHeader = () => {
               className="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-zinc-800 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-zinc-800 sm:text-sm"
               placeholder="Search sites ..."
               type="search"
+              onChange={(event) => setQuery(event.target.value)}
             />
           </div>
         </div>

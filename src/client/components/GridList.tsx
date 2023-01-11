@@ -1,16 +1,28 @@
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
+import { dashboardQueryState } from "../store/ui/dashboardSearch";
 import { currentUserState } from "../store/user";
 
 export default function GridList() {
   const user = useRecoilValue(currentUserState);
+  const query = useRecoilValue(dashboardQueryState);
 
   if (!user) return null;
 
+  const filteredSites =
+    query === ''
+      ? user.sites
+      : user.sites?.filter((site) => {
+          return (
+            site.subdomain?.toLowerCase().includes(query.toLowerCase())
+            || site.tagline?.toLowerCase().includes(query.toLowerCase())
+          );
+        })
+
   return (
     <div className="mt-8 mb-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-      {user?.sites &&
-        user.sites.map((site) => (
+      {filteredSites &&
+        filteredSites.map((site) => (
           <div
             className="flex flex-col justify-between relative group bg-white p-6 border border-zinc-200 rounded-lg hover:shadow-lg focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800"
             key={site.id}
