@@ -26,11 +26,18 @@ const StudioEditor = () => {
 
   const changeExtensionSize = useChangeExtensionSize();
 
+  const updateHeight = () => {
+    const newLayout = updateLayout(layouts[breakpoint], itemsRef);
+    if (layouts[breakpoint] !== newLayout) {
+      setLayouts((layouts) => {
+        return { ...layouts, [breakpoint]: newLayout };
+      });
+    }
+  };
+
   useEffect(() => {
     if (document.readyState === "complete") {
-      // const newLayout = updateLayout(layouts[breakpoint], itemsRef);
-      // layouts[breakpoint] = newLayout;
-      // setLayouts(layouts);
+      updateHeight();
     }
   }, []);
 
@@ -79,6 +86,10 @@ const StudioEditor = () => {
             rowHeight={1}
             width={1000}
             margin={[24, 24]}
+            isResizable={false}
+            onWidthChange={() => {
+              updateHeight();
+            }}
             onBreakpointChange={(breakpoint) => {
               setBreakpoint(breakpoint);
             }}
