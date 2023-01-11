@@ -2,6 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { decodeGlobalID } from "@pothos/plugin-relay";
 import { AuthType } from "@prisma/client";
 import { FC, Fragment, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   ApiConnectorRoute,
@@ -12,6 +13,7 @@ import {
   preferencesExtensionState,
 } from "../../store/extensions";
 import { siteSlugState, siteState } from "../../store/site";
+import { addingInProcessState } from "../../store/ui/addingBlock";
 import { preferencesOpenState } from "../../store/ui/modals";
 import { currentUserState } from "../../store/user";
 import { upsertExtension } from "../helper/upsertExtension";
@@ -26,6 +28,7 @@ const PreferencesModal: FC = () => {
   const siteSlug = useRecoilValue(siteSlugState);
   const site = useRecoilValue(siteState(siteSlug));
   const user = useRecoilValue(currentUserState);
+  const [, setAddingInProcess] = useRecoilState(addingInProcessState);
 
   const [preferences, setPreferences] = useState<string[]>([]);
 
@@ -37,6 +40,10 @@ const PreferencesModal: FC = () => {
   }, [preferencesExtension, preferencesApi]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    //close modal
+    setPreferencesOpen(false);
+
+    //handleSubmit
     if (!preferencesExtension || !preferencesApi || !user) return;
     const processedPreferences: { key: string; value: string }[] = [];
     event.preventDefault();
@@ -53,24 +60,32 @@ const PreferencesModal: FC = () => {
     if (!preferencesApi) throw new Error("No preferences api found");
     if (!processedPreferences) throw new Error("No preferences found");
 
-    await upsertExtension({
-      userId: decodeGlobalID(user.id).id,
-      siteId: decodeGlobalID(site.id).id,
-      storeExtensionId: decodeGlobalID(preferencesExtension.id).id,
-      apiConnectorName: preferencesApi,
-      routes: preferencesExtension.routes.map((route) => {
-        return {
-          id: decodeGlobalID(route.id).id,
-          url: route.url as string,
-          apiConnector: {
-            name: route.apiConnector?.name as string,
-          },
-        };
-      }),
-      preferences: processedPreferences,
-      authType: AuthType.preferences,
-    });
-    setPreferencesOpen(false);
+    try{
+      await upsertExtension({
+        userId: decodeGlobalID(user.id).id,
+        siteId: decodeGlobalID(site.id).id,
+        storeExtensionId: decodeGlobalID(preferencesExtension.id).id,
+        apiConnectorName: preferencesApi,
+        routes: preferencesExtension.routes.map((route) => {
+          return {
+            id: decodeGlobalID(route.id).id,
+            url: route.url as string,
+            apiConnector: {
+              name: route.apiConnector?.name as string,
+            },
+          };
+        }),
+        preferences: processedPreferences,
+        authType: AuthType.preferences,
+      });
+      //handle success
+      setAddingInProcess("added");
+    } catch (error) {
+      //handle error
+      console.log(error);
+      toast.error("Something went wrong!");
+      setAddingInProcess("unadded");
+    }
   };
 
   const fillPreferences = (
@@ -94,6 +109,11 @@ const PreferencesModal: FC = () => {
       (v, i, a) => a.findIndex((v2) => v2 === v) === i
     );
   };
+
+  const handleClose = () => {
+    setPreferencesOpen(false); 
+    setAddingInProcess("unadded");
+  }
 
   return (
     <Transition.Root show={preferencesOpen} as={Fragment}>
@@ -133,7 +153,7 @@ const PreferencesModal: FC = () => {
                   <button
                     type="button"
                     className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500"
-                    onClick={() => setPreferencesOpen(false)}
+                    onClick={() => handleClose()}
                   >
                     <span className="sr-only">Close</span>
                     <Icon name="XMarkIcon" />
