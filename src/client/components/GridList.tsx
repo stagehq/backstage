@@ -1,3 +1,5 @@
+import clsx from "clsx";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { dashboardQueryState } from "../store/ui/dashboardSearch";
@@ -6,6 +8,7 @@ import { currentUserState } from "../store/user";
 export default function GridList() {
   const user = useRecoilValue(currentUserState);
   const query = useRecoilValue(dashboardQueryState);
+  const [focusedId, setFocusedId] = useState<number | null>(null);
 
   if (!user) return null;
 
@@ -19,13 +22,23 @@ export default function GridList() {
           );
         })
 
+  function handleFocus(id: number) {
+    setFocusedId(id);
+  }
+
+  function handleBlur() {
+    setFocusedId(null);
+  }
+
   return (
     <div className="mt-8 mb-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
       {filteredSites &&
-        filteredSites.map((site) => (
+        filteredSites.map((site, index) => (
           <div
-            className="flex flex-col justify-between relative group bg-white p-6 border border-zinc-200 rounded-lg hover:shadow-lg focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800"
-            key={site.id}
+            className={clsx("flex flex-col justify-between relative group bg-white p-6 border border-zinc-200 rounded-lg hover:shadow-lg focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800",
+              focusedId === index && "border-zinc-800 outline-none ring-1 ring-zinc-800"
+            )}
+            key={'site' + index}
           >
             <div>
               {user.image && (
@@ -41,6 +54,8 @@ export default function GridList() {
                     <Link
                       to={"/s/" + site.subdomain}
                       className="focus:outline-none"
+                      onFocus={() => handleFocus(index)}
+                      onBlur={handleBlur}
                     >
                       {/* Extend touch target to entire panel */}
                       <span className="absolute inset-0" aria-hidden="true" />
