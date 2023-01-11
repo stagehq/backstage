@@ -32,13 +32,20 @@ export const isExtensionPartOfSite = (
   );
 };
 
-export const addOAuthExtension = async (apiName: string | null, storeExtension: StoreExtension, site: Site | null, user: User) => {
+export const addOAuthExtension = async (
+  apiName: string | null,
+  storeExtension: StoreExtension,
+  site: Site | null,
+  user: User
+) => {
   const serviceModule = await import("../../../api/service/" + apiName);
   //authorize
   await serviceModule.authorize();
   //create extension
-  if (!serviceModule.getTokens()?.isExpired()) {
-    if (!site || !user || !storeExtension || !storeExtension.routes || !apiName) return;
+  const tokens = await serviceModule.getTokens();
+  if (!tokens.isExpired()) {
+    if (!site || !user || !storeExtension || !storeExtension.routes || !apiName)
+      return;
     await upsertExtension({
       siteId: decodeGlobalID(site.id).id,
       storeExtensionId: decodeGlobalID(storeExtension.id).id,
@@ -52,9 +59,9 @@ export const addOAuthExtension = async (apiName: string | null, storeExtension: 
           },
         };
       }),
-      oAuthId: serviceModule.getTokens()?.idToken,
+      oAuthId: tokens.idToken,
       authType: AuthType.oAuth,
       apiConnectorName: apiName,
     });
   }
-}
+};

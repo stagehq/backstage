@@ -1,9 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { FC, Fragment, useEffect, useRef, useState } from "react";
+import { FC, Fragment, Suspense, useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { StoreExtension } from "../../../graphql/types.generated";
 import { storeExtensionState } from "../../../store/extensions";
-import { addingInProcessState } from "../../../store/ui/addingBlock";
 import { storeOpenState } from "../../../store/ui/modals";
 import { Icon } from "../../Icons";
 import { filterArray } from "./helper";
@@ -13,7 +12,6 @@ import StoreItem from "./storeItem";
 const StoreModal: FC = () => {
   const [storeOpen, setStoreOpen] = useRecoilState(storeOpenState);
   const storeExtensions = useRecoilValue(storeExtensionState);
-  const [, setAddingInProcess] = useRecoilState(addingInProcessState);
 
   const [search, setSearch] = useState<string>("");
   const [filteredStoreExtensions, setFilteredStoreExtensions] = useState<
@@ -97,8 +95,13 @@ const StoreModal: FC = () => {
                   <div className="flex-1 overflow-y-scroll">
                     <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 px-4 pt-3">
                       {filteredStoreExtensions.map((storeExtension) => (
-                        <div key={storeExtension.id} className="col-span-1 divide-y divide-gray-200 rounded-lg">
-                          <StoreItem storeExtension={storeExtension}/>
+                        <div
+                          key={storeExtension.id}
+                          className="col-span-1 divide-y divide-gray-200 rounded-lg"
+                        >
+                          <Suspense fallback={<span>loading</span>}>
+                            <StoreItem storeExtension={storeExtension} />
+                          </Suspense>
                         </div>
                       ))}
                     </ul>

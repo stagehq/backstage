@@ -3,11 +3,12 @@ import { decodeGlobalID } from "@pothos/plugin-relay";
 import { AuthType } from "@prisma/client";
 import { FC, Fragment, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from "recoil";
 import {
   ApiConnectorRoute,
   StoreExtension,
 } from "../../graphql/types.generated";
+import { useLazyRecoilValue } from "../../helper/useLazyRecoilValue";
 import {
   preferencesApiState,
   preferencesExtensionState,
@@ -26,7 +27,7 @@ const PreferencesModal: FC = () => {
   const preferencesApi = useRecoilValue(preferencesApiState);
 
   const siteSlug = useRecoilValue(siteSlugState);
-  const site = useRecoilValue(siteState(siteSlug));
+  const site = useLazyRecoilValue(useRecoilValueLoadable(siteState(siteSlug)));
   const user = useRecoilValue(currentUserState);
   const [, setAddingInProcess] = useRecoilState(addingInProcessState);
 
@@ -60,7 +61,7 @@ const PreferencesModal: FC = () => {
     if (!preferencesApi) throw new Error("No preferences api found");
     if (!processedPreferences) throw new Error("No preferences found");
 
-    try{
+    try {
       await upsertExtension({
         userId: decodeGlobalID(user.id).id,
         siteId: decodeGlobalID(site.id).id,
@@ -111,9 +112,9 @@ const PreferencesModal: FC = () => {
   };
 
   const handleClose = () => {
-    setPreferencesOpen(false); 
+    setPreferencesOpen(false);
     setAddingInProcess("unadded");
-  }
+  };
 
   return (
     <Transition.Root show={preferencesOpen} as={Fragment}>
