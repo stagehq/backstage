@@ -1,15 +1,16 @@
-import { PageHeader } from "@stagehq/ui";
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 import { FC, useEffect, useRef } from "react";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { BlockProps } from "../../blocks/type";
+import { useUpdateSiteHeaderMutation } from "../../graphql/updateSiteHeader.generated";
 import { siteSlugState, siteState } from "../../store/site";
 import { gridBreakpointState, gridLayoutState } from "../../store/ui/grid-dnd";
 import { themeState } from "../../store/ui/theme";
 import { currentUserState } from "../../store/user";
 import { updateLayout } from "../dnd/utils";
+import { PageHeader } from "../PageHeader";
 import { useChangeExtensionSize } from "./hooks/useChangeSize";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
@@ -27,6 +28,7 @@ const StudioEditor = () => {
   const [site, setSite] = useRecoilState(siteState(siteSlug));
 
   const changeExtensionSize = useChangeExtensionSize();
+  const [, updateSiteHeader] = useUpdateSiteHeaderMutation();
 
   const updateHeight = () => {
     const newLayout = updateLayout(layouts[breakpoint], itemsRef);

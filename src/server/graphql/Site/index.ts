@@ -83,3 +83,29 @@ builder.mutationField('upsertSite', (t) => {
     },
   });
 });
+
+builder.mutationField('updateSiteHeader', (t) => {
+  return t.prismaField({
+    type: 'Site',
+    args: {
+      subdomain: t.arg.string({ required: true }),
+      tagline: t.arg.string({ required: true }),
+      bio: t.arg.string({ required: true }),
+    },
+    resolve: async (query, root, { subdomain, tagline, bio }, ctx) => {
+      if (!ctx.session.user.email) return null;
+
+      const site = await prisma.site.update({
+        where: {
+          subdomain: subdomain,
+        },
+        data: {
+          tagline: tagline,
+          bio: bio,
+        },
+      });
+
+      return site;
+    },
+  });
+});
