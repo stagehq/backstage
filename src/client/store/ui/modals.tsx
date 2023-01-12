@@ -29,3 +29,8 @@ export const storeOpenState = atom<boolean>({
   key: "storeOpenState",
   default: false,
 });
+
+export const subdomainCardOpenState = atom<boolean>({
+  key: "subdomainCardOpenState",
+  default: false,
+});

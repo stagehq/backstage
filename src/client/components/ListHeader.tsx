@@ -1,9 +1,11 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useRecoilState } from "recoil";
 import { dashboardQueryState } from "../store/ui/dashboardSearch";
+import { subdomainCardOpenState } from "../store/ui/modals";
 
 const ListHeader = () => {
   const [, setQuery] = useRecoilState(dashboardQueryState);
+  const [, setSubdomainCardOpen] = useRecoilState(subdomainCardOpenState);
   return (
     <div className="flex w-full gap-2">
       <div className="flex flex-1 items-center justify-center ">
@@ -27,7 +29,7 @@ const ListHeader = () => {
         </div>
       </div>
       <div className="flex justify-start items-start relative gap-2 px-4 py-2 rounded-md border shadow border-zinc-200 bg-zinc-900 hover:bg-zinc-800 cursor-pointer text-zinc-100">
-        <p className="text-sm font-medium text-left">Create site</p>
+        <p onClick={() => setSubdomainCardOpen(true)} className="text-sm font-medium text-left">Create site</p>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import PreferencesModal from "./modals/PreferencesModal";
 import SettingsModal from "./modals/SettingsModal";
 import SiteSettingsModal from "./modals/SiteSettingsModal";
 import StoreModal from "./modals/store";
+import SubdomainModal from "./modals/SubdomainModal";
 
 const Modals = () => {
   const { status } = useSession();
@@ -18,6 +19,7 @@ const Modals = () => {
         <SiteSettingsModal />
         <AnalyticsModal />
         <StoreModal />
+        <SubdomainModal />
       </>
     );
   }

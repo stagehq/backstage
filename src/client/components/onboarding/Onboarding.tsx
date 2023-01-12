@@ -1,11 +1,12 @@
-import { useRouter } from "next/router";
 import { FC, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
 import { onboardingState } from "../../store/onboarding";
-import { siteSlugState } from "../../store/site";
+import { siteSlugState, } from "../../store/site";
+import { subdomainCardOpenState } from "../../store/ui/modals";
 import {
   activeSectionState,
   OnboardingSection,
@@ -274,12 +275,14 @@ const OnboardingProfile = () => {
   );
 };
 
-const OnboardingSubdomain: FC = () => {
+export const OnboardingSubdomain: FC = () => {
   const [onboarding, setOnboarding] = useRecoilState(onboardingState);
   const [, setSiteSlug] = useRecoilState(siteSlugState);
   const user = useRecoilValue(currentUserState);
+  const [, setSubdomainCardOpen] = useRecoilState(subdomainCardOpenState);
 
-  const router = useRouter();
+
+  const navigate = useNavigate();
 
   const [subdomainValid, setSubdomainValid] = useState(false);
 
@@ -309,7 +312,9 @@ const OnboardingSubdomain: FC = () => {
       }).then((res) => {
         if (res.data?.upsertSite?.subdomain) {
           setSiteSlug(res.data.upsertSite.subdomain);
-          router.push(`/s/${res.data.upsertSite.subdomain}`);
+          navigate(`/s/${res.data.upsertSite.subdomain}`);
+          setSubdomainCardOpen(false);
+
         } else {
           console.log("Alias could not be created.");
         }
@@ -318,7 +323,8 @@ const OnboardingSubdomain: FC = () => {
       if (user?.mainSite?.subdomain) {
         setSiteSlug(user?.mainSite?.subdomain);
       }
-      router.push(`/s/${user?.mainSite?.subdomain}`);
+      navigate(`/s/${user?.mainSite?.subdomain}`);
+      setSubdomainCardOpen(false);
     }
   };
 
