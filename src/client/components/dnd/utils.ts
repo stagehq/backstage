@@ -18,8 +18,6 @@ export const updateLayout = (
   let index = 0;
   const newItems = [...layout];
 
-  console.log(layout);
-
   if (document.readyState === "complete") {
     if (itemsRef.current?.children[1].children) {
       for (const element of itemsRef.current.children[1].children) {

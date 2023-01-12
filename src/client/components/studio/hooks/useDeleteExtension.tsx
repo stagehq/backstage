@@ -7,7 +7,7 @@ import { siteSlugState, siteState } from "../../../store/site";
  * @name useDeleteExtension
  *
  * @description
- * A custom hook that provides a way to delete an extension from a site. 
+ * A custom hook that provides a way to delete an extension from a site.
  * It uses the `deleteExtension` mutation to delete the extension from the database and updates the Recoil state with the updated list of extensions.
  *
  * @returns {Function} deleteExtensionFromSite - A function that takes an extension id as parameter and deletes the extension from the site.
@@ -26,6 +26,7 @@ export const useDeleteExtension = () => {
 
       // delete extension from recoil site store
       if (!site) return null;
+
       setSite((site) => {
         if (site) {
           const newSite = { ...site };

@@ -218,6 +218,7 @@ model StoreExtension {
   markdown              String?
   icon                  String?
   image                 String?
+  blockId               String                @unique @default("")
 
   integratedExtensions  Extension[]
   routes                ApiConnectorRoute[]

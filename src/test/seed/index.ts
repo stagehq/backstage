@@ -19,6 +19,7 @@ export type storeExtensionSeedInput = {
   name: string;
   description: string;
   image: string;
+  blockId: string;
   markdown: string;
   icon: string;
   routes: {
@@ -84,6 +85,7 @@ async function seedDatabase(
           name: storeExtension.name,
           description: storeExtension.description,
           image: storeExtension.image,
+          blockId: storeExtension.blockId,
           markdown: storeExtension.markdown,
           icon: storeExtension.icon,
           routes: {

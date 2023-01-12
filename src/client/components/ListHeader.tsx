@@ -29,7 +29,12 @@ const ListHeader = () => {
         </div>
       </div>
       <div className="flex justify-start items-start relative gap-2 px-4 py-2 rounded-md border shadow border-zinc-200 bg-zinc-900 hover:bg-zinc-800 cursor-pointer text-zinc-100">
-        <p onClick={() => setSubdomainCardOpen(true)} className="text-sm font-medium text-left">Create site</p>
+        <p
+          onClick={() => setSubdomainCardOpen(true)}
+          className="text-sm font-medium text-left"
+        >
+          Create site
+        </p>
       </div>
     </div>
   );

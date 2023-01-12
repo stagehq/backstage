@@ -2,19 +2,16 @@ import { Block, List } from "@stagehq/ui";
 import { FC, useEffect, useState } from "react";
 import { useChangeExtensionTitle } from "../components/studio/hooks/useChangeExtensionTitle";
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
-import { Extension } from "../graphql/types.generated";
+import { useDeleteExtension } from "../components/studio/hooks/useDeleteExtension";
+import { BlockProps } from "./type";
 
-interface BlogProps {
-  extension: Extension;
-  size: 1 | 2 | 3;
-}
-
-const Blogs: FC<BlogProps> = ({ extension, size }) => {
+const Blogs: FC<BlockProps> = ({ extension, size, isEditable }) => {
   const [data, setData] = useState<any[]>([]);
   const [profileLink, setProfileLink] = useState("");
 
   const changeExtensionTitle = useChangeExtensionTitle();
   const changeExtensionSize = useChangeExtensionSize();
+  const deleteExtension = useDeleteExtension();
 
   useEffect(() => {
     if (extension.underlayingApis) {
@@ -22,6 +19,8 @@ const Blogs: FC<BlogProps> = ({ extension, size }) => {
 
       extension.underlayingApis?.forEach((api) => {
         if (api.apiConnector?.name === "devto") {
+          console.log("hi");
+
           api.apiResponses?.forEach((apiResponse) => {
             apiResponse.response.forEach((post: any) => {
               // get post.url and shorten it to the profilelink
@@ -33,7 +32,13 @@ const Blogs: FC<BlogProps> = ({ extension, size }) => {
                 type: "text",
                 title: post.title,
                 subtitle: post.description,
-                additional: post.readable_publish_date,
+                additional: new Date(post.readable_publish_date)
+                  .toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })
+                  .toString(),
                 published_at: post.published_at,
                 url: post.url,
               });
@@ -65,9 +70,11 @@ const Blogs: FC<BlogProps> = ({ extension, size }) => {
       actions={{ link: { url: profileLink } }}
       handleTitleChange={(title) => changeExtensionTitle(extension.id, title)}
       handleSizeChange={(size) => changeExtensionSize(extension.id, size)}
-      title={"Open Source"}
+      handleDelete={() => deleteExtension(extension.id)}
+      title={"Blog Posts"}
       imagePath={"https://avatars.githubusercontent.com/u/65030610?s=200&v=4"}
       size={size}
+      isEditable={isEditable}
     >
       <List>
         {data.map((post, index) => (
@@ -77,7 +84,7 @@ const Blogs: FC<BlogProps> = ({ extension, size }) => {
             additional={post.additional}
             subtitle={post.subtitle}
             key={`Block-${index}`}
-            actions={{ open: { url: "https://dev.to" } }}
+            actions={{ open: { url: post.url } }}
           />
         ))}
       </List>

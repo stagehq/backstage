@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
 import { onboardingState } from "../../store/onboarding";
-import { siteSlugState, } from "../../store/site";
+import { siteSlugState } from "../../store/site";
 import { subdomainCardOpenState } from "../../store/ui/modals";
 import {
   activeSectionState,
@@ -281,7 +281,6 @@ export const OnboardingSubdomain: FC = () => {
   const user = useRecoilValue(currentUserState);
   const [, setSubdomainCardOpen] = useRecoilState(subdomainCardOpenState);
 
-
   const navigate = useNavigate();
 
   const [subdomainValid, setSubdomainValid] = useState(false);
@@ -314,7 +313,6 @@ export const OnboardingSubdomain: FC = () => {
           setSiteSlug(res.data.upsertSite.subdomain);
           navigate(`/s/${res.data.upsertSite.subdomain}`);
           setSubdomainCardOpen(false);
-
         } else {
           console.log("Alias could not be created.");
         }

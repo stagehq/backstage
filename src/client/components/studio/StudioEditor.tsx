@@ -1,8 +1,10 @@
-import { Block, Card, List, PageHeader } from "@stagehq/ui";
+import { PageHeader } from "@stagehq/ui";
 import clsx from "clsx";
-import { useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
+import { FC, useEffect, useRef } from "react";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { BlockProps } from "../../blocks/type";
 import { siteSlugState, siteState } from "../../store/site";
 import { gridBreakpointState, gridLayoutState } from "../../store/ui/grid-dnd";
 import { themeState } from "../../store/ui/theme";
@@ -37,8 +39,6 @@ const StudioEditor = () => {
 
   useEffect(() => {
     if (document.readyState === "complete") {
-      console.log("Document ready");
-
       updateHeight();
     }
   }, []);
@@ -56,13 +56,8 @@ const StudioEditor = () => {
   };
 
   return (
-    <div
-      className={clsx(
-        theme === "dark" && "dark",
-        "w-full h-full overflow-scroll"
-      )}
-    >
-      <div className={clsx("@container bg-white dark:bg-zinc-900")}>
+    <div className={clsx(theme === "dark" && "dark", "w-full h-full ")}>
+      <div className="@container overflow-scroll h-full bg-white dark:bg-zinc-900">
         <div
           className="w-full mx-auto max-w-6xl lg: h-full p-12"
           ref={itemsRef}
@@ -107,7 +102,28 @@ const StudioEditor = () => {
               setLayouts(layouts);
             }}
           >
-            <div key="a" id="a">
+            {site.extensions ? (
+              site.extensions.map((extension, index) => {
+                console.log(extension);
+
+                const Extension = dynamic(
+                  () =>
+                    import(`../../blocks/${extension.storeExtension?.blockId}`)
+                ) as FC<BlockProps>;
+                return (
+                  <div key={extension.id} id={extension.id}>
+                    <Extension
+                      extension={extension}
+                      size={1}
+                      isEditable={true}
+                    />
+                  </div>
+                );
+              })
+            ) : (
+              <span>add extension</span>
+            )}
+            {/* <div key="a" id="a">
               <Block
                 actions={{ link: { url: "https://www.google.com" } }}
                 handleTitleChange={(title: string) =>
@@ -204,7 +220,7 @@ const StudioEditor = () => {
                   ))}
                 </List>
               </Block>
-            </div>
+            </div> */}
           </ResponsiveGridLayout>
         </div>
       </div>

@@ -109,6 +109,7 @@ type Site implements Node {
 }
 
 type StoreExtension implements Node {
+  blockId: String
   createdAt: String
   description: String
   icon: String

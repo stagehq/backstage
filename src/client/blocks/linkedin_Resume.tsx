@@ -2,14 +2,9 @@ import { Block, List, Seperator } from "@stagehq/ui";
 import { FC, useEffect, useState } from "react";
 import { useChangeExtensionTitle } from "../components/studio/hooks/useChangeExtensionTitle";
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
-import { Extension } from "../graphql/types.generated";
+import { BlockProps } from "./type";
 
-interface ResumeProps {
-  extension: Extension;
-  size: 1 | 2 | 3;
-}
-
-const Resume: FC<ResumeProps> = ({ extension, size }) => {
+const Resume: FC<BlockProps> = ({ extension, size, isEditable }) => {
   const [experience, setExperience] = useState<any[]>([]);
   const [university, setUniversity] = useState<any[]>([]);
 
@@ -73,6 +68,7 @@ const Resume: FC<ResumeProps> = ({ extension, size }) => {
       }}
       title={"Experience"}
       size={size}
+      isEditable={isEditable}
       handleTitleChange={(title) => changeExtensionTitle(extension.id, title)}
       handleSizeChange={(size) => changeExtensionSize(extension.id, size)}
       imagePath={"https://avatars.githubusercontent.com/u/357098?s=200&v=4"}

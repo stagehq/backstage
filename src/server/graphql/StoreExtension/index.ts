@@ -10,6 +10,7 @@ builder.prismaNode('StoreExtension', {
     name: t.exposeString('name'),
     description: t.exposeString('description'),
     image: t.exposeString('image'),
+    blockId: t.exposeString('blockId'),
     markdown: t.exposeString('markdown'),
     icon: t.exposeString('icon'),
     

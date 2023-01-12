@@ -2,14 +2,9 @@ import { Block, Card, List } from "@stagehq/ui";
 import { FC, useEffect, useState } from "react";
 import { useChangeExtensionTitle } from "../components/studio/hooks/useChangeExtensionTitle";
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
-import { Extension } from "../graphql/types.generated";
+import { BlockProps } from "./type";
 
-interface SpotifyProps {
-  extension: Extension;
-  size: 1 | 2 | 3;
-}
-
-const Spotify: FC<SpotifyProps> = ({ extension, size }) => {
+const Spotify: FC<BlockProps> = ({ extension, size, isEditable }) => {
   const [data, setData] = useState<any[]>([]);
 
   const changeExtensionTitle = useChangeExtensionTitle();
@@ -52,6 +47,7 @@ const Spotify: FC<SpotifyProps> = ({ extension, size }) => {
     <Block
       title="Top tracks"
       size={size}
+      isEditable={isEditable}
       handleTitleChange={(title) => changeExtensionTitle(extension.id, title)}
       handleSizeChange={(size) => changeExtensionSize(extension.id, size)}
       imagePath={"https://avatars.githubusercontent.com/u/357098?s=200&v=4"}

@@ -7,7 +7,9 @@ import { Icon } from "../Icons";
 import { OnboardingSubdomain } from "../onboarding/Onboarding";
 
 const SubdomainModal: FC = () => {
-  const [subdomainCardOpen, setSubdomainCardOpen] = useRecoilState(subdomainCardOpenState);
+  const [subdomainCardOpen, setSubdomainCardOpen] = useRecoilState(
+    subdomainCardOpenState
+  );
   const user = useRecoilValue(currentUserState);
 
   const cancelButtonRef = useRef(null);
