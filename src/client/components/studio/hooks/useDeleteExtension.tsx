@@ -1,3 +1,4 @@
+import { decodeGlobalID } from "@pothos/plugin-relay";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useDeleteExtensionMutation } from "../../../graphql/deleteExtension.generated";
 import { siteSlugState, siteState } from "../../../store/site";
@@ -22,26 +23,19 @@ export const useDeleteExtension = () => {
     try {
       // delete extension from database
       if (!siteSlug) return null;
-      await deleteExtension({ id: extensionId, siteId: siteSlug });
+      //await deleteExtension({ id: decodeGlobalID(extensionId).id, siteId: siteSlug });
 
       // delete extension from recoil site store
-      if (!site) return null;
+      if(!site || !site.extensions) return null;
+      const newExtensions = [...site.extensions];
+      const index = newExtensions.findIndex(extension => extension.id === extensionId);
+      if (index !== -1) {
+        newExtensions.splice(index, 1);
+        setSite({ ...site, extensions: newExtensions });
+      } else {
+        console.error("Extension not found in site's extensions array");
+      }
 
-      setSite((site) => {
-        if (site) {
-          const newSite = { ...site };
-          if (!newSite.extensions) return null;
-          const index = newSite.extensions.findIndex(
-            (extension) => extension.id === extensionId
-          );
-          if (index !== -1) {
-            newSite.extensions.splice(index, 1);
-          }
-          return newSite;
-        } else {
-          return site;
-        }
-      });
     } catch (error) {
       console.log(error);
     }
