@@ -4,21 +4,23 @@ import clsx from "clsx";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { preferencesApiState, preferencesExtensionState, storeExtensionState } from "../../store/extensions";
+import { StoreExtension } from "../../graphql/types.generated";
+import {
+  preferencesApiState,
+  preferencesExtensionState,
+  storeExtensionState,
+} from "../../store/extensions";
+import { siteSlugState, siteState } from "../../store/site";
 import { preferencesOpenState } from "../../store/ui/modals";
 import { activeSectionState } from "../../store/ui/onboarding";
+import { currentUserState } from "../../store/user";
 import Gradient from "../Gradient";
+import { upsertExtension } from "../helper/upsertExtension";
 import BlogsIcon from "./visuals/BlogsIcon";
 import CheckIcon from "./visuals/CheckIcon";
+import CvIcon from "./visuals/CvIcon";
 import GGIcons from "./visuals/GGIcons";
 import StoreIcon from "./visuals/StoreIcon";
-import * as github from "../../api/service/github";
-import * as gitlab from "../../api/service/gitlab";
-import { currentUserState } from "../../store/user";
-import { siteSlugState, siteState } from "../../store/site";
-import { StoreExtension } from "../../graphql/types.generated";
-import CvIcon from "./visuals/CvIcon";
-import { upsertExtension } from "../helper/upsertExtension";
 
 const OnboardingDotMenu = () => {
   const [activeSection, setActiveSection] = useRecoilState(activeSectionState);
@@ -49,7 +51,6 @@ const OnboardingDotMenu = () => {
     </div>
   );
 };
-
 
 const OnboardingCv: FC = () => {
   const [link, setLink] = useState("");
@@ -208,9 +209,7 @@ export const OnboardingProjects: FC = () => {
   // connect to github
   const handleGithubAuth = async () => {
     // await github.authorize();
-
     // console.log(github.getTokens());
-
     // if (!github.getTokens()?.isExpired()) {
     //   console.log(github.getTokens()?.idToken);
     //   if (!site || !user || !storeExtension || !storeExtension.routes) return;
@@ -231,7 +230,6 @@ export const OnboardingProjects: FC = () => {
     //     authType: AuthType.oAuth,
     //     apiConnectorName: "github",
     //   });
-
     //   setGithubConnected(true);
     // }
   };
@@ -239,10 +237,8 @@ export const OnboardingProjects: FC = () => {
   // connect to gitlab
   const handleGitlabAuth = async () => {
     // await gitlab.authorize();
-
     // if (!gitlab.getTokens()?.isExpired()) {
     //   if (!site || !user || !storeExtension || !storeExtension.routes) return;
-
     //   await upsertExtension({
     //     siteId: decodeGlobalID(site.id).id,
     //     storeExtensionId: storeExtensionId,
@@ -260,7 +256,6 @@ export const OnboardingProjects: FC = () => {
     //     authType: AuthType.oAuth,
     //     apiConnectorName: "gitlab",
     //   });
-
     //   setGitlabConnected(true);
     // }
   };
@@ -401,11 +396,8 @@ export const OnboardingBlogs: FC = () => {
   const [, setOpenPreferencesModal] = useRecoilState(preferencesOpenState);
 
   // recoil state for prefernece extension
-  const [, setPreferencesExtension] = useRecoilState(
-    preferencesExtensionState
-  );
-  const [, setPreferencesApi] =
-    useRecoilState(preferencesApiState);
+  const [, setPreferencesExtension] = useRecoilState(preferencesExtensionState);
+  const [, setPreferencesApi] = useRecoilState(preferencesApiState);
 
   const storeExtensions = useRecoilValue(storeExtensionState);
 

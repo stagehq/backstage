@@ -1,14 +1,15 @@
 import { Block, List } from "@stagehq/ui";
 import { useEffect, useState } from "react";
 import { useChangeExtensionTitle } from "../components/studio/hooks/useChangeExtensionTitle";
+import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
 import { Extension } from "../graphql/types.generated";
 
 const Blogs = (extension: Extension) => {
   const [data, setData] = useState<any[]>([]);
   const [profileLink, setProfileLink] = useState("");
-  const [linkSource, setLinkSource] = useState("");
 
-  const { changeExtensionTitle } = useChangeExtensionTitle();
+  const changeExtensionTitle = useChangeExtensionTitle();
+  const changeExtensionSize = useChangeExtensionSize();
 
   useEffect(() => {
     if (extension.underlayingApis) {
@@ -21,7 +22,6 @@ const Blogs = (extension: Extension) => {
               // get post.url and shorten it to the profilelink
               if (profileLink === "") {
                 setProfileLink("https://dev.to/" + post.user.username + "/");
-                setLinkSource("DEV.to");
               }
               blogPosts.push({
                 source: "DEV.to",
@@ -53,15 +53,13 @@ const Blogs = (extension: Extension) => {
 
       setData(blogPosts);
     }
-  }, [extension, profileLink]);
+  }, [extension]);
 
   return (
     <Block
       actions={{ link: { url: profileLink } }}
-      handleTitleChange={(title: string) =>
-        changeExtensionTitle(extension.id, title)
-      }
-      handleSizeChange={exampleChangeSize}
+      handleTitleChange={(title) => changeExtensionTitle(extension.id, title)}
+      handleSizeChange={(size) => changeExtensionSize(extension.id, size)}
       title={"Open Source"}
       imagePath={"https://avatars.githubusercontent.com/u/65030610?s=200&v=4"}
       size={1}

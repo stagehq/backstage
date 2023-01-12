@@ -1,26 +1,29 @@
-import { Action, Actions, Header, List, Section } from "@stagehq/ui";
+import { Block, List } from "@stagehq/ui";
 import { useEffect, useState } from "react";
-import { Api } from "../graphql/types.generated";
+import { useChangeExtensionTitle } from "../components/studio/hooks/useChangeExtensionTitle";
+import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
+import { Extension } from "../graphql/types.generated";
 
-const Repositories = (props: { underlayingApis: Api[] }) => {
+const Repositories = (extension: Extension) => {
   const [data, setData] = useState<any[]>([]);
   const [profileLink, setProfileLink] = useState("");
-  const [linkSource, setLinkSource] = useState("");
   const [languages, setLanguages] = useState<string[]>([]);
 
+  const changeExtensionTitle = useChangeExtensionTitle();
+  const changeExtensionSize = useChangeExtensionSize();
+
   useEffect(() => {
-    if (props.underlayingApis) {
+    if (extension.underlayingApis) {
       let mergedData: any[] = [];
       let collectLanguages: any[] = [];
 
       // merge data from GitHub and GitLab
-      props.underlayingApis?.forEach((api) => {
+      extension.underlayingApis?.forEach((api) => {
         if (api.apiConnector?.name === "github") {
           api.apiResponses?.forEach((apiResponse) => {
             apiResponse.response.forEach((repository: any) => {
               if (profileLink === "") {
                 setProfileLink(repository.owner.html_url);
-                setLinkSource("GitHub");
               }
               if (repository.language) {
                 collectLanguages.push(repository.language);
@@ -36,24 +39,23 @@ const Repositories = (props: { underlayingApis: Api[] }) => {
             });
           });
         }
-        if (api.apiConnector?.name === "gitlab") {
-          api.apiResponses?.forEach((apiResponse) => {
-            apiResponse.response.forEach((repository: any) => {
-              if (profileLink === "") {
-                setProfileLink(repository.namespace.web_url);
-                setLinkSource("GitLab");
-              }
-              mergedData.push({
-                source: "GitLab",
-                url: repository.web_url,
-                name: repository.name,
-                full_name: repository.path_with_namespace,
-                description: repository.description,
-                star_count: repository.star_count,
-              });
-            });
-          });
-        }
+        // if (api.apiConnector?.name === "gitlab") {
+        //   api.apiResponses?.forEach((apiResponse) => {
+        //     apiResponse.response.forEach((repository: any) => {
+        //       if (profileLink === "") {
+        //         setProfileLink(repository.namespace.web_url);
+        //       }
+        //       mergedData.push({
+        //         source: "GitLab",
+        //         url: repository.web_url,
+        //         name: repository.name,
+        //         full_name: repository.path_with_namespace,
+        //         description: repository.description,
+        //         star_count: repository.star_count,
+        //       });
+        //     });
+        //   });
+        // }
       });
 
       // sort by star count
@@ -80,21 +82,18 @@ const Repositories = (props: { underlayingApis: Api[] }) => {
       setLanguages(collectLanguages);
       setData(mergedData);
     }
-  }, [props.underlayingApis]);
+  }, [extension]);
 
   return (
     data && (
-      <Section>
-        <Header
-          title="Open Source"
-          icon="CodeBracketSquareIcon"
-          actions={
-            <Actions>
-              <Action.Link url={profileLink} text={`${linkSource} profile`} />
-            </Actions>
-          }
-        />
-        {/* {languages.length > 0 && <Pills pills={languages} />} */}
+      <Block
+        title="Open Source"
+        actions={{ link: { url: profileLink } }}
+        size={2}
+        handleTitleChange={(title) => changeExtensionTitle(extension.id, title)}
+        handleSizeChange={(size) => changeExtensionSize(extension.id, size)}
+        imagePath={"https://avatars.githubusercontent.com/u/9919?s=200&v=4"}
+      >
         <List>
           {data.map((project, index) => (
             <List.Item
@@ -106,19 +105,12 @@ const Repositories = (props: { underlayingApis: Api[] }) => {
                 value: project.star_count,
                 icon: "StarIcon",
               }}
-              actions={
-                <Actions>
-                  <Action.Link
-                    url={project.url}
-                    text={`View on ${project.source}`}
-                  />
-                </Actions>
-              }
+              actions={{ open: { url: project.url } }}
               key={"repository" + index}
             />
           ))}
         </List>
-      </Section>
+      </Block>
     )
   );
 };

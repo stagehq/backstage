@@ -13,14 +13,14 @@ export default function GridList() {
   if (!user) return null;
 
   const filteredSites =
-    query === ''
+    query === ""
       ? user.sites
       : user.sites?.filter((site) => {
           return (
-            site.subdomain?.toLowerCase().includes(query.toLowerCase())
-            || site.tagline?.toLowerCase().includes(query.toLowerCase())
+            site.subdomain?.toLowerCase().includes(query.toLowerCase()) ||
+            site.tagline?.toLowerCase().includes(query.toLowerCase())
           );
-        })
+        });
 
   function handleFocus(id: number) {
     setFocusedId(id);
@@ -35,10 +35,12 @@ export default function GridList() {
       {filteredSites &&
         filteredSites.map((site, index) => (
           <div
-            className={clsx("flex flex-col justify-between relative group bg-white p-6 border border-zinc-200 rounded-lg hover:shadow-lg focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800",
-              focusedId === index && "border-zinc-800 outline-none ring-1 ring-zinc-800"
+            className={clsx(
+              "flex flex-col justify-between relative group bg-white p-6 border border-zinc-200 rounded-lg hover:shadow-lg focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800",
+              focusedId === index &&
+                "border-zinc-800 outline-none ring-1 ring-zinc-800"
             )}
-            key={'site' + index}
+            key={"site" + index}
           >
             <div>
               {user.image && (

@@ -1,17 +1,22 @@
-import { Header, List, Section, Seperator } from "@stagehq/ui";
+import { Block, List, Seperator } from "@stagehq/ui";
 import { useEffect, useState } from "react";
-import { Api } from "../graphql/types.generated";
+import { useChangeExtensionTitle } from "../components/studio/hooks/useChangeExtensionTitle";
+import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
+import { Extension } from "../graphql/types.generated";
 
-const Resume = (props: { underlayingApis: Api[] }) => {
+const Resume = (extension: Extension) => {
   const [experience, setExperience] = useState<any[]>([]);
   const [university, setUniversity] = useState<any[]>([]);
 
+  const changeExtensionTitle = useChangeExtensionTitle();
+  const changeExtensionSize = useChangeExtensionSize();
+
   useEffect(() => {
-    if (props.underlayingApis) {
+    if (extension.underlayingApis) {
       let jobs: any[] = [];
       let education: any[] = [];
 
-      props.underlayingApis?.forEach((api) => {
+      extension.underlayingApis?.forEach((api) => {
         if (api.apiConnector?.name === "linkedin") {
           api.apiResponses?.forEach((apiResponse) => {
             apiResponse.response.experiences &&
@@ -54,11 +59,19 @@ const Resume = (props: { underlayingApis: Api[] }) => {
       setExperience(jobs);
       setUniversity(education);
     }
-  }, [props.underlayingApis]);
+  }, [extension]);
 
   return (
-    <Section>
-      <Header title="Experience" icon="BriefcaseIcon" />
+    <Block
+      actions={{
+        link: { url: "https://www.linkedin.com/in/alexander-herzog/" },
+      }}
+      title={"Experience"}
+      size={2}
+      handleTitleChange={(title) => changeExtensionTitle(extension.id, title)}
+      handleSizeChange={(size) => changeExtensionSize(extension.id, size)}
+      imagePath={"https://avatars.githubusercontent.com/u/357098?s=200&v=4"}
+    >
       <List>
         {experience.map((job: any, index) => (
           <List.Item
@@ -84,7 +97,7 @@ const Resume = (props: { underlayingApis: Api[] }) => {
           />
         ))}
       </List>
-    </Section>
+    </Block>
   );
 };
 

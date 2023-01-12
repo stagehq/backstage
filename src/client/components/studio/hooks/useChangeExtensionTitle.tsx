@@ -3,12 +3,13 @@ import { useUpdateExtensionTitleMutation } from "../../../graphql/updateExtensio
 import { siteSlugState, siteState } from "../../../store/site";
 
 /**
+ * @function
+ * @name useChangeExtensionTitle
+ *
  * @description
- * This hook is used to change the title of an extension.
- * @returns {Object} - Returns an object with the changeExtensionTitle function.
- * @example
- * const { changeExtensionTitle } = useChangeExtensionTitle();
- * changeExtensionTitle("id", "new title");
+ * A custom hook that updates the title of an extension in the database and in the Recoil state.
+ *
+ * @returns {Function} changeExtensionTitle - A function that takes in an extension id and a title, and updates the title of the extension in the database and in the Recoil state.
  */
 
 export const useChangeExtensionTitle = () => {

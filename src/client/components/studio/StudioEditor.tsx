@@ -38,7 +38,7 @@ const StudioEditor = () => {
   useEffect(() => {
     if (document.readyState === "complete") {
       console.log("Document ready");
-      
+
       updateHeight();
     }
   }, []);
