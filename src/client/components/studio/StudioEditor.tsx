@@ -70,36 +70,34 @@ const StudioEditor = () => {
             />
           </div>
 
-          <ResponsiveGridLayout
-            layouts={layouts}
-            breakpoints={{ lg: 991, md: 768, sm: 0 }}
-            cols={{ lg: 3, md: 2, sm: 1 }}
-            rowHeight={1}
-            width={1000}
-            margin={[24, 24]}
-            isResizable={false}
-            measureBeforeMount={true}
-            onWidthChange={() => {
-              updateHeight();
-            }}
-            onBreakpointChange={(breakpoint) => {
-              setBreakpoint(breakpoint);
-            }}
-            onLayoutChange={(layout: Layout[], layouts: Layouts) => {
-              if (breakpoint) {
-                const currentLayout = layouts[breakpoint];
-                const adjustedLayout = updateLayout(currentLayout, itemsRef);
-                layouts[breakpoint] = adjustedLayout;
-              } else {
-                updateLayout(layout, itemsRef);
-              }
-              setLayouts(layouts);
-            }}
-          >
-            {site.extensions ? (
-              site.extensions.map((extension, index) => {
-                console.log(extension);
-
+          {site.extensions && site.extensions?.length > 0 ? (
+            <ResponsiveGridLayout
+              layouts={layouts}
+              breakpoints={{ lg: 991, md: 768, sm: 0 }}
+              cols={{ lg: 3, md: 2, sm: 1 }}
+              rowHeight={1}
+              width={1000}
+              margin={[24, 24]}
+              isResizable={false}
+              measureBeforeMount={true}
+              onWidthChange={() => {
+                updateHeight();
+              }}
+              onBreakpointChange={(breakpoint) => {
+                setBreakpoint(breakpoint);
+              }}
+              onLayoutChange={(layout: Layout[], layouts: Layouts) => {
+                if (breakpoint) {
+                  const currentLayout = layouts[breakpoint];
+                  const adjustedLayout = updateLayout(currentLayout, itemsRef);
+                  layouts[breakpoint] = adjustedLayout;
+                } else {
+                  updateLayout(layout, itemsRef);
+                }
+                setLayouts(layouts);
+              }}
+            >
+              {site.extensions.map((extension, index) => {
                 const Extension = dynamic(
                   () =>
                     import(`../../blocks/${extension.storeExtension?.blockId}`)
@@ -113,11 +111,11 @@ const StudioEditor = () => {
                     />
                   </div>
                 );
-              })
-            ) : (
-              <span>add extension</span>
-            )}
-          </ResponsiveGridLayout>
+              })}
+            </ResponsiveGridLayout>
+          ) : (
+            <span>add extension</span>
+          )}
         </div>
       </div>
     </div>

@@ -118,7 +118,7 @@ model Api {
   apiConnector          ApiConnector          @relation(fields: [apiConnectorId], references: [id])
 
   extensionId           String
-  extension             Extension             @relation(fields: [extensionId], references: [id])
+  extension             Extension             @relation(fields: [extensionId], references: [id], onDelete: Cascade)
 
   apiResponses          ApiResponse[]
 
@@ -168,7 +168,7 @@ model ApiResponse {
   response              Json?
 
   apiId                 String
-  api                   Api                   @relation(fields: [apiId], references: [id])
+  api                   Api                   @relation(fields: [apiId], references: [id], onDelete: Cascade)
 
   apiConnectorRouteId   String                @default("clbnod4jm0002eo372w1i5dp1")
   apiConnectorRoute     ApiConnectorRoute     @relation(fields: [apiConnectorRouteId], references: [id])

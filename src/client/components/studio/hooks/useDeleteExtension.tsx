@@ -23,19 +23,23 @@ export const useDeleteExtension = () => {
     try {
       // delete extension from database
       if (!siteSlug) return null;
-      //await deleteExtension({ id: decodeGlobalID(extensionId).id, siteId: siteSlug });
+      await deleteExtension({
+        id: decodeGlobalID(extensionId).id,
+        siteId: siteSlug,
+      });
 
       // delete extension from recoil site store
-      if(!site || !site.extensions) return null;
+      if (!site || !site.extensions) return null;
       const newExtensions = [...site.extensions];
-      const index = newExtensions.findIndex(extension => extension.id === extensionId);
+      const index = newExtensions.findIndex(
+        (extension) => extension.id === extensionId
+      );
       if (index !== -1) {
         newExtensions.splice(index, 1);
         setSite({ ...site, extensions: newExtensions });
       } else {
         console.error("Extension not found in site's extensions array");
       }
-
     } catch (error) {
       console.log(error);
     }

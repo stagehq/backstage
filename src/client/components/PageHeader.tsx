@@ -1,4 +1,4 @@
-import { SunIcon, MoonIcon } from "@heroicons/react/24/outline"
+import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -13,8 +13,13 @@ export interface PageHeaderProps {
   toggleLightMode: () => void;
 }
 
-export const PageHeader = ({ title, description, image, lightMode, toggleLightMode }: PageHeaderProps) => {
-  
+export const PageHeader = ({
+  title,
+  description,
+  image,
+  lightMode,
+  toggleLightMode,
+}: PageHeaderProps) => {
   //refs
   const bioRef = useRef<HTMLTextAreaElement>(null);
   const tagLineRef = useRef<HTMLTextAreaElement>(null);
@@ -28,10 +33,10 @@ export const PageHeader = ({ title, description, image, lightMode, toggleLightMo
 
   //state
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site, ] = useRecoilState(siteState(siteSlug));
+  const [site] = useRecoilState(siteState(siteSlug));
 
   useEffect(() => {
-    if(bioRef.current?.style){
+    if (bioRef.current?.style) {
       bioRef.current.style.height = "0px";
       const scrollHeight = bioRef.current.scrollHeight;
       bioRef.current.style.height = scrollHeight + "px";
@@ -39,7 +44,7 @@ export const PageHeader = ({ title, description, image, lightMode, toggleLightMo
   }, [bio]);
 
   useEffect(() => {
-    if(tagLineRef.current?.style){
+    if (tagLineRef.current?.style) {
       tagLineRef.current.style.height = "0px";
       const scrollHeight = tagLineRef.current.scrollHeight;
       tagLineRef.current.style.height = scrollHeight + "px";
@@ -52,23 +57,23 @@ export const PageHeader = ({ title, description, image, lightMode, toggleLightMo
   }, []);
 
   const handleBlur = async () => {
-    if(bio !== description || tagLine != description){
-      if(site?.subdomain){
+    if (bio !== description || tagLine != description) {
+      if (site?.subdomain) {
         const response = await updateSiteHeader({
           subdomain: site?.subdomain,
           bio: bio,
-          tagLine: tagLine
-        })
-        if(!response.data?.updateSiteHeader){
+          tagLine: tagLine,
+        });
+        if (!response.data?.updateSiteHeader) {
           console.log("Couldn't update Header");
           toast.error("Couldn't update Header");
         }
-      }else{
+      } else {
         console.log("Need site object for update");
         toast.error("It went something wrong");
       }
     }
-  }
+  };
 
   return (
     <div className="flex flex-col justify-start items-start gap-[54px] pt-6">
@@ -77,9 +82,11 @@ export const PageHeader = ({ title, description, image, lightMode, toggleLightMo
           className="flex justify-start items-start relative gap-2 p-2 rounded-full bg-zinc-100/40 dark:bg-zinc-800/90 ring-1 ring-zinc-900/5 backdrop-blur dark:ring-white/10 cursor-pointer"
           onClick={toggleLightMode}
         >
-          {lightMode ? 
-            <SunIcon className="h-5 w-5 text-gray-600" /> : 
-            <MoonIcon className="h-5 w-5 text-gray-400"/>}
+          {lightMode ? (
+            <SunIcon className="h-5 w-5 text-gray-600" />
+          ) : (
+            <MoonIcon className="h-5 w-5 text-gray-400" />
+          )}
         </div>
       </div>
       <div className="flex flex-col justify-start items-start self-stretch gap-5 w-full lg:w-3/4 xl:w-1/2">
