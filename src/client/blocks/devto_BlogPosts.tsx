@@ -19,8 +19,6 @@ const Blogs: FC<BlockProps> = ({ extension, size, isEditable }) => {
 
       extension.underlayingApis?.forEach((api) => {
         if (api.apiConnector?.name === "devto") {
-          console.log("hi");
-
           api.apiResponses?.forEach((apiResponse) => {
             apiResponse.response.forEach((post: any) => {
               // get post.url and shorten it to the profilelink

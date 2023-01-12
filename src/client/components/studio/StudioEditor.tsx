@@ -5,18 +5,18 @@ import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { BlockProps } from "../../blocks/type";
 import { useUpdateSiteHeaderMutation } from "../../graphql/updateSiteHeader.generated";
+import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
 import { siteSlugState, siteState } from "../../store/site";
 import { gridBreakpointState, gridLayoutState } from "../../store/ui/grid-dnd";
 import { themeState } from "../../store/ui/theme";
 import { currentUserState } from "../../store/user";
 import { updateLayout } from "../dnd/utils";
 import { PageHeader } from "../PageHeader";
-import { useChangeExtensionSize } from "./hooks/useChangeSize";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const StudioEditor = () => {
-  const [layouts, setLayouts] = useRecoilState<Layouts>(gridLayoutState);
+  const [layouts, setLayouts] = useRecoilState(gridLayoutState);
   const [breakpoint, setBreakpoint] = useRecoilState(gridBreakpointState);
   const itemsRef = useRef<HTMLDivElement>(null);
 
@@ -27,27 +27,43 @@ const StudioEditor = () => {
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
 
-  const changeExtensionSize = useChangeExtensionSize();
+  const [, upsertSite] = useUpsertSiteMutation();
   const [, updateSiteHeader] = useUpdateSiteHeaderMutation();
 
   const updateHeight = () => {
+    if (!layouts) return;
+
     const newLayout = updateLayout(layouts[breakpoint], itemsRef);
-    if (layouts[breakpoint] !== newLayout) {
+
+    if (
+      layouts &&
+      layouts[breakpoint] !== newLayout &&
+      site?.tagline &&
+      site?.bio &&
+      site?.subdomain
+    ) {
       setLayouts((layouts) => {
         return { ...layouts, [breakpoint]: newLayout };
+      });
+
+      /* TODO: This has to be executed after the layout is updated and with a 1sec threshold. */
+      upsertSite({
+        subdomain: site.subdomain,
+        tagline: site.tagline,
+        bio: site.bio,
+        layouts: JSON.stringify({ ...layouts, [breakpoint]: newLayout }),
       });
     }
   };
 
   useEffect(() => {
-    if (document.readyState === "complete") {
+    if (site?.layouts && document.readyState === "complete") {
+      setLayouts(site.layouts);
       updateHeight();
     }
   }, []);
 
-  if (!site || !user) return null;
-
-  console.log("Site: ", site);
+  if (!site || !layouts || !user) return null;
 
   return (
     <div className={clsx(theme === "dark" && "dark", "w-full h-full ")}>

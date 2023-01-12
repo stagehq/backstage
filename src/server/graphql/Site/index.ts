@@ -8,6 +8,7 @@ builder.prismaNode('Site', {
     tagline: t.exposeString('tagline'),
     bio: t.exposeString('bio'),
     subdomain: t.exposeString('subdomain'),
+    layouts: t.field({ type: 'JSON', resolve: site => site.layouts}),
     createdAt: t.string({ resolve: site => site.createdAt.toString()}),
     modifiedAt: t.string({ resolve: site => site.modifiedAt.toString()}),
 
@@ -55,8 +56,9 @@ builder.mutationField('upsertSite', (t) => {
       subdomain: t.arg.string({ required: true }),
       tagline: t.arg.string({ required: true }),
       bio: t.arg.string({ required: true }),
+      layouts: t.arg.string({ required: false }),
     },
-    resolve: async (query, root, { subdomain, tagline, bio }, ctx) => {
+    resolve: async (query, root, { subdomain, tagline, bio, layouts }, ctx) => {
       if (!ctx.session.user.email) return null;
 
       const site = await prisma.site.upsert({
@@ -66,6 +68,7 @@ builder.mutationField('upsertSite', (t) => {
         update: {
           tagline: tagline,
           bio: bio,
+          layouts: layouts ? JSON.parse(layouts) : null,
         },
         create: {
           user: {

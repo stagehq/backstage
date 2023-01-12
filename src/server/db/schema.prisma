@@ -82,6 +82,7 @@ model Site {
   subdomain             String                @unique
   tagline               String
   bio                   String
+  layouts               Json?
 
   userId                String                
   user                  User                  @relation("tailorings", fields: [userId], references: [id])
