@@ -19,17 +19,13 @@ export const authorize = async () => {
     return;
   }
 
-  const authRequest = await github.authorizationRequest({
+  const request: OAuth.AuthorizationRequestOptions = {
     endpoint: "https://github.com/login/oauth/authorize",
     clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID as string,
     scope: "read:user,repo",
-  });
-  console.log(authRequest);
-  const { authorizationCode } = await github.authorize({
-    endpoint: "https://github.com/login/oauth/authorize",
-    clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID as string,
-    scope: "read:user,repo",
-  });
+  };
+  const authRequest = await github.authorizationRequest(request);
+  const { authorizationCode } = await github.authorize(request);
   await github.setTokens(await fetchTokens(authRequest, authorizationCode));
 };
 

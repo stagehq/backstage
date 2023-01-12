@@ -19,18 +19,14 @@ export const authorize = async () => {
     return;
   }
 
-  const authRequest = await spotify.authorizationRequest({
+  const options: OAuth.AuthorizationRequestOptions = {
     endpoint: "https://accounts.spotify.com/authorize",
     clientId: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID as string,
     scope:
       "user-read-currently-playing user-top-read user-read-recently-played",
-  });
-  const { authorizationCode } = await spotify.authorize({
-    endpoint: "https://accounts.spotify.com/authorize",
-    clientId: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID as string,
-    scope:
-      "user-read-currently-playing user-top-read user-read-recently-played",
-  });
+  };
+  const authRequest = await spotify.authorizationRequest(options);
+  const { authorizationCode } = await spotify.authorize(options);
   await spotify.setTokens(await fetchTokens(authRequest, authorizationCode));
 };
 

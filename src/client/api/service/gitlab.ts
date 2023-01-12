@@ -17,16 +17,13 @@ export const authorize = async () => {
     return;
   }
 
-  const authRequest = await gitlab.authorizationRequest({
+  const options: OAuth.AuthorizationRequestOptions = {
     endpoint: "https://gitlab.com/oauth/authorize",
     clientId: process.env.NEXT_PUBLIC_GITLAB_CLIENT_ID as string,
     scope: "read_api read_user read_repository profile",
-  });
-  const { authorizationCode } = await gitlab.authorize({
-    endpoint: "https://gitlab.com/oauth/authorize",
-    clientId: process.env.NEXT_PUBLIC_GITLAB_CLIENT_ID as string,
-    scope: "read_api read_user read_repository profile",
-  });
+  };
+  const authRequest = await gitlab.authorizationRequest(options);
+  const { authorizationCode } = await gitlab.authorize(options);
   await gitlab.setTokens(await fetchTokens(authRequest, authorizationCode));
 };
 
