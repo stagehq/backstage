@@ -1,10 +1,15 @@
 import { Block, List } from "@stagehq/ui";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useChangeExtensionTitle } from "../components/studio/hooks/useChangeExtensionTitle";
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
 import { Extension } from "../graphql/types.generated";
 
-const Blogs = (extension: Extension) => {
+interface BlogProps {
+  extension: Extension;
+  size: 1 | 2 | 3;
+}
+
+const Blogs: FC<BlogProps> = ({ extension, size }) => {
   const [data, setData] = useState<any[]>([]);
   const [profileLink, setProfileLink] = useState("");
 
@@ -62,7 +67,7 @@ const Blogs = (extension: Extension) => {
       handleSizeChange={(size) => changeExtensionSize(extension.id, size)}
       title={"Open Source"}
       imagePath={"https://avatars.githubusercontent.com/u/65030610?s=200&v=4"}
-      size={1}
+      size={size}
     >
       <List>
         {data.map((post, index) => (

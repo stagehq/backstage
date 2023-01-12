@@ -1,10 +1,14 @@
 import { Block, List } from "@stagehq/ui";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useChangeExtensionTitle } from "../components/studio/hooks/useChangeExtensionTitle";
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
 import { Extension } from "../graphql/types.generated";
+interface RepositoriesProps {
+  extension: Extension;
+  size: 1 | 2 | 3;
+}
 
-const Repositories = (extension: Extension) => {
+const Repositories: FC<RepositoriesProps> = ({ extension, size }) => {
   const [data, setData] = useState<any[]>([]);
   const [profileLink, setProfileLink] = useState("");
   const [languages, setLanguages] = useState<string[]>([]);
@@ -89,7 +93,7 @@ const Repositories = (extension: Extension) => {
       <Block
         title="Open Source"
         actions={{ link: { url: profileLink } }}
-        size={2}
+        size={size}
         handleTitleChange={(title) => changeExtensionTitle(extension.id, title)}
         handleSizeChange={(size) => changeExtensionSize(extension.id, size)}
         imagePath={"https://avatars.githubusercontent.com/u/9919?s=200&v=4"}
