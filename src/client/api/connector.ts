@@ -147,12 +147,12 @@ export namespace OAuth {
     };
 
     authorize = async (
-      options: AuthorizationRequest | AuthorizationOptions
+      options: AuthorizationRequestOptions
     ): Promise<AuthorizationResponse> => {
       let authorizationRequest: AuthorizationRequest;
       if ("endpoint" in options) {
         // options is an AuthorizationRequestOptions object
-        authorizationRequest = this.authorizationRequest(options);
+        authorizationRequest = await this.authorizationRequest(options);
       } else {
         // options is an AuthorizationRequest object
         authorizationRequest = options;

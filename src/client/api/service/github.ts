@@ -24,7 +24,12 @@ export const authorize = async () => {
     clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID as string,
     scope: "read:user,repo",
   });
-  const { authorizationCode } = await github.authorize(authRequest);
+  console.log(authRequest);
+  const { authorizationCode } = await github.authorize({
+    endpoint: "https://github.com/login/oauth/authorize",
+    clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID as string,
+    scope: "read:user,repo",
+  });
   await github.setTokens(await fetchTokens(authRequest, authorizationCode));
 };
 
