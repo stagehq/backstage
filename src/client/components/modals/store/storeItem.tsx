@@ -7,10 +7,8 @@ import {
   useRecoilRefresher_UNSTABLE,
   useRecoilState,
   useRecoilValue,
-  useRecoilValueLoadable,
 } from "recoil";
 import { StoreExtension } from "../../../graphql/types.generated";
-import { useLazyRecoilValue } from "../../../helper/useLazyRecoilValue";
 import {
   preferencesApiState,
   preferencesExtensionState,
@@ -34,7 +32,7 @@ interface StoreItemProps {
 
 const StoreItem: FC<StoreItemProps> = ({ storeExtension }) => {
   const siteSlug = useRecoilValue(siteSlugState);
-  const site = useLazyRecoilValue(useRecoilValueLoadable(siteState(siteSlug)));
+  const [site,] = useRecoilState(siteState(siteSlug));
   const refreshSite = useRecoilRefresher_UNSTABLE(siteState(siteSlug));
   const [, setOpenPreferencesModal] = useRecoilState(preferencesOpenState);
   const [, setPreferencesExtension] = useRecoilState(preferencesExtensionState);

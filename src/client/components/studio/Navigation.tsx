@@ -8,8 +8,7 @@ import {
 import clsx from "clsx";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from "recoil";
-import { useLazyRecoilValue } from "../../helper/useLazyRecoilValue";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { siteSlugState, siteState } from "../../store/site";
 import {
   analyticsOpenState,
@@ -22,7 +21,7 @@ export default function Navigation() {
 
   /* Site state */
   const siteSlug = useRecoilValue(siteSlugState);
-  const site = useLazyRecoilValue(useRecoilValueLoadable(siteState(siteSlug)));
+  const [site,] = useRecoilState(siteState(siteSlug));
 
   /* Settings modal state */
   const [, setSiteSettingsOpen] = useRecoilState(siteSettingsOpenState);

@@ -4,7 +4,6 @@ import { FC, useEffect, useRef } from "react";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { BlockProps } from "../../blocks/type";
-import { useUpdateSiteHeaderMutation } from "../../graphql/updateSiteHeader.generated";
 import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
 import { siteSlugState, siteState } from "../../store/site";
 import { gridBreakpointState, gridLayoutState } from "../../store/ui/grid-dnd";
@@ -28,7 +27,6 @@ const StudioEditor = () => {
   const [site, setSite] = useRecoilState(siteState(siteSlug));
 
   const [, upsertSite] = useUpsertSiteMutation();
-  const [, updateSiteHeader] = useUpdateSiteHeaderMutation();
 
   const updateHeight = () => {
     if (!layouts) return;
@@ -63,7 +61,8 @@ const StudioEditor = () => {
     }
   }, []);
 
-  if (!site || !layouts || !user) return null;
+  // if (!site || !layouts || !user) return null;
+  if (!site || !user) return null;
 
   return (
     <div className={clsx(theme === "dark" && "dark", "w-full h-full ")}>
@@ -74,8 +73,8 @@ const StudioEditor = () => {
         >
           <div className="p-8">
             <PageHeader
-              title={site.tagline ? site.tagline : "Oops! No tagline found"}
-              description={site?.bio ? site.bio : "Oops! No bio found"}
+              title={site.tagline ? site.tagline : ""}
+              description={site?.bio ? site.bio : ""}
               image={
                 user.image ? user.image : "https://via.placeholder.com/150"
               }
@@ -86,7 +85,7 @@ const StudioEditor = () => {
             />
           </div>
 
-          {site.extensions && site.extensions?.length > 0 ? (
+          {layouts && site.extensions && site.extensions?.length > 0 ? (
             <ResponsiveGridLayout
               layouts={layouts}
               breakpoints={{ lg: 991, md: 768, sm: 0 }}
@@ -130,7 +129,7 @@ const StudioEditor = () => {
               })}
             </ResponsiveGridLayout>
           ) : (
-            <span>add extension</span>
+            <span></span>
           )}
         </div>
       </div>

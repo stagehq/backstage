@@ -3,12 +3,11 @@ import { decodeGlobalID } from "@pothos/plugin-relay";
 import { AuthType } from "@prisma/client";
 import { FC, Fragment, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   ApiConnectorRoute,
   StoreExtension,
 } from "../../graphql/types.generated";
-import { useLazyRecoilValue } from "../../helper/useLazyRecoilValue";
 import {
   preferencesApiState,
   preferencesExtensionState,
@@ -27,7 +26,7 @@ const PreferencesModal: FC = () => {
   const preferencesApi = useRecoilValue(preferencesApiState);
 
   const siteSlug = useRecoilValue(siteSlugState);
-  const site = useLazyRecoilValue(useRecoilValueLoadable(siteState(siteSlug)));
+  const [site,] = useRecoilState(siteState(siteSlug));
   const user = useRecoilValue(currentUserState);
   const [, setAddingInProcess] = useRecoilState(addingInProcessState);
 
