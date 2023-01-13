@@ -55,8 +55,8 @@ builder.mutationField('upsertSite', (t) => {
     type: 'Site',
     args: {
       subdomain: t.arg.string({ required: true }),
-      tagline: t.arg.string({ required: true }),
-      bio: t.arg.string({ required: true }),
+      tagline: t.arg.string({ required: false }),
+      bio: t.arg.string({ required: false }),
       layouts: t.arg.string({ required: false }),
     },
     resolve: async (query, root, { subdomain, tagline, bio, layouts }, ctx) => {
@@ -67,8 +67,8 @@ builder.mutationField('upsertSite', (t) => {
           subdomain: subdomain,
         },
         update: {
-          tagline: tagline,
-          bio: bio,
+          tagline: tagline ? tagline : undefined,
+          bio: bio ? bio : undefined,
           layouts: layouts ? JSON.parse(layouts) : undefined,
         },
         create: {
@@ -78,8 +78,8 @@ builder.mutationField('upsertSite', (t) => {
             },
           },
           subdomain: subdomain,
-          tagline: tagline,
-          bio: bio,
+          tagline: tagline ? tagline : undefined,
+          bio: bio ? bio : undefined,
         },
       });
 

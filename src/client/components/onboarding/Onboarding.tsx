@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
-import { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { Router } from "react-router-dom";
+import { Router, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
 import { onboardingState } from "../../store/onboarding";
-import { siteSlugState } from "../../store/site";
+import { siteSlugState, siteState } from "../../store/site";
 import { subdomainCardOpenState } from "../../store/ui/modals";
 import {
   activeSectionState,
@@ -278,14 +278,13 @@ const OnboardingProfile = () => {
 
 export const OnboardingSubdomain: FC = () => {
   const [onboarding, setOnboarding] = useRecoilState(onboardingState);
-  const [, setSiteSlug] = useRecoilState(siteSlugState);
   const user = useRecoilValue(currentUserState);
   const [, setSubdomainCardOpen] = useRecoilState(subdomainCardOpenState);
   const [subdomainValid, setSubdomainValid] = useState(false);
   const [, upsertSite] = useUpsertSiteMutation();
 
   const router = useRouter()
-
+  
   const handleSubdomainChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value === "") {
@@ -301,27 +300,20 @@ export const OnboardingSubdomain: FC = () => {
     }
   };
 
-  const handleUpsertSite = () => {
-    if (subdomainValid && !user?.mainSite?.subdomain) {
-      upsertSite({
+  const handleUpsertSite = async () => {
+    setSubdomainCardOpen(false);
+    if (subdomainValid) {
+      const response = await upsertSite({
         subdomain: onboarding.subdomain,
         tagline: onboarding.tagline,
         bio: onboarding.bio,
-      }).then((res) => {
-        if (res.data?.upsertSite?.subdomain) {
-          setSiteSlug(res.data.upsertSite.subdomain);
-          router.push(`/s/${res.data.upsertSite.subdomain}`);
-          setSubdomainCardOpen(false);
-        } else {
-          console.log("Alias could not be created.");
-        }
-      });
-    } else {
-      if (user?.mainSite?.subdomain) {
-        setSiteSlug(user?.mainSite?.subdomain);
+      })
+
+      if(response.data?.upsertSite){
+        const subdomain = response.data.upsertSite.subdomain;
+        setSubdomainCardOpen(false);
+        if(subdomain) router.push(`/s/${subdomain}`);
       }
-      router.push(`/s/${user?.mainSite?.subdomain}`);
-      setSubdomainCardOpen(false);
     }
   };
 

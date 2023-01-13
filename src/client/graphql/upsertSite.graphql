@@ -1,7 +1,7 @@
 mutation UpsertSite(
   $subdomain: String!
-  $tagline: String!
-  $bio: String!
+  $tagline: String
+  $bio: String
   $layouts: String
 ) {
   upsertSite(

@@ -54,11 +54,11 @@ type Mutation {
   createOAuthforApi(accessToken: String, apiConnectorName: String, expiresIn: Int, idToken: String, refreshToken: String, scope: String): OAuth
   deleteExtension(id: String!, siteId: String!): Extension
   updateExtensionTitle(id: String!, title: String!): Extension
-  updateSiteLayouts(id: String!, layouts: String!): Site
   updateSiteHeader(bio: String, image: String, siteId: String!, tagline: String): Site
+  updateSiteLayouts(id: String!, layouts: String!): Site
   updateUser(alias: String, coverImageUrl: String, firstName: String, image: String, lastName: String): User
   upsertApiResponse(apiConnectorRouteId: String, apiId: String, response: String): ApiResponse
-  upsertSite(bio: String!, layouts: String, subdomain: String!, tagline: String!): Site
+  upsertSite(bio: String, layouts: String, subdomain: String!, tagline: String): Site
 }
 
 interface Node {

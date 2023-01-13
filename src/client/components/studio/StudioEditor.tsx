@@ -26,6 +26,10 @@ const StudioEditor = () => {
 
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
+  
+  useEffect(() => {
+    console.log(site);
+  }, [site])
 
   const [, updateSiteLayouts] = useUpdateSiteLayoutsMutation();
 
@@ -115,7 +119,8 @@ const StudioEditor = () => {
                       <div key={extension.id} id={extension.id}>
                         <Extension
                           extension={extension}
-                          size={layouts[breakpoint].find((layout: Layout) => layout.i === extension.id)?.w as 1 | 2 | 3}
+                          size={1}
+                          // size={layouts[breakpoint].find((layout: Layout) => layout.i === extension.id)?.w as 1 | 2 | 3}
                           isEditable={true}
                         />
                       </div>
