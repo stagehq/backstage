@@ -34,6 +34,10 @@ module.exports = withBundleAnalyzer({
 });
 
 module.exports = {
+  reactStrictMode: true,
+  experimental: {
+    scrollRestoration: true,
+  },
   async rewrites() {
     return [
       {
