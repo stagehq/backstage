@@ -90,7 +90,7 @@ export default SubdomainModal;
 
 const InSiteSubdomain: FC = () => {
   const [subdomain, setSubdomain] = useState("");
-  const user = useRecoilValue(currentUserState);
+  const [user, setUser] = useRecoilState(currentUserState);
   const [, setSubdomainCardOpen] = useRecoilState(subdomainCardOpenState);
   const [subdomainValid, setSubdomainValid] = useState(false);
   const [, upsertSite] = useUpsertSiteMutation();
@@ -121,6 +121,13 @@ const InSiteSubdomain: FC = () => {
 
       if (response.data?.upsertSite) {
         const subdomain = response.data.upsertSite.subdomain;
+        if(!user) return null;
+        setUser({
+           ...user, 
+           sites: user.sites
+            ? [...user?.sites, response.data.upsertSite]
+            : [response.data.upsertSite],
+        }) ;
         setSubdomainCardOpen(false);
         setTimeout(() => {
           if (subdomain) navigate(`/s/${subdomain}`);
