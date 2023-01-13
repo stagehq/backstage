@@ -1,15 +1,22 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { FC, Fragment, useRef } from "react";
+import clsx from "clsx";
+import { FC, Fragment, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { analyticsOpenState } from "../../store/ui/modals";
 import { currentUserState } from "../../store/user";
 import { Icon } from "../Icons";
 
 const AnalyticsModal: FC = () => {
+  //recoil
   const [analyticsOpen, setAnalyticsOpen] = useRecoilState(analyticsOpenState);
   const user = useRecoilValue(currentUserState);
 
+  //ref
   const cancelButtonRef = useRef(null);
+
+  //state
+  const [key, setKey] = useState<string>("");
+  const [host, setHost] = useState<string>("");
 
   if (!user) return null;
 
@@ -51,7 +58,7 @@ const AnalyticsModal: FC = () => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative inline-block h-[800px] transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all @container sm:my-8 sm:w-full sm:max-w-4xl sm:align-middle">
+              <Dialog.Panel className="relative inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all @container sm:my-8 sm:w-full sm:max-w-4xl sm:align-middle">
                 <div className="absolute top-0 right-0 hidden pt-4 pr-4 sm:block">
                   <button
                     type="button"
@@ -73,19 +80,61 @@ const AnalyticsModal: FC = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="flex-1 overflow-y-scroll">
-                    {/* <ul className="grid grid-cols-1 gap-6 px-4 pt-3 sm:grid-cols-2 lg:grid-cols-3">
-                      {filteredStoreExtensions.map((storeExtension) => (
-                        <div
-                          key={storeExtension.id}
-                          className="col-span-1 divide-y divide-gray-200 rounded-lg"
-                        >
-                          <Suspense fallback={<span>loading</span>}>
-                            <StoreItem storeExtension={storeExtension} />
-                          </Suspense>
-                        </div>
-                      ))}
-                    </ul> */}
+                  <div className="flex flex-col gap-4 p-6">
+                    <div className="bg-zinc-200 w-full h-60 rounded-lg"></div>
+                    <div className="sm:col-span-3">
+                      <label
+                        htmlFor="first-name"
+                        className="block text-sm font-medium text-gray-900"
+                      >
+                        PostHog key
+                      </label>
+                      <input
+                        type="text"
+                        name="PostHogkey"
+                        id="PostHogkey"
+                        autoComplete="given-name"
+                        value={key}
+                        onChange={(event) => setKey(event.target.value)}
+                        className={clsx(
+                          "mt-1 block w-full min-w-0 flex-1 rounded-md border-zinc-300 text-gray-900 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm",
+                          // !firstNameValid &&
+                          //   "border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:ring-red-500"
+                        )}
+                      />
+                      {/* {!firstNameValid && (
+                        <p className="text-zinc-gray-500 mt-2 text-sm" id="email-error">
+                          Please provide a valid first name.
+                        </p>
+                      )} */}
+                    </div>
+
+                    <div className="sm:col-span-3">
+                      <label
+                        htmlFor="last-name"
+                        className="block text-sm font-medium text-gray-900"
+                      >
+                        Host url
+                      </label>
+                      <input
+                        type="text"
+                        name="host-url"
+                        id="host-url"
+                        autoComplete="family-name"
+                        value={host}
+                        onChange={(event) => setHost(event.target.value)}
+                        className={clsx(
+                          "mt-1 block w-full min-w-0 flex-1 rounded-md border-zinc-300 text-gray-900 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm",
+                          // !lastNameValid &&
+                          //   "border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:ring-red-500"
+                        )}
+                      />
+                      {/* {!lastNameValid && (
+                        <p className="text-zinc-gray-500 mt-2 text-sm" id="email-error">
+                          Please provide a valid last name.
+                        </p>
+                      )} */}
+                    </div>
                   </div>
                 </div>
               </Dialog.Panel>
