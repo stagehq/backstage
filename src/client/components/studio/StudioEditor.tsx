@@ -72,17 +72,7 @@ const StudioEditor = () => {
           ref={itemsRef}
         >
           <div className="p-8">
-            <PageHeader
-              title={site.tagline ? site.tagline : ""}
-              description={site?.bio ? site.bio : ""}
-              image={
-                user.image ? user.image : "https://via.placeholder.com/150"
-              }
-              lightMode={theme === "light" ? true : false}
-              toggleLightMode={() =>
-                setTheme(theme === "light" ? "dark" : "light")
-              }
-            />
+            <PageHeader />
           </div>
 
           {layouts && site.extensions && site.extensions?.length > 0 ? (

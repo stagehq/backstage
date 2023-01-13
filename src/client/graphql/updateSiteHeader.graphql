@@ -1,9 +1,9 @@
 mutation UpdateSiteHeader(
   $subdomain: String!
   $bio: String!
-  $tagLine: String!
+  $tagline: String!
 ) {
-  updateSiteHeader(subdomain: $subdomain, bio: $bio, tagline: $tagLine) {
+  updateSiteHeader(subdomain: $subdomain, bio: $bio, tagline: $tagline) {
     id
     subdomain
     bio

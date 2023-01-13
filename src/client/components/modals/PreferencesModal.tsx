@@ -33,7 +33,6 @@ const PreferencesModal: FC = () => {
   const [preferences, setPreferences] = useState<string[]>([]);
 
   useEffect(() => {
-    console.log(preferencesExtension, preferencesApi);
     if (preferencesExtension && preferencesApi) {
       setPreferences(fillPreferences(preferencesExtension, preferencesApi));
     }
@@ -53,7 +52,6 @@ const PreferencesModal: FC = () => {
       // @ts-ignore
       processedPreferences.push({ key: key, value: event.target[key].value });
     });
-    console.log(processedPreferences);
 
     if (!site) throw new Error("Site not found");
     if (!preferencesExtension.routes) throw new Error("No routes found");
