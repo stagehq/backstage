@@ -1,6 +1,7 @@
+import { useRouter } from "next/router";
 import { FC, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Router } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
@@ -136,7 +137,7 @@ const OnboardingProfile = () => {
         </p>
       </div>
       <div className="mt-4 flex flex-col justify-start items-start gap-4">
-        <ImageUpload />
+        <ImageUpload imageUrl={user.image ? user.image : ""} uploadType={"profileImage"} size="w-12 h-12"/>
         <div className="mt-2 flex gap-4">
           <div className="flex flex-col justify-start items-start gap-2 w-full">
             <div className="w-full">
@@ -280,12 +281,10 @@ export const OnboardingSubdomain: FC = () => {
   const [, setSiteSlug] = useRecoilState(siteSlugState);
   const user = useRecoilValue(currentUserState);
   const [, setSubdomainCardOpen] = useRecoilState(subdomainCardOpenState);
-
-  const navigate = useNavigate();
-
   const [subdomainValid, setSubdomainValid] = useState(false);
-
   const [, upsertSite] = useUpsertSiteMutation();
+
+  const router = useRouter()
 
   const handleSubdomainChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -311,7 +310,7 @@ export const OnboardingSubdomain: FC = () => {
       }).then((res) => {
         if (res.data?.upsertSite?.subdomain) {
           setSiteSlug(res.data.upsertSite.subdomain);
-          navigate(`/s/${res.data.upsertSite.subdomain}`);
+          router.push(`/s/${res.data.upsertSite.subdomain}`);
           setSubdomainCardOpen(false);
         } else {
           console.log("Alias could not be created.");
@@ -321,7 +320,7 @@ export const OnboardingSubdomain: FC = () => {
       if (user?.mainSite?.subdomain) {
         setSiteSlug(user?.mainSite?.subdomain);
       }
-      navigate(`/s/${user?.mainSite?.subdomain}`);
+      router.push(`/s/${user?.mainSite?.subdomain}`);
       setSubdomainCardOpen(false);
     }
   };

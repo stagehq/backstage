@@ -1,15 +1,28 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { FC, Fragment, useEffect, useRef, useState } from "react";
 
 import "cropperjs/dist/cropper.css";
 import Cropper from "react-cropper";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { uploadFile } from "../../../server/aws/helper";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { currentUserState } from "../../store/user";
+import { uploadType } from "../../../client/components/Dropzone";
+import clsx from "clsx";
+import { useUpdateSiteHeaderMutation } from "../../graphql/updateSiteHeader.generated";
+import { decodeGlobalID } from "@pothos/plugin-relay";
+import { siteSlugState, siteState } from "../../store/site";
 
-export default function ImageUpload() {
+interface ImageUploadProps {
+  imageUrl: string
+  uploadType: uploadType
+  mutationId?: string 
+  size: string
+}
+
+const ImageUpload:FC<ImageUploadProps> = ({imageUrl, uploadType, mutationId, size}) => {
+  console.log(imageUrl, uploadType, mutationId);
   const cancelButtonRef = useRef(null);
 
   const [image, setImage] = useState("");
@@ -18,16 +31,27 @@ export default function ImageUpload() {
 
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+  const siteSlug = useRecoilValue(siteSlugState);
+  const [site, setSite] = useRecoilState(siteState(siteSlug));
 
   const [, updateUser] = useUpdateUserMutation();
+  const [, updateSiteHeader] = useUpdateSiteHeaderMutation();
 
   // handle image chnange and current user state image to new image
   const handleImageChange = (url: string) => {
-    if (url === "" || currentUser === null) return;
-    setCurrentUser({
-      ...currentUser,
-      image: url,
-    });
+    if(uploadType === "profileImage" || uploadType === "profileCoverImage"){
+      if (url === "" || currentUser === null) return;
+      setCurrentUser({
+        ...currentUser,
+        image: url,
+      });
+    }else if(uploadType === "siteImage"){
+      if (url === "" ||  site === null) return;
+      setSite({
+        ...site,
+        image: url,
+      })
+    }
   };
 
   const onChange = (e: any) => {
@@ -67,23 +91,39 @@ export default function ImageUpload() {
 
     if (!currentUser) return null;
 
-    const type = "profileImage";
-
-    uploadFile(file, currentUser.id, type).then((data) => {
-      // Update user images
-      updateUser({
-        image: type === "profileImage" ? data : undefined,
-      }).then((result) => {
-        // Success messages if image is uploaded
-        if (result.data?.updateUser) {
-          console.log("Success");
-          handleImageChange(
-            result.data?.updateUser.image ? result.data?.updateUser.image : ""
-          );
-        } else {
-          throw new Error("Error adding image to user");
-        }
-      });
+    uploadFile(file, currentUser.id, uploadType).then((data) => {
+      if(uploadType === "profileImage" || uploadType === "profileCoverImage"){
+        // Update user images
+        updateUser({
+          image: data
+        }).then((result) => {
+          // Success messages if image is uploaded
+          if (result.data?.updateUser) {
+            console.log("Success");
+            handleImageChange(
+              result.data?.updateUser.image ? result.data?.updateUser.image : ""
+            );
+          } else {
+            throw new Error("Error adding image to user");
+          }
+        });
+      }else if(uploadType === "siteImage" && mutationId != null){
+        // Update site images
+        updateSiteHeader({
+          siteId: decodeGlobalID(mutationId).id,
+          image: data
+        }).then((result) => {
+          // Success messages if image is uploaded
+          if (result.data?.updateSiteHeader) {
+            console.log("Success");
+            handleImageChange(
+              result.data?.updateSiteHeader.image ? result.data?.updateSiteHeader.image : ""
+            );
+          } else {
+            throw new Error("Error adding image to user");
+          }
+        });
+      }
     });
   };
 
@@ -93,32 +133,33 @@ export default function ImageUpload() {
     }
   }, [cropData]);
 
-  if (!currentUser) return null;
-
   return (
     <>
-      <div className="mt-1 flex items-center">
-        <img
-          className="inline-block h-12 w-12 rounded-full"
-          src={currentUser.image ? currentUser.image : ""}
-          referrerPolicy="no-referrer"
-          alt="profile image"
-        />
-        <div className="ml-4 flex gap-2">
-          <div className="relative bg-white px-4 py-2 rounded border border-zinc-200 text-sm font-medium text-zinc-700">
-            <label htmlFor="user-photo">
-              <span>Select</span>
-              <span className="sr-only"> user photo</span>
-            </label>
-            <input
-              onChange={onChange}
-              accept="image/*"
-              id="user-photo"
-              name="user-photo"
-              type="file"
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md"
-            />
+      <div className={clsx("flex items-center relative cursor pointer", size)}>
+        {imageUrl ? <div className="w-full h-full inline-block rounded-full overflow-hidden" >
+          <img
+            className="w-full h-full"
+            src={imageUrl}
+            referrerPolicy="no-referrer"
+            alt="image"
+          />
+        </div>
+        : <div className="w-full h-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-600 rounded-full"/>
+        }
+        <div className="absolute w-full h-full">
+          <div className="w-[40%] h-[40%] border-2 border-zinc-50 dark:border-zinc-900 bg-zinc-800 dark:bg-zinc-700 focus-within:bg-zinc-700 absolute bottom-0 right-0 rounded-full">
+            <div className="flex w-full h-full justify-center items-center text-zinc-200">
+              <EditIcon/>
+            </div>
           </div>
+          <input
+            onChange={onChange}
+            accept="image/*"
+            id="photo"
+            name="photo"
+            type="file"
+            className="absolute inset-0 opacity-0 cursor-pointer border-gray-300 rounded-md"
+          />
         </div>
       </div>
 
@@ -201,5 +242,24 @@ export default function ImageUpload() {
         </Dialog>
       </Transition.Root>
     </>
+  );
+}
+
+export default ImageUpload;
+
+function EditIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      className="w-5 h-5"
+      viewBox="0 0 20 20"
+    >
+      <path
+        fillRule="evenodd"
+        d="M10 15a.75.75 0 01-.75-.75V7.612L7.29 9.77a.75.75 0 01-1.08-1.04l3.25-3.5a.75.75 0 011.08 0l3.25 3.5a.75.75 0 11-1.08 1.04l-1.96-2.158v6.638A.75.75 0 0110 15z"
+        clipRule="evenodd"
+      ></path>
+    </svg>
   );
 }

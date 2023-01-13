@@ -3,9 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useUpdateSiteHeaderMutation } from "../graphql/updateSiteHeader.generated";
-import { handleDynamicHeight } from "../helper/racingBuffer";
 import { siteSlugState, siteState } from "../store/site";
 import { themeState } from "../store/ui/theme";
+import { handleDynamicHeight } from "../helper/racingBuffer";
+import ImageUpload from "./crop/ImageUpload";
+import { decodeGlobalID } from "@pothos/plugin-relay";
 
 export const PageHeader = () => {
   //refs
@@ -55,7 +57,7 @@ export const PageHeader = () => {
     if (bio !== site?.bio || tagline != site?.tagline) {
       if (site?.subdomain && site?.bio && site?.tagline) {
         const response = await updateSiteHeader({
-          subdomain: site?.subdomain,
+          siteId: decodeGlobalID(site?.id).id,
           bio: site.bio,
           tagline: site.tagline,
         });
@@ -76,6 +78,8 @@ export const PageHeader = () => {
     }
   };
 
+  if(!site) return null;
+
   return (
     <div className="@container flex flex-col justify-start items-start gap-[54px] pt-6">
       <div className="flex justify-end items-start self-stretch gap-2">
@@ -91,7 +95,7 @@ export const PageHeader = () => {
         </div>
       </div>
       <div className="flex flex-col justify-start items-start self-stretch gap-8 w-full @3xl:w-3/4 @6xl:w-1/2">
-        {/* <img src={image} className="w-16 rounded-full object-cover" /> */}
+        <ImageUpload imageUrl={site.image ? site.image : ""} uploadType="siteImage" mutationId={site.id} size="w-20 h-20"/>
         <div className="w-full flex flex-col gap-4">
           {tagline != null && (
             <textarea

@@ -43,13 +43,14 @@ export default function GridList() {
             key={"site" + index}
           >
             <div>
-              {user.image && (
+              {site.image ? 
                 <img
                   className="w-12 h-12 bg-cover rounded-full border border-zinc-200"
-                  src={user.image}
+                  src={site.image}
                   alt="site profile picture"
                 />
-              )}
+              : <div className="w-12 h-12 bg-zinc-100 rounded-full"/>
+              }
               <div className="mt-4">
                 <h3 className="text-lg font-medium">
                   {site.subdomain && (

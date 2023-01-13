@@ -14,6 +14,7 @@ query GetCurrentUser {
       modifiedAt
       tagline
       bio
+      image
     }
     mainSite {
       subdomain
