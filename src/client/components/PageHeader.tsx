@@ -30,10 +30,10 @@ export const PageHeader = () => {
 
   //set initial value
   useEffect(() => {
-    if (site?.tagline) setTagline(site?.tagline);
+    setTagline(site?.tagline ? site.tagline : "");
   }, [site?.tagline]);
   useEffect(() => {
-    if (site?.bio) setBio(site?.bio);
+    setBio(site?.bio ? site.bio : "");
   }, [site?.bio]);
 
   //handle sizing
