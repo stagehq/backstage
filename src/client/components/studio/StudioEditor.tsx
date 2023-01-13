@@ -114,8 +114,7 @@ const StudioEditor = () => {
                         <Extension
                           gridRef={itemsRef}
                           extension={extension}
-                          size={1}
-                          // size={layouts[breakpoint].find((layout: Layout) => layout.i === extension.id)?.w as 1 | 2 | 3}
+                          size={layouts[breakpoint].find((layout: Layout) => layout.i === extension.id)?.w as 1 | 2 | 3}
                           isEditable={true}
                         />
                       </div>
