@@ -9,7 +9,6 @@ import { Icon } from "../Icons";
 import LoadingPage from "../loading/Page";
 import BillingHistory from "./settings/BillingHistory";
 import Integrations from "./settings/Integrations";
-import Notifications from "./settings/Notifications";
 import Plan from "./settings/Plan";
 import { Profile } from "./settings/Profile";
 import { SettingsForm } from "./settings/SettingsForm";
@@ -87,7 +86,6 @@ const SettingsModal: FC = () => {
                       {user ? (
                         <>
                           <Profile user={user} />
-                          <Notifications user={user} />
                           <Plan user={user} />
                           <BillingHistory />
                           <Integrations />

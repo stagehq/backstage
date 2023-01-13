@@ -1,7 +1,7 @@
 import { RadioGroup, Switch } from "@headlessui/react";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
-import { FC, useState } from "react";
+import { FC, useState, useEffect, SetStateAction } from "react";
 import toast from "react-hot-toast";
 import { User } from "../../../graphql/types.generated";
 // import { useUpdatePaymentMutation } from "../../../../graphql/updatePayment.generated";
@@ -10,22 +10,16 @@ import Spinner from "../../loading/Spinner";
 
 const plans = [
   {
-    name: "Starter",
+    name: "Free",
     priceMonthly: 0,
     priceYearly: 0,
-    limit: "Up to 20 initiatives and ideas",
-  },
-  {
-    name: "Extended",
-    priceMonthly: 29,
-    priceYearly: 290,
-    limit: "Up to 100 initiatives and ideas",
+    limit: "Always in sync websites",
   },
   {
     name: "Pro",
-    priceMonthly: 99,
-    priceYearly: 990,
-    limit: "Unlimited initiatives and ideas",
+    priceMonthly: 10,
+    priceYearly: 100,
+    limit: "Analytics, Pro Blogs and more",
   },
 ];
 
@@ -66,10 +60,10 @@ const Plan: FC<PlanProps> = ({ user }) => {
 
           <RadioGroup
             value={selectedPlan}
-            // onChange={(plan) => {
-            //   setSelectedPlan(plan);
-            //   setFieldsEdited(true);
-            // }}
+            onChange={(plan: SetStateAction<{ name: string; priceMonthly: number; priceYearly: number; limit: string; }>) => {
+              setSelectedPlan(plan);
+              setFieldsEdited(true);
+            }}
           >
             <RadioGroup.Label className="sr-only">
               Pricing plans
