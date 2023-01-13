@@ -1,6 +1,7 @@
 import './User'
 import './Site'
 import './Extension'
+import './Analytics'
 import './Api'
 import './StoreExtension'
 import './ApiResponse'

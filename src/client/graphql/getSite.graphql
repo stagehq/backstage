@@ -9,6 +9,11 @@ query GetSite($subdomain: String!) {
     image
     layouts
 
+    analytics {
+      postHogKey
+      hostUrl
+    }
+
     extensions {
       id
       modifiedAt

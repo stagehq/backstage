@@ -1,3 +1,11 @@
+type Analytics implements Node {
+  createdAt: String
+  hostUrl: String
+  id: ID!
+  modifiedAt: String
+  postHogKey: String
+}
+
 type Api implements Node {
   apiConnector: ApiConnector
   apiResponses: [ApiResponse!]
@@ -51,6 +59,7 @@ type Extension implements Node {
 scalar JSON
 
 type Mutation {
+  createAnalytics(hostUrl: String!, postHogKey: String!): Analytics
   createOAuthforApi(accessToken: String, apiConnectorName: String, expiresIn: Int, idToken: String, refreshToken: String, scope: String): OAuth
   deleteExtension(id: String!, siteId: String!): Extension
   updateExtensionTitle(id: String!, title: String!): Extension
@@ -101,6 +110,7 @@ type Query {
 }
 
 type Site implements Node {
+  analytics: Analytics
   bio: String
   createdAt: String
   extensions: [Extension!]

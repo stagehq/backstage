@@ -14,6 +14,7 @@ builder.prismaNode('Site', {
     modifiedAt: t.string({ resolve: site => site.modifiedAt.toString()}),
 
     extensions: t.relation('extensions'),
+    analytics: t.relation('analytics')
   }),
 });
 

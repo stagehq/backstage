@@ -90,8 +90,11 @@ model Site {
 
   extensions            Extension[]
 
-  userMainSiteId        String?                @unique
-  userMainSite          User?                  @relation("mainSite", fields: [userMainSiteId], references: [id])
+  userMainSiteId        String?               @unique
+  userMainSite          User?                 @relation("mainSite", fields: [userMainSiteId], references: [id])
+
+  analyticsId           String?
+  analytics             Analytics?            @relation(fields: [analyticsId], references: [id])
 }
 
 model Extension {
@@ -174,6 +177,17 @@ model ApiResponse {
 
   apiConnectorRouteId   String                @default("clbnod4jm0002eo372w1i5dp1")
   apiConnectorRoute     ApiConnectorRoute     @relation(fields: [apiConnectorRouteId], references: [id])
+}
+
+model Analytics {
+  id                    String                @id @default(cuid())
+  createdAt             DateTime              @default(now())
+  modifiedAt            DateTime              @default(now())
+
+  postHogKey            String             
+  hostUrl               String
+
+  sites                 Site[]
 }
 
 
