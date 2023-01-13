@@ -44,6 +44,7 @@ const StudioEditor = () => {
 
   useEffect(() => {
     if (site?.layouts && document.readyState === "complete") {
+      setLayouts(site.layouts)
       updateBreakpointLayoutHeight(site.layouts);
     }
   }, []);
@@ -63,7 +64,7 @@ const StudioEditor = () => {
     }
   }, [layouts]);
 
-  if (!site || !layouts || !user) return null;
+  if (!site || !user) return null;
 
   return (
     <div className={clsx(theme === "dark" && "dark", "h-full w-full ")}>
@@ -72,55 +73,55 @@ const StudioEditor = () => {
           <div className="p-8">
             <PageHeader />
           </div>
-          {site.extensions && site.extensions.length > 0 ? (
+          {layouts && site.extensions && site.extensions.length > 0 ? (
             <div ref={itemsRef}>
-              <ResponsiveGridLayout
-                layouts={layouts}
-                breakpoints={{ lg: 991, md: 768, sm: 0 }}
-                cols={{ lg: 3, md: 2, sm: 1 }}
-                rowHeight={1}
-                width={1000}
-                margin={[24, 24]}
-                isResizable={false}
-                measureBeforeMount={true}
-                onDragStop={() => {
-                  updateBreakpointLayoutHeight(layouts);
-                }}
-                onWidthChange={() => {
-                  updateBreakpointLayoutHeight(layouts);
-                }}
-                onBreakpointChange={(breakpoint) => {
-                  setBreakpoint(breakpoint);
-                  updateBreakpointLayoutHeight(layouts);
-                }}
-                onLayoutChange={(layout: Layout[], layouts: Layouts) => {
-                  setLayouts(layouts);
-                  updateBreakpointLayoutHeight(layouts);
-                }}
-              >
-                {site.extensions &&
-                  site.extensions.map((extension, index) => {
-                    const Extension = dynamic(
-                      () =>
-                        import(
-                          `../../blocks/${extension.storeExtension?.blockId}`
-                        )
-                    ) as FC<BlockProps>;
+                <ResponsiveGridLayout
+                  layouts={layouts}
+                  breakpoints={{ lg: 991, md: 768, sm: 0 }}
+                  cols={{ lg: 3, md: 2, sm: 1 }}
+                  rowHeight={1}
+                  width={1000}
+                  margin={[24, 24]}
+                  isResizable={false}
+                  measureBeforeMount={true}
+                  onDragStop={() => {
+                    updateBreakpointLayoutHeight(layouts);
+                  }}
+                  onWidthChange={() => {
+                    updateBreakpointLayoutHeight(layouts);
+                  }}
+                  onBreakpointChange={(breakpoint) => {
+                    setBreakpoint(breakpoint);
+                    updateBreakpointLayoutHeight(layouts);
+                  }}
+                  onLayoutChange={(layout: Layout[], layouts: Layouts) => {
+                    setLayouts(layouts);
+                    updateBreakpointLayoutHeight(layouts);
+                  }}
+                >
+                  {site.extensions &&
+                    site.extensions.map((extension, index) => {
+                      const Extension = dynamic(
+                        () =>
+                          import(
+                            `../../blocks/${extension.storeExtension?.blockId}`
+                          )
+                      ) as FC<BlockProps>;
 
-                    if (!Extension) return null;
+                      if (!Extension) return null;
 
-                    return (
-                      <div key={extension.id} id={extension.id}>
-                        <Extension
-                          gridRef={itemsRef}
-                          extension={extension}
-                          size={layouts[breakpoint].find((layout: Layout) => layout.i === extension.id)?.w as 1 | 2 | 3}
-                          isEditable={true}
-                        />
-                      </div>
-                    );
-                  })}
-              </ResponsiveGridLayout>
+                      return (
+                        <div key={extension.id} id={extension.id}>
+                          <Extension
+                            gridRef={itemsRef}
+                            extension={extension}
+                            size={layouts[breakpoint].find((layout: Layout) => layout.i === extension.id)?.w as 1 | 2 | 3}
+                            isEditable={true}
+                          />
+                        </div>
+                      );
+                    })}
+                </ResponsiveGridLayout>
             </div>
           ) : (
             <span>add extension</span>
