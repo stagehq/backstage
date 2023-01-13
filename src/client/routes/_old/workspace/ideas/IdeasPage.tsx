@@ -9,7 +9,7 @@ function IdeasPage() {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <>
-        <div className="w-full min-h-[calc(100vh_-_64px)] md:bg-background md:px-6 md:py-7 sm:px-2 py-4">
+        <div className="min-h-[calc(100vh_-_64px)] w-full py-4 sm:px-2 md:bg-background md:px-6 md:py-7">
           <IdeaOverview />
         </div>
       </>

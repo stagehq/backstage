@@ -1,15 +1,15 @@
 const StoreIcon = () => {
   return (
-    <div className="flex flex-col justify-start items-start h-[336px] w-[455.47px] gap-[7.4666523933410645px] p-[7.4666523933410645px]">
-      <div className="flex justify-start items-start gap-[7.4666523933410645px]">
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+    <div className="flex h-[336px] w-[455.47px] flex-col items-start justify-start gap-[7.4666523933410645px] p-[7.4666523933410645px]">
+      <div className="flex items-start justify-start gap-[7.4666523933410645px]">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="25"
             height="43"
             viewBox="0 0 25 43"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="flex-grow-0 flex-shrink-0"
+            className="flex-shrink-0 flex-grow-0"
             preserveAspectRatio="none"
           >
             <path
@@ -18,14 +18,14 @@ const StoreIcon = () => {
             ></path>
           </svg>
         </div>
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="38"
             height="38"
             viewBox="0 0 38 38"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[37.33px] h-[37.33px] relative"
+            className="relative h-[37.33px] w-[37.33px]"
             preserveAspectRatio="none"
           >
             <g clipPath="url(#clip0_304_35065)">
@@ -50,14 +50,14 @@ const StoreIcon = () => {
             </defs>
           </svg>
         </div>
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="38"
             height="38"
             viewBox="0 0 38 38"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[37.33px] h-[37.33px] relative"
+            className="relative h-[37.33px] w-[37.33px]"
             preserveAspectRatio="none"
           >
             <g clipPath="url(#clip0_304_35069)">
@@ -78,14 +78,14 @@ const StoreIcon = () => {
             </defs>
           </svg>
         </div>
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="38"
             height="31"
             viewBox="0 0 38 31"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[37.33px] h-[29.87px] relative"
+            className="relative h-[29.87px] w-[37.33px]"
             preserveAspectRatio="none"
           >
             <g clipPath="url(#clip0_304_35072)">
@@ -106,14 +106,14 @@ const StoreIcon = () => {
             </defs>
           </svg>
         </div>
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="22"
             height="41"
             viewBox="0 0 22 41"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[20.64px] h-10 relative"
+            className="relative h-10 w-[20.64px]"
             preserveAspectRatio="none"
           >
             <g clipPath="url(#clip0_304_35075)">
@@ -139,15 +139,15 @@ const StoreIcon = () => {
           </svg>
         </div>
       </div>
-      <div className="flex justify-start items-start gap-[7.4666523933410645px] pl-[37.33325958251953px]">
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+      <div className="flex items-start justify-start gap-[7.4666523933410645px] pl-[37.33325958251953px]">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="48"
             height="29"
             viewBox="0 0 48 29"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[46.67px] h-7 relative"
+            className="relative h-7 w-[46.67px]"
             preserveAspectRatio="none"
           >
             <g clipPath="url(#clip0_304_35080)">
@@ -196,14 +196,14 @@ const StoreIcon = () => {
             </defs>
           </svg>
         </div>
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="46"
             height="46"
             viewBox="0 0 46 46"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[44.8px] h-[44.8px] relative"
+            className="relative h-[44.8px] w-[44.8px]"
             preserveAspectRatio="none"
           >
             <path
@@ -212,14 +212,14 @@ const StoreIcon = () => {
             ></path>
           </svg>
         </div>
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="46"
             height="46"
             viewBox="0 0 46 46"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[44.8px] h-[44.8px] relative"
+            className="relative h-[44.8px] w-[44.8px]"
             preserveAspectRatio="none"
           >
             <path
@@ -228,14 +228,14 @@ const StoreIcon = () => {
             ></path>
           </svg>
         </div>
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="46"
             height="26"
             viewBox="0 0 46 26"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[44.8px] h-[25.55px] relative"
+            className="relative h-[25.55px] w-[44.8px]"
             preserveAspectRatio="none"
           >
             <g clipPath="url(#clip0_304_35094)">
@@ -256,14 +256,14 @@ const StoreIcon = () => {
             </defs>
           </svg>
         </div>
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="24"
             height="38"
             viewBox="0 0 24 38"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[37.33px] h-[37.33px] relative"
+            className="relative h-[37.33px] w-[37.33px]"
             preserveAspectRatio="none"
           >
             <g clipPath="url(#clip0_304_35097)">
@@ -338,15 +338,15 @@ const StoreIcon = () => {
           </svg>
         </div>
       </div>
-      <div className="flex justify-start items-start gap-[7.4666523933410645px]">
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+      <div className="flex items-start justify-start gap-[7.4666523933410645px]">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="25"
             height="43"
             viewBox="0 0 25 43"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="flex-grow-0 flex-shrink-0"
+            className="flex-shrink-0 flex-grow-0"
             preserveAspectRatio="none"
           >
             <path
@@ -355,14 +355,14 @@ const StoreIcon = () => {
             ></path>
           </svg>
         </div>
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="38"
             height="36"
             viewBox="0 0 38 36"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[37.33px] h-[34.66px] relative"
+            className="relative h-[34.66px] w-[37.33px]"
             preserveAspectRatio="none"
           >
             <g clipPath="url(#clip0_304_35125)">
@@ -383,14 +383,14 @@ const StoreIcon = () => {
             </defs>
           </svg>
         </div>
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="38"
             height="38"
             viewBox="0 0 38 38"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[37.33px] h-[37.33px] relative"
+            className="relative h-[37.33px] w-[37.33px]"
             preserveAspectRatio="none"
           >
             <path
@@ -419,14 +419,14 @@ const StoreIcon = () => {
             ></path>
           </svg>
         </div>
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="38"
             height="38"
             viewBox="0 0 38 38"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[37.33px] h-[37.33px] relative"
+            className="relative h-[37.33px] w-[37.33px]"
             preserveAspectRatio="none"
           >
             <g clipPath="url(#clip0_304_35137)">
@@ -447,14 +447,14 @@ const StoreIcon = () => {
             </defs>
           </svg>
         </div>
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="38"
             height="38"
             viewBox="0 0 38 38"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[37.33px] h-[37.33px] relative"
+            className="relative h-[37.33px] w-[37.33px]"
             preserveAspectRatio="none"
           >
             <g clipPath="url(#clip0_304_35140)">
@@ -480,15 +480,15 @@ const StoreIcon = () => {
           </svg>
         </div>
       </div>
-      <div className="flex justify-start items-start gap-[7.4666523933410645px] pl-[37.33325958251953px]">
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+      <div className="flex items-start justify-start gap-[7.4666523933410645px] pl-[37.33325958251953px]">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="41"
             height="44"
             viewBox="0 0 41 44"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-10 h-[42.57px] relative"
+            className="relative h-[42.57px] w-10"
             preserveAspectRatio="none"
           >
             <g clipPath="url(#clip0_304_35145)">
@@ -513,14 +513,14 @@ const StoreIcon = () => {
             </defs>
           </svg>
         </div>
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="38"
             height="38"
             viewBox="0 0 38 38"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[37.33px] h-[37.33px] relative"
+            className="relative h-[37.33px] w-[37.33px]"
             preserveAspectRatio="none"
           >
             <path
@@ -529,14 +529,14 @@ const StoreIcon = () => {
             ></path>
           </svg>
         </div>
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="38"
             height="38"
             viewBox="0 0 38 38"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[37.33px] h-[37.33px] relative"
+            className="relative h-[37.33px] w-[37.33px]"
             preserveAspectRatio="none"
           >
             <g clipPath="url(#clip0_304_35152)">
@@ -569,14 +569,14 @@ const StoreIcon = () => {
             </defs>
           </svg>
         </div>
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="38"
             height="38"
             viewBox="0 0 38 38"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[37.33px] h-[37.33px] relative"
+            className="relative h-[37.33px] w-[37.33px]"
             preserveAspectRatio="none"
           >
             <g clipPath="url(#clip0_304_35158)">
@@ -597,14 +597,14 @@ const StoreIcon = () => {
             </defs>
           </svg>
         </div>
-        <div className="flex justify-center items-center shadow w-[74.67px] h-[74.67px] relative gap-[18.6666316986084px] px-[9.3333158493042px] py-[6.99998664855957px] rounded-[18.67px] bg-white">
+        <div className="relative flex h-[74.67px] w-[74.67px] items-center justify-center gap-[18.6666316986084px] rounded-[18.67px] bg-white px-[9.3333158493042px] py-[6.99998664855957px] shadow">
           <svg
             width="25"
             height="43"
             viewBox="0 0 25 43"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="flex-grow-0 flex-shrink-0"
+            className="flex-shrink-0 flex-grow-0"
             preserveAspectRatio="none"
           >
             <path

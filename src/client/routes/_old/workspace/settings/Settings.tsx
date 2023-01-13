@@ -12,7 +12,7 @@ function SettingsPage() {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <>
-        <div className="w-full h-[calc(100vh_-_64px)] px-4 md:px-32 py-16">
+        <div className="h-[calc(100vh_-_64px)] w-full px-4 py-16 md:px-32">
           <ProjectSettings />
         </div>
       </>

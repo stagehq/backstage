@@ -1,25 +1,25 @@
-import { useId, useRef, useState } from 'react'
+import { useRef, useState } from "react";
 // import Image from 'next/image'
-import Image from 'next/future/image'
-import clsx from 'clsx'
-import { motion, useInView, useMotionValue } from 'framer-motion'
+import clsx from "clsx";
+import { motion, useInView, useMotionValue } from "framer-motion";
+import Image from "next/future/image";
 
-import { AppScreen, AppScreenWithoutMenu } from './AppScreen'
-import { Button } from './Button'
-import { Container } from './Container'
-import { PhoneFrame, PhoneFrameToggleScreen } from './PhoneFrame'
-import logoDrupal from '../../../../public/images/logos/logo-drupal.svg'
-import logoFreecodecamp from '../../../../public/images/logos/logo-freecodecamp.svg'
-import logoGo from '../../../../public/images/logos/logo-go.svg'
-import logoMaterialUI from '../../../../public/images/logos/logo-materialui.svg'
-import logoOpenshift from '../../../../public/images/logos/logo-openshift.svg'
-import logoGoogle from '../../../../public/images/logos/logo-google.svg'
-import logoZillow from '../../../../public/images/logos/logo-zillow.svg'
-import logoUber from '../../../../public/images/logos/logo-uber.svg'
-import { Portfolio } from './Portfolio'
+import logoDrupal from "../../../../public/images/logos/logo-drupal.svg";
+import logoFreecodecamp from "../../../../public/images/logos/logo-freecodecamp.svg";
+import logoGo from "../../../../public/images/logos/logo-go.svg";
+import logoGoogle from "../../../../public/images/logos/logo-google.svg";
+import logoMaterialUI from "../../../../public/images/logos/logo-materialui.svg";
+import logoOpenshift from "../../../../public/images/logos/logo-openshift.svg";
+import logoUber from "../../../../public/images/logos/logo-uber.svg";
+import logoZillow from "../../../../public/images/logos/logo-zillow.svg";
+import { AppScreenWithoutMenu } from "./AppScreen";
+import { Button } from "./Button";
+import { Container } from "./Container";
+import { PhoneFrameToggleScreen } from "./PhoneFrame";
+import { Portfolio } from "./Portfolio";
 
 function BackgroundIllustration(props) {
-  let id = 'background-illustration' + Math.random().toString(36).substr(2, 9)
+  let id = "background-illustration" + Math.random().toString(36).substr(2, 9);
 
   return (
     <div {...props}>
@@ -84,7 +84,7 @@ function BackgroundIllustration(props) {
         </defs>
       </svg>
     </div>
-  )
+  );
 }
 
 function PlayIcon(props) {
@@ -97,7 +97,7 @@ function PlayIcon(props) {
         stroke="#9e9e9e"
       />
     </svg>
-  )
+  );
 }
 
 const prices = [
@@ -105,9 +105,9 @@ const prices = [
   694.39, 721.32, 694.03, 610.1, 502.2, 549.56, 611.03, 583.4, 610.14, 660.6,
   752.11, 721.19, 638.89, 661.7, 694.51, 580.3, 638.0, 613.3, 651.64, 560.51,
   611.45, 670.68, 752.56,
-]
-const maxPrice = Math.max(...prices)
-const minPrice = Math.min(...prices)
+];
+const maxPrice = Math.max(...prices);
+const minPrice = Math.min(...prices);
 
 function Chart({
   className,
@@ -120,55 +120,55 @@ function Chart({
   gridLines = 6,
   ...props
 }) {
-  let width = totalWidth - paddingX * 2
-  let height = totalHeight - paddingY * 2
+  let width = totalWidth - paddingX * 2;
+  let height = totalHeight - paddingY * 2;
 
-  let id = 'chart' + Math.random().toString(36).substr(2, 9)
-  let svgRef = useRef()
-  let pathRef = useRef()
-  let isInView = useInView(svgRef, { amount: 0.5, once: true })
-  let pathWidth = useMotionValue(0)
-  let [interactionEnabled, setInteractionEnabled] = useState(false)
+  let id = "chart" + Math.random().toString(36).substr(2, 9);
+  let svgRef = useRef();
+  let pathRef = useRef();
+  let isInView = useInView(svgRef, { amount: 0.5, once: true });
+  let pathWidth = useMotionValue(0);
+  let [interactionEnabled, setInteractionEnabled] = useState(false);
 
-  let path = ''
-  let points = []
+  let path = "";
+  let points = [];
 
   for (let index = 0; index < prices.length; index++) {
-    let x = paddingX + (index / (prices.length - 1)) * width
+    let x = paddingX + (index / (prices.length - 1)) * width;
     let y =
       paddingY +
-      (1 - (prices[index] - minPrice) / (maxPrice - minPrice)) * height
-    points.push({ x, y })
-    path += `${index === 0 ? 'M' : 'L'} ${x.toFixed(4)} ${y.toFixed(4)}`
+      (1 - (prices[index] - minPrice) / (maxPrice - minPrice)) * height;
+    points.push({ x, y });
+    path += `${index === 0 ? "M" : "L"} ${x.toFixed(4)} ${y.toFixed(4)}`;
   }
 
   return (
     <svg
       ref={svgRef}
       viewBox={`0 0 ${totalWidth} ${totalHeight}`}
-      className={clsx(className, 'overflow-visible')}
+      className={clsx(className, "overflow-visible")}
       {...(interactionEnabled
         ? {
             onPointerLeave: () => onChangeActivePointIndex(null),
             onPointerMove: (event) => {
-              let x = event.nativeEvent.offsetX
-              let closestPointIndex
-              let closestDistance = Infinity
+              let x = event.nativeEvent.offsetX;
+              let closestPointIndex;
+              let closestDistance = Infinity;
               for (
                 let pointIndex = 0;
                 pointIndex < points.length;
                 pointIndex++
               ) {
-                let point = points[pointIndex]
-                let distance = Math.abs(point.x - x)
+                let point = points[pointIndex];
+                let distance = Math.abs(point.x - x);
                 if (distance < closestDistance) {
-                  closestDistance = distance
-                  closestPointIndex = pointIndex
+                  closestDistance = distance;
+                  closestPointIndex = pointIndex;
                 } else {
-                  break
+                  break;
                 }
               }
-              onChangeActivePointIndex(closestPointIndex)
+              onChangeActivePointIndex(closestPointIndex);
             },
           }
         : {})}
@@ -211,13 +211,13 @@ function Chart({
         strokeLinejoin="round"
         initial={{ pathLength: 0 }}
         transition={{ duration: 1 }}
-        {...(isInView ? { stroke: '#06b6d4', animate: { pathLength: 1 } } : {})}
+        {...(isInView ? { stroke: "#06b6d4", animate: { pathLength: 1 } } : {})}
         onUpdate={({ pathLength }) => {
           pathWidth.set(
             pathRef.current.getPointAtLength(
               pathLength * pathRef.current.getTotalLength()
             ).x
-          )
+          );
         }}
         onAnimationComplete={() => setInteractionEnabled(true)}
       />
@@ -242,7 +242,7 @@ function Chart({
         </>
       )}
     </svg>
-  )
+  );
 }
 
 function AppDemo() {
@@ -250,7 +250,7 @@ function AppDemo() {
     <AppScreenWithoutMenu>
       <Portfolio />
     </AppScreenWithoutMenu>
-  )
+  );
 }
 
 export function Hero() {
@@ -260,12 +260,11 @@ export function Hero() {
         <div className="lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-20">
           <div className="relative z-10 mx-auto max-w-2xl lg:col-span-7 lg:max-w-none lg:pt-6 xl:col-span-6">
             <h1 className="text-landing-3xl font-medium tracking-tight text-gray-900 sm:text-landing-4xl">
-              API-based developer portfolio,
-              that converts.
+              API-based developer portfolio, that converts.
             </h1>
             <p className="mt-6 text-landing-lg text-gray-600">
-              Next-gen developer portfolio that helps you showcase your 
-              projects, skills, and experience. Personalize it by an evergrowing 
+              Next-gen developer portfolio that helps you showcase your
+              projects, skills, and experience. Personalize it by an evergrowing
               collection of building blocks and analyse your growth.
             </p>
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-4">
@@ -287,7 +286,10 @@ export function Hero() {
           <div className="relative mt-10 sm:mt-20 lg:col-span-5 lg:row-span-2 lg:mt-0 xl:col-span-6">
             <BackgroundIllustration className="absolute left-1/2 top-4 h-[1026px] w-[1026px] -translate-x-1/3 stroke-gray-300/70 [mask-image:linear-gradient(to_bottom,white_20%,transparent_75%)] sm:top-16 sm:-translate-x-1/2 lg:-top-16 lg:ml-12 xl:-top-14 xl:ml-0" />
             <div className="-mx-4 h-[448px] px-9 [mask-image:linear-gradient(to_bottom,white_60%,transparent)] sm:mx-0 lg:absolute lg:-inset-x-10 lg:-top-10 lg:-bottom-20 lg:h-auto lg:px-0 lg:pt-10 xl:-bottom-32">
-              <PhoneFrameToggleScreen className="mx-auto max-w-[366px]" priority>
+              <PhoneFrameToggleScreen
+                className="mx-auto max-w-[366px]"
+                priority
+              >
                 <AppDemo />
               </PhoneFrameToggleScreen>
             </div>
@@ -301,17 +303,24 @@ export function Hero() {
               className="mx-auto mt-8 flex max-w-xl flex-wrap justify-center gap-x-10 gap-y-8 lg:mx-0 lg:justify-start"
             >
               {[
-                ['Uber', logoUber],
-                ['Zillow', logoZillow],
-                ['MaterialUI', logoMaterialUI],
-                ['Google', logoGoogle],
-                ['Freecodecamp', logoFreecodecamp],
-                ['Drupal', logoDrupal],
-                ['Golang', logoGo],
-                ['OpenShift', logoOpenshift],
+                ["Uber", logoUber],
+                ["Zillow", logoZillow],
+                ["MaterialUI", logoMaterialUI],
+                ["Google", logoGoogle],
+                ["Freecodecamp", logoFreecodecamp],
+                ["Drupal", logoDrupal],
+                ["Golang", logoGo],
+                ["OpenShift", logoOpenshift],
               ].map(([name, logo, className]) => (
-                <li key={name} className={clsx('flex', className)}>
-                  <Image title={name} src={logo} alt={name} sizes={100} className="h-8 w-auto" unoptimized />
+                <li key={name} className={clsx("flex", className)}>
+                  <Image
+                    title={name}
+                    src={logo}
+                    alt={name}
+                    sizes={100}
+                    className="h-8 w-auto"
+                    unoptimized
+                  />
                 </li>
               ))}
             </ul>
@@ -319,5 +328,5 @@ export function Hero() {
         </div>
       </Container>
     </div>
-  )
+  );
 }

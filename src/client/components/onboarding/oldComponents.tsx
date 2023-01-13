@@ -26,24 +26,24 @@ const OnboardingDotMenu = () => {
   const [activeSection, setActiveSection] = useRecoilState(activeSectionState);
 
   return (
-    <div className="flex justify-start items-start flex-grow gap-1.5">
+    <div className="flex flex-grow items-start justify-start gap-1.5">
       <div
         className={clsx(
-          "w-[5px] h-[5px] rounded-[3px]",
+          "h-[5px] w-[5px] rounded-[3px]",
           activeSection === "cv" ? "bg-zinc-900" : "bg-zinc-300"
         )}
         onClick={() => setActiveSection("cv")}
       ></div>
       <div
         className={clsx(
-          "w-[5px] h-[5px] rounded-[3px]",
+          "h-[5px] w-[5px] rounded-[3px]",
           activeSection === "projects" ? "bg-zinc-900" : "bg-zinc-300"
         )}
         onClick={() => setActiveSection("projects")}
       ></div>
       <div
         className={clsx(
-          "w-[5px] h-[5px] rounded-[3px]",
+          "h-[5px] w-[5px] rounded-[3px]",
           activeSection === "blogs" ? "bg-zinc-900" : "bg-zinc-300"
         )}
         onClick={() => setActiveSection("blogs")}
@@ -122,15 +122,15 @@ const OnboardingCv: FC = () => {
   return (
     <>
       <div className="relative h-[50vh] sm:h-64">
-        <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
+        <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <CvIcon />
         </div>
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
         <Gradient />
       </div>
       <div className="py-6 px-4 sm:px-6">
-        <div className="flex flex-col justify-start items-start gap-4">
-          <p className="text-xl font-semibold text-left text-zinc-900">
+        <div className="flex flex-col items-start justify-start gap-4">
+          <p className="text-left text-xl font-semibold text-zinc-900">
             Connect your CV
           </p>
           <div className="w-full">
@@ -140,7 +140,7 @@ const OnboardingCv: FC = () => {
             >
               LinkedIn profile url
             </label>
-            <div className="mt-1 relative">
+            <div className="relative mt-1">
               <input
                 onChange={(e) => {
                   setLink(e.target.value);
@@ -151,7 +151,7 @@ const OnboardingCv: FC = () => {
                 type="text"
                 autoComplete="link"
                 maxLength={65}
-                className="appearance-none block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+                className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
               />
             </div>
             <button
@@ -161,7 +161,7 @@ const OnboardingCv: FC = () => {
                 handleCvUpdate();
                 setActiveSection("projects");
               }}
-              className="mt-2 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
+              className="mt-2 flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
             >
               Import
             </button>
@@ -169,15 +169,15 @@ const OnboardingCv: FC = () => {
         </div>
       </div>
       <div className="mt-auto w-full ">
-        <div className="pb-8 px-4 sm:px-6">
-          <div className="flex flex-col justify-start items-start gap-2 w-full">
-            <div className="flex justify-start items-center w-full">
+        <div className="px-4 pb-8 sm:px-6">
+          <div className="flex w-full flex-col items-start justify-start gap-2">
+            <div className="flex w-full items-center justify-start">
               <OnboardingDotMenu />
-              <div className="flex justify-start items-center h-8 overflow-hidden gap-2 py-2 rounded">
+              <div className="flex h-8 items-center justify-start gap-2 overflow-hidden rounded py-2">
                 <button
                   type="button"
                   onClick={() => setActiveSection("projects")}
-                  className="flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-zinc-900 bg-white hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-100 disabled:opacity-30"
+                  className="flex justify-center rounded-md border border-transparent bg-white py-2 px-4 text-sm font-medium text-zinc-900 shadow-sm hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-100 focus:ring-offset-2 disabled:opacity-30"
                 >
                   Next
                 </button>
@@ -277,27 +277,27 @@ export const OnboardingProjects: FC = () => {
   return (
     <>
       <div className="relative h-[50vh] sm:h-64">
-        <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
+        <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <GGIcons />
         </div>
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
         <Gradient />
       </div>
       <div className="py-6 px-4 sm:px-6">
-        <div className="flex flex-col justify-start items-start gap-4">
-          <p className="text-xl font-semibold text-left text-zinc-900">
+        <div className="flex flex-col items-start justify-start gap-4">
+          <p className="text-left text-xl font-semibold text-zinc-900">
             Connect your Projects
           </p>
 
-          <div className="flex flex-col justify-start items-start gap-2 w-full">
-            <div className="flex justify-start items-center h-9 overflow-hidden gap-3 rounded w-full">
+          <div className="flex w-full flex-col items-start justify-start gap-2">
+            <div className="flex h-9 w-full items-center justify-start gap-3 overflow-hidden rounded">
               <svg
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6"
+                className="h-6 w-6"
                 preserveAspectRatio="none"
               >
                 <path
@@ -305,8 +305,8 @@ export const OnboardingProjects: FC = () => {
                   fill="#52525B"
                 ></path>
               </svg>
-              <div className="flex justify-start items-center flex-grow gap-2">
-                <p className="text-sm font-medium text-left text-zinc-900">
+              <div className="flex flex-grow items-center justify-start gap-2">
+                <p className="text-left text-sm font-medium text-zinc-900">
                   Github
                 </p>
               </div>
@@ -317,9 +317,9 @@ export const OnboardingProjects: FC = () => {
                   onClick={() => {
                     handleGithubAuth();
                   }}
-                  className="flex justify-start items-center h-8 overflow-hidden gap-2 px-4 py-2 rounded border border-zinc-200"
+                  className="flex h-8 items-center justify-start gap-2 overflow-hidden rounded border border-zinc-200 px-4 py-2"
                 >
-                  <p className="text-sm font-medium text-left text-zinc-700">
+                  <p className="text-left text-sm font-medium text-zinc-700">
                     Connect
                   </p>
                 </button>
@@ -327,14 +327,14 @@ export const OnboardingProjects: FC = () => {
                 <CheckIcon />
               )}
             </div>
-            <div className="flex justify-start items-center h-9 overflow-hidden gap-3 rounded w-full">
+            <div className="flex h-9 w-full items-center justify-start gap-3 overflow-hidden rounded">
               <svg
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6"
+                className="h-6 w-6"
                 preserveAspectRatio="none"
               >
                 <path
@@ -342,8 +342,8 @@ export const OnboardingProjects: FC = () => {
                   fill="#52525B"
                 ></path>
               </svg>
-              <div className="flex justify-start items-center flex-grow gap-2">
-                <p className="text-sm font-medium text-left text-zinc-900">
+              <div className="flex flex-grow items-center justify-start gap-2">
+                <p className="text-left text-sm font-medium text-zinc-900">
                   Gitlab
                 </p>
               </div>
@@ -353,9 +353,9 @@ export const OnboardingProjects: FC = () => {
                   onClick={() => {
                     handleGitlabAuth();
                   }}
-                  className="flex justify-start items-center h-8 overflow-hidden gap-2 px-4 py-2 rounded border border-zinc-200"
+                  className="flex h-8 items-center justify-start gap-2 overflow-hidden rounded border border-zinc-200 px-4 py-2"
                 >
-                  <p className="text-sm font-medium text-left text-zinc-700">
+                  <p className="text-left text-sm font-medium text-zinc-700">
                     Connect
                   </p>
                 </button>
@@ -367,16 +367,16 @@ export const OnboardingProjects: FC = () => {
         </div>
       </div>
       <div className="mt-auto w-full ">
-        <div className="pb-8 px-4 sm:px-6">
-          <div className="flex flex-col justify-start items-start gap-2 w-full">
-            <div className="flex justify-start items-center w-full">
+        <div className="px-4 pb-8 sm:px-6">
+          <div className="flex w-full flex-col items-start justify-start gap-2">
+            <div className="flex w-full items-center justify-start">
               <OnboardingDotMenu />
-              <div className="flex justify-start items-center h-8 overflow-hidden gap-2 py-2 rounded">
+              <div className="flex h-8 items-center justify-start gap-2 overflow-hidden rounded py-2">
                 <button
                   type="button"
                   disabled={!githubConnected && !gitlabConnected}
                   onClick={() => setActiveSection("blogs")}
-                  className="flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
+                  className="flex justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
                 >
                   Next
                 </button>
@@ -423,27 +423,27 @@ export const OnboardingBlogs: FC = () => {
   return (
     <>
       <div className="relative h-[50vh] sm:h-64">
-        <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
+        <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <BlogsIcon />
         </div>
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
         <Gradient />
       </div>
       <div className="py-6 px-4 sm:px-6">
-        <div className="flex flex-col justify-start items-start gap-4">
-          <p className="text-xl font-semibold text-left text-zinc-900">
+        <div className="flex flex-col items-start justify-start gap-4">
+          <p className="text-left text-xl font-semibold text-zinc-900">
             Connect your Blogs
           </p>
 
-          <div className="flex flex-col justify-start items-start gap-2 w-full">
-            <div className="flex justify-start items-center h-9 overflow-hidden gap-3 rounded w-full">
+          <div className="flex w-full flex-col items-start justify-start gap-2">
+            <div className="flex h-9 w-full items-center justify-start gap-3 overflow-hidden rounded">
               <svg
                 width="20"
                 height="20"
                 viewBox="0 0 20 20"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6"
+                className="h-6 w-6"
                 preserveAspectRatio="none"
               >
                 <path
@@ -451,8 +451,8 @@ export const OnboardingBlogs: FC = () => {
                   fill="#52525B"
                 ></path>
               </svg>
-              <div className="flex justify-start items-center flex-grow gap-2">
-                <p className="text-sm font-medium text-left text-zinc-900">
+              <div className="flex flex-grow items-center justify-start gap-2">
+                <p className="text-left text-sm font-medium text-zinc-900">
                   Dev.to
                 </p>
               </div>
@@ -461,9 +461,9 @@ export const OnboardingBlogs: FC = () => {
                 <button
                   type="button"
                   onClick={() => handleDevToConnect()}
-                  className="flex justify-start items-center h-8 overflow-hidden gap-2 px-4 py-2 rounded border border-zinc-200"
+                  className="flex h-8 items-center justify-start gap-2 overflow-hidden rounded border border-zinc-200 px-4 py-2"
                 >
-                  <p className="text-sm font-medium text-left text-zinc-700">
+                  <p className="text-left text-sm font-medium text-zinc-700">
                     Connect
                   </p>
                 </button>
@@ -471,14 +471,14 @@ export const OnboardingBlogs: FC = () => {
                 <CheckIcon />
               )}
             </div>
-            <div className="flex justify-start items-center h-9 overflow-hidden gap-3 rounded w-full">
+            <div className="flex h-9 w-full items-center justify-start gap-3 overflow-hidden rounded">
               <svg
                 width="20"
                 height="12"
                 viewBox="0 0 20 12"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6"
+                className="h-6 w-6"
                 preserveAspectRatio="none"
               >
                 <path
@@ -486,8 +486,8 @@ export const OnboardingBlogs: FC = () => {
                   fill="#52525B"
                 ></path>
               </svg>
-              <div className="flex justify-start items-center flex-grow gap-2">
-                <p className="text-sm font-medium text-left text-zinc-900">
+              <div className="flex flex-grow items-center justify-start gap-2">
+                <p className="text-left text-sm font-medium text-zinc-900">
                   Medium
                 </p>
               </div>
@@ -495,9 +495,9 @@ export const OnboardingBlogs: FC = () => {
                 <button
                   type="button"
                   onClick={() => setMediumConnected(!mediumConnected)}
-                  className="flex justify-start items-center h-8 overflow-hidden gap-2 px-4 py-2 rounded border border-zinc-200"
+                  className="flex h-8 items-center justify-start gap-2 overflow-hidden rounded border border-zinc-200 px-4 py-2"
                 >
-                  <p className="text-sm font-medium text-left text-zinc-700">
+                  <p className="text-left text-sm font-medium text-zinc-700">
                     Connect
                   </p>
                 </button>
@@ -509,16 +509,16 @@ export const OnboardingBlogs: FC = () => {
         </div>
       </div>
       <div className="mt-auto w-full ">
-        <div className="pb-8 px-4 sm:px-6">
-          <div className="flex flex-col justify-start items-start gap-2 w-full">
-            <div className="flex justify-start items-center w-full">
+        <div className="px-4 pb-8 sm:px-6">
+          <div className="flex w-full flex-col items-start justify-start gap-2">
+            <div className="flex w-full items-center justify-start">
               <OnboardingDotMenu />
-              <div className="flex justify-start items-center h-8 overflow-hidden gap-2 py-2 rounded">
+              <div className="flex h-8 items-center justify-start gap-2 overflow-hidden rounded py-2">
                 <button
                   type="button"
                   disabled={!devtoConnected && !mediumConnected}
                   onClick={() => setActiveSection("store")}
-                  className="flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
+                  className="flex justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
                 >
                   Next
                 </button>
@@ -537,18 +537,18 @@ export const OnboardingStore: FC = () => {
   return (
     <>
       <div className="relative h-[50vh] sm:h-64">
-        <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
+        <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <StoreIcon />
         </div>
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
         <Gradient />
       </div>
       <div className="mt-auto py-6 px-4 sm:px-6">
-        <div className="flex flex-col justify-start items-start gap-2">
-          <p className="text-xl font-semibold text-left text-zinc-900">
+        <div className="flex flex-col items-start justify-start gap-2">
+          <p className="text-left text-xl font-semibold text-zinc-900">
             More? Check out the store
           </p>
-          <p className="text-xs font-medium text-left text-zinc-500">
+          <p className="text-left text-xs font-medium text-zinc-500">
             In our extension store your can find extensions for the latest
             tools, platforms and services.
           </p>
@@ -556,7 +556,7 @@ export const OnboardingStore: FC = () => {
             <button
               type="button"
               onClick={() => setActiveSection("store")}
-              className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500"
+              className="mt-4 flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2"
             >
               Let's go!
             </button>

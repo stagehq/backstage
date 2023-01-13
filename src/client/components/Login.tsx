@@ -32,7 +32,7 @@ const SignInError = ({ error }: ParsedUrlQuery) => {
   const errorMessage =
     error && typeof error === "string" && (errors[error] ?? errors.default);
   return (
-    <div className="bg-blue-50 border-l-4 border-blue-400 p-4">
+    <div className="border-l-4 border-blue-400 bg-blue-50 p-4">
       <div className="flex">
         <div className="flex-shrink-0">
           <Icon name="InformationCircleIcon" size="md" color="dark" />
@@ -60,7 +60,7 @@ interface LoginProps {
 export const GradientArea = () => {
   return (
     <div className="relative h-[50vh]">
-      <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
+      <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
         <Logo />
       </div>
       <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
@@ -76,7 +76,7 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
   return (
     <LoginCard>
       <div className="relative h-[50vh] sm:h-64">
-        <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
+        <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <Logo />
         </div>
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
@@ -97,7 +97,7 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
             >
               Email address
             </label>
-            <div className="mt-1 relative">
+            <div className="relative mt-1">
               <input
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -107,10 +107,10 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
                 name="email"
                 type="email"
                 autoComplete="email"
-                className="appearance-none block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+                className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
               />
               {error === "EmailSignin" ? (
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                   <Icon name="ExclamationCircleIcon" size="lg" color="danger" />
                 </div>
               ) : null}
@@ -125,14 +125,14 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
           <input
             name="csrfToken"
             type="hidden"
-            className="invisible hidden absolute"
+            className="invisible absolute hidden"
             defaultValue={typeof csrfToken === "string" ? csrfToken : undefined}
           />
 
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500"
+              className="flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2"
             >
               Sign in
             </button>
@@ -145,7 +145,7 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
               <div className="w-full border-t border-zinc-300" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white font-medium text-zinc-500">
+              <span className="bg-white px-2 font-medium text-zinc-500">
                 or continue with
               </span>
             </div>
@@ -155,10 +155,10 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
             <div>
               <span
                 onClick={() => signIn("github")}
-                className="w-full inline-flex justify-center py-2 px-4 border border-zinc-300 rounded-md shadow-sm bg-white text-sm font-medium text-zinc-900 hover:bg-zinc-50"
+                className="inline-flex w-full justify-center rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-900 shadow-sm hover:bg-zinc-50"
               >
                 <svg
-                  className="w-5 h-5"
+                  className="h-5 w-5"
                   aria-hidden="true"
                   fill="currentColor"
                   viewBox="0 0 20 20"
@@ -176,10 +176,10 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
             <div>
               <span
                 onClick={() => signIn("gitlab")}
-                className="w-full inline-flex justify-center py-2 px-4 border border-zinc-300 rounded-md shadow-sm bg-white text-sm font-medium text-zinc-900 hover:bg-zinc-50"
+                className="inline-flex w-full justify-center rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-900 shadow-sm hover:bg-zinc-50"
               >
                 <svg
-                  className="w-5 h-5"
+                  className="h-5 w-5"
                   aria-hidden="true"
                   fill="currentColor"
                   viewBox="0 0 26 24"
@@ -197,10 +197,10 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
             <div>
               <span
                 onClick={() => signIn("google")}
-                className="w-full inline-flex justify-center py-2 px-4 border border-zinc-300 rounded-md shadow-sm bg-white text-sm font-medium text-zinc-900 hover:bg-zinc-50"
+                className="inline-flex w-full justify-center rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-900 shadow-sm hover:bg-zinc-50"
               >
                 <svg
-                  className="w-5 h-5"
+                  className="h-5 w-5"
                   aria-hidden="true"
                   fill="currentColor"
                   viewBox="0 0 24 24"

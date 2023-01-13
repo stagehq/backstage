@@ -6,7 +6,7 @@ interface SettingsFormProps {
 
 const SettingsForm: FC<SettingsFormProps> = (props) => {
   return (
-    <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9 overflow-y-auto no-scrollbar">
+    <div className="no-scrollbar space-y-6 overflow-y-auto sm:px-6 lg:col-span-9 lg:px-0">
       <form className="space-y-2">{props.children}</form>
     </div>
   );

@@ -97,25 +97,25 @@ const StoreItem: FC<StoreItemProps> = ({ storeExtension }) => {
   return (
     <div
       className={clsx(
-        "w-full relative p-4 rounded-lg cursor-pointer flex flex-col gap-3",
+        "relative flex w-full cursor-pointer flex-col gap-3 rounded-lg p-4",
         isAdded ? "cursor-not-allowed" : "hover:bg-zinc-50"
       )}
       onClick={() => clickHandler(storeExtension)}
     >
       <div
         className={clsx(
-          "w-full relative bg-zinc-200 rounded-md overflow-hidden border border-zinc-200"
+          "relative w-full overflow-hidden rounded-md border border-zinc-200 bg-zinc-200"
         )}
       >
         {storeExtension.image && <StoreWireframe name={storeExtension.image} />}
       </div>
       <div>
-        <div className="flex gap-2 justify-between items-center">
-          <p className="font-semibold text-base text-zinc-900">
+        <div className="flex items-center justify-between gap-2">
+          <p className="text-base font-semibold text-zinc-900">
             {storeExtension.name}
           </p>
           {addingState === "added" && (
-            <div className="p-1 bg-green-200 text-green-800 text-xs rounded-full flex items-center gap-1">
+            <div className="flex items-center gap-1 rounded-full bg-green-200 p-1 text-xs text-green-800">
               <CheckCircleIcon className="h-5 w-5" />
             </div>
           )}

@@ -54,11 +54,11 @@ const Plan: FC<PlanProps> = ({ user }) => {
   return (
     <section aria-labelledby="plan-heading">
       <div className="sm:overflow-hidden">
-        <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
+        <div className="space-y-6 bg-white py-6 px-4 sm:p-6">
           <div>
             <h2
               id="plan-heading"
-              className="text-lg leading-6 font-medium text-gray-900"
+              className="text-lg font-medium leading-6 text-gray-900"
             >
               Plan
             </h2>
@@ -74,7 +74,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
             <RadioGroup.Label className="sr-only">
               Pricing plans
             </RadioGroup.Label>
-            <div className="relative bg-white rounded-md -space-y-px">
+            <div className="relative -space-y-px rounded-md bg-white">
               {plans.map((plan, planIdx) => (
                 <RadioGroup.Option
                   key={plan.name}
@@ -89,9 +89,9 @@ const Plan: FC<PlanProps> = ({ user }) => {
                         ? "rounded-bl-md rounded-br-md"
                         : "",
                       checked
-                        ? "bg-zinc-50 border-zinc-200 z-10"
+                        ? "z-10 border-zinc-200 bg-zinc-50"
                         : "border-gray-200",
-                      "relative border p-4 flex flex-col cursor-pointer md:pl-4 md:pr-6 md:grid md:grid-cols-3 focus:outline-none"
+                      "relative flex cursor-pointer flex-col border p-4 focus:outline-none md:grid md:grid-cols-3 md:pl-4 md:pr-6"
                     )
                   }
                 >
@@ -101,14 +101,14 @@ const Plan: FC<PlanProps> = ({ user }) => {
                         <span
                           className={clsx(
                             checked
-                              ? "bg-zinc-500 border-transparent"
-                              : "bg-white border-gray-300",
-                            active ? "ring-2 ring-offset-2 ring-zinc-500" : "",
-                            "h-4 w-4 rounded-full border flex items-center justify-center"
+                              ? "border-transparent bg-zinc-500"
+                              : "border-gray-300 bg-white",
+                            active ? "ring-2 ring-zinc-500 ring-offset-2" : "",
+                            "flex h-4 w-4 items-center justify-center rounded-full border"
                           )}
                           aria-hidden="true"
                         >
-                          <span className="rounded-full bg-white w-1.5 h-1.5" />
+                          <span className="h-1.5 w-1.5 rounded-full bg-white" />
                         </span>
                         <RadioGroup.Label
                           as="span"
@@ -155,14 +155,14 @@ const Plan: FC<PlanProps> = ({ user }) => {
               onChange={setAnnualBillingEnabled}
               className={clsx(
                 annualBillingEnabled ? "bg-zinc-500" : "bg-gray-200",
-                "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 transition-colors ease-in-out duration-200"
+                "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2"
               )}
             >
               <span
                 aria-hidden="true"
                 className={clsx(
                   annualBillingEnabled ? "translate-x-5" : "translate-x-0",
-                  "inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
+                  "inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
                 )}
               />
             </Switch>
@@ -176,7 +176,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
 
           {selectedPlan.name === "Extended" || selectedPlan.name === "Pro" ? (
             <div className="grid grid-cols-4 gap-6">
-              <div className="mt-4 col-span-8 sm:col-span-4">
+              <div className="col-span-8 mt-4 sm:col-span-4">
                 <legend className="text-base font-medium text-gray-900">
                   Billing Information
                 </legend>
@@ -197,7 +197,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                   name="first-name"
                   id="first-name"
                   autoComplete="cc-given-name"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
                 />
               </div>
 
@@ -213,7 +213,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                   name="last-name"
                   id="last-name"
                   autoComplete="cc-family-name"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
                 />
               </div>
 
@@ -229,7 +229,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                   name="email-address"
                   id="email-address"
                   autoComplete="email"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
                 />
               </div>
 
@@ -245,7 +245,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                   name="expiration-date"
                   id="expiration-date"
                   autoComplete="cc-exp"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
                   placeholder="MM / YY"
                 />
               </div>
@@ -263,7 +263,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                   name="security-code"
                   id="security-code"
                   autoComplete="cc-csc"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
                 />
               </div>
 
@@ -278,7 +278,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                   id="country"
                   name="country"
                   autoComplete="country-name"
-                  className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
                 >
                   <option>United States</option>
                   <option>Canada</option>
@@ -298,20 +298,20 @@ const Plan: FC<PlanProps> = ({ user }) => {
                   name="postal-code"
                   id="postal-code"
                   autoComplete="postal-code"
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
                 />
               </div>
             </div>
           ) : null}
         </div>
         {fieldsEdited && session?.user?.email ? (
-          <div className="px-4 py-3 bg-gray-50 sm:px-6 flex items-center justify-end gap-2">
+          <div className="flex items-center justify-end gap-2 bg-gray-50 px-4 py-3 sm:px-6">
             <button
               type="button"
               onClick={() => {
                 setFieldsEdited(false);
               }}
-              className="bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-900"
+              className="inline-flex justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:ring-offset-2"
             >
               Reset
             </button>
@@ -343,7 +343,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
                   // });
                 }
               }}
-              className="bg-zinc-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-900"
+              className="inline-flex justify-center rounded-md border border-transparent bg-zinc-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:ring-offset-2"
             >
               {updateNotificationLoading ? (
                 <Spinner color={"text-white"} />

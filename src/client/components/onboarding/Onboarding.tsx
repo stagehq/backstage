@@ -1,12 +1,10 @@
 import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { Router, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
 import { onboardingState } from "../../store/onboarding";
-import { siteSlugState, siteState } from "../../store/site";
 import { subdomainCardOpenState } from "../../store/ui/modals";
 import {
   activeSectionState,
@@ -36,7 +34,7 @@ const Onboarding: FC = () => {
   const [activeSection] = useRecoilState(activeSectionState);
   return (
     <LoginCard>
-      <div className="flex flex-col h-full sm:min-h-[530px]">
+      <div className="flex h-full flex-col sm:min-h-[530px]">
         {renderOnboardingSection(activeSection)}
       </div>
     </LoginCard>
@@ -50,24 +48,24 @@ const OnboardingStart = () => {
   return (
     <>
       <div className="relative h-[50vh] sm:h-64">
-        <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
+        <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <Logo />
         </div>
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
         <Gradient />
       </div>
       <div className="mt-auto py-6 px-4 sm:px-6">
-        <div className="flex flex-col justify-start items-start gap-2">
-          <p className="text-xl font-semibold text-left text-zinc-900">
+        <div className="flex flex-col items-start justify-start gap-2">
+          <p className="text-left text-xl font-semibold text-zinc-900">
             Welcome on Stage
           </p>
-          <p className="text-xs font-medium text-left text-zinc-500">
+          <p className="text-left text-xs font-medium text-zinc-500">
             Let’s get started, by connecting some API’s to your site.
           </p>
           <button
             type="button"
             onClick={() => setActiveSection("profile")}
-            className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500"
+            className="mt-4 flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2"
           >
             Start
           </button>
@@ -121,25 +119,29 @@ const OnboardingProfile = () => {
   if (!user) return null;
 
   return (
-    <div className="flex flex-col py-6 px-4 sm:px-6 h-screen sm:h-full sm:min-h-[530px]">
-      <div className="flex flex-col justify-start items-start gap-2">
-        <p className="text-xl font-semibold text-left text-zinc-900">
+    <div className="flex h-screen flex-col py-6 px-4 sm:h-full sm:min-h-[530px] sm:px-6">
+      <div className="flex flex-col items-start justify-start gap-2">
+        <p className="text-left text-xl font-semibold text-zinc-900">
           Basic Information
         </p>
-        <p className="text-xs font-medium text-left text-zinc-500">
-          <span className="text-xs font-medium text-left text-zinc-500">
+        <p className="text-left text-xs font-medium text-zinc-500">
+          <span className="text-left text-xs font-medium text-zinc-500">
             To generate the site we need some basic{" "}
           </span>
           <br />
-          <span className="text-xs font-medium text-left text-zinc-500">
+          <span className="text-left text-xs font-medium text-zinc-500">
             information from you.
           </span>
         </p>
       </div>
-      <div className="mt-4 flex flex-col justify-start items-start gap-4">
-        <ImageUpload imageUrl={user.image ? user.image : ""} uploadType={"profileImage"} size="w-12 h-12"/>
+      <div className="mt-4 flex flex-col items-start justify-start gap-4">
+        <ImageUpload
+          imageUrl={user.image ? user.image : ""}
+          uploadType={"profileImage"}
+          size="w-12 h-12"
+        />
         <div className="mt-2 flex gap-4">
-          <div className="flex flex-col justify-start items-start gap-2 w-full">
+          <div className="flex w-full flex-col items-start justify-start gap-2">
             <div className="w-full">
               <label
                 htmlFor="firstname"
@@ -147,7 +149,7 @@ const OnboardingProfile = () => {
               >
                 First Name
               </label>
-              <div className="mt-1 relative">
+              <div className="relative mt-1">
                 <input
                   onChange={(e) => {
                     setUser({ ...user, firstName: e.target.value });
@@ -159,12 +161,12 @@ const OnboardingProfile = () => {
                   type="text"
                   autoComplete="firstname"
                   maxLength={50}
-                  className="appearance-none block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+                  className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
                 />
               </div>
             </div>
           </div>
-          <div className="flex flex-col justify-start items-start gap-2 w-full">
+          <div className="flex w-full flex-col items-start justify-start gap-2">
             <div className="w-full">
               <label
                 htmlFor="lastname"
@@ -172,7 +174,7 @@ const OnboardingProfile = () => {
               >
                 Last name
               </label>
-              <div className="mt-1 relative">
+              <div className="relative mt-1">
                 <input
                   onChange={(e) => {
                     setUser({ ...user, lastName: e.target.value });
@@ -184,14 +186,14 @@ const OnboardingProfile = () => {
                   type="text"
                   autoComplete="lastname"
                   maxLength={50}
-                  className="appearance-none block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+                  className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
                 />
               </div>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col justify-start items-start gap-2 w-full">
+        <div className="flex w-full flex-col items-start justify-start gap-2">
           <div className="w-full">
             <label
               htmlFor="tagline"
@@ -199,7 +201,7 @@ const OnboardingProfile = () => {
             >
               Tagline
             </label>
-            <div className="mt-1 relative">
+            <div className="relative mt-1">
               <input
                 onChange={(e) => {
                   setOnboarding({ ...onboarding, tagline: e.target.value });
@@ -210,14 +212,14 @@ const OnboardingProfile = () => {
                 type="text"
                 autoComplete="tagline"
                 maxLength={65}
-                className="appearance-none block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+                className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
               />
             </div>
-            <div className="flex justify-between items-start pt-2">
-              <p className="text-xs text-left text-zinc-500">
+            <div className="flex items-start justify-between pt-2">
+              <p className="text-left text-xs text-zinc-500">
                 Write a short tagline.
               </p>
-              <p className="text-xs text-left text-zinc-500">
+              <p className="text-left text-xs text-zinc-500">
                 {onboarding.tagline.length}/65
               </p>
             </div>
@@ -230,7 +232,7 @@ const OnboardingProfile = () => {
           >
             Bio
           </label>
-          <div className="mt-1 relative">
+          <div className="relative mt-1">
             <textarea
               onChange={(e) => {
                 setOnboarding({ ...onboarding, bio: e.target.value });
@@ -241,14 +243,14 @@ const OnboardingProfile = () => {
               name="bio"
               autoComplete="bio"
               maxLength={250}
-              className="appearance-none block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+              className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
             />
           </div>
-          <div className="flex justify-between items-start pt-2">
-            <p className="text-xs text-left text-zinc-500">
+          <div className="flex items-start justify-between pt-2">
+            <p className="text-left text-xs text-zinc-500">
               Write a few sentences about yourself.
             </p>
-            <p className="text-xs text-left text-zinc-500">
+            <p className="text-left text-xs text-zinc-500">
               {onboarding.bio.length}/250
             </p>
           </div>
@@ -267,7 +269,7 @@ const OnboardingProfile = () => {
             setActiveSection("subdomain");
             changeNames();
           }}
-          className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
+          className="mt-4 flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
         >
           Next
         </button>
@@ -283,8 +285,8 @@ export const OnboardingSubdomain: FC = () => {
   const [subdomainValid, setSubdomainValid] = useState(false);
   const [, upsertSite] = useUpsertSiteMutation();
 
-  const router = useRouter()
-  
+  const router = useRouter();
+
   const handleSubdomainChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value === "") {
@@ -307,12 +309,12 @@ export const OnboardingSubdomain: FC = () => {
         subdomain: onboarding.subdomain,
         tagline: onboarding.tagline,
         bio: onboarding.bio,
-      })
+      });
 
-      if(response.data?.upsertSite){
+      if (response.data?.upsertSite) {
         const subdomain = response.data.upsertSite.subdomain;
         setSubdomainCardOpen(false);
-        if(subdomain) router.push(`/s/${subdomain}`);
+        if (subdomain) router.push(`/s/${subdomain}`);
       }
     }
   };
@@ -330,17 +332,17 @@ export const OnboardingSubdomain: FC = () => {
   return (
     <>
       <div className="relative h-[50vh] sm:h-64">
-        <div className="absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-10">
+        <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <DomainIcon />
         </div>
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
         <Gradient />
       </div>
-      <div className="mt-auto flex flex-col justify-start items-start gap-2 pt-8 px-4 sm:px-6">
-        <p className="text-xl font-semibold text-left text-zinc-900">
+      <div className="mt-auto flex flex-col items-start justify-start gap-2 px-4 pt-8 sm:px-6">
+        <p className="text-left text-xl font-semibold text-zinc-900">
           Get your alias
         </p>
-        <p className="text-xs font-medium text-left text-zinc-500">
+        <p className="text-left text-xs font-medium text-zinc-500">
           The alias is the name which is displayed in your url.{" "}
           {onboarding.subdomain.length === 0 ? (
             <>
@@ -355,7 +357,7 @@ export const OnboardingSubdomain: FC = () => {
           )}
         </p>
       </div>
-      <div className="flex flex-col justify-start items-start gap-2 px-4 py-6 sm:px-6">
+      <div className="flex flex-col items-start justify-start gap-2 px-4 py-6 sm:px-6">
         <div className="w-full">
           <div className="w-full">
             <label
@@ -364,7 +366,7 @@ export const OnboardingSubdomain: FC = () => {
             >
               Alias
             </label>
-            <div className="mt-1 relative">
+            <div className="relative mt-1">
               <input
                 onChange={handleSubdomainChange}
                 value={onboarding.subdomain}
@@ -373,7 +375,7 @@ export const OnboardingSubdomain: FC = () => {
                 name="subdomain"
                 type="text"
                 autoComplete="subdomain"
-                className="appearance-none block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+                className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
               />
             </div>
           </div>
@@ -383,7 +385,7 @@ export const OnboardingSubdomain: FC = () => {
             onClick={() => {
               handleUpsertSite();
             }}
-            className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
+            className="mt-4 flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
           >
             Claim alias
           </button>

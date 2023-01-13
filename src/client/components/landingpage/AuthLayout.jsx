@@ -1,6 +1,6 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-import { Logo } from './Logo'
+import { Logo } from "./Logo";
 
 function BackgroundIllustration(props) {
   return (
@@ -16,7 +16,7 @@ function BackgroundIllustration(props) {
       <circle cx={545} cy={545} r="416.5" />
       <circle cx={545} cy={545} r="352.5" />
     </svg>
-  )
+  );
 }
 
 export function AuthLayout({ title, subtitle, children }) {
@@ -36,7 +36,9 @@ export function AuthLayout({ title, subtitle, children }) {
             {title}
           </h1>
           {subtitle && (
-            <p className="mt-3 text-center text-landing-lg text-gray-600">{subtitle}</p>
+            <p className="mt-3 text-center text-landing-lg text-gray-600">
+              {subtitle}
+            </p>
           )}
         </div>
         <div className="-mx-4 mt-10 flex-auto bg-white py-10 px-4 shadow-2xl shadow-gray-900/10 sm:mx-0 sm:flex-none sm:rounded-5xl sm:p-24">
@@ -44,5 +46,5 @@ export function AuthLayout({ title, subtitle, children }) {
         </div>
       </div>
     </main>
-  )
+  );
 }

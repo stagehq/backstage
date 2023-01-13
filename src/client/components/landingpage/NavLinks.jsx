@@ -1,25 +1,27 @@
-import { useState } from 'react'
-import Link from 'next/link'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 
 export function NavLinks() {
-  let [hoveredIndex, setHoveredIndex] = useState(null)
+  let [hoveredIndex, setHoveredIndex] = useState(null);
 
   // function which takes url and returns true if link is to internal page or anchor
   function isInternalLink(url) {
-    return url.startsWith('/') || url.startsWith('#')
+    return url.startsWith("/") || url.startsWith("#");
   }
 
   return [
-    ['Features', '#features'],
-    ['Design System', 'https://ui.getstage.app/?path=/story/private-page--default'],
-    ['Documentation', 'https://developers.getstage.app'],
+    ["Features", "#features"],
+    [
+      "Design System",
+      "https://ui.getstage.app/?path=/story/private-page--default",
+    ],
+    ["Documentation", "https://developers.getstage.app"],
   ].map(([label, href], index) => (
     <a
       key={label}
       href={href}
-      target={isInternalLink(href) ? '_self' : '_blank'}
-      className="cursor-pointer relative -my-2 -mx-3 rounded-lg px-3 py-2 text-landing-sm text-gray-700 transition-colors delay-150 hover:text-gray-900 hover:delay-[0ms]"
+      target={isInternalLink(href) ? "_self" : "_blank"}
+      className="relative -my-2 -mx-3 cursor-pointer rounded-lg px-3 py-2 text-landing-sm text-gray-700 transition-colors delay-150 hover:text-gray-900 hover:delay-[0ms]"
       onMouseEnter={() => setHoveredIndex(index)}
       onMouseLeave={() => setHoveredIndex(null)}
     >
@@ -39,5 +41,5 @@ export function NavLinks() {
       </AnimatePresence>
       <span className="relative z-10">{label}</span>
     </a>
-  ))
+  ));
 }

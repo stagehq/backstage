@@ -4,7 +4,12 @@ mutation UpdateSiteHeader(
   $tagline: String
   $image: String
 ) {
-  updateSiteHeader(siteId: $siteId, bio: $bio, tagline: $tagline, image: $image) {
+  updateSiteHeader(
+    siteId: $siteId
+    bio: $bio
+    tagline: $tagline
+    image: $image
+  ) {
     id
     subdomain
     bio

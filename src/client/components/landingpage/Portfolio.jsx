@@ -1,25 +1,23 @@
-import Image from 'next/future/image'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { Popover, Transition } from '@headlessui/react'
-import clsx from 'clsx'
+import { Popover } from "@headlessui/react";
+import clsx from "clsx";
+import Image from "next/future/image";
+import Link from "next/link";
 
-import { Container } from './Container'
-import avatarImage from '../../../../public/images/avatar.jpg'
-import { Fragment, useEffect, useRef } from 'react'
+import avatarImage from "../../../../public/images/avatar.jpg";
+import { Container } from "./Container";
 
-import image1 from '../../../../public/images/photos/image-1.jpg'
-import image2 from '../../../../public/images/photos/image-2.jpg'
-import image3 from '../../../../public/images/photos/image-3.jpg'
-import image4 from '../../../../public/images/photos/image-4.jpg'
-import image5 from '../../../../public/images/photos/image-5.jpg'
+import image1 from "../../../../public/images/photos/image-1.jpg";
+import image2 from "../../../../public/images/photos/image-2.jpg";
+import image3 from "../../../../public/images/photos/image-3.jpg";
+import image4 from "../../../../public/images/photos/image-4.jpg";
+import image5 from "../../../../public/images/photos/image-5.jpg";
 
 import {
-  TwitterIcon,
-  InstagramIcon,
   GitHubIcon,
+  InstagramIcon,
   LinkedInIcon,
-} from './SocialIcons'
+  TwitterIcon,
+} from "./SocialIcons";
 
 function CloseIcon(props) {
   return (
@@ -33,7 +31,7 @@ function CloseIcon(props) {
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }
 
 function ChevronDownIcon(props) {
@@ -47,7 +45,7 @@ function ChevronDownIcon(props) {
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }
 
 function SunIcon(props) {
@@ -66,7 +64,7 @@ function SunIcon(props) {
         fill="none"
       />
     </svg>
-  )
+  );
 }
 
 function MoonIcon(props) {
@@ -79,7 +77,7 @@ function MoonIcon(props) {
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }
 
 function MobileNavItem({ href, children }) {
@@ -89,28 +87,28 @@ function MobileNavItem({ href, children }) {
         {children}
       </Popover.Button>
     </li>
-  )
+  );
 }
 
 function ModeToggle() {
   function disableTransitionsTemporarily() {
-    document.documentElement.classList.add('[&_*]:!transition-none')
+    document.documentElement.classList.add("[&_*]:!transition-none");
     window.setTimeout(() => {
-      document.documentElement.classList.remove('[&_*]:!transition-none')
-    }, 0)
+      document.documentElement.classList.remove("[&_*]:!transition-none");
+    }, 0);
   }
 
   function toggleMode() {
-    disableTransitionsTemporarily()
+    disableTransitionsTemporarily();
 
-    let darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    let isSystemDarkMode = darkModeMediaQuery.matches
-    let isDarkMode = document.documentElement.classList.toggle('dark')
+    let darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    let isSystemDarkMode = darkModeMediaQuery.matches;
+    let isDarkMode = document.documentElement.classList.toggle("dark");
 
     if (isDarkMode === isSystemDarkMode) {
-      delete window.localStorage.isDarkMode
+      delete window.localStorage.isDarkMode;
     } else {
-      window.localStorage.isDarkMode = isDarkMode
+      window.localStorage.isDarkMode = isDarkMode;
     }
   }
 
@@ -124,7 +122,7 @@ function ModeToggle() {
       <SunIcon className="h-6 w-6 fill-zinc-100 stroke-zinc-500 transition group-hover:fill-zinc-200 group-hover:stroke-zinc-700 dark:hidden [@media(prefers-color-scheme:dark)]:fill-teal-50 [@media(prefers-color-scheme:dark)]:stroke-teal-500 [@media(prefers-color-scheme:dark)]:group-hover:fill-teal-50 [@media(prefers-color-scheme:dark)]:group-hover:stroke-teal-600" />
       <MoonIcon className="hidden h-6 w-6 fill-zinc-700 stroke-zinc-500 transition dark:block [@media(prefers-color-scheme:dark)]:group-hover:stroke-zinc-400 [@media_not_(prefers-color-scheme:dark)]:fill-teal-400/10 [@media_not_(prefers-color-scheme:dark)]:stroke-teal-500" />
     </button>
-  )
+  );
 }
 
 function Avatar({ large = false, className, ...props }) {
@@ -132,39 +130,31 @@ function Avatar({ large = false, className, ...props }) {
     <Link
       href="/"
       aria-label="Home"
-      className={clsx(className, 'pointer-events-auto')}
+      className={clsx(className, "pointer-events-auto")}
       {...props}
     >
-      <Image 
+      <Image
         src={avatarImage}
         alt={"Avatar"}
-        sizes={large ? '64px' : '32px'}
+        sizes={large ? "64px" : "32px"}
         className={clsx(
-          'rounded-full bg-zinc-100 object-cover dark:bg-zinc-800',
-          large ? 'h-16 w-16' : 'h-9 w-9'
+          "rounded-full bg-zinc-100 object-cover dark:bg-zinc-800",
+          large ? "h-16 w-16" : "h-9 w-9"
         )}
       />
     </Link>
-  )
+  );
 }
 
 export function Header() {
   return (
     <>
-      <header
-        className="pointer-events-none relative z-50 flex flex-col"
-      >
-        <div
-          className="top-0 z-10 h-16 pt-6"
-        >
-          <Container
-            className="top-[var(--header-top,theme(spacing.6))] w-full"
-          >
-          <div className="relative flex gap-4">
-            <div className="flex-1 flex items-center justify-between">
-            </div>
-              <div className="flex flex-1 justify-end md:justify-center">
-              </div>
+      <header className="pointer-events-none relative z-50 flex flex-col">
+        <div className="top-0 z-10 h-16 pt-6">
+          <Container className="top-[var(--header-top,theme(spacing.6))] w-full">
+            <div className="relative flex gap-4">
+              <div className="flex flex-1 items-center justify-between"></div>
+              <div className="flex flex-1 justify-end md:justify-center"></div>
               <div className="flex justify-end md:flex-1">
                 <div className="pointer-events-auto">
                   <ModeToggle />
@@ -175,7 +165,7 @@ export function Header() {
         </div>
       </header>
     </>
-  )
+  );
 }
 
 function SocialLink({ icon: Icon, ...props }) {
@@ -183,20 +173,26 @@ function SocialLink({ icon: Icon, ...props }) {
     <Link className="group -m-1 p-1" {...props}>
       <Icon className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-600 dark:fill-zinc-400 dark:group-hover:fill-zinc-300" />
     </Link>
-  )
+  );
 }
 
 function Photos() {
-  let rotations = ['rotate-2', '-rotate-2', 'rotate-2', 'rotate-2', '-rotate-2']
+  let rotations = [
+    "rotate-2",
+    "-rotate-2",
+    "rotate-2",
+    "rotate-2",
+    "-rotate-2",
+  ];
 
   return (
     <div className="mt-20">
-      <div className="-my-4 flex justify-center overflow-hidden py-4 gap-8">
+      <div className="-my-4 flex justify-center gap-8 overflow-hidden py-4">
         {[image1, image2, image3, image4, image5].map((image, imageIndex) => (
           <div
             key={image.src}
             className={clsx(
-              'relative aspect-[9/10] flex-none overflow-hidden bg-zinc-100 dark:bg-zinc-800 w-36 rounded-2xl',
+              "relative aspect-[9/10] w-36 flex-none overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-800",
               rotations[imageIndex % rotations.length]
             )}
           >
@@ -210,32 +206,29 @@ function Photos() {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-export function Portfolio () {
+export function Portfolio() {
   return (
-    <div className="relative">  
+    <div className="relative">
       <div className="absolute inset-0 flex justify-center">
         <div className="flex w-full max-w-lg">
           <div className="w-full bg-white dark:bg-zinc-900" />
         </div>
       </div>
-        <div className="relative">
-          <Header />
-          <main>
+      <div className="relative">
+        <Header />
+        <main>
           <Container className="mt-6">
             <div className="max-w-sm">
-              <Avatar
-                large
-                className="block h-16 w-16 origin-left"
-              />
-              <h1 className="mt-6 font-bold tracking-tight text-zinc-800 dark:text-zinc-100 text-landing-2xl">
+              <Avatar large className="block h-16 w-16 origin-left" />
+              <h1 className="mt-6 text-landing-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
                 Software designer, founder, and amateur astronaut.
               </h1>
               <p className="mt-6 text-landing-base text-zinc-600 dark:text-zinc-400">
-                I’m Felix, a software designer and entrepreneur based in New York
-                City. I’m currently working on a new project called Stage.
+                I’m Felix, a software designer and entrepreneur based in New
+                York City. I’m currently working on a new project called Stage.
               </p>
               <div className="mt-6 flex gap-6">
                 <SocialLink
@@ -262,8 +255,8 @@ export function Portfolio () {
             </div>
           </Container>
           <Photos />
-          </main>
+        </main>
       </div>
     </div>
-  )
+  );
 }

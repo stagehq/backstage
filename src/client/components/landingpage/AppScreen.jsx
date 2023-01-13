@@ -1,10 +1,8 @@
-import { forwardRef } from 'react'
-import clsx from 'clsx'
+import clsx from "clsx";
+import { forwardRef } from "react";
 
 function Logo(props) {
-  return (
-    <span className="text-white text-medium">Stage</span>
-  )
+  return <span className="text-medium text-white">Stage</span>;
 }
 
 function MenuIcon(props) {
@@ -18,7 +16,7 @@ function MenuIcon(props) {
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }
 
 function UserIcon(props) {
@@ -32,12 +30,12 @@ function UserIcon(props) {
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }
 
 export function AppScreen({ children, className, ...props }) {
   return (
-    <div className={clsx('flex flex-col', className)} {...props}>
+    <div className={clsx("flex flex-col", className)} {...props}>
       <div className="flex justify-between px-4 pt-4">
         <MenuIcon className="h-6 w-6 flex-none" />
         <Logo className="h-6 flex-none" />
@@ -45,15 +43,15 @@ export function AppScreen({ children, className, ...props }) {
       </div>
       {children}
     </div>
-  )
+  );
 }
 
 export function AppScreenWithoutMenu({ children, className, ...props }) {
   return (
-    <div className={clsx('flex flex-col', className)} {...props}>
+    <div className={clsx("flex flex-col", className)} {...props}>
       {children}
     </div>
-  )
+  );
 }
 
 AppScreen.Header = forwardRef(function AppScreenHeader({ children }, ref) {
@@ -61,24 +59,24 @@ AppScreen.Header = forwardRef(function AppScreenHeader({ children }, ref) {
     <div ref={ref} className="mt-6 px-4 text-white">
       {children}
     </div>
-  )
-})
+  );
+});
 
 AppScreen.Title = forwardRef(function AppScreenTitle({ children }, ref) {
   return (
     <div ref={ref} className="text-landing-2xl text-white">
       {children}
     </div>
-  )
-})
+  );
+});
 
 AppScreen.Subtitle = forwardRef(function AppScreenSubtitle({ children }, ref) {
   return (
     <div ref={ref} className="text-landing-sm text-gray-500">
       {children}
     </div>
-  )
-})
+  );
+});
 
 AppScreen.Body = forwardRef(function AppScreenBody(
   { children, className },
@@ -87,9 +85,9 @@ AppScreen.Body = forwardRef(function AppScreenBody(
   return (
     <div
       ref={ref}
-      className={clsx('mt-6 flex-auto rounded-t-2xl bg-white', className)}
+      className={clsx("mt-6 flex-auto rounded-t-2xl bg-white", className)}
     >
       {children}
     </div>
-  )
-})
+  );
+});

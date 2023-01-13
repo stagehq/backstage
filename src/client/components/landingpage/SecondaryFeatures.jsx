@@ -1,45 +1,43 @@
-import { useId } from 'react'
-
-import { Container } from './Container'
+import { Container } from "./Container";
 
 const features = [
   {
-    name: 'Bring your content from anywhere',
+    name: "Bring your content from anywhere",
     description:
-      'You can import your content from your favorite CMS, SaaS service, or a simple text file.',
+      "You can import your content from your favorite CMS, SaaS service, or a simple text file.",
     icon: DeviceArrowIcon,
   },
   {
-    name: 'Supercharge your site with extensions',
+    name: "Supercharge your site with extensions",
     description:
-      'With our API, you can build your own custom blocks and add them to your portfolio.',
+      "With our API, you can build your own custom blocks and add them to your portfolio.",
     icon: DeviceExtensionIcon,
   },
   {
-    name: 'Build a *beautiful* portfolio',
+    name: "Build a *beautiful* portfolio",
     description:
-      'With our predesigned blocks, you can easily build a unique and beautiful portfolio.',
+      "With our predesigned blocks, you can easily build a unique and beautiful portfolio.",
     icon: DeviceBeautifulIcon,
   },
   {
-    name: 'Tailored CVs for your job applications',
+    name: "Tailored CVs for your job applications",
     description:
-      'You can easily create a CV for each job application and export it as a PDF when needed.',
+      "You can easily create a CV for each job application and export it as a PDF when needed.",
     icon: DeviceTailoredIcon,
   },
   {
-    name: 'Analyse your performance',
+    name: "Analyse your performance",
     description:
-      'We provide you with a detailed analytics dashboard to help you improve your site.',
+      "We provide you with a detailed analytics dashboard to help you improve your site.",
     icon: DeviceChartIcon,
   },
   {
-    name: 'Simple & Secure (GDPR)',
+    name: "Simple & Secure (GDPR)",
     description:
-      'We take care of your data and we never share it with third parties.',
+      "We take care of your data and we never share it with third parties.",
     icon: DeviceLockIcon,
   },
-]
+];
 
 function DeviceArrowIcon(props) {
   return (
@@ -69,7 +67,7 @@ function DeviceArrowIcon(props) {
         clipRule="evenodd"
       ></path>
     </svg>
-  )
+  );
 }
 
 function DeviceTailoredIcon(props) {
@@ -105,7 +103,7 @@ function DeviceTailoredIcon(props) {
         ></path>
       </g>
     </svg>
-  )
+  );
 }
 
 function DeviceBeautifulIcon(props) {
@@ -133,7 +131,7 @@ function DeviceBeautifulIcon(props) {
         d="M135.673 93.297l-21.584-3.148-9.649-19.63a2.71 2.71 0 00-1.233-1.237 2.727 2.727 0 00-3.647 1.237l-9.648 19.63-21.585 3.148a2.711 2.711 0 00-1.555.793 2.74 2.74 0 00.05 3.865l15.617 15.279-3.69 21.576a2.734 2.734 0 001.081 2.67 2.71 2.71 0 002.864.205L102 127.498l19.306 10.187a2.698 2.698 0 001.726.273 2.726 2.726 0 002.219-3.148l-3.69-21.576 15.617-15.28c.425-.417.705-.963.79-1.56a2.718 2.718 0 00-2.295-3.097z"
       ></path>
     </svg>
-  )
+  );
 }
 
 function DeviceExtensionIcon(props) {
@@ -160,7 +158,7 @@ function DeviceExtensionIcon(props) {
       <rect width="27" height="41" x="73" y="28" fill="#333" rx="3"></rect>
       <rect width="27" height="41" x="39" y="53" fill="#333" rx="3"></rect>
     </svg>
-  )
+  );
 }
 
 function DeviceLockIcon(props) {
@@ -180,7 +178,7 @@ function DeviceLockIcon(props) {
         fill="#171717"
       />
     </svg>
-  )
+  );
 }
 
 function DeviceChartIcon(props) {
@@ -206,7 +204,7 @@ function DeviceChartIcon(props) {
       />
       <circle cx={16} cy={16} r={16} fill="#A3A3A3" fillOpacity={0.2} />
     </svg>
-  )
+  );
 }
 
 export function SecondaryFeatures() {
@@ -245,5 +243,5 @@ export function SecondaryFeatures() {
         </ul>
       </Container>
     </section>
-  )
+  );
 }

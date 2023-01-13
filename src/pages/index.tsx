@@ -1,21 +1,18 @@
-import Link from "next/link";
-import Head from 'next/head'
-import { CallToAction } from '../client/components/landingpage/CallToAction'
-import { Faqs } from '../client/components/landingpage/Faqs'
-import { Footer } from '../client/components/landingpage/Footer'
-import { Header } from '../client/components/landingpage/Header'
-import { Hero } from '../client/components/landingpage/Hero'
-import { Pricing } from '../client/components/landingpage/Pricing'
-import { PrimaryFeatures } from '../client/components/landingpage/PrimaryFeatures'
-import { Reviews } from '../client/components/landingpage/Reviews'
-import { SecondaryFeatures } from '../client/components/landingpage/SecondaryFeatures'
-import Favicons from '../client/components/landingpage/Favicons'
+import Head from "next/head";
 import { useEffect } from "react";
+import { CallToAction } from "../client/components/landingpage/CallToAction";
+import Favicons from "../client/components/landingpage/Favicons";
+import { Footer } from "../client/components/landingpage/Footer";
+import { Header } from "../client/components/landingpage/Header";
+import { Hero } from "../client/components/landingpage/Hero";
+import { PrimaryFeatures } from "../client/components/landingpage/PrimaryFeatures";
+import { Reviews } from "../client/components/landingpage/Reviews";
+import { SecondaryFeatures } from "../client/components/landingpage/SecondaryFeatures";
 
-export default function Home() {  
+export default function Home() {
   useEffect((): void => {
     if (typeof document !== "undefined") {
-      document.querySelector("body")?.classList.add("bg-gray-50")
+      document.querySelector("body")?.classList.add("bg-gray-50");
     }
   }, []);
 
@@ -41,5 +38,5 @@ export default function Home() {
       </main>
       <Footer />
     </>
-  )
+  );
 }

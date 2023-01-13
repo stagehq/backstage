@@ -1,7 +1,5 @@
-import { CircleBackground } from './CircleBackground'
-import { Container } from './Container'
-import { Button } from './Button'
-import Link from 'next/link'
+import { CircleBackground } from "./CircleBackground";
+import { Container } from "./Container";
 
 export function CallToAction() {
   return (
@@ -18,14 +16,21 @@ export function CallToAction() {
             Get your backstage pass today
           </h2>
           <p className="mt-4 text-landing-lg text-gray-300">
-            It takes 10 seconds to sign up. We&apos;ll get back
-            to you when we&apos;re ready to launch.
+            It takes 10 seconds to sign up. We&apos;ll get back to you when
+            we&apos;re ready to launch.
           </p>
           <div className="mt-8 flex justify-center">
-            <a className='inline-flex justify-center rounded-lg py-2 px-3 text-landing-sm font-semibold outline-2 outline-offset-2 transition-colors bg-white text-cyan-900 hover:bg-white/90 active:bg-white/90 active:text-cyan-900/70' href="https://tally.so/r/w4a70o" target="_blank" color="white">Get early access</a> 
+            <a
+              className="inline-flex justify-center rounded-lg bg-white py-2 px-3 text-landing-sm font-semibold text-cyan-900 outline-2 outline-offset-2 transition-colors hover:bg-white/90 active:bg-white/90 active:text-cyan-900/70"
+              href="https://tally.so/r/w4a70o"
+              target="_blank"
+              color="white"
+            >
+              Get early access
+            </a>
           </div>
         </div>
       </Container>
     </section>
-  )
+  );
 }

@@ -70,7 +70,9 @@ const Resume: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
       size={size}
       isEditable={isEditable}
       handleTitleChange={(title) => changeExtensionTitle(extension.id, title)}
-      handleSizeChange={(size) => changeExtensionSize(extension.id, size, gridRef)}
+      handleSizeChange={(size) =>
+        changeExtensionSize(extension.id, size, gridRef)
+      }
       imagePath={"https://avatars.githubusercontent.com/u/357098?s=200&v=4"}
     >
       <List>

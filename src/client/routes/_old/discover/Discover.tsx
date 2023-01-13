@@ -46,7 +46,7 @@ function DiscoverPage() {
           <GetStartedBanner />
           <Suspense
             fallback={
-              <div className="flex items-center justify-center h-24 w-full">
+              <div className="flex h-24 w-full items-center justify-center">
                 <Spinner color={"text-gray-400"} />
               </div>
             }

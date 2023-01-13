@@ -5,7 +5,7 @@ const Gradient = () => {
       width="802"
       height="346"
       fill="none"
-      className="w-full h-full object-cover"
+      className="h-full w-full object-cover"
       preserveAspectRatio="none"
       viewBox="0 0 802 346"
     >

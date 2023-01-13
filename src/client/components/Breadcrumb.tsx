@@ -9,16 +9,16 @@ const Breadcrumb = () => {
   if (!currentUser) return null;
 
   return (
-    <div className="flex gap-1 items-center">
+    <div className="flex items-center gap-1">
       <Link to={`/s`}>
-        <div className="flex justify-center items-center w-8 h-8 gap-2 px-1 py-[3px] rounded-lg bg-zinc-100">
+        <div className="flex h-8 w-8 items-center justify-center gap-2 rounded-lg bg-zinc-100 px-1 py-[3px]">
           <svg
             width="18"
             height="20"
             viewBox="0 0 18 20"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="flex-grow-0 flex-shrink-0"
+            className="flex-shrink-0 flex-grow-0"
             preserveAspectRatio="none"
           >
             <path
@@ -48,7 +48,7 @@ const Breadcrumb = () => {
             </svg>
           </div>
           <Link to={`/s/${siteId}`}>
-            <div className="text-sm font-medium px-4 h-8 flex items-center hover:bg-zinc-100 rounded text-zinc-700 hover:text-zinc-900">
+            <div className="flex h-8 items-center rounded px-4 text-sm font-medium text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900">
               <p>{`${currentUser.firstName}'s sites`}</p>
             </div>
           </Link>

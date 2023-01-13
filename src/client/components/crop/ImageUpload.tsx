@@ -4,24 +4,29 @@ import "cropperjs/dist/cropper.css";
 import Cropper from "react-cropper";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { uploadFile } from "../../../server/aws/helper";
-import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
-import { currentUserState } from "../../store/user";
-import { uploadType } from "../../../client/components/Dropzone";
-import clsx from "clsx";
-import { useUpdateSiteHeaderMutation } from "../../graphql/updateSiteHeader.generated";
 import { decodeGlobalID } from "@pothos/plugin-relay";
+import clsx from "clsx";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { uploadType } from "../../../client/components/Dropzone";
+import { uploadFile } from "../../../server/aws/helper";
+import { useUpdateSiteHeaderMutation } from "../../graphql/updateSiteHeader.generated";
+import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { siteSlugState, siteState } from "../../store/site";
+import { currentUserState } from "../../store/user";
 
 interface ImageUploadProps {
-  imageUrl: string
-  uploadType: uploadType
-  mutationId?: string 
-  size: string
+  imageUrl: string;
+  uploadType: uploadType;
+  mutationId?: string;
+  size: string;
 }
 
-const ImageUpload:FC<ImageUploadProps> = ({imageUrl, uploadType, mutationId, size}) => {
+const ImageUpload: FC<ImageUploadProps> = ({
+  imageUrl,
+  uploadType,
+  mutationId,
+  size,
+}) => {
   console.log(imageUrl, uploadType, mutationId);
   const cancelButtonRef = useRef(null);
 
@@ -39,18 +44,18 @@ const ImageUpload:FC<ImageUploadProps> = ({imageUrl, uploadType, mutationId, siz
 
   // handle image chnange and current user state image to new image
   const handleImageChange = (url: string) => {
-    if(uploadType === "profileImage" || uploadType === "profileCoverImage"){
+    if (uploadType === "profileImage" || uploadType === "profileCoverImage") {
       if (url === "" || currentUser === null) return;
       setCurrentUser({
         ...currentUser,
         image: url,
       });
-    }else if(uploadType === "siteImage"){
-      if (url === "" ||  site === null) return;
+    } else if (uploadType === "siteImage") {
+      if (url === "" || site === null) return;
       setSite({
         ...site,
         image: url,
-      })
+      });
     }
   };
 
@@ -92,10 +97,10 @@ const ImageUpload:FC<ImageUploadProps> = ({imageUrl, uploadType, mutationId, siz
     if (!currentUser) return null;
 
     uploadFile(file, currentUser.id, uploadType).then((data) => {
-      if(uploadType === "profileImage" || uploadType === "profileCoverImage"){
+      if (uploadType === "profileImage" || uploadType === "profileCoverImage") {
         // Update user images
         updateUser({
-          image: data
+          image: data,
         }).then((result) => {
           // Success messages if image is uploaded
           if (result.data?.updateUser) {
@@ -107,17 +112,19 @@ const ImageUpload:FC<ImageUploadProps> = ({imageUrl, uploadType, mutationId, siz
             throw new Error("Error adding image to user");
           }
         });
-      }else if(uploadType === "siteImage" && mutationId != null){
+      } else if (uploadType === "siteImage" && mutationId != null) {
         // Update site images
         updateSiteHeader({
           siteId: decodeGlobalID(mutationId).id,
-          image: data
+          image: data,
         }).then((result) => {
           // Success messages if image is uploaded
           if (result.data?.updateSiteHeader) {
             console.log("Success");
             handleImageChange(
-              result.data?.updateSiteHeader.image ? result.data?.updateSiteHeader.image : ""
+              result.data?.updateSiteHeader.image
+                ? result.data?.updateSiteHeader.image
+                : ""
             );
           } else {
             throw new Error("Error adding image to user");
@@ -135,21 +142,23 @@ const ImageUpload:FC<ImageUploadProps> = ({imageUrl, uploadType, mutationId, siz
 
   return (
     <>
-      <div className={clsx("flex items-center relative cursor pointer", size)}>
-        {imageUrl ? <div className="w-full h-full inline-block rounded-full overflow-hidden" >
-          <img
-            className="w-full h-full"
-            src={imageUrl}
-            referrerPolicy="no-referrer"
-            alt="image"
-          />
-        </div>
-        : <div className="w-full h-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-600 rounded-full"/>
-        }
-        <div className="absolute w-full h-full">
-          <div className="w-[40%] h-[40%] border-2 border-zinc-50 dark:border-zinc-900 bg-zinc-800 dark:bg-zinc-700 focus-within:bg-zinc-700 absolute bottom-0 right-0 rounded-full">
-            <div className="flex w-full h-full justify-center items-center text-zinc-200">
-              <EditIcon/>
+      <div className={clsx("cursor pointer relative flex items-center", size)}>
+        {imageUrl ? (
+          <div className="inline-block h-full w-full overflow-hidden rounded-full">
+            <img
+              className="h-full w-full"
+              src={imageUrl}
+              referrerPolicy="no-referrer"
+              alt="image"
+            />
+          </div>
+        ) : (
+          <div className="h-full w-full rounded-full border border-zinc-200 bg-zinc-100 dark:border-zinc-600 dark:bg-zinc-800" />
+        )}
+        <div className="absolute h-full w-full">
+          <div className="absolute bottom-0 right-0 h-[40%] w-[40%] rounded-full border-2 border-zinc-50 bg-zinc-800 focus-within:bg-zinc-700 dark:border-zinc-900 dark:bg-zinc-700">
+            <div className="flex h-full w-full items-center justify-center text-zinc-200">
+              <EditIcon />
             </div>
           </div>
           <input
@@ -158,7 +167,7 @@ const ImageUpload:FC<ImageUploadProps> = ({imageUrl, uploadType, mutationId, siz
             id="photo"
             name="photo"
             type="file"
-            className="absolute inset-0 opacity-0 cursor-pointer border-gray-300 rounded-md"
+            className="absolute inset-0 cursor-pointer rounded-md border-gray-300 opacity-0"
           />
         </div>
       </div>
@@ -182,8 +191,8 @@ const ImageUpload:FC<ImageUploadProps> = ({imageUrl, uploadType, mutationId, siz
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
           </Transition.Child>
 
-          <div className="fixed z-10 inset-0 overflow-y-auto">
-            <div className="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
+          <div className="fixed inset-0 z-10 overflow-y-auto">
+            <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -193,7 +202,7 @@ const ImageUpload:FC<ImageUploadProps> = ({imageUrl, uploadType, mutationId, siz
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full sm:p-6">
+                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                   <div>
                     <Cropper
                       style={{ height: "100%", width: "100%" }}
@@ -215,10 +224,10 @@ const ImageUpload:FC<ImageUploadProps> = ({imageUrl, uploadType, mutationId, siz
                       guides={true}
                     />
                   </div>
-                  <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+                  <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                     <button
                       type="button"
-                      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-zinc-900 text-base font-medium text-white hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 sm:col-start-2 sm:text-sm"
+                      className="inline-flex w-full justify-center rounded-md border border-transparent bg-zinc-900 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 sm:col-start-2 sm:text-sm"
                       onClick={() => {
                         setOpenModal(false);
                         getCropData();
@@ -228,7 +237,7 @@ const ImageUpload:FC<ImageUploadProps> = ({imageUrl, uploadType, mutationId, siz
                     </button>
                     <button
                       type="button"
-                      className="mt-3 w-full inline-flex justify-center rounded-md border border-zinc-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-zinc-700 hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 sm:mt-0 sm:col-start-1 sm:text-sm"
+                      className="mt-3 inline-flex w-full justify-center rounded-md border border-zinc-300 bg-white px-4 py-2 text-base font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 sm:col-start-1 sm:mt-0 sm:text-sm"
                       onClick={() => setOpenModal(false)}
                       ref={cancelButtonRef}
                     >
@@ -243,7 +252,7 @@ const ImageUpload:FC<ImageUploadProps> = ({imageUrl, uploadType, mutationId, siz
       </Transition.Root>
     </>
   );
-}
+};
 
 export default ImageUpload;
 
@@ -252,7 +261,7 @@ function EditIcon() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="currentColor"
-      className="w-5 h-5"
+      className="h-5 w-5"
       viewBox="0 0 20 20"
     >
       <path

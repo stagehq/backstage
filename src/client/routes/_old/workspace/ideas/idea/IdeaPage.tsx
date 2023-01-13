@@ -11,7 +11,7 @@ const IdeaPage: FC = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <>
-        <div className="w-full h-[calc(100vh_-_64px)] bg-background overflow-y-scroll">
+        <div className="h-[calc(100vh_-_64px)] w-full overflow-y-scroll bg-background">
           <Suspense fallback={<LoadingPage />}>
             <IdeaContainer />
           </Suspense>

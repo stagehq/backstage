@@ -1,11 +1,11 @@
-import Link from 'next/link'
-import { Popover } from '@headlessui/react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { Popover } from "@headlessui/react";
+import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 
-import { Button } from './Button'
-import { Container } from './Container'
-import { Logo } from './Logo'
-import { NavLinks } from './NavLinks'
+import { Button } from "./Button";
+import { Container } from "./Container";
+import { Logo } from "./Logo";
+import { NavLinks } from "./NavLinks";
 
 function MenuIcon(props) {
   return (
@@ -17,7 +17,7 @@ function MenuIcon(props) {
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }
 
 function ChevronUpIcon(props) {
@@ -30,7 +30,7 @@ function ChevronUpIcon(props) {
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }
 
 function MobileNavLink({ children, ...props }) {
@@ -42,14 +42,14 @@ function MobileNavLink({ children, ...props }) {
     >
       {children}
     </Popover.Button>
-  )
+  );
 }
 
 export function Header() {
   return (
     <header>
       <nav>
-        <Container className="relative z-50 flex justify-between items-baseline py-8">
+        <Container className="relative z-50 flex items-baseline justify-between py-8">
           <div className="relative z-10 flex items-center gap-16">
             <Link href="/" aria-label="Home">
               <Logo className="h-10 w-auto" />
@@ -101,18 +101,29 @@ export function Header() {
                             <MobileNavLink href="#features">
                               Features
                             </MobileNavLink>
-                            <MobileNavLink href="https://ui.getstage.app/?path=/story/private-page--default" target="_blank">
+                            <MobileNavLink
+                              href="https://ui.getstage.app/?path=/story/private-page--default"
+                              target="_blank"
+                            >
                               Design System
                             </MobileNavLink>
-                            <MobileNavLink href="https://developers.getstage.app" target="_blank">
+                            <MobileNavLink
+                              href="https://developers.getstage.app"
+                              target="_blank"
+                            >
                               Documentation
                             </MobileNavLink>
                           </div>
                           <div className="mt-8 flex flex-col gap-4">
-                            <Button href="https://tally.so/r/w4a70o" variant="outline">
+                            <Button
+                              href="https://tally.so/r/w4a70o"
+                              variant="outline"
+                            >
                               Contact
                             </Button>
-                            <Button href="https://tally.so/r/w4a70o">Sign up</Button>
+                            <Button href="https://tally.so/r/w4a70o">
+                              Sign up
+                            </Button>
                           </div>
                         </Popover.Panel>
                       </>
@@ -121,15 +132,23 @@ export function Header() {
                 </>
               )}
             </Popover>
-            <Button href="mailto:office@getstage.app" variant="outline" className="hidden lg:block">
+            <Button
+              href="mailto:office@getstage.app"
+              variant="outline"
+              className="hidden lg:block"
+            >
               Contact
             </Button>
-            <Button href="https://tally.so/r/w4a70o" target="_blank" className="hidden lg:block">
+            <Button
+              href="https://tally.so/r/w4a70o"
+              target="_blank"
+              className="hidden lg:block"
+            >
               Sign up
             </Button>
           </div>
         </Container>
       </nav>
     </header>
-  )
+  );
 }

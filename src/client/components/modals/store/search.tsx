@@ -32,9 +32,9 @@ const Search: FC<SearchProps> = ({ search, setSearch }) => {
       </div>
       <a
         href="https://developers.getstage.app/introduction/readme"
-        className="flex justify-start items-start relative gap-2 px-4 py-2 rounded-md border border-zinc-300 hover:bg-zinc-200 cursor-pointer text-zinc-600 hover:text-zinc-900"
+        className="relative flex cursor-pointer items-start justify-start gap-2 rounded-md border border-zinc-300 px-4 py-2 text-zinc-600 hover:bg-zinc-200 hover:text-zinc-900"
       >
-        <p className="text-sm font-medium text-left">Build your own block</p>
+        <p className="text-left text-sm font-medium">Build your own block</p>
       </a>
     </div>
   );

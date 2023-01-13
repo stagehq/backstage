@@ -42,7 +42,7 @@ const RenderResults: FC = () => {
                 )}
               >
                 {item.icon}
-                <span className="ml-3 flex-auto truncate text">
+                <span className="text ml-3 flex-auto truncate">
                   {item.name}
                 </span>
                 <span
@@ -89,13 +89,13 @@ const CommandBar: FC<CommandBarProps> = ({ children }) => {
       actions={actions}
     >
       <KBarPortal>
-        <KBarPositioner className="fixed inset-0 bg-zinc-500 bg-opacity-25 transition-opacity w-screen h-screen">
+        <KBarPositioner className="fixed inset-0 h-screen w-screen bg-zinc-500 bg-opacity-25 transition-opacity">
           <KBarAnimator>
             <div className="w-[50vw] max-w-[50vw] transform divide-y divide-zinc-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
               <div className="flex items-center p-2">
                 <KBarSearch
                   defaultPlaceholder="Search..."
-                  className="h-12 w-full border-0 bg-transparent pl-4 text-zinc-800 placeholder-zinc-500 focus:ring-0 sm:text-sm outline-none"
+                  className="h-12 w-full border-0 bg-transparent pl-4 text-zinc-800 placeholder-zinc-500 outline-none focus:ring-0 sm:text-sm"
                 />
                 <div className="px-3 py-2">
                   <Icon name="MagnifyingGlassIcon" size="md" color="dark" />

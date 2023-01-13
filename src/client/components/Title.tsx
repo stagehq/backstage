@@ -8,8 +8,8 @@ const Title = () => {
   if (!user) return null;
 
   return (
-    <div className="flex justify-between items-end w-full mt-10 mb-4">
-      <p className="text-xl lg:text-2xl font-semibold text-left text-zinc-900">
+    <div className="mt-10 mb-4 flex w-full items-end justify-between">
+      <p className="text-left text-xl font-semibold text-zinc-900 lg:text-2xl">
         {user.firstName}'s sites
       </p>
     </div>

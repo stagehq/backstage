@@ -67,7 +67,9 @@ const Blogs: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
     <Block
       actions={{ link: { url: profileLink } }}
       handleTitleChange={(title) => changeExtensionTitle(extension.id, title)}
-      handleSizeChange={(size) => changeExtensionSize(extension.id, size, gridRef)}
+      handleSizeChange={(size) =>
+        changeExtensionSize(extension.id, size, gridRef)
+      }
       handleDelete={() => deleteExtension(extension.id)}
       title={"Blog Posts"}
       imagePath={"https://avatars.githubusercontent.com/u/65030610?s=200&v=4"}

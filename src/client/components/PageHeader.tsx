@@ -1,13 +1,13 @@
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
+import { decodeGlobalID } from "@pothos/plugin-relay";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useUpdateSiteHeaderMutation } from "../graphql/updateSiteHeader.generated";
+import { handleDynamicHeight } from "../helper/racingBuffer";
 import { siteSlugState, siteState } from "../store/site";
 import { themeState } from "../store/ui/theme";
-import { handleDynamicHeight } from "../helper/racingBuffer";
 import ImageUpload from "./crop/ImageUpload";
-import { decodeGlobalID } from "@pothos/plugin-relay";
 
 export const PageHeader = () => {
   //refs
@@ -78,13 +78,13 @@ export const PageHeader = () => {
     }
   };
 
-  if(!site) return null;
+  if (!site) return null;
 
   return (
-    <div className="@container flex flex-col justify-start items-start gap-[54px] pt-6">
-      <div className="flex justify-end items-start self-stretch gap-2">
+    <div className="flex flex-col items-start justify-start gap-[54px] pt-6 @container">
+      <div className="flex items-start justify-end gap-2 self-stretch">
         <div
-          className="flex justify-start items-start relative gap-2 p-2 rounded-full bg-zinc-100/40 dark:bg-zinc-800/90 ring-1 ring-zinc-900/5 backdrop-blur dark:ring-white/10 cursor-pointer"
+          className="relative flex cursor-pointer items-start justify-start gap-2 rounded-full bg-zinc-100/40 p-2 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"
           onClick={() => setTheme(theme === "light" ? "dark" : "light")}
         >
           {theme === "light" ? (
@@ -94,9 +94,14 @@ export const PageHeader = () => {
           )}
         </div>
       </div>
-      <div className="flex flex-col justify-start items-start self-stretch gap-8 w-full @3xl:w-3/4 @6xl:w-1/2">
-        <ImageUpload imageUrl={site.image ? site.image : ""} uploadType="siteImage" mutationId={site.id} size="w-20 h-20"/>
-        <div className="w-full flex flex-col gap-4">
+      <div className="flex w-full flex-col items-start justify-start gap-8 self-stretch @3xl:w-3/4 @6xl:w-1/2">
+        <ImageUpload
+          imageUrl={site.image ? site.image : ""}
+          uploadType="siteImage"
+          mutationId={site.id}
+          size="w-20 h-20"
+        />
+        <div className="flex w-full flex-col gap-4">
           {tagline != null && (
             <textarea
               ref={taglineRef}
@@ -105,7 +110,7 @@ export const PageHeader = () => {
               onBlur={() => handleBlur()}
               id="tagline"
               placeholder="Enter tagline..."
-              className="block w-full resize-none bg-white focus:bg-white dark:bg-zinc-900 py-0 px-0 font-bold text-2xl lg:text-4xl text-zinc-800 dark:text-zinc-200 placeholder-zinc-300 focus:ring-transparent border-0 border-l-2 pl-4 -ml-4 border-transparent hover:border-zinc-300 hover:dark:border-zinc-600 active:border-zinc-600 focus:border-zinc-600 active:dark:border-zinc-300 focus:dark:border-zinc-300"
+              className="-ml-4 block w-full resize-none border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-2xl font-bold text-zinc-800 placeholder-zinc-300 hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300 lg:text-4xl"
             />
           )}
           {bio != null && (
@@ -116,7 +121,7 @@ export const PageHeader = () => {
               onBlur={() => handleBlur()}
               id="bio"
               placeholder="Enter bio..."
-              className="block w-full resize-none bg-white focus:bg-white dark:bg-zinc-900 py-0 px-0 text-sm text-zinc-800 dark:text-zinc-200 placeholder-zinc-400 focus:ring-transparent border-0 border-l-2 pl-4 -ml-4 border-transparent hover:border-zinc-300 hover:dark:border-zinc-600 active:border-zinc-600 active:dark:border-zinc-300 focus:border-zinc-600 focus:dark:border-zinc-300"
+              className="-ml-4 block w-full resize-none border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-sm text-zinc-800 placeholder-zinc-400 hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
             />
           )}
         </div>

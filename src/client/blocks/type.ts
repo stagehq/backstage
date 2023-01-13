@@ -1,4 +1,3 @@
-import { Layouts } from "react-grid-layout";
 import { Extension } from "../graphql/types.generated";
 
 export interface BlockProps {

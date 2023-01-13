@@ -25,10 +25,10 @@ const StudioEditor = () => {
 
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
-  
+
   useEffect(() => {
     console.log(site);
-  }, [site])
+  }, [site]);
 
   const [, updateSiteLayouts] = useUpdateSiteLayoutsMutation();
 
@@ -49,7 +49,7 @@ const StudioEditor = () => {
   }, []);
 
   useEffect(() => {
-    if(siteSlug && layouts) {
+    if (siteSlug && layouts) {
       updateSiteLayouts({
         id: siteSlug ? siteSlug : "",
         layouts: JSON.stringify(layouts),
@@ -66,9 +66,9 @@ const StudioEditor = () => {
   if (!site || !layouts || !user) return null;
 
   return (
-    <div className={clsx(theme === "dark" && "dark", "w-full h-full ")}>
-      <div className="@container overflow-scroll h-full bg-white dark:bg-zinc-900">
-        <div className="w-full mx-auto max-w-6xl lg: h-full p-12">
+    <div className={clsx(theme === "dark" && "dark", "h-full w-full ")}>
+      <div className="h-full overflow-scroll bg-white @container dark:bg-zinc-900">
+        <div className="lg: mx-auto h-full w-full max-w-6xl p-12">
           <div className="p-8">
             <PageHeader />
           </div>

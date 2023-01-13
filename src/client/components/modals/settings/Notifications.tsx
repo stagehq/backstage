@@ -55,7 +55,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
         <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6">
           <div className="sm:col-span-6">
             <h2 className="text-xl font-medium text-gray-900">Notifications</h2>
-            <p className="mt-1 text-sm text-zinc-gray-500">
+            <p className="text-zinc-gray-500 mt-1 text-sm">
               We'll always let you know about important changes, but you pick
               what else you want to hear about.
             </p>
@@ -68,7 +68,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
               </legend>
               <div className="mt-4 space-y-4">
                 <div className="relative flex items-start">
-                  <div className="flex items-center h-5">
+                  <div className="flex h-5 items-center">
                     <input
                       id="comments"
                       name="comments"
@@ -78,7 +78,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                         setFieldsEdited(true);
                         setIdeaNotification(!ideaNotification);
                       }}
-                      className="focus:ring-zinc-500 h-4 w-4 text-zinc-600 border-gray-300 rounded"
+                      className="h-4 w-4 rounded border-gray-300 text-zinc-600 focus:ring-zinc-500"
                     />
                   </div>
                   <div className="ml-3 text-sm">
@@ -95,7 +95,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                   </div>
                 </div>
                 <div className="relative flex items-start">
-                  <div className="flex items-center h-5">
+                  <div className="flex h-5 items-center">
                     <input
                       id="candidates"
                       name="candidates"
@@ -105,7 +105,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                         setFieldsEdited(true);
                         setInitivativeNotification(!initivativeNotification);
                       }}
-                      className="focus:ring-zinc-500 h-4 w-4 text-zinc-600 border-gray-300 rounded"
+                      className="h-4 w-4 rounded border-gray-300 text-zinc-600 focus:ring-zinc-500"
                     />
                   </div>
                   <div className="ml-3 text-sm">
@@ -122,7 +122,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                   </div>
                 </div>
                 <div className="relative flex items-start">
-                  <div className="flex items-center h-5">
+                  <div className="flex h-5 items-center">
                     <input
                       id="offers"
                       name="offers"
@@ -134,7 +134,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                           !statusMeetingsNotification
                         );
                       }}
-                      className="focus:ring-zinc-500 h-4 w-4 text-zinc-600 border-gray-300 rounded"
+                      className="h-4 w-4 rounded border-gray-300 text-zinc-600 focus:ring-zinc-500"
                     />
                   </div>
                   <div className="ml-3 text-sm">
@@ -150,7 +150,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                   </div>
                 </div>
                 <div className="relative flex items-start">
-                  <div className="flex items-center h-5">
+                  <div className="flex h-5 items-center">
                     <input
                       id="offers"
                       name="offers"
@@ -160,7 +160,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                         setFieldsEdited(true);
                         setChatNotification(!chatNotification);
                       }}
-                      className="focus:ring-zinc-500 h-4 w-4 text-zinc-600 border-gray-300 rounded"
+                      className="h-4 w-4 rounded border-gray-300 text-zinc-600 focus:ring-zinc-500"
                     />
                   </div>
                   <div className="ml-3 text-sm">
@@ -201,7 +201,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                       setFieldsEdited(true);
                       setPushNotification("always");
                     }}
-                    className="focus:ring-zinc-500 h-4 w-4 text-zinc-600 border-gray-300"
+                    className="h-4 w-4 border-gray-300 text-zinc-600 focus:ring-zinc-500"
                   />
                   <label
                     htmlFor="push-everything"
@@ -221,7 +221,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                       setFieldsEdited(true);
                       setPushNotification("same_as_notification");
                     }}
-                    className="focus:ring-zinc-500 h-4 w-4 text-zinc-600 border-gray-300"
+                    className="h-4 w-4 border-gray-300 text-zinc-600 focus:ring-zinc-500"
                   />
                   <label
                     htmlFor="push-email"
@@ -241,7 +241,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                       setFieldsEdited(true);
                       setPushNotification("never");
                     }}
-                    className="focus:ring-zinc-500 h-4 w-4 text-zinc-600 border-gray-300"
+                    className="h-4 w-4 border-gray-300 text-zinc-600 focus:ring-zinc-500"
                   />
                   <label
                     htmlFor="push-nothing"
@@ -256,13 +256,13 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
         </div>
       </div>
       {fieldsEdited && session?.user?.email ? (
-        <div className="px-4 py-3 bg-gray-50 sm:px-6 flex items-center justify-end gap-2">
+        <div className="flex items-center justify-end gap-2 bg-gray-50 px-4 py-3 sm:px-6">
           <button
             type="button"
             onClick={() => {
               setFieldsEdited(false);
             }}
-            className="bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+            className="inline-flex justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
           >
             Reset
           </button>
@@ -292,7 +292,7 @@ const Notifications: FC<NotificationProps> = ({ user }) => {
                 // });
               }
             }}
-            className="bg-zinc-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-900"
+            className="inline-flex justify-center rounded-md border border-transparent bg-zinc-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:ring-offset-2"
           >
             {updateNotificationLoading ? (
               <Spinner color={"text-white"} />

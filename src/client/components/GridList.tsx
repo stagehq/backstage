@@ -31,26 +31,27 @@ export default function GridList() {
   }
 
   return (
-    <div className="mt-8 mb-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+    <div className="mt-8 mb-16 grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {filteredSites &&
         filteredSites.map((site, index) => (
           <div
             className={clsx(
-              "flex flex-col justify-between relative group bg-white p-6 border border-zinc-200 rounded-lg hover:shadow-lg focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800",
+              "group relative flex flex-col justify-between rounded-lg border border-zinc-200 bg-white p-6 hover:shadow-lg focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800",
               focusedId === index &&
                 "border-zinc-800 outline-none ring-1 ring-zinc-800"
             )}
             key={"site" + index}
           >
             <div>
-              {site.image ? 
+              {site.image ? (
                 <img
-                  className="w-12 h-12 bg-cover rounded-full border border-zinc-200"
+                  className="h-12 w-12 rounded-full border border-zinc-200 bg-cover"
                   src={site.image}
                   alt="site profile picture"
                 />
-              : <div className="w-12 h-12 bg-zinc-100 rounded-full"/>
-              }
+              ) : (
+                <div className="h-12 w-12 rounded-full bg-zinc-100" />
+              )}
               <div className="mt-4">
                 <h3 className="text-lg font-medium">
                   {site.subdomain && (
@@ -80,14 +81,14 @@ export default function GridList() {
                 : { href: `https://getstage.app/${site.subdomain}` })}
               target="_blank"
               rel="noopener"
-              className="absolute top-6 right-6 flex items-center w-10 h-10 justify-center rounded-3xl border border-zinc-200 hover:border-zinc-300 bg-white hover:shadow shadow-sm"
+              className="absolute top-6 right-6 flex h-10 w-10 items-center justify-center rounded-3xl border border-zinc-200 bg-white shadow-sm hover:border-zinc-300 hover:shadow"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.5"
-                className="w-5 h-5"
+                className="h-5 w-5"
                 viewBox="0 0 24 24"
               >
                 <path

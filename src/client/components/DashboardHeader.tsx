@@ -14,29 +14,29 @@ export default function DashboardHeader() {
   if (!user) return null;
 
   return (
-    <div className="w-full sm:w-full md:w-[750] lg:w-[1200px] px-2 sm:px-4 mx-auto">
+    <div className="mx-auto w-full px-2 sm:w-full sm:px-4 md:w-[750] lg:w-[1200px]">
       <Disclosure as="div" className="relative w-full">
         {({ open }) => (
           <>
             <nav
               className={clsx(
-                open ? "bg-zinc-50 border-b border-zinc-200" : "bg-transparent",
-                "relative z-10 border-opacity-25 w-full"
+                open ? "border-b border-zinc-200 bg-zinc-50" : "bg-transparent",
+                "relative z-10 w-full border-opacity-25"
               )}
             >
               <div className="w-full">
                 <div className="relative flex h-16 items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <div className="flex-shrink-0 w-10 h-10 overflow-hidden rounded-md">
+                    <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-md">
                       <Logo />
                     </div>
-                    <div className=" font-semibold text-lg text-zinc-700">
+                    <div className=" text-lg font-semibold text-zinc-700">
                       Stage
                     </div>
                   </div>
                   <div className="relative z-10 flex items-center md:hidden">
                     {/* Mobile menu button */}
-                    <Disclosure.Button className="rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-zinc-800">
+                    <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-zinc-800">
                       <span className="sr-only">Open menu</span>
                       {open ? (
                         <Icon name={"XMarkIcon"} color="dark" />
@@ -46,10 +46,10 @@ export default function DashboardHeader() {
                     </Disclosure.Button>
                   </div>
                   <div className="hidden md:relative md:z-10 md:ml-4 md:flex  md:items-center">
-                    <div className="flex justify-start items-center gap-1">
+                    <div className="flex items-center justify-start gap-1">
                       <a
                         href="mailto:office@getstage.app"
-                        className="cursor-pointer text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 flex justify-start items-center h-8 overflow-hidden gap-2 px-4 py-2 rounded border border-zinc-200"
+                        className="flex h-8 cursor-pointer items-center justify-start gap-2 overflow-hidden rounded border border-zinc-200 px-4 py-2 text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900"
                       >
                         <p className="text-sm font-medium">Feedback</p>
                       </a>
@@ -57,7 +57,7 @@ export default function DashboardHeader() {
                         href="https://developers.getstage.app/introduction/readme"
                         target={"_blank"}
                         rel={"noopener"}
-                        className="cursor-pointer text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 flex justify-start items-center h-8 overflow-hidden gap-2 py-2 px-4 rounded"
+                        className="flex h-8 cursor-pointer items-center justify-start gap-2 overflow-hidden rounded py-2 px-4 text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900"
                       >
                         <p className="text-sm font-medium">Docs</p>
                       </a>
@@ -65,15 +65,15 @@ export default function DashboardHeader() {
                         href="https://discord.gg/PDBGggcTyW"
                         target={"_blank"}
                         rel={"noopener"}
-                        className="cursor-pointer text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 flex justify-start items-center h-8 overflow-hidden gap-2 py-2 px-4 rounded"
+                        className="flex h-8 cursor-pointer items-center justify-start gap-2 overflow-hidden rounded py-2 px-4 text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900"
                       >
                         <p className="text-sm font-medium">Community</p>
                       </a>
                     </div>
                     {/* Profile dropdown */}
-                    <Menu as="div" className="flex-shrink-0 relative ml-4">
+                    <Menu as="div" className="relative ml-4 flex-shrink-0">
                       <div>
-                        <Menu.Button className="bg-white rounded-full flex focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-800">
+                        <Menu.Button className="flex rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-zinc-800 focus:ring-offset-2">
                           <span className="sr-only">Open user menu</span>
                           <img
                             className="h-8 w-8 rounded-full"
@@ -92,7 +92,7 @@ export default function DashboardHeader() {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none cursor-pointer">
+                        <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right cursor-pointer rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                           {/* <Menu.Item>
                             {({ active }) => (
                               <Link

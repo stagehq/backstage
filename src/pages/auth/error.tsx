@@ -40,7 +40,7 @@ export default function ErrorPage() {
         <title>Error</title>
       </Head>
       <SignLayout>
-        <div className="max-w-lg mx-auto min-h-screen flex items-center justify-center px-6">
+        <div className="mx-auto flex min-h-screen max-w-lg items-center justify-center px-6">
           <div>
             <div className="text-center">
               <div className="flex justify-center">

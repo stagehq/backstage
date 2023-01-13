@@ -128,11 +128,11 @@ const PreferencesModal: FC = () => {
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
-        <div className="fixed z-10 inset-0 overflow-y-auto">
-          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="fixed inset-0 z-10 overflow-y-auto">
+          <div className="flex min-h-screen items-end justify-center px-4 pt-4 pb-20 text-center sm:block sm:p-0">
             {/* This element is to trick the browser into centering the modal contents. */}
             <span
-              className="hidden sm:inline-block sm:align-middle sm:h-screen"
+              className="hidden sm:inline-block sm:h-screen sm:align-middle"
               aria-hidden="true"
             >
               &#8203;
@@ -146,11 +146,11 @@ const PreferencesModal: FC = () => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-[530px] sm:w-full sm:p-6">
-                <div className="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
+              <Dialog.Panel className="relative inline-block transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-[530px] sm:p-6 sm:align-middle">
+                <div className="absolute top-0 right-0 hidden pt-4 pr-4 sm:block">
                   <button
                     type="button"
-                    className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500"
+                    className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2"
                     onClick={() => handleClose()}
                   >
                     <span className="sr-only">Close</span>
@@ -161,11 +161,11 @@ const PreferencesModal: FC = () => {
                   className="mt-2 flex flex-col gap-4"
                   onSubmit={handleSubmit}
                 >
-                  <div className="w-full flex flex-col justify-start items-start gap-2 pb-4">
-                    <p className="text-xl font-semibold text-left text-zinc-900">
+                  <div className="flex w-full flex-col items-start justify-start gap-2 pb-4">
+                    <p className="text-left text-xl font-semibold text-zinc-900">
                       Preferences
                     </p>
-                    <p className="text-xs font-medium text-left text-zinc-500">
+                    <p className="text-left text-xs font-medium text-zinc-500">
                       Insert required preferences to access API data.
                     </p>
                   </div>
@@ -177,13 +177,13 @@ const PreferencesModal: FC = () => {
                       >
                         {preference}
                       </label>
-                      <div className="mt-1 relative">
+                      <div className="relative mt-1">
                         <input
                           id={preference}
                           name={preference}
                           type="text"
                           autoComplete={preference}
-                          className="appearance-none block w-full px-3 py-2 border border-zinc-300 rounded-md shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
+                          className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
                         />
                       </div>
                     </div>
@@ -191,7 +191,7 @@ const PreferencesModal: FC = () => {
                   <div className="mt-4">
                     <button
                       type="submit"
-                      className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 disabled:opacity-30"
+                      className="mt-4 flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
                     >
                       Import
                     </button>

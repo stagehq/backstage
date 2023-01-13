@@ -1,4 +1,3 @@
-import { Layouts } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   gridBreakpointState,
@@ -19,7 +18,11 @@ export const useChangeExtensionSize = () => {
   const [layouts, setLayouts] = useRecoilState(gridLayoutState);
   const breakpoint = useRecoilValue(gridBreakpointState);
 
-  const changeExtensionSize = (id: string, size: 1 | 2 | 3, gridRef: React.RefObject<HTMLDivElement>) => {    
+  const changeExtensionSize = (
+    id: string,
+    size: 1 | 2 | 3,
+    gridRef: React.RefObject<HTMLDivElement>
+  ) => {
     const newGridLayout = { ...layouts };
     const newLayout = newGridLayout[breakpoint].map((layout) => {
       if (layout.i === id) {
@@ -28,10 +31,15 @@ export const useChangeExtensionSize = () => {
       return layout;
     });
     newGridLayout[breakpoint] = newLayout;
-    const heightAdjustedLayout = updateLayout(newGridLayout[breakpoint], gridRef);
+    const heightAdjustedLayout = updateLayout(
+      newGridLayout[breakpoint],
+      gridRef
+    );
     console.log(heightAdjustedLayout);
-    
-    setLayouts(Object.assign({}, layouts, { [breakpoint]: heightAdjustedLayout }));
+
+    setLayouts(
+      Object.assign({}, layouts, { [breakpoint]: heightAdjustedLayout })
+    );
 
     window.dispatchEvent(new Event("resize"));
   };

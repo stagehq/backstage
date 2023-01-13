@@ -4,8 +4,7 @@ export function CircleBackground({
   height = 558,
   ...props
 }) {
-
-  let id = 'circle-background' + Math.random().toString(36).substr(2, 9)
+  let id = "circle-background" + Math.random().toString(36).substr(2, 9);
 
   return (
     <svg
@@ -40,5 +39,5 @@ export function CircleBackground({
         strokeLinecap="round"
       />
     </svg>
-  )
+  );
 }
