@@ -7,6 +7,7 @@ import { useUpdateSiteHeaderMutation } from "../graphql/updateSiteHeader.generat
 import { handleDynamicHeight } from "../helper/racingBuffer";
 import { siteSlugState, siteState } from "../store/site";
 import { themeState } from "../store/ui/theme";
+import { currentUserState } from "../store/user";
 import ImageUpload from "./crop/ImageUpload";
 
 export const PageHeader = () => {
@@ -23,8 +24,9 @@ export const PageHeader = () => {
 
   //state
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site] = useRecoilState(siteState(siteSlug));
+  const [site, setSite] = useRecoilState(siteState(siteSlug));
   const [theme, setTheme] = useRecoilState(themeState);
+  const [user, setUser] = useRecoilState(currentUserState);
 
   //set initial value
   useEffect(() => {
@@ -55,11 +57,11 @@ export const PageHeader = () => {
 
   const handleBlur = async () => {
     if (bio !== site?.bio || tagline != site?.tagline) {
-      if (site?.subdomain && site?.bio && site?.tagline) {
+      if (site?.id) {
         const response = await updateSiteHeader({
           siteId: decodeGlobalID(site?.id).id,
-          bio: site.bio,
-          tagline: site.tagline,
+          bio: bio ? bio : "",
+          tagline: tagline ? tagline : "",
         });
         if (!response.data?.updateSiteHeader) {
           console.log(
@@ -70,6 +72,28 @@ export const PageHeader = () => {
           );
         } else {
           console.log(response);
+          setSite({
+            ...site,
+            bio: response.data.updateSiteHeader.bio ? response.data.updateSiteHeader.bio : site.bio,
+            tagline: response.data.updateSiteHeader.tagline ? response.data.updateSiteHeader.tagline : site.tagline,
+          })
+          if(!user) return null;
+          setUser({
+            ...user,
+            sites: 
+            user.sites
+            ? user.sites.map((site) => {
+                if(!response?.data?.updateSiteHeader) return site;
+                if (site.subdomain === response.data.updateSiteHeader.subdomain) {
+                  return {
+                    ...site,
+                    ...response.data.updateSiteHeader
+                  };
+                }
+                return site;
+              })
+            : [response.data.updateSiteHeader]
+          });
         }
       } else {
         console.log("Need site object for update");
@@ -102,28 +126,24 @@ export const PageHeader = () => {
           size="w-20 h-20"
         />
         <div className="flex w-full flex-col gap-4">
-          {tagline != null && (
-            <textarea
-              ref={taglineRef}
-              value={tagline}
-              onChange={(e) => setTagline(e.target.value)}
-              onBlur={() => handleBlur()}
-              id="tagline"
-              placeholder="Enter tagline..."
-              className="-ml-4 block w-full resize-none border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-2xl font-bold text-zinc-800 placeholder-zinc-300 hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300 lg:text-4xl"
-            />
-          )}
-          {bio != null && (
-            <textarea
-              ref={bioRef}
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              onBlur={() => handleBlur()}
-              id="bio"
-              placeholder="Enter bio..."
-              className="-ml-4 block w-full resize-none border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-sm text-zinc-800 placeholder-zinc-400 hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
-            />
-          )}
+          <textarea
+            ref={taglineRef}
+            value={tagline ? tagline : ""}
+            onChange={(e) => setTagline(e.target.value)}
+            onBlur={() => handleBlur()}
+            id="tagline"
+            placeholder="Enter tagline..."
+            className="-ml-4 block w-full resize-none border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-2xl font-bold text-zinc-800 placeholder-zinc-300 hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300 lg:text-4xl"
+          />
+          <textarea
+            ref={bioRef}
+            value={bio ? bio : ""}
+            onChange={(e) => setBio(e.target.value)}
+            onBlur={() => handleBlur()}
+            id="bio"
+            placeholder="Enter bio..."
+            className="-ml-4 block w-full resize-none border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-sm text-zinc-800 placeholder-zinc-400 hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
+          />
         </div>
       </div>
     </div>

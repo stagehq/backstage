@@ -280,7 +280,7 @@ const OnboardingProfile = () => {
 
 export const OnboardingSubdomain: FC = () => {
   const [onboarding, setOnboarding] = useRecoilState(onboardingState);
-  const user = useRecoilValue(currentUserState);
+  const [user, setUser] = useRecoilState(currentUserState);
   const [, setSubdomainCardOpen] = useRecoilState(subdomainCardOpenState);
   const [subdomainValid, setSubdomainValid] = useState(false);
   const [, upsertSite] = useUpsertSiteMutation();
@@ -314,6 +314,13 @@ export const OnboardingSubdomain: FC = () => {
       if (response.data?.upsertSite) {
         const subdomain = response.data.upsertSite.subdomain;
         setSubdomainCardOpen(false);
+        if(!user) return null;
+        setUser({
+           ...user, 
+           sites: user.sites
+            ? [...user?.sites, response.data.upsertSite]
+            : [response.data.upsertSite],
+        }) ;
         if (subdomain) router.push(`/s/${subdomain}`);
       }
     }

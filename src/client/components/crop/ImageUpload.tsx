@@ -27,7 +27,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
   mutationId,
   size,
 }) => {
-  console.log(imageUrl, uploadType, mutationId);
+  //console.log(imageUrl, uploadType, mutationId);
   const cancelButtonRef = useRef(null);
 
   const [image, setImage] = useState("");
@@ -43,7 +43,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
   const [, updateSiteHeader] = useUpdateSiteHeaderMutation();
 
   // handle image chnange and current user state image to new image
-  const handleImageChange = (url: string) => {
+  const handleImageChange = (url: string, subdomain?: string) => {
     if (uploadType === "profileImage" || uploadType === "profileCoverImage") {
       if (url === "" || currentUser === null) return;
       setCurrentUser({
@@ -55,6 +55,23 @@ const ImageUpload: FC<ImageUploadProps> = ({
       setSite({
         ...site,
         image: url,
+      });
+      if(!currentUser || !subdomain) return null;
+      setCurrentUser({
+        ...currentUser,
+        sites: 
+        currentUser.sites
+        ? currentUser.sites.map((site) => {
+            if(!url) return site;
+            if (site.subdomain === subdomain) {
+              return {
+                ...site,
+                ...{image: url}
+              };
+            }
+            return site;
+          })
+        : []
       });
     }
   };
@@ -124,7 +141,10 @@ const ImageUpload: FC<ImageUploadProps> = ({
             handleImageChange(
               result.data?.updateSiteHeader.image
                 ? result.data?.updateSiteHeader.image
-                : ""
+                : "",
+              result.data?.updateSiteHeader.subdomain
+                ? result.data.updateSiteHeader.subdomain
+                : "",
             );
           } else {
             throw new Error("Error adding image to user");
