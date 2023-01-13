@@ -27,7 +27,6 @@ const StudioEditor = () => {
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
 
-  const [, upsertSite] = useUpsertSiteMutation();
   const [, updateSiteLayouts] = useUpdateSiteLayoutsMutation();
 
   const updateHeight = () => {
@@ -48,7 +47,7 @@ const StudioEditor = () => {
       setTimeout(() => {
         window.dispatchEvent(new Event("resize"));
         updateHeight();
-      }, 100);
+      }, 80);
     }
   }, []);
 
@@ -79,6 +78,8 @@ const StudioEditor = () => {
                   setBreakpoint(breakpoint);
                 }}
                 onLayoutChange={(layout: Layout[], layouts: Layouts) => {
+                  console.log("layout changed");
+                  
                   if (breakpoint) {
                     const currentLayout = layouts[breakpoint];
                     const adjustedLayout = updateLayout(
@@ -89,13 +90,14 @@ const StudioEditor = () => {
                   } else {
                     updateLayout(layout, itemsRef);
                   }
+                  setLayouts(layouts);
+                  
                   setTimeout(() => {
                     updateSiteLayouts({
                       id: siteSlug ? siteSlug : "",
                       layouts: JSON.stringify(layouts),
                     });
                   }, 100);
-                  setLayouts(layouts);
                 }}
               >
                 {site.extensions &&
@@ -113,7 +115,7 @@ const StudioEditor = () => {
                       <div key={extension.id} id={extension.id}>
                         <Extension
                           extension={extension}
-                          size={1}
+                          size={layouts[breakpoint].find((layout: Layout) => layout.i === extension.id)?.w as 1 | 2 | 3}
                           isEditable={true}
                         />
                       </div>
