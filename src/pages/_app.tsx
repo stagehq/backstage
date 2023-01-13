@@ -1,5 +1,4 @@
 import "../../styles/globals.css";
-
 import splitbee from "@splitbee/web";
 import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/dist/shared/lib/router/router";
