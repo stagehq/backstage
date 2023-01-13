@@ -5,7 +5,7 @@ import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize
 import { useDeleteExtension } from "../components/studio/hooks/useDeleteExtension";
 import { BlockProps } from "./type";
 
-const Repositories: FC<BlockProps> = ({ extension, size, isEditable }) => {
+const Repositories: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
   const [data, setData] = useState<any[]>([]);
   const [profileLink, setProfileLink] = useState("");
   const [languages, setLanguages] = useState<string[]>([]);
@@ -75,7 +75,7 @@ const Repositories: FC<BlockProps> = ({ extension, size, isEditable }) => {
         size={size}
         isEditable={isEditable}
         handleTitleChange={(title) => changeExtensionTitle(extension.id, title)}
-        handleSizeChange={(size) => changeExtensionSize(extension.id, size)}
+        handleSizeChange={(size) => changeExtensionSize(extension.id, size, gridRef)}
         handleDelete={() => deleteExtension(extension.id)}
         imagePath={"https://avatars.githubusercontent.com/u/9919?s=200&v=4"}
       >

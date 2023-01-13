@@ -4,7 +4,7 @@ import { useChangeExtensionTitle } from "../components/studio/hooks/useChangeExt
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
 import { BlockProps } from "./type";
 
-const Resume: FC<BlockProps> = ({ extension, size, isEditable }) => {
+const Resume: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
   const [experience, setExperience] = useState<any[]>([]);
   const [university, setUniversity] = useState<any[]>([]);
 
@@ -70,7 +70,7 @@ const Resume: FC<BlockProps> = ({ extension, size, isEditable }) => {
       size={size}
       isEditable={isEditable}
       handleTitleChange={(title) => changeExtensionTitle(extension.id, title)}
-      handleSizeChange={(size) => changeExtensionSize(extension.id, size)}
+      handleSizeChange={(size) => changeExtensionSize(extension.id, size, gridRef)}
       imagePath={"https://avatars.githubusercontent.com/u/357098?s=200&v=4"}
     >
       <List>

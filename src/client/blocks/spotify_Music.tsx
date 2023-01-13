@@ -4,7 +4,7 @@ import { useChangeExtensionTitle } from "../components/studio/hooks/useChangeExt
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
 import { BlockProps } from "./type";
 
-const Spotify: FC<BlockProps> = ({ extension, size, isEditable }) => {
+const Spotify: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
   const [data, setData] = useState<any[]>([]);
 
   const changeExtensionTitle = useChangeExtensionTitle();
@@ -49,7 +49,7 @@ const Spotify: FC<BlockProps> = ({ extension, size, isEditable }) => {
       size={size}
       isEditable={isEditable}
       handleTitleChange={(title) => changeExtensionTitle(extension.id, title)}
-      handleSizeChange={(size) => changeExtensionSize(extension.id, size)}
+      handleSizeChange={(size) => changeExtensionSize(extension.id, size, gridRef)}
       imagePath={"https://avatars.githubusercontent.com/u/357098?s=200&v=4"}
     >
       <Card

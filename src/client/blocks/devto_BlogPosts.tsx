@@ -5,7 +5,7 @@ import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize
 import { useDeleteExtension } from "../components/studio/hooks/useDeleteExtension";
 import { BlockProps } from "./type";
 
-const Blogs: FC<BlockProps> = ({ extension, size, isEditable }) => {
+const Blogs: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
   const [data, setData] = useState<any[]>([]);
   const [profileLink, setProfileLink] = useState("");
 
@@ -67,7 +67,7 @@ const Blogs: FC<BlockProps> = ({ extension, size, isEditable }) => {
     <Block
       actions={{ link: { url: profileLink } }}
       handleTitleChange={(title) => changeExtensionTitle(extension.id, title)}
-      handleSizeChange={(size) => changeExtensionSize(extension.id, size)}
+      handleSizeChange={(size) => changeExtensionSize(extension.id, size, gridRef)}
       handleDelete={() => deleteExtension(extension.id)}
       title={"Blog Posts"}
       imagePath={"https://avatars.githubusercontent.com/u/65030610?s=200&v=4"}

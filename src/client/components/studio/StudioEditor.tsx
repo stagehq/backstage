@@ -5,7 +5,6 @@ import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { BlockProps } from "../../blocks/type";
 import { useUpdateSiteLayoutsMutation } from "../../graphql/updateSiteLayouts.generated";
-import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
 import { siteSlugState, siteState } from "../../store/site";
 import { gridBreakpointState, gridLayoutState } from "../../store/ui/grid-dnd";
 import { themeState } from "../../store/ui/theme";
@@ -33,11 +32,9 @@ const StudioEditor = () => {
 
   const [, updateSiteLayouts] = useUpdateSiteLayoutsMutation();
 
-  const updateHeight = () => {
+  const updateBreakpointLayoutHeight = (layouts: Layouts) => {
     if (!layouts) return;
-
     const newLayout = updateLayout(layouts[breakpoint], itemsRef);
-
     if (layouts && layouts[breakpoint] !== newLayout) {
       setLayouts((layouts) => {
         return { ...layouts, [breakpoint]: newLayout };
@@ -47,13 +44,24 @@ const StudioEditor = () => {
 
   useEffect(() => {
     if (site?.layouts && document.readyState === "complete") {
-      setLayouts(site.layouts);
-      setTimeout(() => {
-        window.dispatchEvent(new Event("resize"));
-        updateHeight();
-      }, 80);
+      updateBreakpointLayoutHeight(site.layouts);
     }
   }, []);
+
+  useEffect(() => {
+    if(siteSlug && layouts) {
+      updateSiteLayouts({
+        id: siteSlug ? siteSlug : "",
+        layouts: JSON.stringify(layouts),
+      });
+    }
+  }, [layouts, siteSlug, updateSiteLayouts]);
+
+  useEffect(() => {
+    if (layouts) {
+      window.dispatchEvent(new Event("resize"));
+    }
+  }, [layouts]);
 
   if (!site || !layouts || !user) return null;
 
@@ -75,33 +83,19 @@ const StudioEditor = () => {
                 margin={[24, 24]}
                 isResizable={false}
                 measureBeforeMount={true}
+                onDragStop={() => {
+                  updateBreakpointLayoutHeight(layouts);
+                }}
                 onWidthChange={() => {
-                  updateHeight();
+                  updateBreakpointLayoutHeight(layouts);
                 }}
                 onBreakpointChange={(breakpoint) => {
                   setBreakpoint(breakpoint);
+                  updateBreakpointLayoutHeight(layouts);
                 }}
                 onLayoutChange={(layout: Layout[], layouts: Layouts) => {
-                  console.log("layout changed");
-                  
-                  if (breakpoint) {
-                    const currentLayout = layouts[breakpoint];
-                    const adjustedLayout = updateLayout(
-                      currentLayout,
-                      itemsRef
-                    );
-                    layouts[breakpoint] = adjustedLayout;
-                  } else {
-                    updateLayout(layout, itemsRef);
-                  }
                   setLayouts(layouts);
-                  
-                  setTimeout(() => {
-                    updateSiteLayouts({
-                      id: siteSlug ? siteSlug : "",
-                      layouts: JSON.stringify(layouts),
-                    });
-                  }, 100);
+                  updateBreakpointLayoutHeight(layouts);
                 }}
               >
                 {site.extensions &&
@@ -118,6 +112,7 @@ const StudioEditor = () => {
                     return (
                       <div key={extension.id} id={extension.id}>
                         <Extension
+                          gridRef={itemsRef}
                           extension={extension}
                           size={1}
                           // size={layouts[breakpoint].find((layout: Layout) => layout.i === extension.id)?.w as 1 | 2 | 3}
