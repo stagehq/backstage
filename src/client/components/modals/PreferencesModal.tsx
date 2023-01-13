@@ -26,7 +26,7 @@ const PreferencesModal: FC = () => {
   const preferencesApi = useRecoilValue(preferencesApiState);
 
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site,] = useRecoilState(siteState(siteSlug));
+  const [site] = useRecoilState(siteState(siteSlug));
   const user = useRecoilValue(currentUserState);
   const [, setAddingInProcess] = useRecoilState(addingInProcessState);
 

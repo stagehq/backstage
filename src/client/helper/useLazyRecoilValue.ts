@@ -1,6 +1,4 @@
-import { Loadable, useRecoilState } from "recoil";
 import { Site } from "../graphql/types.generated";
-import { staleSiteState } from "../store/site";
 
 export const useLazyRecoilValue = (site: Site | null) => {
   // console.log("lazy");

@@ -1,0 +1,5 @@
+mutation UpdateSiteLayouts($id: String!, $layouts: String!) {
+  updateSiteLayouts(id: $id, layouts: $layouts) {
+    id
+  }
+}

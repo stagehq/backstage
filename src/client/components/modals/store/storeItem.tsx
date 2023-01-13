@@ -32,7 +32,7 @@ interface StoreItemProps {
 
 const StoreItem: FC<StoreItemProps> = ({ storeExtension }) => {
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site,] = useRecoilState(siteState(siteSlug));
+  const [site] = useRecoilState(siteState(siteSlug));
   const refreshSite = useRecoilRefresher_UNSTABLE(siteState(siteSlug));
   const [, setOpenPreferencesModal] = useRecoilState(preferencesOpenState);
   const [, setPreferencesExtension] = useRecoilState(preferencesExtensionState);

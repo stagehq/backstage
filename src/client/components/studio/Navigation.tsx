@@ -21,7 +21,7 @@ export default function Navigation() {
 
   /* Site state */
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site,] = useRecoilState(siteState(siteSlug));
+  const [site] = useRecoilState(siteState(siteSlug));
 
   /* Settings modal state */
   const [, setSiteSettingsOpen] = useRecoilState(siteSettingsOpenState);

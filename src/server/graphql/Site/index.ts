@@ -112,3 +112,27 @@ builder.mutationField('updateSiteHeader', (t) => {
     },
   });
 });
+
+builder.mutationField('updateSiteLayouts', (t) => {
+  return t.prismaField({
+    type: 'Site',
+    args: {
+      id: t.arg.string({ required: true }),
+      layouts: t.arg.string({ required: true }),
+    },
+    resolve: async (query, root, { id, layouts }, ctx) => {
+      if (!ctx.session.user.email) return null;
+
+      const site = await prisma.site.update({
+        where: {
+          subdomain: id,
+        },
+        data: {
+          layouts: JSON.parse(layouts),
+        },
+      });
+
+      return site;
+    },
+  });
+});
