@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Site" ALTER COLUMN "bio" SET DEFAULT '',
+ALTER COLUMN "tagline" SET DEFAULT '';
