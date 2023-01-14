@@ -51,6 +51,24 @@ builder.queryField('getAllSites', (t) => {
   });
 });
 
+builder.queryField('getValidSubdomain', (t) =>
+  t.prismaField({
+    type: "Site",
+    args: {
+      subdomain: t.arg.string({ required: true }),
+    },
+    resolve: async (query, root, { subdomain }, ctx) => {
+      if (!ctx.session.user.email) return null;
+
+      return prisma.site.findFirst({
+        where: { 
+          subdomain: subdomain 
+        },
+      })
+    }
+  })
+);
+
 builder.mutationField('upsertSite', (t) => {
   return t.prismaField({
     type: 'Site',
@@ -136,6 +154,50 @@ builder.mutationField('updateSiteLayouts', (t) => {
         },
         data: {
           layouts: JSON.parse(layouts),
+        },
+      });
+
+      return site;
+    },
+  });
+});
+
+builder.mutationField('updateSiteSubdomain', (t) => {
+  return t.prismaField({
+    type: 'Site',
+    args: {
+      id: t.arg.string({ required: true }),
+      subdomain: t.arg.string({ required: true }),
+    },
+    resolve: async (query, root, { id, subdomain }, ctx) => {
+      if (!ctx.session.user.email) return null;
+
+      const site = await prisma.site.update({
+        where: {
+          subdomain: id,
+        },
+        data: {
+          subdomain: subdomain,
+        },
+      });
+
+      return site;
+    },
+  });
+});
+
+builder.mutationField('deleteSite', (t) => {
+  return t.prismaField({
+    type: 'Site',
+    args: {
+      id: t.arg.string({ required: true }),
+    },
+    resolve: async (query, root, { id }, ctx) => {
+      if (!ctx.session.user.email) return null;
+
+      const site = await prisma.site.delete({
+        where: {
+          id: id,
         },
       });
 

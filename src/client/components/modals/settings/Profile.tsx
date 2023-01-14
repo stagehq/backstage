@@ -367,8 +367,8 @@ const Profile: FC<ProfileProps> = ({ user }) => {
               className="mt-1 block w-full border-zinc-gray-300 rounded-md shadow-sm text-gray-900 sm:text-sm focus:ring-zinc-500 focus:border-zinc-500"
             />
           </div> */}
-          <div className="sm:col-span-6">
-            {fieldsEdited && session?.user?.email ? (
+          {fieldsEdited && session?.user?.email ? (
+            <div className="sm:col-span-6">
               <div className="flex items-center justify-end gap-2">
                 <button
                   type="button"
@@ -458,13 +458,8 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                   Save
                 </button>
               </div>
-            ) : null}
-            {redirectToDiscover && (
-              <div>
-                <p className="text-zinc-gray-500 text-sm">Redirecting ...</p>
-              </div>
-            )}
-          </div>
+            </div> 
+          ) : null}
         </div>
       </div>
     </div>

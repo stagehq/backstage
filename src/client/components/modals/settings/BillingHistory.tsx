@@ -48,8 +48,8 @@ export default function BillingHistory() {
                         Amount
                       </th>
                       {/*
-                                    `relative` is added here due to a weird bug in Safari that causes `sr-only` headings to introduce overflow on the body on mobile.
-                                  */}
+                        `relative` is added here due to a weird bug in Safari that causes `sr-only` headings to introduce overflow on the body on mobile.
+                      */}
                       <th
                         scope="col"
                         className="relative px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"

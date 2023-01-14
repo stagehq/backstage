@@ -62,9 +62,11 @@ type Mutation {
   createAnalytics(hostUrl: String!, postHogKey: String!): Analytics
   createOAuthforApi(accessToken: String, apiConnectorName: String, expiresIn: Int, idToken: String, refreshToken: String, scope: String): OAuth
   deleteExtension(id: String!, siteId: String!): Extension
+  deleteSite(id: String!): Site
   updateExtensionTitle(id: String!, title: String!): Extension
   updateSiteHeader(bio: String, image: String, siteId: String!, tagline: String): Site
   updateSiteLayouts(id: String!, layouts: String!): Site
+  updateSiteSubdomain(id: String!, subdomain: String!): Site
   updateUser(alias: String, coverImageUrl: String, firstName: String, image: String, lastName: String): User
   upsertApiResponse(apiConnectorRouteId: String, apiId: String, response: String): ApiResponse
   upsertSite(bio: String, image: String, layouts: String, subdomain: String!, tagline: String): Site
@@ -105,6 +107,7 @@ type Query {
   getSite(subdomain: String!): Site
   getStoreExtensions: [StoreExtension!]
   getValidAlias(alias: String): User
+  getValidSubdomain(subdomain: String!): Site
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
 }

@@ -1,19 +1,25 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { FC, Fragment, useRef } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { siteSlugState, siteState } from "../../store/site";
 import { siteSettingsOpenState } from "../../store/ui/modals";
 import { currentUserState } from "../../store/user";
 import { Icon } from "../Icons";
+import { SettingsForm } from "./settings/SettingsForm";
+import { Subdomain } from "./sitesettings/Subdomain";
 
 const SiteSettingsModal: FC = () => {
   const [siteSettingsOpen, setSiteSettingsOpen] = useRecoilState(
     siteSettingsOpenState
   );
   const user = useRecoilValue(currentUserState);
+  const siteSlug = useRecoilValue(siteSlugState);
+  const [site, setSite] = useRecoilState(siteState(siteSlug));
 
   const cancelButtonRef = useRef(null);
 
   if (!user) return null;
+  
 
   return (
     <Transition.Root show={siteSettingsOpen} as={Fragment}>
@@ -53,7 +59,7 @@ const SiteSettingsModal: FC = () => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative inline-block transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-4xl sm:p-6 sm:align-middle">
+              <Dialog.Panel className="relative inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all @container sm:my-8 sm:w-full sm:max-w-4xl sm:align-middle">
                 <div className="absolute top-0 right-0 hidden pt-4 pr-4 sm:block">
                   <button
                     type="button"
@@ -64,16 +70,25 @@ const SiteSettingsModal: FC = () => {
                     <Icon name="XMarkIcon" />
                   </button>
                 </div>
-                <div>site settings</div>
-                <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 sm:col-start-1 sm:mt-0 sm:text-sm"
-                    onClick={() => setSiteSettingsOpen(false)}
-                    ref={cancelButtonRef}
-                  >
-                    Cancel
-                  </button>
+                <div className="flex h-full flex-col">
+                  <div className="flex flex-col gap-6 border-b border-zinc-200 bg-zinc-50 pt-4 pb-6">
+                    <div className="flex flex-col gap-2 px-6 pt-4">
+                      <p className="text-xl font-semibold text-zinc-900">
+                        Site Settings
+                      </p>
+                      <p className="text-base text-zinc-500">
+                        Set your subdomain for your site.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    {site ? (
+                      <>
+                        <Subdomain site={site} />
+                        {/* Delete Site */}
+                      </>
+                    ) : null}
+                  </div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
