@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { log } from "console";
 import dynamic from "next/dynamic";
 import { FC, useEffect, useRef } from "react";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
@@ -26,15 +27,14 @@ const StudioEditor = () => {
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
 
-  useEffect(() => {
-    console.log(site);
-  }, [site]);
-
   const [, updateSiteLayouts] = useUpdateSiteLayoutsMutation();
 
   const updateBreakpointLayoutHeight = (layouts: Layouts) => {
     if (!layouts) return;
+    
     const newLayout = updateLayout(layouts[breakpoint], itemsRef);
+    console.log("updateBreakpointLayoutHeight", layouts[breakpoint], newLayout);
+    
     if (layouts && layouts[breakpoint] !== newLayout) {
       setLayouts((layouts) => {
         return { ...layouts, [breakpoint]: newLayout };
@@ -50,6 +50,12 @@ const StudioEditor = () => {
   }, []);
 
   useEffect(() => {
+    if(site?.layouts) {
+      setLayouts(site.layouts)
+    }
+  }, [site, setLayouts]);
+
+  useEffect(() => {
     if (siteSlug && layouts) {
       updateSiteLayouts({
         id: siteSlug ? siteSlug : "",
@@ -58,13 +64,15 @@ const StudioEditor = () => {
     }
   }, [layouts, siteSlug, updateSiteLayouts]);
 
-  useEffect(() => {
-    if (layouts) {
-      window.dispatchEvent(new Event("resize"));
-    }
-  }, [layouts]);
+  // useEffect(() => {
+  //   if (layouts) {
+  //     window.dispatchEvent(new Event("resize"));
+  //   }
+  // }, [layouts]);
 
   if (!site || !user) return null;
+
+  console.log(layouts, site.extensions)
 
   return (
     <div className={clsx(theme === "dark" && "dark", "h-full w-full ")}>
@@ -73,10 +81,10 @@ const StudioEditor = () => {
           <div className="p-8">
             <PageHeader />
           </div>
-          {layouts && site.extensions && site.extensions.length > 0 ? (
+          {site.extensions && site.extensions.length > 0 ? (
             <div ref={itemsRef}>
                 <ResponsiveGridLayout
-                  layouts={layouts}
+                  layouts={layouts ? layouts : {}}
                   breakpoints={{ lg: 991, md: 768, sm: 0 }}
                   cols={{ lg: 3, md: 2, sm: 1 }}
                   rowHeight={1}
@@ -85,14 +93,15 @@ const StudioEditor = () => {
                   isResizable={false}
                   measureBeforeMount={true}
                   onDragStop={() => {
-                    updateBreakpointLayoutHeight(layouts);
+                    // if(!layouts) return;
+                    // updateBreakpointLayoutHeight(layouts);
                   }}
                   onWidthChange={() => {
+                    if (!layouts) return;
                     updateBreakpointLayoutHeight(layouts);
                   }}
                   onBreakpointChange={(breakpoint) => {
                     setBreakpoint(breakpoint);
-                    updateBreakpointLayoutHeight(layouts);
                   }}
                   onLayoutChange={(layout: Layout[], layouts: Layouts) => {
                     setLayouts(layouts);
@@ -107,15 +116,16 @@ const StudioEditor = () => {
                             `../../blocks/${extension.storeExtension?.blockId}`
                           )
                       ) as FC<BlockProps>;
-
-                      if (!Extension) return null;
+                      
+                      const layoutFound = layouts ? layouts[breakpoint].find((layout: Layout) => layout.i === extension.id) : null;
+                      const size = layouts ? layouts[breakpoint].find((layout: Layout) => layout.i === extension.id)?.w as 1 | 2 | 3 : 3;
 
                       return (
                         <div key={extension.id} id={extension.id}>
                           <Extension
                             gridRef={itemsRef}
                             extension={extension}
-                            size={layouts[breakpoint].find((layout: Layout) => layout.i === extension.id)?.w as 1 | 2 | 3}
+                            size={layoutFound ? size : 3}
                             isEditable={true}
                           />
                         </div>
