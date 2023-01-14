@@ -13,23 +13,17 @@ import { Site } from "../../../graphql/types.generated";
 import Spinner from "../../loading/Spinner";
 import { siteSlugState, siteState } from "../../../store/site";
 import { useUpdateSiteSubdomainMutation } from "../../../graphql/updateSiteSubdomain.generated";
-import { useDeleteSiteMutation } from "../../../graphql/deleteSite.generated";
 
 interface SubdomainProps {
   site: Site;
 }
 
-type UpdateSiteSuccessType = boolean | null;
-
 const Subdomain: FC<SubdomainProps> = ({ site }) => {
   const { data: session } = useSession();
   const [, updateSiteSubdomain] = useUpdateSiteSubdomainMutation();
-  const [, deleteSite] = useDeleteSiteMutation();
 
   const [fieldsEdited, setFieldsEdited] = useState(false);
   const [updateSiteLoading, setUpdateSiteLoading] = useState(false);
-  const [updateSiteSuccess, setUpdateSiteSuccess] =
-    useState<UpdateSiteSuccessType>(null);
 
   // Edit current site state
   const [editCurrentSite, setEditCurrentSite] = useState(site);
@@ -138,45 +132,6 @@ const Subdomain: FC<SubdomainProps> = ({ site }) => {
               </p>
             )}
           </div>
-
-          {/* <div className="sm:col-span-6">
-            <div className="flex items-center justify-start gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setUpdateSiteLoading(true);
-                  if (session?.user?.email && editCurrentSite.subdomain && subdomain) {
-                    toast
-                      .promise(
-                        deleteSite({
-                          subdomain: subdomain,
-                        }),
-                        {
-                          loading: `Deleting site ...`,
-                          success: `Successfully deleted!`,
-                          error: (err) => err,
-                        }
-                      )
-                      .then((result) => {
-                        // check if the site is successfully updated
-                        if (!result.data?.deleteSite) {
-                          toast.error("Something went wrong.");
-                          return false;
-                        }
-
-                        // Site successfully updated
-                        setUpdateSiteLoading(false);
-                        router.push("/s/");
-                      });
-                  }
-                }}
-                className="inline-flex w-full justsify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:w-auto sm:text-sm"
-                >
-                {updateSiteLoading ? <Spinner color={"text-white"} /> : null}
-                Delete Site
-              </button>
-            </div>
-          </div> */}
 
           {fieldsEdited && session?.user?.email ? (
             <div className="sm:col-span-6">
