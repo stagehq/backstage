@@ -30,23 +30,53 @@ const StudioEditor = () => {
 
   const [, updateSiteLayouts] = useUpdateSiteLayoutsMutation();
 
-  const updateBreakpointLayoutHeight = (layouts: Layouts) => {
-    if (!layouts || !breakpoint || !itemsRef.current) return;
+  // const updateBreakpointLayoutHeight = (layouts: Layouts) => {
+  //   if (!layouts || !breakpoint || !itemsRef.current) return;
     
-    const newLayout = updateLayout(layouts[breakpoint], itemsRef);
-    console.log("updateBreakpointLayoutHeight", layouts[breakpoint], newLayout);
+  //   const newLayout = updateLayout(layouts[breakpoint], itemsRef);
+  //   console.log("updateBreakpointLayoutHeight", layouts[breakpoint], newLayout);
     
-    if (layouts && layouts[breakpoint] !== newLayout) {
-      console.log("newLayout", newLayout);
-      return newLayout;
+  //   if (layouts && layouts[breakpoint] !== newLayout) {
+  //     console.log("newLayout", newLayout);
+  //     return newLayout;
+  //   }
+  // };
+
+
+
+
+  const useHandleLayoutChange = () => {
+    const [layouts, setLayouts] = useRecoilState(gridLayoutState)
+    const [breakpoint,] = useRecoilState(gridBreakpointState)
+
+    const handleLayoutChange = (newLayouts?: Layouts) => {
+      console.log(newLayouts, layouts, breakpoint);
+      const myLayouts = newLayouts ? newLayouts : layouts;
+      if(myLayouts === null) return null;
+
+      console.log(itemsRef);
+      
+      const heightAdjustedLayout = updateLayout(myLayouts[breakpoint], itemsRef);
+      
+      setLayouts({...myLayouts, [breakpoint]: heightAdjustedLayout});
+
     }
-  };
+
+    return handleLayoutChange;
+  }
+
+  const handleLayoutChange = useHandleLayoutChange();
 
   useEffect(() => {
     if (site?.layouts && document.readyState === "complete") {
-      setLayouts({...site.layouts, [breakpoint]: updateBreakpointLayoutHeight(site.layouts)})
+      handleLayoutChange(site.layouts)
     }
   }, []);
+
+
+
+
+
 
   useEffect(() => {
     if (siteSlug && layouts) {
@@ -58,8 +88,6 @@ const StudioEditor = () => {
   }, [layouts, siteSlug, updateSiteLayouts]);
 
   if (!site || !user) return null;
-
-  console.log(layouts, site.extensions)
 
   return (
     <div className={clsx(theme === "dark" && "dark", "h-full w-full ")}>
@@ -79,23 +107,14 @@ const StudioEditor = () => {
                   margin={[24, 24]}
                   isResizable={false}
                   measureBeforeMount={true}
-                  // onDragStart={() => {
-                  //   if(!layouts) return;
-                  //   updateBreakpointLayoutHeight(layouts);
-                  // }}
-                  // onWidthChange={() => {
-                  //   if (!layouts) return;
-                  //   const newLayout = updateBreakpointLayoutHeight(layouts);
-                  //   setLayouts({ ...layouts, [breakpoint]: newLayout ? newLayout : layouts[breakpoint] });
-                  // }}
-                  // onBreakpointChange={(breakpoint) => {
-                  //   setBreakpoint(breakpoint);
-                  // }}
-                  onLayoutChange={(layout: Layout[], layouts: Layouts) => {
-                    if(!breakpoint) return;
-                    const newLayout = updateBreakpointLayoutHeight(layouts);
-                    setLayouts({ ...layouts, [breakpoint]: newLayout ? newLayout : layout });
-                    
+                  onWidthChange={() => {
+                    handleLayoutChange()
+                  }}
+                  onBreakpointChange={(breakpoint) => {
+                    setBreakpoint(breakpoint);
+                  }}
+                  onLayoutChange={(layout: Layout[], layouts: Layouts) => {                    
+                    handleLayoutChange(layouts)
                   }}
                 >
                   {site.extensions &&
@@ -106,17 +125,19 @@ const StudioEditor = () => {
                             `../../blocks/${extension.storeExtension?.blockId}`
                           )
                       ) as FC<BlockProps>;
+                      // console.log(layouts, extension);
                       
-                      if(!breakpoint || !layouts) return null;
-                      const layoutFound = layouts ? layouts[breakpoint].find((layout: Layout) => layout.i === extension.id) : null;
-                      const size = layouts ? layouts[breakpoint].find((layout: Layout) => layout.i === extension.id)?.w as 1 | 2 | 3 : 3;
+                      if(!breakpoint) return null;
+                      // const layoutFound = layouts ? layouts[breakpoint].find((layout: Layout) => layout.i === extension.id) : null;
+                      // const size = layouts ? layouts[breakpoint].find((layout: Layout) => layout.i === extension.id)?.w as 1 | 2 | 3 : 3;
 
                       return (
                         <div key={extension.id} id={extension.id}>
                           <Extension
                             gridRef={itemsRef}
                             extension={extension}
-                            size={layoutFound ? size : 3}
+                            //size={layoutFound ? size : 3}
+                            size={3}
                             isEditable={true}
                           />
                         </div>

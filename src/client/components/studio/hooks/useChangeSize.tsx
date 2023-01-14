@@ -23,25 +23,25 @@ export const useChangeExtensionSize = () => {
     size: 1 | 2 | 3,
     gridRef: React.RefObject<HTMLDivElement>
   ) => {
-    const newGridLayout = { ...layouts };
-    const newLayout = newGridLayout[breakpoint].map((layout) => {
-      if (layout.i === id) {
-        return { ...layout, w: size };
-      }
-      return layout;
-    });
-    newGridLayout[breakpoint] = newLayout;
-    const heightAdjustedLayout = updateLayout(
-      newGridLayout[breakpoint],
-      gridRef
-    );
-    console.log(heightAdjustedLayout);
+    // const newGridLayout = { ...layouts };
+    // const newLayout = newGridLayout[breakpoint].map((layout) => {
+    //   if (layout.i === id) {
+    //     return { ...layout, w: size };
+    //   }
+    //   return layout;
+    // });
+    // newGridLayout[breakpoint] = newLayout;
+    // const heightAdjustedLayout = updateLayout(
+    //   newGridLayout[breakpoint],
+    //   gridRef
+    // );
+    // console.log(heightAdjustedLayout);
 
-    setLayouts(
-      Object.assign({}, layouts, { [breakpoint]: heightAdjustedLayout })
-    );
+    // setLayouts(
+    //   Object.assign({}, layouts, { [breakpoint]: heightAdjustedLayout })
+    // );
 
-    window.dispatchEvent(new Event("resize"));
+    // window.dispatchEvent(new Event("resize"));
   };
 
   return changeExtensionSize;
