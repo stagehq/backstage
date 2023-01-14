@@ -31,30 +31,22 @@ const StudioEditor = () => {
   const [, updateSiteLayouts] = useUpdateSiteLayoutsMutation();
 
   const updateBreakpointLayoutHeight = (layouts: Layouts) => {
-    if (!layouts) return;
+    if (!layouts || !breakpoint || !itemsRef.current) return;
     
     const newLayout = updateLayout(layouts[breakpoint], itemsRef);
     console.log("updateBreakpointLayoutHeight", layouts[breakpoint], newLayout);
     
     if (layouts && layouts[breakpoint] !== newLayout) {
-      setLayouts((layouts) => {
-        return { ...layouts, [breakpoint]: newLayout };
-      });
+      console.log("newLayout", newLayout);
+      return newLayout;
     }
   };
 
   useEffect(() => {
     if (site?.layouts && document.readyState === "complete") {
-      setLayouts(site.layouts)
-      updateBreakpointLayoutHeight(site.layouts);
+      setLayouts({...site.layouts, [breakpoint]: updateBreakpointLayoutHeight(site.layouts)})
     }
   }, []);
-
-  useEffect(() => {
-    if(site?.layouts) {
-      setLayouts(site.layouts)
-    }
-  }, [site, setLayouts]);
 
   useEffect(() => {
     if (siteSlug && layouts) {
@@ -64,12 +56,6 @@ const StudioEditor = () => {
       });
     }
   }, [layouts, siteSlug, updateSiteLayouts]);
-
-  // useEffect(() => {
-  //   if (layouts) {
-  //     window.dispatchEvent(new Event("resize"));
-  //   }
-  // }, [layouts]);
 
   if (!site || !user) return null;
 
@@ -93,20 +79,23 @@ const StudioEditor = () => {
                   margin={[24, 24]}
                   isResizable={false}
                   measureBeforeMount={true}
-                  onDragStop={() => {
-                    // if(!layouts) return;
-                    // updateBreakpointLayoutHeight(layouts);
-                  }}
-                  onWidthChange={() => {
-                    if (!layouts) return;
-                    updateBreakpointLayoutHeight(layouts);
-                  }}
-                  onBreakpointChange={(breakpoint) => {
-                    setBreakpoint(breakpoint);
-                  }}
+                  // onDragStart={() => {
+                  //   if(!layouts) return;
+                  //   updateBreakpointLayoutHeight(layouts);
+                  // }}
+                  // onWidthChange={() => {
+                  //   if (!layouts) return;
+                  //   const newLayout = updateBreakpointLayoutHeight(layouts);
+                  //   setLayouts({ ...layouts, [breakpoint]: newLayout ? newLayout : layouts[breakpoint] });
+                  // }}
+                  // onBreakpointChange={(breakpoint) => {
+                  //   setBreakpoint(breakpoint);
+                  // }}
                   onLayoutChange={(layout: Layout[], layouts: Layouts) => {
-                    setLayouts(layouts);
-                    updateBreakpointLayoutHeight(layouts);
+                    if(!breakpoint) return;
+                    const newLayout = updateBreakpointLayoutHeight(layouts);
+                    setLayouts({ ...layouts, [breakpoint]: newLayout ? newLayout : layout });
+                    
                   }}
                 >
                   {site.extensions &&
@@ -118,6 +107,7 @@ const StudioEditor = () => {
                           )
                       ) as FC<BlockProps>;
                       
+                      if(!breakpoint || !layouts) return null;
                       const layoutFound = layouts ? layouts[breakpoint].find((layout: Layout) => layout.i === extension.id) : null;
                       const size = layouts ? layouts[breakpoint].find((layout: Layout) => layout.i === extension.id)?.w as 1 | 2 | 3 : 3;
 
