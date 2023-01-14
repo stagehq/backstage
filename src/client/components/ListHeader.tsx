@@ -28,14 +28,12 @@ const ListHeader = () => {
           </div>
         </div>
       </div>
-      <div className="relative flex cursor-pointer items-start justify-start gap-2 rounded-md border border-zinc-200 bg-zinc-900 px-4 py-2 text-zinc-100 shadow hover:bg-zinc-800">
-        <p
-          onClick={() => setSubdomainCardOpen(true)}
-          className="text-left text-sm font-medium"
-        >
-          Create site
-        </p>
-      </div>
+      <button 
+        className="inline-flex w-full justsify-center rounded-md border border-transparent bg-zinc-900 px-4 py-2 text-base font-medium text-zinc-100 shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-800 focus:ring-offset-2 sm:w-auto sm:text-sm"
+        onClick={() => setSubdomainCardOpen(true)}
+      >
+        Create site
+      </button>
     </div>
   );
 };

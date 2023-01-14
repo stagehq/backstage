@@ -62,7 +62,7 @@ type Mutation {
   createAnalytics(hostUrl: String!, postHogKey: String!): Analytics
   createOAuthforApi(accessToken: String, apiConnectorName: String, expiresIn: Int, idToken: String, refreshToken: String, scope: String): OAuth
   deleteExtension(id: String!, siteId: String!): Extension
-  deleteSite(id: String!): Site
+  deleteSite(subdomain: String!): Site
   updateExtensionTitle(id: String!, title: String!): Extension
   updateSiteHeader(bio: String, image: String, siteId: String!, tagline: String): Site
   updateSiteLayouts(id: String!, layouts: String!): Site

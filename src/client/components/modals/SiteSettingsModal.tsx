@@ -5,7 +5,7 @@ import { siteSlugState, siteState } from "../../store/site";
 import { siteSettingsOpenState } from "../../store/ui/modals";
 import { currentUserState } from "../../store/user";
 import { Icon } from "../Icons";
-import { SettingsForm } from "./settings/SettingsForm";
+import { DeleteSite } from "./sitesettings/DeleteSite";
 import { Subdomain } from "./sitesettings/Subdomain";
 
 const SiteSettingsModal: FC = () => {
@@ -85,7 +85,7 @@ const SiteSettingsModal: FC = () => {
                     {site ? (
                       <>
                         <Subdomain site={site} />
-                        {/* Delete Site */}
+                        <DeleteSite site={site} />
                       </>
                     ) : null}
                   </div>

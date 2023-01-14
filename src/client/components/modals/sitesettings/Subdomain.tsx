@@ -13,6 +13,7 @@ import { Site } from "../../../graphql/types.generated";
 import Spinner from "../../loading/Spinner";
 import { siteSlugState, siteState } from "../../../store/site";
 import { useUpdateSiteSubdomainMutation } from "../../../graphql/updateSiteSubdomain.generated";
+import { useDeleteSiteMutation } from "../../../graphql/deleteSite.generated";
 
 interface SubdomainProps {
   site: Site;
@@ -23,13 +24,14 @@ type UpdateSiteSuccessType = boolean | null;
 const Subdomain: FC<SubdomainProps> = ({ site }) => {
   const { data: session } = useSession();
   const [, updateSiteSubdomain] = useUpdateSiteSubdomainMutation();
+  const [, deleteSite] = useDeleteSiteMutation();
 
   const [fieldsEdited, setFieldsEdited] = useState(false);
   const [updateSiteLoading, setUpdateSiteLoading] = useState(false);
   const [updateSiteSuccess, setUpdateSiteSuccess] =
     useState<UpdateSiteSuccessType>(null);
 
-  // Edit current user state
+  // Edit current site state
   const [editCurrentSite, setEditCurrentSite] = useState(site);
 
   // subdomain state
@@ -93,7 +95,7 @@ const Subdomain: FC<SubdomainProps> = ({ site }) => {
               Subdomain
             </label>
             <div className="relative mt-1 flex rounded-md shadow-sm">
-              <span className="border-zinc-gray-300 bg-zinc-gray-50 text-zinc-gray-500 inline-flex items-center rounded-l-md border border-r-0 px-3 sm:text-sm">
+              <span className="inline-flex items-center rounded-l-md border border-r-0 border-zinc-300 bg-zinc-50 px-3 text-zinc-500 sm:text-sm">
                 getstage.app/
               </span>
               <input
@@ -136,6 +138,45 @@ const Subdomain: FC<SubdomainProps> = ({ site }) => {
               </p>
             )}
           </div>
+
+          {/* <div className="sm:col-span-6">
+            <div className="flex items-center justify-start gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setUpdateSiteLoading(true);
+                  if (session?.user?.email && editCurrentSite.subdomain && subdomain) {
+                    toast
+                      .promise(
+                        deleteSite({
+                          subdomain: subdomain,
+                        }),
+                        {
+                          loading: `Deleting site ...`,
+                          success: `Successfully deleted!`,
+                          error: (err) => err,
+                        }
+                      )
+                      .then((result) => {
+                        // check if the site is successfully updated
+                        if (!result.data?.deleteSite) {
+                          toast.error("Something went wrong.");
+                          return false;
+                        }
+
+                        // Site successfully updated
+                        setUpdateSiteLoading(false);
+                        router.push("/s/");
+                      });
+                  }
+                }}
+                className="inline-flex w-full justsify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:w-auto sm:text-sm"
+                >
+                {updateSiteLoading ? <Spinner color={"text-white"} /> : null}
+                Delete Site
+              </button>
+            </div>
+          </div> */}
 
           {fieldsEdited && session?.user?.email ? (
             <div className="sm:col-span-6">
@@ -192,7 +233,8 @@ const Subdomain: FC<SubdomainProps> = ({ site }) => {
                           }
                         )
                         .then((result) => {
-                          // check if the user is successfully updated
+                          // check if the site is successfully updated
+                          console.log(result.data);
                           if (!result.data?.updateSiteSubdomain) {
                             toast.error("Something went wrong.");
                             return false;
