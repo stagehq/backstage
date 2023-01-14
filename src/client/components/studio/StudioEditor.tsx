@@ -30,17 +30,6 @@ const StudioEditor = () => {
 
   const [, updateSiteLayouts] = useUpdateSiteLayoutsMutation();
 
-  // const updateBreakpointLayoutHeight = (layouts: Layouts) => {
-  //   if (!layouts || !breakpoint || !itemsRef.current) return;
-    
-  //   const newLayout = updateLayout(layouts[breakpoint], itemsRef);
-  //   console.log("updateBreakpointLayoutHeight", layouts[breakpoint], newLayout);
-    
-  //   if (layouts && layouts[breakpoint] !== newLayout) {
-  //     console.log("newLayout", newLayout);
-  //     return newLayout;
-  //   }
-  // };
 
 
 
@@ -57,9 +46,11 @@ const StudioEditor = () => {
       console.log(itemsRef);
       
       const heightAdjustedLayout = updateLayout(myLayouts[breakpoint], itemsRef);
+
+      console.log(heightAdjustedLayout);
+      
       
       setLayouts({...myLayouts, [breakpoint]: heightAdjustedLayout});
-
     }
 
     return handleLayoutChange;
@@ -70,9 +61,9 @@ const StudioEditor = () => {
   useEffect(() => {
     if (site?.layouts && document.readyState === "complete") {
       handleLayoutChange(site.layouts)
+      window.dispatchEvent(new Event("resize"));
     }
   }, []);
-
 
 
 
@@ -85,7 +76,7 @@ const StudioEditor = () => {
         layouts: JSON.stringify(layouts),
       });
     }
-  }, [layouts, siteSlug, updateSiteLayouts]);
+  }, [layouts, siteSlug]);
 
   if (!site || !user) return null;
 
