@@ -12,6 +12,7 @@ import { themeState } from "../../store/ui/theme";
 import { currentUserState } from "../../store/user";
 import { updateLayout } from "../dnd/utils";
 import { PageHeader } from "../PageHeader";
+import EmptyState from "./EmptyState";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -134,7 +135,7 @@ const StudioEditor = () => {
                 </ResponsiveGridLayout>
             </div>
           ) : (
-            <span>add extension</span>
+            <EmptyState />
           )}
         </div>
       </div>
