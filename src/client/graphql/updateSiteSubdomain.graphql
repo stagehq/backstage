@@ -1,0 +1,5 @@
+mutation UpdateSiteSubdomain($id: String!, $subdomain: String!) {
+  updateSiteSubdomain(id: $id, subdomain: $subdomain) {
+    id
+  }
+}

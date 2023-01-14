@@ -1,0 +1,5 @@
+query GetValidSubdomain($subdomain: String!) {
+  getValidSubdomain(subdomain: $subdomain) {
+    id
+  }
+}

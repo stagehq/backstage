@@ -3,7 +3,6 @@ import Document, { Head, Html, Main, NextScript } from "next/document";
 class MyDocument extends Document {
   render() {
     return (
-      // bg-gray-50
       <Html className="h-full antialiased" lang="en">
         <Head>
           {/* <link rel="preconnect" href="https://fonts.googleapis.com" />

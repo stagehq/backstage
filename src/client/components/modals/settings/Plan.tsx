@@ -299,7 +299,7 @@ const Plan: FC<PlanProps> = ({ user }) => {
           ) : null}
         </div>
         {fieldsEdited && session?.user?.email ? (
-          <div className="flex items-center justify-end gap-2 bg-gray-50 px-4 py-3 sm:px-6">
+          <div className="flex items-center justify-end gap-2 px-4 py-3 sm:px-6">
             <button
               type="button"
               onClick={() => {
