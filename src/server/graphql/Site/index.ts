@@ -59,8 +59,9 @@ builder.mutationField('upsertSite', (t) => {
       tagline: t.arg.string({ required: false }),
       bio: t.arg.string({ required: false }),
       layouts: t.arg.string({ required: false }),
+      image: t.arg.string({ required: false }),
     },
-    resolve: async (query, root, { subdomain, tagline, bio, layouts }, ctx) => {
+    resolve: async (query, root, { subdomain, tagline, bio, layouts, image }, ctx) => {
       if (!ctx.session.user.email) return null;
 
       const site = await prisma.site.upsert({
@@ -71,6 +72,7 @@ builder.mutationField('upsertSite', (t) => {
           tagline: tagline ? tagline : undefined,
           bio: bio ? bio : undefined,
           layouts: layouts ? JSON.parse(layouts) : undefined,
+          image: image ? image : undefined
         },
         create: {
           user: {
@@ -81,6 +83,7 @@ builder.mutationField('upsertSite', (t) => {
           subdomain: subdomain,
           tagline: tagline ? tagline : undefined,
           bio: bio ? bio : undefined,
+          image: image ? image : undefined
         },
       });
 

@@ -17,6 +17,7 @@ const AnalyticsModal: FC = () => {
   //state
   const [key, setKey] = useState<string>("");
   const [host, setHost] = useState<string>("");
+  const [fieldsEdited, setFieldsEdited] = useState(false);
 
   if (!user) return null;
 

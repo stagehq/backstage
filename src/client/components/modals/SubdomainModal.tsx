@@ -1,4 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
+import { userAgentFromString } from "next/server";
 import { FC, Fragment, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -117,6 +118,7 @@ const InSiteSubdomain: FC = () => {
     if (subdomainValid) {
       const response = await upsertSite({
         subdomain: subdomain,
+        image: user?.image ? user.image : undefined 
       });
 
       if (response.data?.upsertSite) {

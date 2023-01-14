@@ -3,14 +3,19 @@ mutation UpsertSite(
   $tagline: String
   $bio: String
   $layouts: String
+  $image: String
 ) {
   upsertSite(
     subdomain: $subdomain
     tagline: $tagline
     bio: $bio
     layouts: $layouts
+    image: $image
   ) {
     id
     subdomain
+    image
+    bio
+    tagline
   }
 }

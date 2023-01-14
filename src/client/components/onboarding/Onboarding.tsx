@@ -309,6 +309,7 @@ export const OnboardingSubdomain: FC = () => {
         subdomain: onboarding.subdomain,
         tagline: onboarding.tagline,
         bio: onboarding.bio,
+        image: user?.image
       });
 
       if (response.data?.upsertSite) {
