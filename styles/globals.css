@@ -135,6 +135,10 @@
 }
 
 .react-grid-item.cssTransforms {
+  transition-property: none;
+}
+
+.animated .react-grid-item.cssTransforms {
   transition-property: transform;
 }
 

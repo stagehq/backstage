@@ -37,6 +37,11 @@ const StudioEditor = () => {
     if (site?.layouts == null) {
       console.log("empty");
       setInitialCalculated(true);
+      
+      setTimeout(() => {
+        if(itemsRef.current)
+        itemsRef.current.classList.add("animated");
+      }, 300);
     }
     //set extensions
     if (site?.extensions) {
@@ -57,15 +62,25 @@ const StudioEditor = () => {
       await handleLayoutChange(itemsRef, site.layouts);
       console.log("ready");
       setInitialCalculated(true);
+
+      setTimeout(() => {
+        if(itemsRef.current)
+        itemsRef.current.classList.add("animated");
+      }, 300);
     }, 100);
   }, [site?.extensions]);
+
+  useEffect(() => {
+    if(itemsRef.current)
+      itemsRef.current.classList.remove("animated");
+  }, [])
 
   if (!site || !user || !initialCalculated) return null;
 
   return (
     <div className={clsx(theme === "dark" && "dark", "h-full w-full ")}>
       <div className="h-full overflow-scroll bg-white @container dark:bg-zinc-900">
-        <div className="lg: mx-auto h-full w-full max-w-6xl p-12">
+        <div className="lg:mx-auto min-h-full w-full max-w-6xl p-12 pb-24">
           <div className="p-8">
             <PageHeader />
           </div>

@@ -1,3 +1,4 @@
+import { decodeGlobalID } from "@pothos/plugin-relay";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useUpdateExtensionTitleMutation } from "../../../graphql/updateExtensionTitle.generated";
 import { siteSlugState, siteState } from "../../../store/site";
@@ -21,8 +22,9 @@ export const useChangeExtensionTitle = () => {
   const changeExtensionTitle = async (id: string, title: string) => {
     try {
       // update extension in database
+      
       await updateExtensionTitle({
-        id,
+        id: decodeGlobalID(id).id,
         title,
       });
 
