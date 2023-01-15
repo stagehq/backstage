@@ -10,73 +10,72 @@ import { siteSlugState, siteState } from "../../store/site";
 import { gridBreakpointState, gridLayoutState } from "../../store/ui/grid-dnd";
 import { themeState } from "../../store/ui/theme";
 import { currentUserState } from "../../store/user";
-import { updateLayout } from "../dnd/utils";
 import { PageHeader } from "../PageHeader";
 import EmptyState from "./EmptyState";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const StudioEditor = () => {
-  const [layouts, setLayouts] = useRecoilState(gridLayoutState);
-  const [breakpoint, setBreakpoint] = useRecoilState(gridBreakpointState);
+  //refs
   const itemsRef = useRef<HTMLDivElement>(null);
 
+  //recoil
+  const [layouts, setLayouts] = useRecoilState(gridLayoutState);
+  const [breakpoint, setBreakpoint] = useRecoilState(gridBreakpointState);
   const [theme, setTheme] = useRecoilState(themeState);
-
   const user = useRecoilValue(currentUserState);
-
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
 
   const [, updateSiteLayouts] = useUpdateSiteLayoutsMutation();
 
+  //single source of change layouts
+  const handleLayoutChange = async (newlayouts?: Layouts) => {
+    let currentLayouts = newlayouts ? newlayouts : layouts;
+    if(!currentLayouts) return null;
 
+    //calculate height
+    await new Promise(resolve => setTimeout(() => {
+      if(!currentLayouts) return null;
+      let index = 0;
+      const newItems = [...currentLayouts[breakpoint]];
 
+      if (itemsRef.current?.children[0].children) {    
+        for (const element of itemsRef.current.children[0].children) {
+          const content = element.children[0] as HTMLDivElement;
+          if (content.offsetHeight !== 0) {
+            const newHeight = content.offsetHeight / 24;
+            newItems[index] = { ...newItems[index], h: newHeight, minH: newHeight };    
+            index++;
+          }
+        }
+      }
+      currentLayouts = Object.assign({}, currentLayouts, { [breakpoint]: newItems });
+      resolve(true);
+    }, 100))
+    
+    //update layout
+    setLayouts(currentLayouts);
 
-
-  const useHandleLayoutChange = () => {
-    const [layouts, setLayouts] = useRecoilState(gridLayoutState)
-    const [breakpoint,] = useRecoilState(gridBreakpointState)
-
-    const handleLayoutChange = (newLayouts?: Layouts) => {
-      console.log(newLayouts, layouts, breakpoint);
-      const myLayouts = newLayouts ? newLayouts : layouts;
-      if(myLayouts === null) return null;
-
-      console.log(itemsRef);
-      
-      const heightAdjustedLayout = updateLayout(myLayouts[breakpoint], itemsRef);
-
-      console.log(heightAdjustedLayout);
-      
-      
-      setLayouts({...myLayouts, [breakpoint]: heightAdjustedLayout});
-    }
-
-    return handleLayoutChange;
+    //update db
+    // if (siteSlug && currentLayouts) {
+    //   await updateSiteLayouts({
+    //     id: siteSlug ? siteSlug : "",
+    //     layouts: JSON.stringify(currentLayouts),
+    //   });
+    // }
   }
 
-  const handleLayoutChange = useHandleLayoutChange();
-
+  //set inital Layout
   useEffect(() => {
     if (site?.layouts && document.readyState === "complete") {
-      handleLayoutChange(site.layouts)
       window.dispatchEvent(new Event("resize"));
+      console.log("inital change")
+      handleLayoutChange(site.layouts);
     }
   }, []);
 
-
-
-
-
-  useEffect(() => {
-    if (siteSlug && layouts) {
-      updateSiteLayouts({
-        id: siteSlug ? siteSlug : "",
-        layouts: JSON.stringify(layouts),
-      });
-    }
-  }, [layouts, siteSlug]);
+  console.log("rerender", layouts);
 
   if (!site || !user) return null;
 
@@ -99,12 +98,15 @@ const StudioEditor = () => {
                   isResizable={false}
                   measureBeforeMount={true}
                   onWidthChange={() => {
+                    console.log("Widtch changed");
                     handleLayoutChange()
                   }}
                   onBreakpointChange={(breakpoint) => {
+                    console.log("Breakpoint changed");
                     setBreakpoint(breakpoint);
                   }}
-                  onLayoutChange={(layout: Layout[], layouts: Layouts) => {                    
+                  onLayoutChange={(layout: Layout[], layouts: Layouts) => {  
+                    console.log("layout changed");                  
                     handleLayoutChange(layouts)
                   }}
                 >
