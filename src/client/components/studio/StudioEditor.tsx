@@ -65,7 +65,7 @@ const StudioEditor = () => {
   return (
     <div className={clsx(theme === "dark" && "dark", "h-full w-full ")}>
       <div className="h-full overflow-scroll bg-white @container dark:bg-zinc-900">
-        <div className="lg: mx-auto h-full w-full max-w-6xl p-12">
+        <div className="lg:mx-auto min-h-full w-full max-w-6xl p-12 pb-24">
           <div className="p-8">
             <PageHeader />
           </div>
