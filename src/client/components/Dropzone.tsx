@@ -82,6 +82,8 @@ export const Dropzone: React.FC<DropzoneProps> = ({
     <div
       {...getRootProps({ isDragActive, isDragAccept, isDragReject })}
       {...rest}
+      aria-label="Dropzone"
+      className="rounded-md focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2"
     >
       <input {...getInputProps()} />
       {children}

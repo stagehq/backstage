@@ -229,7 +229,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
             )}
           </div>
 
-          <div className="sm:col-span-6">
+          {/* <div className="sm:col-span-6">
             <label
               htmlFor="alias"
               className="block text-sm font-medium text-gray-900"
@@ -257,10 +257,10 @@ const Profile: FC<ProfileProps> = ({ user }) => {
               />
               {aliasValid && !aliasTooShort && editCurrentUser.alias && (
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                  {/* <CheckCircleIcon
+                  <CheckCircleIcon
                     className="h-5 w-5 text-green-500"
                     aria-hidden="true"
-                  /> */}
+                  />
                 </div>
               )}
             </div>
@@ -279,7 +279,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                 Your alias must be 3 characters or more.
               </p>
             )}
-          </div>
+          </div> */}
 
           <div className="sm:col-span-6">
             <label

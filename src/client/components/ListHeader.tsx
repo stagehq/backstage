@@ -29,7 +29,7 @@ const ListHeader = () => {
         </div>
       </div>
       <button 
-        className="inline-flex w-full justsify-center rounded-md border border-transparent bg-zinc-900 px-4 py-2 text-base font-medium text-zinc-100 shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-800 focus:ring-offset-2 sm:w-auto sm:text-sm"
+        className="inline-flex w-full justify-center rounded-md border border-transparent bg-zinc-900 px-4 py-2 text-base font-medium text-zinc-100 shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-800 focus:ring-offset-2 sm:w-auto sm:text-sm"
         onClick={() => setSubdomainCardOpen(true)}
       >
         Create site

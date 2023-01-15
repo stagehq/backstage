@@ -107,8 +107,8 @@ export const PageHeader = () => {
   return (
     <div className="flex flex-col items-start justify-start gap-[54px] pt-6 @container">
       <div className="flex items-start justify-end gap-2 self-stretch">
-        <div
-          className="relative flex cursor-pointer items-start justify-start gap-2 rounded-full bg-zinc-100/40 p-2 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"
+        <button
+          className="relative flex cursor-pointer items-start justify-start gap-2 rounded-full bg-zinc-100/40 p-2 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10 focus:border-zinc-600  dark:focus:border-zinc-300"
           onClick={() => setTheme(theme === "light" ? "dark" : "light")}
         >
           {theme === "light" ? (
@@ -116,7 +116,7 @@ export const PageHeader = () => {
           ) : (
             <MoonIcon className="h-5 w-5 text-gray-400" />
           )}
-        </div>
+        </button>
       </div>
       <div className="flex w-full flex-col items-start justify-start gap-8 self-stretch @3xl:w-3/4 @6xl:w-1/2">
         <ImageUpload

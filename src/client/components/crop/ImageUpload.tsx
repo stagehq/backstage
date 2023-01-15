@@ -162,7 +162,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
 
   return (
     <>
-      <div className={clsx("cursor pointer relative flex items-center", size)}>
+      <div className={clsx("cursor-pointer relative flex items-center rounded-md outline-none focus-within:outline-none focus-within:outline-2 focus-within:outline-zinc-600 focus-within:outline-offset-2 dark:focus-within:outline-zinc-300", size)}>
         {imageUrl ? (
           <div className="inline-block h-full w-full overflow-hidden rounded-full">
             <img
@@ -176,7 +176,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
           <div className="h-full w-full rounded-full border border-zinc-200 bg-zinc-100 dark:border-zinc-600 dark:bg-zinc-800" />
         )}
         <div className="absolute h-full w-full">
-          <div className="absolute bottom-0 right-0 h-[40%] w-[40%] rounded-full border-2 border-zinc-50 bg-zinc-800 focus-within:bg-zinc-700 dark:border-zinc-900 dark:bg-zinc-700">
+          <div className="absolute bottom-0 right-0 h-[40%] w-[40%] rounded-full border-2 border-zinc-50 bg-zinc-800 dark:border-zinc-900 dark:bg-zinc-700">
             <div className="flex h-full w-full items-center justify-center text-zinc-200">
               <EditIcon />
             </div>
@@ -187,7 +187,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
             id="photo"
             name="photo"
             type="file"
-            className="absolute inset-0 cursor-pointer rounded-md border-gray-300 opacity-0"
+            className="absolute inset-0 cursor-pointer rounded-md border-gray-300 opacity-0 dark:border-no  ne"
           />
         </div>
       </div>

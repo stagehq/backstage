@@ -96,9 +96,9 @@ const SettingsModal: FC = () => {
                       {user ? (
                         <>
                           <Profile user={user} />
-                          <Plan user={user} />
-                          <BillingHistory />
-                          <Integrations />
+                          {/* <Plan user={user} /> */}
+                          {/* <BillingHistory /> */}
+                          {/* <Integrations /> */}
                         </>
                       ) : null}
                     </SettingsForm>

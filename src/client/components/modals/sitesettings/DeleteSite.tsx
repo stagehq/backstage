@@ -2,7 +2,6 @@ import { FC, useState } from "react";
 
 // import { CheckCircleIcon } from "@heroicons/react/solid";
 import { useSession } from "next-auth/react";
-import router from "next/router";
 import toast from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Site } from "../../../graphql/types.generated";
@@ -56,7 +55,7 @@ const DeleteSite: FC<DeleteSiteProps> = ({ site }) => {
               Delete Site
             </label>
             <div className="mt-2 max-w-xl text-sm text-zinc-500">
-              <p>To confirm the deletion, enter the full domain of your website in the text input field.</p>
+              <p>To confirm the deletion, write <span className="text-zinc-900">getstage.app/{site.subdomain}</span> in the text input field.</p>
             </div>
 
             <div className="mt-5 sm:flex sm:items-center">
