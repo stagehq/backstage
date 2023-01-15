@@ -1,5 +1,4 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { userAgentFromString } from "next/server";
 import { FC, Fragment, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -118,18 +117,18 @@ const InSiteSubdomain: FC = () => {
     if (subdomainValid) {
       const response = await upsertSite({
         subdomain: subdomain,
-        image: user?.image ? user.image : undefined 
+        image: user?.image ? user.image : undefined,
       });
 
       if (response.data?.upsertSite) {
         const subdomain = response.data.upsertSite.subdomain;
-        if(!user) return null;
+        if (!user) return null;
         setUser({
-           ...user, 
-           sites: user.sites
+          ...user,
+          sites: user.sites
             ? [...user?.sites, response.data.upsertSite]
             : [response.data.upsertSite],
-        }) ;
+        });
         setSubdomainCardOpen(false);
         setTimeout(() => {
           if (subdomain) navigate(`/s/${subdomain}`);

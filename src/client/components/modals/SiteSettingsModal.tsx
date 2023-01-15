@@ -6,6 +6,7 @@ import { siteSettingsOpenState } from "../../store/ui/modals";
 import { currentUserState } from "../../store/user";
 import { Icon } from "../Icons";
 import { DeleteSite } from "./sitesettings/DeleteSite";
+import Socials from "./sitesettings/Socials";
 import { Subdomain } from "./sitesettings/Subdomain";
 
 const SiteSettingsModal: FC = () => {
@@ -19,7 +20,6 @@ const SiteSettingsModal: FC = () => {
   const cancelButtonRef = useRef(null);
 
   if (!user) return null;
-  
 
   return (
     <Transition.Root show={siteSettingsOpen} as={Fragment}>
@@ -85,6 +85,7 @@ const SiteSettingsModal: FC = () => {
                     {site ? (
                       <>
                         <Subdomain site={site} />
+                        <Socials />
                         <DeleteSite site={site} />
                       </>
                     ) : null}

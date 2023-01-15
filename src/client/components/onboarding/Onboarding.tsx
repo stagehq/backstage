@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
 import { onboardingState } from "../../store/onboarding";
@@ -309,19 +309,19 @@ export const OnboardingSubdomain: FC = () => {
         subdomain: onboarding.subdomain,
         tagline: onboarding.tagline,
         bio: onboarding.bio,
-        image: user?.image
+        image: user?.image,
       });
 
       if (response.data?.upsertSite) {
         const subdomain = response.data.upsertSite.subdomain;
         setSubdomainCardOpen(false);
-        if(!user) return null;
+        if (!user) return null;
         setUser({
-           ...user, 
-           sites: user.sites
+          ...user,
+          sites: user.sites
             ? [...user?.sites, response.data.upsertSite]
             : [response.data.upsertSite],
-        }) ;
+        });
         if (subdomain) router.push(`/s/${subdomain}`);
       }
     }

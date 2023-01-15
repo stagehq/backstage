@@ -74,25 +74,30 @@ export const PageHeader = () => {
           console.log(response);
           setSite({
             ...site,
-            bio: response.data.updateSiteHeader.bio ? response.data.updateSiteHeader.bio : site.bio,
-            tagline: response.data.updateSiteHeader.tagline ? response.data.updateSiteHeader.tagline : site.tagline,
-          })
-          if(!user) return null;
+            bio: response.data.updateSiteHeader.bio
+              ? response.data.updateSiteHeader.bio
+              : site.bio,
+            tagline: response.data.updateSiteHeader.tagline
+              ? response.data.updateSiteHeader.tagline
+              : site.tagline,
+          });
+          if (!user) return null;
           setUser({
             ...user,
-            sites: 
-            user.sites
-            ? user.sites.map((site) => {
-                if(!response?.data?.updateSiteHeader) return site;
-                if (site.subdomain === response.data.updateSiteHeader.subdomain) {
-                  return {
-                    ...site,
-                    ...response.data.updateSiteHeader
-                  };
-                }
-                return site;
-              })
-            : [response.data.updateSiteHeader]
+            sites: user.sites
+              ? user.sites.map((site) => {
+                  if (!response?.data?.updateSiteHeader) return site;
+                  if (
+                    site.subdomain === response.data.updateSiteHeader.subdomain
+                  ) {
+                    return {
+                      ...site,
+                      ...response.data.updateSiteHeader,
+                    };
+                  }
+                  return site;
+                })
+              : [response.data.updateSiteHeader],
           });
         }
       } else {
@@ -108,7 +113,7 @@ export const PageHeader = () => {
     <div className="flex flex-col items-start justify-start gap-[54px] pt-6 @container">
       <div className="flex items-start justify-end gap-2 self-stretch">
         <button
-          className="relative flex cursor-pointer items-start justify-start gap-2 rounded-full bg-zinc-100/40 p-2 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10 focus:border-zinc-600  dark:focus:border-zinc-300"
+          className="relative flex cursor-pointer items-start justify-start gap-2 rounded-full bg-zinc-100/40 p-2 ring-1 ring-zinc-900/5 backdrop-blur focus:border-zinc-600 dark:bg-zinc-800/90 dark:ring-white/10  dark:focus:border-zinc-300"
           onClick={() => setTheme(theme === "light" ? "dark" : "light")}
         >
           {theme === "light" ? (

@@ -56,22 +56,21 @@ const ImageUpload: FC<ImageUploadProps> = ({
         ...site,
         image: url,
       });
-      if(!currentUser || !subdomain) return null;
+      if (!currentUser || !subdomain) return null;
       setCurrentUser({
         ...currentUser,
-        sites: 
-        currentUser.sites
-        ? currentUser.sites.map((site) => {
-            if(!url) return site;
-            if (site.subdomain === subdomain) {
-              return {
-                ...site,
-                ...{image: url}
-              };
-            }
-            return site;
-          })
-        : []
+        sites: currentUser.sites
+          ? currentUser.sites.map((site) => {
+              if (!url) return site;
+              if (site.subdomain === subdomain) {
+                return {
+                  ...site,
+                  ...{ image: url },
+                };
+              }
+              return site;
+            })
+          : [],
       });
     }
   };
@@ -144,7 +143,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
                 : "",
               result.data?.updateSiteHeader.subdomain
                 ? result.data.updateSiteHeader.subdomain
-                : "",
+                : ""
             );
           } else {
             throw new Error("Error adding image to user");
@@ -162,7 +161,12 @@ const ImageUpload: FC<ImageUploadProps> = ({
 
   return (
     <>
-      <div className={clsx("cursor-pointer relative flex items-center rounded-md outline-none focus-within:outline-none focus-within:outline-2 focus-within:outline-zinc-600 focus-within:outline-offset-2 dark:focus-within:outline-zinc-300", size)}>
+      <div
+        className={clsx(
+          "relative flex cursor-pointer items-center rounded-md outline-none focus-within:outline-none focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-zinc-600 dark:focus-within:outline-zinc-300",
+          size
+        )}
+      >
         {imageUrl ? (
           <div className="inline-block h-full w-full overflow-hidden rounded-full">
             <img
@@ -187,7 +191,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
             id="photo"
             name="photo"
             type="file"
-            className="absolute inset-0 cursor-pointer rounded-md border-gray-300 opacity-0 dark:border-no  ne"
+            className="dark:border-no ne absolute inset-0 cursor-pointer rounded-md border-gray-300  opacity-0"
           />
         </div>
       </div>

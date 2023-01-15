@@ -1,17 +1,17 @@
 import { FC, useState } from "react";
 
 // import { CheckCircleIcon } from "@heroicons/react/solid";
+import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { Site } from "../../../graphql/types.generated";
-import Spinner from "../../loading/Spinner";
-import { siteSlugState, siteState } from "../../../store/site";
 import { useDeleteSiteMutation } from "../../../graphql/deleteSite.generated";
-import { useNavigate } from "react-router-dom"
+import { Site } from "../../../graphql/types.generated";
+import { siteSlugState, siteState } from "../../../store/site";
 import { siteSettingsOpenState } from "../../../store/ui/modals";
 import { currentUserState } from "../../../store/user";
-import clsx from "clsx";
+import Spinner from "../../loading/Spinner";
 
 interface DeleteSiteProps {
   site: Site;
@@ -24,19 +24,17 @@ const DeleteSite: FC<DeleteSiteProps> = ({ site }) => {
   const [updateSiteLoading, setUpdateSiteLoading] = useState(false);
   const [deleteState, setDeleteState] = useState(false);
   const [editCurrentInput, setEditCurrentInput] = useState("");
-  
-  const [, setSiteSettingsOpen] = useRecoilState(
-    siteSettingsOpenState
-  );
+
+  const [, setSiteSettingsOpen] = useRecoilState(siteSettingsOpenState);
   const siteSlug = useRecoilValue(siteSlugState);
   const currentSite = useRecoilValue(siteState(siteSlug));
   const [user, setUser] = useRecoilState(currentUserState);
-  
+
   const navigate = useNavigate();
 
   const handleDeleteCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditCurrentInput(event.target.value);
-    if (event.target.value === 'getstage.app/' + site.subdomain) {
+    if (event.target.value === "getstage.app/" + site.subdomain) {
       setDeleteState(true);
     } else {
       setDeleteState(false);
@@ -45,7 +43,7 @@ const DeleteSite: FC<DeleteSiteProps> = ({ site }) => {
 
   return (
     <div className="sm:overflow-hidden">
-      <div className="bg-white py-6 px-4 sm:p-6">
+      <div className="bg-white py-6 px-6">
         <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6">
           <div className="sm:col-span-6">
             <label
@@ -55,10 +53,13 @@ const DeleteSite: FC<DeleteSiteProps> = ({ site }) => {
               Delete Site
             </label>
             <div className="mt-2 max-w-xl text-sm text-zinc-500">
-              <p>To confirm the deletion, write <span className="text-zinc-900">getstage.app/{site.subdomain}</span> in the text input field.</p>
+              <p>
+                To confirm the deletion, enter the full domain of your website
+                in the text input field.
+              </p>
             </div>
 
-            <div className="mt-5 sm:flex sm:items-center">
+            <div className="mt-2 sm:flex sm:items-center">
               {/* Input with check, if the site name is correct */}
               <div className="w-full sm:max-w-xs">
                 {/* <span className="inline-flex items-center rounded-l-md border border-r-0 border-zinc-300 bg-zinc-50 px-3 text-zinc-500 sm:text-sm">
@@ -84,7 +85,11 @@ const DeleteSite: FC<DeleteSiteProps> = ({ site }) => {
                 onClick={() => {
                   if (deleteState) {
                     setUpdateSiteLoading(true);
-                    if (session?.user?.email && currentSite?.subdomain && user) {
+                    if (
+                      session?.user?.email &&
+                      currentSite?.subdomain &&
+                      user
+                    ) {
                       toast
                         .promise(
                           deleteSite({
@@ -104,7 +109,7 @@ const DeleteSite: FC<DeleteSiteProps> = ({ site }) => {
                           }
 
                           // Site successfully updated
-                          setUpdateSiteLoading(false)
+                          setUpdateSiteLoading(false);
                           // router.push("/s");
                           setUser({
                             ...user,
@@ -112,17 +117,17 @@ const DeleteSite: FC<DeleteSiteProps> = ({ site }) => {
                               (site) => site.subdomain !== currentSite.subdomain
                             ),
                           });
-                          navigate("/s")
-                          setSiteSettingsOpen(false)
+                          navigate("/s");
+                          setSiteSettingsOpen(false);
                         });
                     }
                   }
                 }}
                 className={clsx(
                   "mt-3 inline-flex w-full items-center justify-center rounded-md border border-transparent px-4 py-2 font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm",
-                  deleteState ?  
-                  "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500" :
-                  "bg-zinc-300 text-zinc-500 hover:bg-zinc-200 focus:ring-zinc-300" 
+                  deleteState
+                    ? "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500"
+                    : "bg-zinc-300 text-zinc-500 hover:bg-zinc-200 focus:ring-zinc-300"
                 )}
               >
                 {updateSiteLoading ? <Spinner color={"text-white"} /> : null}

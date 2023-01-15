@@ -1,11 +1,5 @@
-mutation CreateAnalytics(
-  $postHogKey: String!
-  $hostUrl: String!
-) {
-  createAnalytics(
-    postHogKey: $postHogKey
-    hostUrl: $hostUrl
-  ) {
+mutation CreateAnalytics($postHogKey: String!, $hostUrl: String!) {
+  createAnalytics(postHogKey: $postHogKey, hostUrl: $hostUrl) {
     __typename
     id
   }

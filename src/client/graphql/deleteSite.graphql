@@ -1,4 +1,4 @@
-mutation DeleteSite ($subdomain: String!) {
+mutation DeleteSite($subdomain: String!) {
   deleteSite(subdomain: $subdomain) {
     id
   }
