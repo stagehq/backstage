@@ -46,15 +46,15 @@ const EmptyState = () => {
           <p className="text-lg text-zinc-900 dark:text-zinc-200 font-semibold text-center">No blocks added yet.</p>
           <p className="text-sm text-zinc-600 dark:text-zinc-400 text-center">To integrate data from other platforms you have to connect an API with our Bock ecosystem.</p>
         </div>
-        <div 
+        <button 
           onClick={() => setStoreOpen(true)}
-          className="flex cursor-pointer items-center justify-center gap-2 rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-900 dark:bg-zinc-800 px-4 py-2 text-zinc-100 dark:text-zinc-300 shadow hover:bg-zinc-800"
+          className="flex cursor-pointer items-center justify-center gap-2 rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-900 dark:bg-zinc-800 px-4 py-2 text-zinc-100 dark:text-zinc-300 shadow hover:bg-zinc-800 focus:ring-2 focus:ring-offset-2 focus:ring-zinc-600 dark:focus:border-zinc-300"
         >
           <PlusSmallIcon className="w-5 h-5"/>
           <p className="text-left text-sm font-medium">
             Add a block
           </p>
-        </div>
+        </button>
       </div>
     </div>
   </div>
