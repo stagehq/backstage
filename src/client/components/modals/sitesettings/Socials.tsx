@@ -35,20 +35,11 @@ export enum SocialsType {
 const Socials: FC = () => {
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
-  const [links, setLinks] = useState<Link[]>([]);
   const [selectedValues, setSelectedValues] = useState<string[]>(
-    Array(links.length).fill("")
+    site?.socials.map((s: Link) => s.network) || []
   );
 
   const [, updateSiteSocials] = useUpdateSiteSocialsMutation();
-
-  // initial load
-  useEffect(() => {
-    if (site?.socials) {
-      setLinks(site?.socials);
-      setSelectedValues(site?.socials.map((s: Link) => s.network));
-    }
-  }, [site]);
 
   const debounceUpdateSiteSocials = useCallback(
     debounce((siteSlug, links) => {
@@ -59,15 +50,17 @@ const Socials: FC = () => {
     [] // will be created only once initially
   );
 
-  // update links in db
   useEffect(() => {
-    if (siteSlug && links.length > 0) {
-      debounceUpdateSiteSocials(siteSlug, links);
+    if (site?.socials) {
+      debounceUpdateSiteSocials(siteSlug, site?.socials);
+      setSelectedValues(site?.socials.map((s: Link) => s.network));
     }
-  }, [links]);
+  }, [site?.socials]);
+
+  if (!site) return null;
 
   const handleAddLink = () => {
-    setLinks([...links, { network: "", url: "" }]);
+    setSite({ ...site, socials: [...site?.socials, { network: "", url: "" }] });
   };
 
   const handleChange = (
@@ -75,14 +68,15 @@ const Socials: FC = () => {
     index: number
   ) => {
     const { value } = e.target;
-    setLinks(
-      links.map((link, i) => {
+    setSite({
+      ...site,
+      socials: site?.socials.map((link: Link, i: number) => {
         if (i === index) {
           return { ...link, url: value };
         }
         return link;
-      })
-    );
+      }),
+    });
   };
 
   const handleSelect = (
@@ -92,18 +86,22 @@ const Socials: FC = () => {
     console.log(e.target.value, index);
 
     const selectedNetwork = e.target.value;
-    setLinks(
-      links.map((link, i) => {
+    setSite({
+      ...site,
+      socials: site?.socials.map((link: Link, i: number) => {
         if (i === index) {
           return { ...link, network: selectedNetwork };
         }
         return link;
-      })
-    );
+      }),
+    });
   };
 
   const handleRemoveLink = (index: number) => {
-    setLinks(links.filter((_, i) => i !== index));
+    setSite({
+      ...site,
+      socials: site?.socials.filter((_: Link, i: number) => i !== index),
+    });
     setSelectedValues((prevValues) => prevValues.filter((_, i) => i !== index));
   };
 
@@ -125,7 +123,7 @@ const Socials: FC = () => {
               </p>
             </div>
             <div className="flex flex-col">
-              {links.map((link, index) => (
+              {site.socials.map((link: Link, index: number) => (
                 <div key={index} className="my-1">
                   <div>
                     <div className="relative mt-1 flex rounded-md shadow-sm">
@@ -135,7 +133,7 @@ const Socials: FC = () => {
                           name="country"
                           autoComplete="country"
                           className="h-full w-[120px] rounded-md border-transparent bg-transparent py-0 pl-3 pr-7 text-gray-500 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
-                          value={selectedValues[index]}
+                          value={selectedValues ? selectedValues[index] : ""}
                           onChange={(e) => {
                             setSelectedValues((prevValues) => {
                               const newValues = [...prevValues];
@@ -153,8 +151,10 @@ const Socials: FC = () => {
                           )
                             .filter(
                               (network) =>
-                                !links.some(
-                                  (l, i) => l.network === network && i !== index
+                                !site.socials.some(
+                                  (l: Link, i: number) =>
+                                    l.network === network.toLowerCase() &&
+                                    i !== index
                                 )
                             )
                             .map((social) => (
@@ -171,6 +171,7 @@ const Socials: FC = () => {
                         type="text"
                         name="link"
                         id="link"
+                        value={link.url}
                         onChange={(e) => handleChange(e, index)}
                         className="block w-full rounded-md border-gray-300 pl-32 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
                         placeholder="https://link.com"

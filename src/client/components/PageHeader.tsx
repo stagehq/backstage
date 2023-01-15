@@ -163,7 +163,7 @@ export const PageHeader = () => {
                     href={social.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="block w-full resize-none border-0 border-l-2 border-transparent bg-white text-sm text-zinc-800 placeholder-zinc-400 hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
+                    className="block w-full resize-none border-transparent hover:underline bg-white text-sm text-zinc-800 placeholder-zinc-400 hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
                   >
                     {social.network}
                   </a>
