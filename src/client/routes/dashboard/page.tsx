@@ -8,12 +8,11 @@ import Title from "../../components/Title";
 import { currentUserState } from "../../store/user";
 
 const Dashboard = () => {
-
   const user = useRecoilValue(currentUserState);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(user);
-  },[user])
+  }, [user]);
 
   return (
     <>

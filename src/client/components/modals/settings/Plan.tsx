@@ -1,7 +1,7 @@
 import { RadioGroup, Switch } from "@headlessui/react";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
-import { FC, useState, useEffect, SetStateAction } from "react";
+import { FC, SetStateAction, useState } from "react";
 import toast from "react-hot-toast";
 import { User } from "../../../graphql/types.generated";
 // import { useUpdatePaymentMutation } from "../../../../graphql/updatePayment.generated";
@@ -60,7 +60,14 @@ const Plan: FC<PlanProps> = ({ user }) => {
 
           <RadioGroup
             value={selectedPlan}
-            onChange={(plan: SetStateAction<{ name: string; priceMonthly: number; priceYearly: number; limit: string; }>) => {
+            onChange={(
+              plan: SetStateAction<{
+                name: string;
+                priceMonthly: number;
+                priceYearly: number;
+                limit: string;
+              }>
+            ) => {
               setSelectedPlan(plan);
               setFieldsEdited(true);
             }}

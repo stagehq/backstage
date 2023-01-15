@@ -10,9 +10,9 @@ import slug from "slug";
 import { client } from "../../../graphql/client";
 import { GetValidSubdomainDocument } from "../../../graphql/getValidSubdomain.generated";
 import { Site } from "../../../graphql/types.generated";
-import Spinner from "../../loading/Spinner";
-import { siteSlugState, siteState } from "../../../store/site";
 import { useUpdateSiteSubdomainMutation } from "../../../graphql/updateSiteSubdomain.generated";
+import { siteSlugState, siteState } from "../../../store/site";
+import Spinner from "../../loading/Spinner";
 
 interface SubdomainProps {
   site: Site;
@@ -38,7 +38,9 @@ const Subdomain: FC<SubdomainProps> = ({ site }) => {
   const [, setCurrentSite] = useRecoilState(siteState(siteSlug));
 
   // handle subdomain change
-  const handleSubdomainChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubdomainChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setEditCurrentSite({
       ...editCurrentSite,
       subdomain: slug(e.target.value, { lower: true }),
@@ -79,7 +81,7 @@ const Subdomain: FC<SubdomainProps> = ({ site }) => {
 
   return (
     <div className="sm:overflow-hidden">
-      <div className="bg-white py-6 px-4 sm:p-6">
+      <div className="bg-white px-6 pt-6">
         <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6">
           <div className="sm:col-span-6">
             <label
@@ -96,7 +98,9 @@ const Subdomain: FC<SubdomainProps> = ({ site }) => {
                 type="text"
                 name="subdomain"
                 id="subdomain"
-                value={editCurrentSite.subdomain ? editCurrentSite.subdomain : ""}
+                value={
+                  editCurrentSite.subdomain ? editCurrentSite.subdomain : ""
+                }
                 onChange={(event) => {
                   setFieldsEdited(true);
                   handleSubdomainChange(event);
@@ -160,7 +164,9 @@ const Subdomain: FC<SubdomainProps> = ({ site }) => {
                     }
                     // Catch if subdomain is not valid
                     if (!subdomainValid) {
-                      toast.error("This subdomain is already taken or not valid.");
+                      toast.error(
+                        "This subdomain is already taken or not valid."
+                      );
                       return false;
                     }
                     // Catch if subdomain is too short
@@ -169,12 +175,18 @@ const Subdomain: FC<SubdomainProps> = ({ site }) => {
                       editCurrentSite.subdomain.length < 3
                     ) {
                       setSubdomainTooShort(true);
-                      toast.error("Your subdomain must be 3 characters or more.");
+                      toast.error(
+                        "Your subdomain must be 3 characters or more."
+                      );
                       return false;
                     }
 
                     setUpdateSiteLoading(true);
-                    if (session?.user?.email && editCurrentSite.subdomain && subdomain) {
+                    if (
+                      session?.user?.email &&
+                      editCurrentSite.subdomain &&
+                      subdomain
+                    ) {
                       toast
                         .promise(
                           updateSiteSubdomain({

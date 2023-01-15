@@ -1,0 +1,171 @@
+import { TrashIcon } from "@heroicons/react/24/outline";
+import React, { FC, useState } from "react";
+
+interface Link {
+  network: string;
+  url: string;
+}
+
+interface Network {
+  name: string;
+  value: string;
+}
+
+const networks: Network[] = [
+  { name: "Facebook", value: "facebook" },
+  { name: "Twitter", value: "twitter" },
+  { name: "Instagram", value: "instagram" },
+  { name: "LinkedIn", value: "linkedin" },
+  { name: "YouTube", value: "youtube" },
+  { name: "Twitch", value: "twitch" },
+  { name: "GitHub", value: "github" },
+  { name: "GitLab", value: "gitlab" },
+  { name: "Reddit", value: "reddit" },
+  { name: "Snapchat", value: "snapchat" },
+  { name: "TikTok", value: "tiktok" },
+  { name: "Pinterest", value: "pinterest" },
+  { name: "Spotify", value: "spotify" },
+  { name: "SoundCloud", value: "soundcloud" },
+  { name: "Bandcamp", value: "bandcamp" },
+  { name: "Discord", value: "discord" },
+  { name: "Dribbble", value: "dribbble" },
+  { name: "Behance", value: "behance" },
+  { name: "Figma", value: "figma" },
+];
+
+const Socials: FC = () => {
+  const [links, setLinks] = useState<Link[]>([]);
+  const [selectedValues, setSelectedValues] = useState<string[]>(
+    Array(links.length).fill("")
+  );
+
+  const handleAddLink = () => {
+    setLinks([...links, { network: "", url: "" }]);
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const { value } = e.target;
+    setLinks(
+      links.map((link, i) => {
+        if (i === index) {
+          return { ...link, url: value };
+        }
+        return link;
+      })
+    );
+  };
+
+  const handleSelect = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+    index: number
+  ) => {
+    console.log(e.target.value, index);
+
+    const selectedNetwork = e.target.value;
+    setLinks(
+      links.map((link, i) => {
+        if (i === index) {
+          return { ...link, network: selectedNetwork };
+        }
+        return link;
+      })
+    );
+  };
+
+  const handleRemoveLink = (index: number) => {
+    setLinks(links.filter((_, i) => i !== index));
+    setSelectedValues((prevValues) => prevValues.filter((_, i) => i !== index));
+  };
+
+  return (
+    <div className="sm:overflow-hidden">
+      <div className="bg-white px-6 pt-6">
+        <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6">
+          <div className="sm:col-span-6">
+            <label
+              htmlFor="delete-site"
+              className="block text-sm font-medium text-gray-900"
+            >
+              Social links
+            </label>
+            <div className="mt-2 max-w-xl text-sm text-zinc-500">
+              <p>
+                If you add your social links here, they will display right under
+                your bio.
+              </p>
+            </div>
+            <div className="flex flex-col">
+              {links.map((link, index) => (
+                <div key={index} className="my-1">
+                  <div>
+                    <div className="relative mt-1 flex rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 flex items-center">
+                        <select
+                          id="country"
+                          name="country"
+                          autoComplete="country"
+                          className="h-full w-[120px] rounded-md border-transparent bg-transparent py-0 pl-3 pr-7 text-gray-500 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
+                          value={selectedValues[index]}
+                          onChange={(e) => {
+                            setSelectedValues((prevValues) => {
+                              const newValues = [...prevValues];
+                              newValues[index] = e.target.value;
+                              return newValues;
+                            });
+                            handleSelect(e, index);
+                          }}
+                        >
+                          <option value="">Select</option>
+                          {networks
+                            .filter(
+                              (network) =>
+                                !links.some(
+                                  (l, i) =>
+                                    l.network === network.value && i !== index
+                                )
+                            )
+                            .map((network) => (
+                              <option key={network.value} value={network.value}>
+                                {network.name}
+                              </option>
+                            ))}
+                        </select>
+                      </div>
+                      <input
+                        type="text"
+                        name="link"
+                        id="link"
+                        onChange={(e) => handleChange(e, index)}
+                        className="block w-full rounded-md border-gray-300 pl-32 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
+                        placeholder="https://link.com"
+                      />
+                      <button
+                        className="ml-2 inline-flex items-center justify-center rounded-md border border-transparent bg-red-100 px-3 py-2 font-medium text-red-700 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:text-sm"
+                        onClick={() => handleRemoveLink(index)}
+                      >
+                        <TrashIcon className="h-4 w-4" aria-hidden="true" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div className="my-2">
+                <button
+                  className="inline-flex w-full justify-center rounded-md border border-transparent bg-zinc-900 px-4 py-2 text-base font-medium text-zinc-100 shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-800 focus:ring-offset-2 sm:w-auto sm:text-sm"
+                  onClick={handleAddLink}
+                >
+                  Add Link
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Socials;

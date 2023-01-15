@@ -106,7 +106,7 @@ model Extension {
   sortOrder             Int                                
 
   siteId                String
-  site                  Site                  @relation(fields: [siteId], references: [id])
+  site                  Site                  @relation(fields: [siteId], references: [id], onDelete: Cascade)
 
   storeExtensionId      String
   storeExtension        StoreExtension        @relation(fields: [storeExtensionId], references: [id])

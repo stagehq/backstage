@@ -237,7 +237,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
               Alias
             </label>
             <div className="relative mt-1 flex rounded-md shadow-sm">
-              <span className="border-zinc-300 bg-zinc-50 text-zinc-500 inline-flex items-center rounded-l-md border border-r-0 px-3 sm:text-sm">
+              <span className="inline-flex items-center rounded-l-md border border-r-0 border-zinc-300 bg-zinc-50 px-3 text-zinc-500 sm:text-sm">
                 getstage.app/
               </span>
               <input
@@ -458,7 +458,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                   Save
                 </button>
               </div>
-            </div> 
+            </div>
           ) : null}
         </div>
       </div>

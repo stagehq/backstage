@@ -77,12 +77,13 @@ const AnalyticsModal: FC = () => {
                         Analytics
                       </p>
                       <p className="text-base text-zinc-500">
-                        Track all the trafic and events on you page with PostHog.
+                        Track all the trafic and events on you page with
+                        PostHog.
                       </p>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-4 p-6">
-                    <div className="bg-zinc-200 w-full h-60 rounded-lg"></div>
+                  <div className="flex flex-col gap-6">
+                    <div className="h-60 w-full rounded-lg bg-zinc-200"></div>
                     <div className="sm:col-span-3">
                       <label
                         htmlFor="first-name"
@@ -98,7 +99,7 @@ const AnalyticsModal: FC = () => {
                         value={key}
                         onChange={(event) => setKey(event.target.value)}
                         className={clsx(
-                          "mt-1 block w-full min-w-0 flex-1 rounded-md border-zinc-300 text-gray-900 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm",
+                          "mt-1 block w-full min-w-0 flex-1 rounded-md border-zinc-300 text-gray-900 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
                           // !firstNameValid &&
                           //   "border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:ring-red-500"
                         )}
@@ -125,7 +126,7 @@ const AnalyticsModal: FC = () => {
                         value={host}
                         onChange={(event) => setHost(event.target.value)}
                         className={clsx(
-                          "mt-1 block w-full min-w-0 flex-1 rounded-md border-zinc-300 text-gray-900 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm",
+                          "mt-1 block w-full min-w-0 flex-1 rounded-md border-zinc-300 text-gray-900 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
                           // !lastNameValid &&
                           //   "border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:ring-red-500"
                         )}
