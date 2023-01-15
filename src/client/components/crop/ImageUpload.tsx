@@ -163,7 +163,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
     <>
       <div
         className={clsx(
-          "relative flex cursor-pointer items-center rounded-md outline-none focus-within:outline-none focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-zinc-600 dark:focus-within:outline-zinc-300",
+          "relative flex cursor-pointer items-center rounded-md focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-zinc-600 dark:focus-within:ring-zinc-300 focus-within:outline-none dark:focus-within:ring-offset-zinc-900",
           size
         )}
       >
