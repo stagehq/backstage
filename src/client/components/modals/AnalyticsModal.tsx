@@ -82,7 +82,7 @@ const AnalyticsModal: FC = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-6">
+                  <div className="flex flex-col gap-6 p-5">
                     <div className="h-60 w-full rounded-lg bg-zinc-200"></div>
                     <div className="sm:col-span-3">
                       <label
