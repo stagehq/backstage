@@ -37,6 +37,11 @@ const StudioEditor = () => {
     if (site?.layouts == null) {
       console.log("empty");
       setInitialCalculated(true);
+      
+      setTimeout(() => {
+        if(itemsRef.current)
+        itemsRef.current.classList.add("animated");
+      }, 300);
     }
     //set extensions
     if (site?.extensions) {
@@ -57,8 +62,18 @@ const StudioEditor = () => {
       await handleLayoutChange(itemsRef, site.layouts);
       console.log("ready");
       setInitialCalculated(true);
+
+      setTimeout(() => {
+        if(itemsRef.current)
+        itemsRef.current.classList.add("animated");
+      }, 300);
     }, 100);
   }, [site?.extensions]);
+
+  useEffect(() => {
+    if(itemsRef.current)
+      itemsRef.current.classList.remove("animated");
+  }, [])
 
   if (!site || !user || !initialCalculated) return null;
 
