@@ -19,40 +19,51 @@ import { gridBreakpointState } from "../../../store/ui/grid-dnd";
 export const useHandleLayoutChange = () => {
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
-  const [breakpoint, ] = useRecoilState(gridBreakpointState);
+  const [breakpoint] = useRecoilState(gridBreakpointState);
 
   const [, updateSiteLayouts] = useUpdateSiteLayoutsMutation();
 
-  const handleLayoutChange = async (itemsRef: RefObject<HTMLDivElement>, newlayouts?: Layouts) => {
+  const handleLayoutChange = async (
+    itemsRef: RefObject<HTMLDivElement>,
+    newlayouts?: Layouts
+  ) => {
     let currentLayouts = newlayouts ? newlayouts : site?.layouts;
-    if(!currentLayouts) return null;
+    if (!currentLayouts) return null;
 
     //calculate height
     const calculateLayout = () => {
-      if(!currentLayouts || !currentLayouts[breakpoint]) return null;
+      if (!currentLayouts || !currentLayouts[breakpoint]) return null;
       let index = 0;
       const newItems = [...currentLayouts[breakpoint]];
 
-      if (itemsRef.current?.children[0].children) {    
+      if (itemsRef.current?.children[0].children) {
         for (const element of itemsRef.current.children[0].children) {
           const content = element.children[0] as HTMLDivElement;
           if (content.offsetHeight !== 0) {
             const newHeight = Math.round(content.offsetHeight / 24);
-            newItems[index] = { ...newItems[index], h: newHeight, minH: newHeight };    
+            newItems[index] = {
+              ...newItems[index],
+              h: newHeight,
+              minH: newHeight,
+            };
             index++;
           }
         }
       }
-      currentLayouts = Object.assign({}, currentLayouts, { [breakpoint]: newItems });
-    }
+      currentLayouts = Object.assign({}, currentLayouts, {
+        [breakpoint]: newItems,
+      });
+    };
     calculateLayout();
-    await new Promise(resolve => setTimeout(() => {
-      calculateLayout();
-      resolve(true);
-    }, 100))
-    
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        calculateLayout();
+        resolve(true);
+      }, 100)
+    );
+
     //update layout
-    if(site){
+    if (site) {
       setSite({
         ...site,
         layouts: currentLayouts,
@@ -60,14 +71,14 @@ export const useHandleLayoutChange = () => {
     }
 
     //update db
-    if(!site?.subdomain) return null;
+    if (!site?.subdomain) return null;
     const response = await updateSiteLayouts({
       id: site.subdomain,
       layouts: JSON.stringify(currentLayouts),
-    })
-    if(response.data?.updateSiteLayouts){
+    });
+    if (response.data?.updateSiteLayouts) {
       console.log(response.data?.updateSiteLayouts);
-    } 
+    }
   };
 
   return handleLayoutChange;

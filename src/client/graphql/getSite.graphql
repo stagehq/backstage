@@ -8,6 +8,7 @@ query GetSite($subdomain: String!) {
     bio
     image
     layouts
+    socials
 
     analytics {
       postHogKey

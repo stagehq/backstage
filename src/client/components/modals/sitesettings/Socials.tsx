@@ -1,7 +1,7 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
 import debounce from "lodash.debounce";
 import React, { FC, useCallback, useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useUpdateSiteSocialsMutation } from "../../../graphql/updateSiteSocials.generated";
 import { siteSlugState, siteState } from "../../../store/site";
 
@@ -10,36 +10,31 @@ interface Link {
   url: string;
 }
 
-interface Network {
-  name: string;
-  value: string;
+export enum SocialsType {
+  Facebook = "facebook",
+  Twitter = "twitter",
+  Instagram = "instagram",
+  LinkedIn = "linkedin",
+  YouTube = "youtube",
+  Twitch = "twitch",
+  GitHub = "github",
+  GitLab = "gitlab",
+  Reddit = "reddit",
+  Snapchat = "snapchat",
+  TikTok = "tiktok",
+  Pinterest = "pinterest",
+  Spotify = "spotify",
+  SoundCloud = "soundcloud",
+  Bandcamp = "bandcamp",
+  Discord = "discord",
+  Dribbble = "dribbble",
+  Behance = "behance",
+  Figma = "figma",
 }
-
-const networks: Network[] = [
-  { name: "Facebook", value: "facebook" },
-  { name: "Twitter", value: "twitter" },
-  { name: "Instagram", value: "instagram" },
-  { name: "LinkedIn", value: "linkedin" },
-  { name: "YouTube", value: "youtube" },
-  { name: "Twitch", value: "twitch" },
-  { name: "GitHub", value: "github" },
-  { name: "GitLab", value: "gitlab" },
-  { name: "Reddit", value: "reddit" },
-  { name: "Snapchat", value: "snapchat" },
-  { name: "TikTok", value: "tiktok" },
-  { name: "Pinterest", value: "pinterest" },
-  { name: "Spotify", value: "spotify" },
-  { name: "SoundCloud", value: "soundcloud" },
-  { name: "Bandcamp", value: "bandcamp" },
-  { name: "Discord", value: "discord" },
-  { name: "Dribbble", value: "dribbble" },
-  { name: "Behance", value: "behance" },
-  { name: "Figma", value: "figma" },
-];
 
 const Socials: FC = () => {
   const siteSlug = useRecoilValue(siteSlugState);
-  const site = useRecoilValue(siteState(siteSlug));
+  const [site, setSite] = useRecoilState(siteState(siteSlug));
   const [links, setLinks] = useState<Link[]>([]);
   const [selectedValues, setSelectedValues] = useState<string[]>(
     Array(links.length).fill("")
@@ -50,9 +45,8 @@ const Socials: FC = () => {
   // initial load
   useEffect(() => {
     if (site?.socials) {
-      const socials = JSON.parse(site.socials);
-      setLinks(socials);
-      setSelectedValues(socials.map((s: Link) => s.network));
+      setLinks(site?.socials);
+      setSelectedValues(site?.socials.map((s: Link) => s.network));
     }
   }, [site]);
 
@@ -152,17 +146,23 @@ const Socials: FC = () => {
                           }}
                         >
                           <option value="">Select</option>
-                          {networks
+                          {(
+                            Object.keys(SocialsType) as Array<
+                              keyof typeof SocialsType
+                            >
+                          )
                             .filter(
                               (network) =>
                                 !links.some(
-                                  (l, i) =>
-                                    l.network === network.value && i !== index
+                                  (l, i) => l.network === network && i !== index
                                 )
                             )
-                            .map((network) => (
-                              <option key={network.value} value={network.value}>
-                                {network.name}
+                            .map((social) => (
+                              <option
+                                key={SocialsType[social]}
+                                value={SocialsType[social]}
+                              >
+                                {social}
                               </option>
                             ))}
                         </select>

@@ -1,11 +1,7 @@
 import { Layout } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { siteSlugState, siteState } from "../../../store/site";
-import {
-  gridBreakpointState,
-  gridLayoutState,
-} from "../../../store/ui/grid-dnd";
-import { updateLayout } from "../../dnd/utils";
+import { gridBreakpointState } from "../../../store/ui/grid-dnd";
 import { useHandleLayoutChange } from "./useHandleLayoutChange";
 
 /**
@@ -20,7 +16,7 @@ import { useHandleLayoutChange } from "./useHandleLayoutChange";
 export const useChangeExtensionSize = () => {
   const breakpoint = useRecoilValue(gridBreakpointState);
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site, ] = useRecoilState(siteState(siteSlug));
+  const [site] = useRecoilState(siteState(siteSlug));
   const handleLayoutChange = useHandleLayoutChange();
 
   const changeExtensionSize = (
@@ -28,7 +24,7 @@ export const useChangeExtensionSize = () => {
     size: 1 | 2 | 3,
     gridRef: React.RefObject<HTMLDivElement>
   ) => {
-    if(!site) return null;
+    if (!site) return null;
     const newGridLayout = { ...site.layouts };
     const newLayout = newGridLayout[breakpoint].map((layout: Layout) => {
       if (layout.i === id) {

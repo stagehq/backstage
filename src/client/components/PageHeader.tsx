@@ -9,6 +9,7 @@ import { siteSlugState, siteState } from "../store/site";
 import { themeState } from "../store/ui/theme";
 import { currentUserState } from "../store/user";
 import ImageUpload from "./crop/ImageUpload";
+import { SocialsType } from "./modals/sitesettings/Socials";
 
 export const PageHeader = () => {
   //refs
@@ -107,6 +108,8 @@ export const PageHeader = () => {
     }
   };
 
+  console.log(site?.socials);
+
   if (!site) return null;
 
   return (
@@ -149,6 +152,25 @@ export const PageHeader = () => {
             placeholder="Enter bio..."
             className="-ml-4 block w-full resize-none border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-sm text-zinc-800 placeholder-zinc-400 hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
           />
+        </div>
+        <div className="flex w-full flex-col items-start justify-start gap-4">
+          <div className="flex items-center justify-start gap-2">
+            {site.socials?.map(
+              (social: { url: string; network: SocialsType }) => {
+                return (
+                  <a
+                    key={social.network}
+                    href={social.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="block w-full resize-none border-0 border-l-2 border-transparent bg-white text-sm text-zinc-800 placeholder-zinc-400 hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
+                  >
+                    {social.network}
+                  </a>
+                );
+              }
+            )}
+          </div>
         </div>
       </div>
     </div>
