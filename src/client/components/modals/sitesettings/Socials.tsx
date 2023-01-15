@@ -1,5 +1,9 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
-import React, { FC, useState } from "react";
+import debounce from "lodash.debounce";
+import React, { FC, useCallback, useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { useUpdateSiteSocialsMutation } from "../../../graphql/updateSiteSocials.generated";
+import { siteSlugState, siteState } from "../../../store/site";
 
 interface Link {
   network: string;
@@ -34,10 +38,39 @@ const networks: Network[] = [
 ];
 
 const Socials: FC = () => {
+  const siteSlug = useRecoilValue(siteSlugState);
+  const site = useRecoilValue(siteState(siteSlug));
   const [links, setLinks] = useState<Link[]>([]);
   const [selectedValues, setSelectedValues] = useState<string[]>(
     Array(links.length).fill("")
   );
+
+  const [, updateSiteSocials] = useUpdateSiteSocialsMutation();
+
+  // initial load
+  useEffect(() => {
+    if (site?.socials) {
+      const socials = JSON.parse(site.socials);
+      setLinks(socials);
+      setSelectedValues(socials.map((s: Link) => s.network));
+    }
+  }, [site]);
+
+  const debounceUpdateSiteSocials = useCallback(
+    debounce((siteSlug, links) => {
+      if (siteSlug && links.length > 0) {
+        updateSiteSocials({ id: siteSlug, socials: JSON.stringify(links) });
+      }
+    }, 1000),
+    [] // will be created only once initially
+  );
+
+  // update links in db
+  useEffect(() => {
+    if (siteSlug && links.length > 0) {
+      debounceUpdateSiteSocials(siteSlug, links);
+    }
+  }, [links]);
 
   const handleAddLink = () => {
     setLinks([...links, { network: "", url: "" }]);

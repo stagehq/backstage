@@ -10,6 +10,7 @@ builder.prismaNode('Site', {
     subdomain: t.exposeString('subdomain'),
     image: t.exposeString('image'),
     layouts: t.field({ type: 'JSON', resolve: site => site.layouts}),
+    socials: t.field({ type: 'JSON', resolve: site => site.socials}),
     createdAt: t.string({ resolve: site => site.createdAt.toString()}),
     modifiedAt: t.string({ resolve: site => site.modifiedAt.toString()}),
 
@@ -178,6 +179,30 @@ builder.mutationField('updateSiteSubdomain', (t) => {
         },
         data: {
           subdomain: subdomain,
+        },
+      });
+
+      return site;
+    },
+  });
+});
+
+builder.mutationField('updateSiteSocials', (t) => {
+  return t.prismaField({
+    type: 'Site',
+    args: {
+      id: t.arg.string({ required: true }),
+      socials: t.arg.string({ required: true }),
+    },
+    resolve: async (query, root, { id, socials }, ctx) => {
+      if (!ctx.session.user.email) return null;
+
+      const site = await prisma.site.update({
+        where: {
+          subdomain: id,
+        },
+        data: {
+          socials: JSON.parse(socials),
         },
       });
 

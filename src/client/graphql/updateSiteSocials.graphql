@@ -1,0 +1,5 @@
+mutation UpdateSiteSocials($id: String!, $socials: String!) {
+  updateSiteSocials(id: $id, socials: $socials) {
+    id
+  }
+}

@@ -83,6 +83,7 @@ model Site {
   tagline               String                @default("")
   bio                   String                @default("")
   layouts               Json?
+  socials               Json?
   image                 String?
 
   userId                String                
