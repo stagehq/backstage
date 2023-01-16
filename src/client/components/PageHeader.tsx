@@ -155,7 +155,7 @@ export const PageHeader = () => {
     <div className="flex flex-col items-start justify-start gap-[54px] pt-6 @container">
       <div className="flex items-start justify-end gap-2 self-stretch">
         <button
-          className="relative flex cursor-pointer items-start justify-start gap-2 rounded-full bg-zinc-100/40 p-2 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10 focus:outline-none focus:ring-zinc-600 dark:focus:ring-zinc-300"
+          className="relative flex cursor-pointer items-start justify-start gap-2 rounded-full bg-zinc-100/40 p-2 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10 focus:outline-none focus:ring-2 focus:ring-zinc-600 dark:focus:ring-zinc-300"
           onClick={() => setTheme(theme === "light" ? "dark" : "light")}
         >
           {theme === "light" ? (
