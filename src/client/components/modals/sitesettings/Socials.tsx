@@ -35,9 +35,7 @@ export enum SocialsType {
 const Socials: FC = () => {
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
-  const [selectedValues, setSelectedValues] = useState<string[]>(
-    site?.socials.map((s: Link) => s.network) || []
-  );
+  const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
   const [, updateSiteSocials] = useUpdateSiteSocialsMutation();
 
@@ -60,7 +58,7 @@ const Socials: FC = () => {
   if (!site) return null;
 
   const handleAddLink = () => {
-    setSite({ ...site, socials: [...site?.socials, { network: "", url: "" }] });
+    setSite({ ...site, socials: site.socials ? [...site?.socials, { network: "", url: "" }] : [{ network: "", url: "" }] });
   };
 
   const handleChange = (
@@ -123,7 +121,7 @@ const Socials: FC = () => {
               </p>
             </div>
             <div className="flex flex-col">
-              {site.socials.map((link: Link, index: number) => (
+              {site.socials && site.socials.map((link: Link, index: number) => (
                 <div key={index} className="my-1">
                   <div>
                     <div className="relative mt-1 flex rounded-md shadow-sm">
