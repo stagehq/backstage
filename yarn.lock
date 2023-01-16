@@ -1995,6 +1995,11 @@
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.5.tgz#b32366c89b43c6f8cefbdefac778b9c828e3ba8c"
   integrity sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==
 
+"@icons-pack/react-simple-icons@^6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@icons-pack/react-simple-icons/-/react-simple-icons-6.2.0.tgz#0c3823ef2cf9848b2d8ffb2f58f15bdd6b0576f9"
+  integrity sha512-YZzB5oHRvOslOIiug97dLqfhv7U0+78JOa8w5Aqxq2Ulr2bVBrqtFV+hMKXhcZjlPdFzpUrFfAJ9AHLe4FdYqQ==
+
 "@ioredis/commands@^1.1.1":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@ioredis/commands/-/commands-1.2.0.tgz#6d61b3097470af1fdbbe622795b8921d42018e11"
@@ -2291,11 +2296,6 @@
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.4.0.tgz#08d6c5e20cf7e4cc02fd181c4b0c225cd31dbb60"
   integrity sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==
-
-"@jxnblk/simple-icons@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@jxnblk/simple-icons/-/simple-icons-1.0.0.tgz#7c8e3c6b55b5b3fb8b2c693398b8680b70650c75"
-  integrity sha512-gERta8XuAckJ4xozpICmx8Uu5x63cvwaEd/wbNQyVMCTzg/lrL3YbNve/4Hn3+tQtx4R8EY3OOZs5etlPxLP4A==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
@@ -12422,13 +12422,6 @@ react-scripts@5.0.1:
     workbox-webpack-plugin "^6.4.1"
   optionalDependencies:
     fsevents "^2.3.2"
-
-react-simple-icons@^1.0.0-beta.5:
-  version "1.0.0-beta.5"
-  resolved "https://registry.yarnpkg.com/react-simple-icons/-/react-simple-icons-1.0.0-beta.5.tgz#b022badb6bd8060ab3ed6cf3ce503e300a706356"
-  integrity sha512-+6XlS1jwHLTk6iNkPuk2S/X9cU7MUm7ZRDYJy4ZZEDLv9oWQPAgcSGUx4wxlI9lVH/aaz+1umT7YcwYAbVjaqA==
-  dependencies:
-    "@jxnblk/simple-icons" "^1.0.0"
 
 react-sizeme@^3.0.1:
   version "3.0.2"

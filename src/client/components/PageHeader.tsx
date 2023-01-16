@@ -1,4 +1,4 @@
-import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
+import { LinkIcon, MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import { decodeGlobalID } from "@pothos/plugin-relay";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -10,6 +10,7 @@ import { themeState } from "../store/ui/theme";
 import { currentUserState } from "../store/user";
 import ImageUpload from "./crop/ImageUpload";
 import { SocialsType } from "./modals/sitesettings/Socials";
+import { Github, Gitlab, Pinterest, Spotify, Linkedin, Facebook, Twitter, Instagram, Soundcloud, Dribbble, Behance, Reddit, Tiktok, Twitch, Youtube } from '@icons-pack/react-simple-icons';
 
 export const PageHeader = () => {
   //refs
@@ -108,6 +109,44 @@ export const PageHeader = () => {
     }
   };
 
+  const renderSocials = (social: string) => {
+      switch (social) {
+        case "twitter":
+          return <Twitter className="h-4 w-4" />;
+        case "instagram":
+          return <Instagram className="h-4 w-4" />;
+        case "facebook":
+          return <Facebook className="h-4 w-4" />;
+        case "linkedin":
+          return <Linkedin className="h-4 w-4" />;
+        case "github":
+          return <Github className="h-4 w-4" />;
+        case "gitlab":
+          return <Gitlab className="h-4 w-4" />;
+        case "youtube":
+          return <Youtube className="h-4 w-4" />;
+        case "twitch":
+          return <Twitch className="h-4 w-4" />;
+        case "pinterest":
+          return <Pinterest className="h-4 w-4" />;
+        case "tiktok":
+          return <Tiktok className="h-4 w-4" />;
+        case "reddit":
+          return <Reddit className="h-4 w-4" />;
+        case "spotify":
+          return <Spotify className="h-4 w-4" />;
+        case "soundcloud":
+          return <Soundcloud className="h-4 w-4" />;
+        case "dribbble":
+          return <Dribbble className="h-4 w-4" />;
+        case "behance":
+          return <Behance className="h-4 w-4" />;
+        default:
+          return <LinkIcon className="h-4 w-4" />;
+      }
+    }
+
+
   console.log(site?.socials);
 
   if (!site) return null;
@@ -154,7 +193,7 @@ export const PageHeader = () => {
           />
         </div>
         <div className="flex w-full flex-col items-start justify-start gap-4">
-          <div className="flex items-center justify-start gap-2">
+          <div className="flex items-center justify-start gap-4">
             {site.socials?.map(
               (social: { url: string; network: SocialsType }) => {
                 return (
@@ -163,9 +202,9 @@ export const PageHeader = () => {
                     href={social.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="block w-full resize-none border-transparent hover:underline bg-white text-sm text-zinc-800 placeholder-zinc-400 hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
+                    className="block w-full resize-none border-transparent hover:underline bg-white text-sm text-zinc-600 placeholder-zinc-400 hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
                   >
-                    {social.network}
+                    {renderSocials(social.network)}
                   </a>
                 );
               }
