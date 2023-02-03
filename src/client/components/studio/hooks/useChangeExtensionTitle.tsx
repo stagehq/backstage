@@ -22,7 +22,7 @@ export const useChangeExtensionTitle = () => {
   const changeExtensionTitle = async (id: string, title: string) => {
     try {
       // update extension in database
-      
+
       await updateExtensionTitle({
         id: decodeGlobalID(id).id,
         title,

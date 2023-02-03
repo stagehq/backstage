@@ -1,13 +1,16 @@
 import { Block, List } from "@stagehq/ui";
 import { FC, useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 import { useChangeExtensionTitle } from "../components/studio/hooks/useChangeExtensionTitle";
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
 import { useDeleteExtension } from "../components/studio/hooks/useDeleteExtension";
+import { isrState } from "../store/isr";
 import { BlockProps } from "./type";
 
 const Blogs: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
   const [data, setData] = useState<any[]>([]);
   const [profileLink, setProfileLink] = useState("");
+  const [isrMode, setIsrMode] = useRecoilState(isrState);
 
   const changeExtensionTitle = useChangeExtensionTitle();
   const changeExtensionSize = useChangeExtensionSize();
@@ -66,11 +69,19 @@ const Blogs: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
   return (
     <Block
       actions={{ link: { url: profileLink } }}
-      handleTitleChange={(title) => changeExtensionTitle(extension.id, title)}
-      handleSizeChange={(size) =>
-        changeExtensionSize(extension.id, size, gridRef)
+      handleTitleChange={
+        isEditable
+          ? (title) => changeExtensionTitle(extension.id, title)
+          : undefined
       }
-      handleDelete={() => deleteExtension(extension.id)}
+      handleSizeChange={
+        isEditable
+          ? (size) => changeExtensionSize(extension.id, size, gridRef)
+          : undefined
+      }
+      handleDelete={
+        isEditable ? () => deleteExtension(extension.id) : undefined
+      }
       title={"Blog Posts"}
       imagePath={"https://avatars.githubusercontent.com/u/65030610?s=200&v=4"}
       size={size}

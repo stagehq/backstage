@@ -58,7 +58,12 @@ const Socials: FC = () => {
   if (!site) return null;
 
   const handleAddLink = () => {
-    setSite({ ...site, socials: site.socials ? [...site?.socials, { network: "", url: "" }] : [{ network: "", url: "" }] });
+    setSite({
+      ...site,
+      socials: site.socials
+        ? [...site?.socials, { network: "", url: "" }]
+        : [{ network: "", url: "" }],
+    });
   };
 
   const handleChange = (
@@ -121,69 +126,70 @@ const Socials: FC = () => {
               </p>
             </div>
             <div className="flex flex-col">
-              {site.socials && site.socials.map((link: Link, index: number) => (
-                <div key={index} className="my-1">
-                  <div>
-                    <div className="relative mt-1 flex rounded-md shadow-sm">
-                      <div className="absolute inset-y-0 left-0 flex items-center">
-                        <select
-                          id="country"
-                          name="country"
-                          autoComplete="country"
-                          className="h-full w-[120px] rounded-md border-transparent bg-transparent py-0 pl-3 pr-7 text-gray-500 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
-                          value={selectedValues ? selectedValues[index] : ""}
-                          onChange={(e) => {
-                            setSelectedValues((prevValues) => {
-                              const newValues = [...prevValues];
-                              newValues[index] = e.target.value;
-                              return newValues;
-                            });
-                            handleSelect(e, index);
-                          }}
-                        >
-                          <option value="">Select</option>
-                          {(
-                            Object.keys(SocialsType) as Array<
-                              keyof typeof SocialsType
-                            >
-                          )
-                            .filter(
-                              (network) =>
-                                !site.socials.some(
-                                  (l: Link, i: number) =>
-                                    l.network === network.toLowerCase() &&
-                                    i !== index
-                                )
-                            )
-                            .map((social) => (
-                              <option
-                                key={SocialsType[social]}
-                                value={SocialsType[social]}
+              {site.socials &&
+                site.socials.map((link: Link, index: number) => (
+                  <div key={index} className="my-1">
+                    <div>
+                      <div className="relative mt-1 flex rounded-md shadow-sm">
+                        <div className="absolute inset-y-0 left-0 flex items-center">
+                          <select
+                            id="country"
+                            name="country"
+                            autoComplete="country"
+                            className="h-full w-[120px] rounded-md border-transparent bg-transparent py-0 pl-3 pr-7 text-gray-500 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
+                            value={selectedValues ? selectedValues[index] : ""}
+                            onChange={(e) => {
+                              setSelectedValues((prevValues) => {
+                                const newValues = [...prevValues];
+                                newValues[index] = e.target.value;
+                                return newValues;
+                              });
+                              handleSelect(e, index);
+                            }}
+                          >
+                            <option value="">Select</option>
+                            {(
+                              Object.keys(SocialsType) as Array<
+                                keyof typeof SocialsType
                               >
-                                {social}
-                              </option>
-                            ))}
-                        </select>
+                            )
+                              .filter(
+                                (network) =>
+                                  !site.socials.some(
+                                    (l: Link, i: number) =>
+                                      l.network === network.toLowerCase() &&
+                                      i !== index
+                                  )
+                              )
+                              .map((social) => (
+                                <option
+                                  key={SocialsType[social]}
+                                  value={SocialsType[social]}
+                                >
+                                  {social}
+                                </option>
+                              ))}
+                          </select>
+                        </div>
+                        <input
+                          type="text"
+                          name="link"
+                          id="link"
+                          value={link.url}
+                          onChange={(e) => handleChange(e, index)}
+                          className="block w-full rounded-md border-gray-300 pl-32 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
+                          placeholder="https://link.com"
+                        />
+                        <button
+                          className="ml-2 inline-flex items-center justify-center rounded-md border border-transparent bg-red-100 px-3 py-2 font-medium text-red-700 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:text-sm"
+                          onClick={() => handleRemoveLink(index)}
+                        >
+                          <TrashIcon className="h-4 w-4" aria-hidden="true" />
+                        </button>
                       </div>
-                      <input
-                        type="text"
-                        name="link"
-                        id="link"
-                        value={link.url}
-                        onChange={(e) => handleChange(e, index)}
-                        className="block w-full rounded-md border-gray-300 pl-32 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
-                        placeholder="https://link.com"
-                      />
-                      <button
-                        className="ml-2 inline-flex items-center justify-center rounded-md border border-transparent bg-red-100 px-3 py-2 font-medium text-red-700 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:text-sm"
-                        onClick={() => handleRemoveLink(index)}
-                      >
-                        <TrashIcon className="h-4 w-4" aria-hidden="true" />
-                      </button>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
               <div className="my-2">
                 <button
                   className="inline-flex w-full justify-center rounded-md border border-transparent bg-zinc-900 px-4 py-2 text-base font-medium text-zinc-100 shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-800 focus:ring-offset-2 sm:w-auto sm:text-sm"

@@ -2914,10 +2914,10 @@
   resolved "https://registry.yarnpkg.com/@splitbee/web/-/web-0.3.0.tgz#676ebe877b6d82a10ece6527a07f70b1994d242e"
   integrity sha512-jNPDKg0GQGa4jCaBc6JQsv0NHmBA80WCwZE49nFyhcbo32WF0GyqXeice7ZApy7OUHI16bAUAzm4MOQw3gvxfQ==
 
-"@stagehq/ui@^0.1.10":
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/@stagehq/ui/-/ui-0.1.10.tgz#c74e98b5d198ac1cf2ae83535f8aec9d98718a71"
-  integrity sha512-AfJBkBW7UBX39krIQsLd74TMbKfaacB5u2E7TVj6b8J523fQQauobqV/b2joKQsHcQngf2l4hKEt3jJja38BgQ==
+"@stagehq/ui@^0.1.11":
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/@stagehq/ui/-/ui-0.1.11.tgz#1e1a86dc6abd8fdb250fc3a94ef650a70dfdeaa7"
+  integrity sha512-NRVNaQWMTaF0E9Ff35S1d/d0KDr+LcoaOfrryN7WA3RzE0fgMOgxMH6zyNN5nEAZW9F6FY2FNmT79mxVWfyfQg==
   dependencies:
     "@heroicons/react" "^2.0.13"
     "@storybook/addon-a11y" "^6.5.13"
@@ -13151,11 +13151,6 @@ simple-get@^4.0.0, simple-get@^4.0.1:
     decompress-response "^6.0.0"
     once "^1.3.1"
     simple-concat "^1.0.0"
-
-simple-icons@^8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/simple-icons/-/simple-icons-8.2.0.tgz#de6e3dd8cc7349a2cf64f38bd88425ed1b4316b5"
-  integrity sha512-W4awmfHa4a+XF3iPS0MEIM6KF+iUgkCaf3/ISRq5UWhdiYxAs4uvF8eQ/RsDsau1/Z540otcvq9AKoPuUZqvog==
 
 simple-swizzle@^0.2.2:
   version "0.2.2"

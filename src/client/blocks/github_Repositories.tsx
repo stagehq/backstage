@@ -82,11 +82,19 @@ const Repositories: FC<BlockProps> = ({
         actions={{ link: { url: profileLink } }}
         size={size}
         isEditable={isEditable}
-        handleTitleChange={(title) => changeExtensionTitle(extension.id, title)}
-        handleSizeChange={(size) =>
-          changeExtensionSize(extension.id, size, gridRef)
+        handleTitleChange={
+          isEditable
+            ? (title) => changeExtensionTitle(extension.id, title)
+            : undefined
         }
-        handleDelete={() => deleteExtension(extension.id)}
+        handleSizeChange={
+          isEditable
+            ? (size) => changeExtensionSize(extension.id, size, gridRef)
+            : undefined
+        }
+        handleDelete={
+          isEditable ? () => deleteExtension(extension.id) : undefined
+        }
         imagePath={"https://avatars.githubusercontent.com/u/9919?s=200&v=4"}
       >
         <List>

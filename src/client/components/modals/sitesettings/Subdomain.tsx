@@ -149,7 +149,7 @@ const Subdomain: FC<SubdomainProps> = ({ site }) => {
                     setSubdomainTooShort(false);
                     setFieldsEdited(false);
                   }}
-                  className="inline-flex justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 mb-2"
+                  className="mb-2 inline-flex justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                 >
                   Reset
                 </button>
@@ -216,7 +216,7 @@ const Subdomain: FC<SubdomainProps> = ({ site }) => {
                         });
                     }
                   }}
-                  className="inline-flex justify-center rounded-md border border-transparent bg-zinc-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 mb-2"
+                  className="mb-2 inline-flex justify-center rounded-md border border-transparent bg-zinc-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2"
                 >
                   {updateSiteLoading ? <Spinner color={"text-white"} /> : null}
                   Save

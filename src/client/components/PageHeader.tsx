@@ -1,6 +1,24 @@
 import { LinkIcon, MoonIcon, SunIcon } from "@heroicons/react/24/outline";
+import {
+  Behance,
+  Dribbble,
+  Facebook,
+  Github,
+  Gitlab,
+  Instagram,
+  Linkedin,
+  Pinterest,
+  Reddit,
+  Soundcloud,
+  Spotify,
+  Tiktok,
+  Twitch,
+  Twitter,
+  Youtube,
+} from "@icons-pack/react-simple-icons";
 import { decodeGlobalID } from "@pothos/plugin-relay";
-import { useEffect, useRef, useState } from "react";
+import clsx from "clsx";
+import { FC, useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useUpdateSiteHeaderMutation } from "../graphql/updateSiteHeader.generated";
@@ -10,9 +28,12 @@ import { themeState } from "../store/ui/theme";
 import { currentUserState } from "../store/user";
 import ImageUpload from "./crop/ImageUpload";
 import { SocialsType } from "./modals/sitesettings/Socials";
-import { Github, Gitlab, Pinterest, Spotify, Linkedin, Facebook, Twitter, Instagram, Soundcloud, Dribbble, Behance, Reddit, Tiktok, Twitch, Youtube } from '@icons-pack/react-simple-icons';
 
-export const PageHeader = () => {
+interface PageHeaderProps {
+  disabled: boolean;
+}
+
+export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
   //refs
   const bioRef = useRef<HTMLTextAreaElement>(null);
   const taglineRef = useRef<HTMLTextAreaElement>(null);
@@ -110,42 +131,41 @@ export const PageHeader = () => {
   };
 
   const renderSocials = (social: string) => {
-      switch (social) {
-        case "twitter":
-          return <Twitter className="h-4 w-4" />;
-        case "instagram":
-          return <Instagram className="h-4 w-4" />;
-        case "facebook":
-          return <Facebook className="h-4 w-4" />;
-        case "linkedin":
-          return <Linkedin className="h-4 w-4" />;
-        case "github":
-          return <Github className="h-4 w-4" />;
-        case "gitlab":
-          return <Gitlab className="h-4 w-4" />;
-        case "youtube":
-          return <Youtube className="h-4 w-4" />;
-        case "twitch":
-          return <Twitch className="h-4 w-4" />;
-        case "pinterest":
-          return <Pinterest className="h-4 w-4" />;
-        case "tiktok":
-          return <Tiktok className="h-4 w-4" />;
-        case "reddit":
-          return <Reddit className="h-4 w-4" />;
-        case "spotify":
-          return <Spotify className="h-4 w-4" />;
-        case "soundcloud":
-          return <Soundcloud className="h-4 w-4" />;
-        case "dribbble":
-          return <Dribbble className="h-4 w-4" />;
-        case "behance":
-          return <Behance className="h-4 w-4" />;
-        default:
-          return <LinkIcon className="h-4 w-4" />;
-      }
+    switch (social) {
+      case "twitter":
+        return <Twitter className="h-4 w-4" />;
+      case "instagram":
+        return <Instagram className="h-4 w-4" />;
+      case "facebook":
+        return <Facebook className="h-4 w-4" />;
+      case "linkedin":
+        return <Linkedin className="h-4 w-4" />;
+      case "github":
+        return <Github className="h-4 w-4" />;
+      case "gitlab":
+        return <Gitlab className="h-4 w-4" />;
+      case "youtube":
+        return <Youtube className="h-4 w-4" />;
+      case "twitch":
+        return <Twitch className="h-4 w-4" />;
+      case "pinterest":
+        return <Pinterest className="h-4 w-4" />;
+      case "tiktok":
+        return <Tiktok className="h-4 w-4" />;
+      case "reddit":
+        return <Reddit className="h-4 w-4" />;
+      case "spotify":
+        return <Spotify className="h-4 w-4" />;
+      case "soundcloud":
+        return <Soundcloud className="h-4 w-4" />;
+      case "dribbble":
+        return <Dribbble className="h-4 w-4" />;
+      case "behance":
+        return <Behance className="h-4 w-4" />;
+      default:
+        return <LinkIcon className="h-4 w-4" />;
     }
-
+  };
 
   console.log(site?.socials);
 
@@ -155,7 +175,7 @@ export const PageHeader = () => {
     <div className="flex flex-col items-start justify-start gap-[54px] pt-6 @container">
       <div className="flex items-start justify-end gap-2 self-stretch">
         <button
-          className="relative flex cursor-pointer items-start justify-start gap-2 rounded-full bg-zinc-100/40 p-2 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10 focus:outline-none focus:ring-2 focus:ring-zinc-600 dark:focus:ring-zinc-300"
+          className="relative flex cursor-pointer items-start justify-start gap-2 rounded-full bg-zinc-100/40 p-2 ring-1 ring-zinc-900/5 backdrop-blur focus:outline-none focus:ring-2 focus:ring-zinc-600 dark:bg-zinc-800/90 dark:ring-white/10 dark:focus:ring-zinc-300"
           onClick={() => setTheme(theme === "light" ? "dark" : "light")}
         >
           {theme === "light" ? (
@@ -163,7 +183,7 @@ export const PageHeader = () => {
           ) : (
             <MoonIcon className="h-5 w-5 text-gray-400" />
           )}
-        </button> 
+        </button>
       </div>
       <div className="flex w-full flex-col items-start justify-start gap-8 self-stretch @3xl:w-3/4 @6xl:w-1/2">
         <ImageUpload
@@ -171,6 +191,7 @@ export const PageHeader = () => {
           uploadType="siteImage"
           mutationId={site.id}
           size="w-20 h-20"
+          disabled={disabled}
         />
         <div className="flex w-full flex-col gap-4">
           <textarea
@@ -180,7 +201,12 @@ export const PageHeader = () => {
             onBlur={() => handleBlur()}
             id="tagline"
             placeholder="Enter tagline..."
-            className="-ml-4 block w-full resize-none border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-2xl font-bold text-zinc-800 placeholder-zinc-300 hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300 lg:text-4xl"
+            className={clsx(
+              "-ml-4 block w-full resize-none border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-2xl font-bold text-zinc-800 placeholder-zinc-300 dark:bg-zinc-900 dark:text-zinc-200 lg:text-4xl",
+              !disabled &&
+                "hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 hover:dark:border-zinc-600   focus:dark:border-zinc-300 active:dark:border-zinc-300"
+            )}
+            disabled={disabled}
           />
           <textarea
             ref={bioRef}
@@ -189,7 +215,12 @@ export const PageHeader = () => {
             onBlur={() => handleBlur()}
             id="bio"
             placeholder="Enter bio..."
-            className="-ml-4 block w-full resize-none border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-sm text-zinc-800 placeholder-zinc-400 hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
+            className={clsx(
+              "-ml-4 block w-full resize-none border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-sm text-zinc-800 placeholder-zinc-400   dark:bg-zinc-900 dark:text-zinc-200 focus:dark:border-zinc-300 ",
+              !disabled &&
+                "hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 hover:dark:border-zinc-600 active:dark:border-zinc-300"
+            )}
+            disabled={disabled}
           />
         </div>
         <div className="flex w-full flex-col items-start justify-start gap-4">
@@ -202,7 +233,11 @@ export const PageHeader = () => {
                     href={social.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="block w-full resize-none border-transparent hover:underline bg-white text-sm text-zinc-600 placeholder-zinc-400 hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
+                    className={clsx(
+                      "block w-full resize-none border-transparent bg-white text-sm text-zinc-600 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-600 dark:bg-zinc-900 dark:text-zinc-200",
+                      !disabled &&
+                        "hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-2 focus:ring-zinc-600 active:border-zinc-600 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
+                    )}
                   >
                     {renderSocials(social.network)}
                   </a>

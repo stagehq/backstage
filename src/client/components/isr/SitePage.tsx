@@ -5,24 +5,18 @@ import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { BlockProps } from "../../blocks/type";
 import { siteSlugState, siteState } from "../../store/site";
-import { gridBreakpointState, gridLayoutState } from "../../store/ui/grid-dnd";
+import { gridBreakpointState } from "../../store/ui/grid-dnd";
 import { themeState } from "../../store/ui/theme";
-import { currentUserState } from "../../store/user";
 import { PageHeader } from "../PageHeader";
-import EmptyState from "./EmptyState";
-import { useHandleLayoutChange } from "./hooks/useHandleLayoutChange";
+import EmptyState from "../studio/EmptyState";
+import { useHandleLayoutChange } from "../studio/hooks/useHandleLayoutChange";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
-const StudioEditor = () => {
-  //refs
-  const itemsRef = useRef<HTMLDivElement>(null);
-
+const SitePage: FC = () => {
   //recoil
-  const [layouts, setLayouts] = useRecoilState(gridLayoutState);
   const [breakpoint, setBreakpoint] = useRecoilState(gridBreakpointState);
   const [theme] = useRecoilState(themeState);
-  const user = useRecoilValue(currentUserState);
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
   const [components, setComponents] = useState<{
@@ -32,6 +26,9 @@ const StudioEditor = () => {
 
   //hook
   const handleLayoutChange = useHandleLayoutChange();
+
+  //refs
+  const itemsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (site?.layouts == null) {
@@ -69,17 +66,23 @@ const StudioEditor = () => {
   }, [site?.extensions]);
 
   useEffect(() => {
-    if (itemsRef.current) itemsRef.current.classList.remove("animated");
+    if (itemsRef.current) {
+      itemsRef.current.classList.remove("animated");
+    }
   }, []);
 
-  if (!site || !user || !initialCalculated) return null;
+  window.dispatchEvent(new Event("resize"));
+
+  console.log("site", site);
+
+  if (!site || !initialCalculated) return null;
 
   return (
-    <div className={clsx(theme === "dark" && "dark", "h-full w-full ")}>
+    <div className={clsx(theme === "dark" && "dark", "h-screen w-full ")}>
       <div className="h-full overflow-scroll bg-white @container dark:bg-zinc-900">
         <div className="min-h-full w-full max-w-6xl p-12 pb-24 lg:mx-auto">
           <div className="p-8">
-            <PageHeader />
+            <PageHeader disabled />
           </div>
           {site.extensions && site.extensions.length > 0 ? (
             <div ref={itemsRef}>
@@ -91,6 +94,7 @@ const StudioEditor = () => {
                 width={1000}
                 margin={[24, 24]}
                 isResizable={false}
+                isDraggable={false}
                 measureBeforeMount={true}
                 onWidthChange={() => {
                   console.log("Widtch changed");
@@ -126,7 +130,7 @@ const StudioEditor = () => {
                             gridRef={itemsRef}
                             extension={extension}
                             size={size}
-                            isEditable={true}
+                            isEditable={false}
                           />
                         </div>
                       );
@@ -143,4 +147,4 @@ const StudioEditor = () => {
   );
 };
 
-export default StudioEditor;
+export default SitePage;

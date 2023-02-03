@@ -19,6 +19,7 @@ interface ImageUploadProps {
   uploadType: uploadType;
   mutationId?: string;
   size: string;
+  disabled?: boolean;
 }
 
 const ImageUpload: FC<ImageUploadProps> = ({
@@ -26,6 +27,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
   uploadType,
   mutationId,
   size,
+  disabled = false,
 }) => {
   //console.log(imageUrl, uploadType, mutationId);
   const cancelButtonRef = useRef(null);
@@ -180,11 +182,13 @@ const ImageUpload: FC<ImageUploadProps> = ({
           <div className="h-full w-full rounded-full border border-zinc-200 bg-zinc-100 dark:border-zinc-600 dark:bg-zinc-800" />
         )}
         <div className="absolute h-full w-full">
-          <div className="absolute bottom-0 right-0 h-[40%] w-[40%] rounded-full border-2 border-zinc-50 bg-zinc-800 dark:border-zinc-900 dark:bg-zinc-700">
-            <div className="flex h-full w-full items-center justify-center text-zinc-200">
-              <EditIcon />
+          {!disabled && (
+            <div className="absolute bottom-0 right-0 h-[40%] w-[40%] rounded-full border-2 border-zinc-50 bg-zinc-800 dark:border-zinc-900 dark:bg-zinc-700">
+              <div className="flex h-full w-full items-center justify-center text-zinc-200">
+                <EditIcon />
+              </div>
             </div>
-          </div>
+          )}
           <input
             onChange={onChange}
             accept="image/*"
@@ -192,6 +196,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
             name="photo"
             type="file"
             className="dark:border-no ne absolute inset-0 cursor-pointer rounded-md border-gray-300  opacity-0"
+            disabled={disabled}
           />
         </div>
       </div>
