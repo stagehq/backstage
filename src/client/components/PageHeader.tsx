@@ -30,7 +30,7 @@ import ImageUpload from "./crop/ImageUpload";
 import { SocialsType } from "./modals/sitesettings/Socials";
 
 interface PageHeaderProps {
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
