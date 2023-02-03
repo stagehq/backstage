@@ -62,6 +62,7 @@ export const useHandleLayoutChange = () => {
       }, 100)
     );
 
+    console.log(currentLayouts);
     //update layout
     if (site) {
       setSite({

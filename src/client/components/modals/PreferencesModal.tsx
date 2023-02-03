@@ -5,6 +5,7 @@ import { FC, Fragment, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
+  Api,
   ApiConnectorRoute,
   StoreExtension,
 } from "../../graphql/types.generated";
@@ -12,7 +13,7 @@ import {
   preferencesApiState,
   preferencesExtensionState,
 } from "../../store/extensions";
-import { siteSlugState, siteState } from "../../store/site";
+import { siteSlugState, siteState, staleSiteState } from "../../store/site";
 import { addingInProcessState } from "../../store/ui/addingBlock";
 import { preferencesOpenState } from "../../store/ui/modals";
 import { currentUserState } from "../../store/user";
@@ -26,7 +27,7 @@ const PreferencesModal: FC = () => {
   const preferencesApi = useRecoilValue(preferencesApiState);
 
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site] = useRecoilState(siteState(siteSlug));
+  const [site, setSite] = useRecoilState(siteState(siteSlug));
   const user = useRecoilValue(currentUserState);
   const [, setAddingInProcess] = useRecoilState(addingInProcessState);
 
@@ -59,7 +60,7 @@ const PreferencesModal: FC = () => {
     if (!processedPreferences) throw new Error("No preferences found");
 
     try {
-      await upsertExtension({
+      const response = await upsertExtension({
         userId: decodeGlobalID(user.id).id,
         siteId: decodeGlobalID(site.id).id,
         storeExtensionId: decodeGlobalID(preferencesExtension.id).id,
@@ -76,6 +77,13 @@ const PreferencesModal: FC = () => {
         preferences: processedPreferences,
         authType: AuthType.preferences,
       });
+      const newSite = {...site, extensions: 
+        [...site.extensions ? site.extensions : [], 
+          {...response.extension}
+        ]
+      };
+      
+      setSite({...newSite});
       //handle success
       setAddingInProcess("added");
     } catch (error) {

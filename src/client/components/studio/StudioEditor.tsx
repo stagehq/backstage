@@ -59,6 +59,8 @@ const StudioEditor = () => {
     setTimeout(async () => {
       if (!site?.layouts || site.layouts == null) return null;
       await handleLayoutChange(itemsRef, site.layouts);
+      console.log(site.layouts);
+      
       console.log("ready");
       setInitialCalculated(true);
 
@@ -67,6 +69,8 @@ const StudioEditor = () => {
       }, 300);
     }, 100);
   }, [site?.extensions]);
+
+  console.log("render");
 
   useEffect(() => {
     if (itemsRef.current) itemsRef.current.classList.remove("animated");
@@ -107,6 +111,7 @@ const StudioEditor = () => {
               >
                 {site.extensions &&
                   site.extensions.map((extension, index) => {
+                    console.log(extension);
                     if (components[extension.id]) {
                       const Extension = components[
                         extension.id

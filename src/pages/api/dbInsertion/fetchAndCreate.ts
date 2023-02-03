@@ -1,3 +1,4 @@
+import { decodeGlobalID } from "@pothos/plugin-relay";
 import { AuthType } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import wretch from "wretch";
@@ -94,7 +95,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       //add api to extension
       console.log("add api to extension");
 
-      await prisma.extension.update({
+      const extension = await prisma.extension.update({
         where: {
           id: extensionCheck.id,
         },
@@ -123,7 +124,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           },
         },
       });
-      res.status(200).json({ data: "The extension was successfully updated" });
+      res.status(200).json({ data: {extension} });
     } else {
       console.log("Api already added");
       res.status(500).json({ error: "Api already added" });
@@ -132,7 +133,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     //create extension
     console.log("create extension");
     console.log(prismaCreateRoutesArray);
-    await prisma.extension.create({
+    const extension = await prisma.extension.create({
       data: {
         sortOrder: 0,
         site: {
@@ -168,8 +169,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           },
         },
       },
+      include: {
+        storeExtension: true,
+        underlayingApis: {
+          include: {
+            apiConnector: true,
+            apiResponses: true,
+          },
+        }   
+      }
     });
-    res.status(200).json({ data: "The extension was successfully created" });
+    res.status(200).json({ extension: extension });
   }
 };
 
