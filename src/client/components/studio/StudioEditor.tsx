@@ -29,6 +29,14 @@ const StudioEditor = () => {
     [key: string]: FC<BlockProps>;
   }>({});
   const [initialCalculated, setInitialCalculated] = useState(false);
+  const [draggedBefore, setDraggedBefore] = useState(false);
+
+  const onDrag = () => {
+    if (!draggedBefore) {
+      setDraggedBefore(true);
+    }
+    console.log("dragged");
+  };
 
   //hook
   const handleLayoutChange = useHandleLayoutChange();
@@ -108,6 +116,7 @@ const StudioEditor = () => {
                   console.log("layout changed");
                   handleLayoutChange(itemsRef, layouts);
                 }}
+                onDrag={onDrag}
               >
                 {site.extensions &&
                   site.extensions.map((extension, index) => {
@@ -126,7 +135,17 @@ const StudioEditor = () => {
                         : 3;
 
                       return (
-                        <div key={extension.id} id={extension.id}>
+                        <div
+                          key={extension.id} 
+                          id={extension.id}
+                          onClick={(e) => {
+                            if (draggedBefore) {
+                              e.stopPropagation();
+                              e.preventDefault();
+                              setDraggedBefore(false);
+                            }
+                          }}
+                        >
                           <Extension
                             gridRef={itemsRef}
                             extension={extension}
