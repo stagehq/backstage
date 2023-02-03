@@ -5,15 +5,18 @@ export const config = {
   runtime: 'experimental-edge',
 };
 
-// TODO: Fix this
-// Make sure the font exists in the specified path:
-// const font = fetch(new URL('../../assets/TYPEWR__.ttf', import.meta.url)).then(
-//   (res) => res.arrayBuffer(),
-// );
+
+const regular = fetch(new URL('../../assets/og/inter/Inter-Regular.ttf', import.meta.url)).then(
+  (res) => res.arrayBuffer(),
+);
+const semibold = fetch(new URL('../../assets/og/inter/Inter-SemiBold.ttf', import.meta.url)).then(
+  (res) => res.arrayBuffer(),
+);
 
 // call with /api/og?tagline=Hello&bio=World&image=https://example.com/image.png
 export default async function handler(req: NextRequest) {
-  // const fontData = await font;
+  const regularFontData = await regular;
+  const semiboldFontData = await semibold;
 
   try {
     const { searchParams } = new URL(req.url);
@@ -34,7 +37,6 @@ export default async function handler(req: NextRequest) {
       (
         <div
           style={{
-            // TODO: Fix Inter font loading
             fontFamily: 'Inter',
             height: '100%',
             width: '100%',
@@ -54,9 +56,17 @@ export default async function handler(req: NextRequest) {
             )}
             <div tw="flex w-full flex-col">
               <span
+              style={{
+                fontFamily: 'Inter',
+                fontWeight: 600,
+              }}
                 tw="-ml-4 mt-6 w-full border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-3xl leading-8 font-bold text-zinc-800 lg:text-4xl">{tagline}
               </span>
               <span
+                style={{
+                  fontFamily: 'Inter',
+                  fontWeight: 400,
+                }}
                 tw="-ml-4 mt-6 w-full border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-md text-zinc-800">{bio}
               </span>
             </div>
@@ -66,14 +76,20 @@ export default async function handler(req: NextRequest) {
       {
         width: 1200,
         height: 600,
-        // fonts: [
-        //   {
-        //     name: "Inter",
-        //     data: fontData,
-        //     style: 'normal',
-        //     weight: 400,
-        //   },
-        // ],
+        fonts: [
+          {
+            name: "Inter",
+            data: regularFontData,
+            style: 'normal',
+            weight: 400,
+          },
+          {
+            name: "Inter",
+            data: semiboldFontData,
+            style: 'normal',
+            weight: 600,
+          },
+        ],
       },
     );
   } catch (e: any) {

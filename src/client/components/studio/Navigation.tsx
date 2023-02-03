@@ -70,7 +70,7 @@ export default function Navigation() {
   ];
 
   return (
-    <div className="flex flex-grow flex-col overflow-y-auto border-r border-slate-200 bg-white pt-5 pb-4">
+    <div className="flex flex-grow flex-col overflow-y-auto border-r border-slate-300 bg-white pt-5 pb-4">
       <div className="flex h-full flex-col">
         <div className="px-2">
           <span
