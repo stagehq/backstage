@@ -15,7 +15,7 @@ import {
 } from "../../../store/extensions";
 import { siteSlugState, siteState } from "../../../store/site";
 import { addingInProcessState } from "../../../store/ui/addingBlock";
-import { preferencesOpenState } from "../../../store/ui/modals";
+import { preferencesOpenState, storeOpenState } from "../../../store/ui/modals";
 import { currentUserState } from "../../../store/user";
 import Spinner from "../../loading/Spinner";
 import StoreWireframe from "../../storeWireframes";
@@ -35,6 +35,7 @@ const StoreItem: FC<StoreItemProps> = ({ storeExtension }) => {
   const [site] = useRecoilState(siteState(siteSlug));
   const refreshSite = useRecoilRefresher_UNSTABLE(siteState(siteSlug));
   const [, setOpenPreferencesModal] = useRecoilState(preferencesOpenState);
+  const [, setOpenStoreModal] = useRecoilState(storeOpenState);
   const [, setPreferencesExtension] = useRecoilState(preferencesExtensionState);
   const [, setPreferencesApi] = useRecoilState(preferencesApiState);
   const user = useRecoilValue(currentUserState);
@@ -58,7 +59,9 @@ const StoreItem: FC<StoreItemProps> = ({ storeExtension }) => {
     if (addingInProcess !== "loading" && addingState === "loading") {
       setAddingState(addingInProcess);
       if (addingInProcess === "added") {
-        refreshSite();
+        //refreshSite();
+        console.log("Added");
+        setOpenStoreModal(false);
       }
     }
   }, [addingInProcess, addingState, refreshSite]);

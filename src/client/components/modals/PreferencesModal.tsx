@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { decodeGlobalID } from "@pothos/plugin-relay";
+import { decodeGlobalID, encodeGlobalID } from "@pothos/plugin-relay";
 import { AuthType } from "@prisma/client";
 import { FC, Fragment, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -15,7 +15,7 @@ import {
 } from "../../store/extensions";
 import { siteSlugState, siteState, staleSiteState } from "../../store/site";
 import { addingInProcessState } from "../../store/ui/addingBlock";
-import { preferencesOpenState } from "../../store/ui/modals";
+import { preferencesOpenState, storeOpenState } from "../../store/ui/modals";
 import { currentUserState } from "../../store/user";
 import { upsertExtension } from "../helper/upsertExtension";
 import { Icon } from "../Icons";
@@ -30,6 +30,7 @@ const PreferencesModal: FC = () => {
   const [site, setSite] = useRecoilState(siteState(siteSlug));
   const user = useRecoilValue(currentUserState);
   const [, setAddingInProcess] = useRecoilState(addingInProcessState);
+  const [, setOpenStoreModal] = useRecoilState(storeOpenState);
 
   const [preferences, setPreferences] = useState<string[]>([]);
 
@@ -79,13 +80,14 @@ const PreferencesModal: FC = () => {
       });
       const newSite = {...site, extensions: 
         [...site.extensions ? site.extensions : [], 
-          {...response.extension}
+          {...response.extension, id: encodeGlobalID("Extension", response.extension.id), storeExtension: {...response.extension.storeExtension, id: encodeGlobalID("StoreExtension", response.extension.storeExtension.id)}}
         ]
       };
-      
+      console.log(response);
       setSite({...newSite});
       //handle success
       setAddingInProcess("added");
+      setOpenStoreModal(false);
     } catch (error) {
       //handle error
       console.log(error);
