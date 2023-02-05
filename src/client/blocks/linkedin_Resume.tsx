@@ -33,7 +33,7 @@ const Resume: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
               apiResponse.response.education.forEach((edu: any) => {
                 education.push({
                   type: "bullet",
-                  title: edu.field_of_study + " - " + edu.degree,
+                  title: (edu.degree !== undefined) ? edu.field_of_study + " - " + edu.degree : edu.field_of_study,
                   subtitle: edu.school,
                   additional: edu.starts_at?.year ? edu.starts_at.year : "",
                   image: edu.logo_url,
