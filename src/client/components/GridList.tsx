@@ -30,6 +30,14 @@ export default function GridList() {
     setFocusedId(null);
   }
 
+  const getBaseUrl = () => {
+    if (process.env.NODE_ENV === "development") {
+      return `${process.env.NEXT_PUBLIC_HOST_URL}`;
+    }
+
+    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+  };
+
   return (
     <div className="mt-8 mb-16 grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {filteredSites &&
@@ -71,14 +79,12 @@ export default function GridList() {
               </div>
             </div>
             <div className="mt-6 ">
-              <p className="text-sm font-medium text-gray-900">
-                {site.subdomain}
+              <p className="inline text-sm font-medium text-zinc-600 px-3 py-1 rounded-full bg-zinc-100">
+                {getBaseUrl() + '/' + site.subdomain}
               </p>
             </div>
             <a
-              {...(process.env.NODE_ENV === "development"
-                ? { href: `http://localhost:3000/${site.subdomain}` }
-                : { href: `https://getstage.app/${site.subdomain}` })}
+              href={`${getBaseUrl()}/${site.subdomain}`}
               target="_blank"
               rel="noopener"
               className="absolute top-6 right-6 flex h-10 w-10 items-center justify-center rounded-3xl border border-zinc-200 bg-white shadow-sm hover:border-zinc-300 hover:shadow"
