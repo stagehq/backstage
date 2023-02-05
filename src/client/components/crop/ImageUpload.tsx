@@ -165,7 +165,8 @@ const ImageUpload: FC<ImageUploadProps> = ({
     <>
       <div
         className={clsx(
-          "relative flex cursor-pointer items-center rounded-md focus-within:outline-none focus-within:ring-2 focus-within:ring-zinc-600 focus-within:ring-offset-2 dark:focus-within:ring-zinc-300 dark:focus-within:ring-offset-zinc-900",
+          "relative flex items-center rounded-md focus-within:outline-none focus-within:ring-2 focus-within:ring-zinc-600 focus-within:ring-offset-2 dark:focus-within:ring-zinc-300 dark:focus-within:ring-offset-zinc-900",
+          !disabled && "cursor-pointer",
           size
         )}
       >
@@ -195,7 +196,10 @@ const ImageUpload: FC<ImageUploadProps> = ({
             id="photo"
             name="photo"
             type="file"
-            className="dark:border-no ne absolute inset-0 cursor-pointer rounded-md border-gray-300  opacity-0"
+            className={clsx(
+              "dark:border-no ne absolute inset-0 rounded-md border-gray-300 opacity-0",
+              !disabled && "cursor-pointer"
+            )}
             disabled={disabled}
           />
         </div>

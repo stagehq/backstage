@@ -2927,10 +2927,10 @@
   resolved "https://registry.yarnpkg.com/@splitbee/web/-/web-0.3.0.tgz#676ebe877b6d82a10ece6527a07f70b1994d242e"
   integrity sha512-jNPDKg0GQGa4jCaBc6JQsv0NHmBA80WCwZE49nFyhcbo32WF0GyqXeice7ZApy7OUHI16bAUAzm4MOQw3gvxfQ==
 
-"@stagehq/ui@^0.1.12":
-  version "0.1.12"
-  resolved "https://registry.yarnpkg.com/@stagehq/ui/-/ui-0.1.12.tgz#f298538824e9dc5fc6473bbbc9d6fd2609f6eca3"
-  integrity sha512-Pq8fjW2fbwVVzk9LOSl1e94anZeeYNyw66gzK0cRwvRQFtJNHaus7uJSVa+V/U/AFNZmaM83MhEqVJTX5LL1FA==
+"@stagehq/ui@^0.1.13":
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/@stagehq/ui/-/ui-0.1.13.tgz#3929bf14cdb554dfeb374c245680a9c8464790a7"
+  integrity sha512-/SXmyyWhsL4/iXQ77T/o1rQD0+UlQFfwmMBdx+KlQ5nIRVnQm3PxKn/z7xaZ1AodCJn4gSda6OAEjf2+dSZGqA==
   dependencies:
     "@heroicons/react" "^2.0.13"
     "@storybook/addon-a11y" "^6.5.13"
