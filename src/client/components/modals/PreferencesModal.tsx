@@ -5,7 +5,6 @@ import { FC, Fragment, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
-  Api,
   ApiConnectorRoute,
   StoreExtension,
 } from "../../graphql/types.generated";
@@ -13,7 +12,7 @@ import {
   preferencesApiState,
   preferencesExtensionState,
 } from "../../store/extensions";
-import { siteSlugState, siteState, staleSiteState } from "../../store/site";
+import { siteSlugState, siteState } from "../../store/site";
 import { addingInProcessState } from "../../store/ui/addingBlock";
 import { preferencesOpenState, storeOpenState } from "../../store/ui/modals";
 import { currentUserState } from "../../store/user";
@@ -78,13 +77,25 @@ const PreferencesModal: FC = () => {
         preferences: processedPreferences,
         authType: AuthType.preferences,
       });
-      const newSite = {...site, extensions: 
-        [...site.extensions ? site.extensions : [], 
-          {...response.extension, id: encodeGlobalID("Extension", response.extension.id), storeExtension: {...response.extension.storeExtension, id: encodeGlobalID("StoreExtension", response.extension.storeExtension.id)}}
-        ]
+      const newSite = {
+        ...site,
+        extensions: [
+          ...(site.extensions ? site.extensions : []),
+          {
+            ...response.extension,
+            id: encodeGlobalID("Extension", response.extension.id),
+            storeExtension: {
+              ...response.extension.storeExtension,
+              id: encodeGlobalID(
+                "StoreExtension",
+                response.extension.storeExtension.id
+              ),
+            },
+          },
+        ],
       };
       console.log(response);
-      setSite({...newSite});
+      setSite({ ...newSite });
       //handle success
       setAddingInProcess("added");
       setOpenStoreModal(false);

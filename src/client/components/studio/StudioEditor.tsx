@@ -68,7 +68,7 @@ const StudioEditor = () => {
       if (!site?.layouts || site.layouts == null) return null;
       await handleLayoutChange(itemsRef, site.layouts);
       console.log(site.layouts);
-      
+
       console.log("ready");
       setInitialCalculated(true);
 
@@ -136,7 +136,7 @@ const StudioEditor = () => {
 
                       return (
                         <div
-                          key={extension.id} 
+                          key={extension.id}
                           id={extension.id}
                           onClick={(e) => {
                             if (draggedBefore) {

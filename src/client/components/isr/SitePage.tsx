@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 import { FC, useEffect, useRef, useState } from "react";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -75,75 +76,99 @@ const SitePage: FC = () => {
 
   console.log("site", site);
 
+  const getBaseUrl = () => {
+    if (process.env.NODE_ENV === "development") {
+      return `${process.env.NEXT_PUBLIC_HOST_URL}`;
+    }
+
+    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+  };
+
   if (!site || !initialCalculated) return null;
 
   return (
-    <div className={clsx(theme === "dark" && "dark", "h-screen w-full ")}>
-      <div className="h-full overflow-scroll bg-white @container dark:bg-zinc-900">
-        <div className="min-h-full w-full max-w-6xl p-12 pb-24 lg:mx-auto">
-          <div className="p-8">
-            <PageHeader disabled />
-          </div>
-          {site.extensions && site.extensions.length > 0 ? (
-            <div ref={itemsRef}>
-              <ResponsiveGridLayout
-                layouts={site.layouts ? site.layouts : {}}
-                breakpoints={{ lg: 991, md: 768, sm: 0 }}
-                cols={{ lg: 3, md: 2, sm: 1 }}
-                rowHeight={1}
-                width={1000}
-                margin={[24, 24]}
-                isResizable={false}
-                isDraggable={false}
-                measureBeforeMount={true}
-                onWidthChange={() => {
-                  console.log("Widtch changed");
-                  handleLayoutChange(itemsRef);
-                }}
-                onBreakpointChange={(breakpoint) => {
-                  console.log("Breakpoint changed");
-                  setBreakpoint(breakpoint);
-                }}
-                onLayoutChange={(layout: Layout[], layouts: Layouts) => {
-                  console.log("layout changed");
-                  handleLayoutChange(itemsRef, layouts);
-                }}
-              >
-                {site.extensions &&
-                  site.extensions.map((extension, index) => {
-                    if (components[extension.id]) {
-                      const Extension = components[
-                        extension.id
-                      ] as FC<BlockProps>;
-                      if (!breakpoint && !site.layouts) return null;
-                      const size = site.layouts
-                        ? site.layouts[breakpoint]
-                          ? (site.layouts[breakpoint].find(
-                              (layout: Layout) => layout.i === extension.id
-                            )?.w as 1 | 2 | 3)
-                          : 3
-                        : 3;
-
-                      return (
-                        <div key={extension.id} id={extension.id}>
-                          <Extension
-                            gridRef={itemsRef}
-                            extension={extension}
-                            size={size}
-                            isEditable={false}
-                          />
-                        </div>
-                      );
-                    }
-                  })}
-              </ResponsiveGridLayout>
+    <>
+      <Head>
+        <title>{site.tagline}</title>
+        <meta name="description" content={site.bio ? site.bio : ""} />
+        <meta
+          property="og:image"
+          content={`${getBaseUrl()}/api/og?tagline=${encodeURIComponent(
+            site.tagline ? site.tagline : ""
+          )}&bio=${encodeURIComponent(
+            site.bio ? site.bio : ""
+          )}&image=${encodeURIComponent(
+            "https://" + site.image ? "https://" + site.image : ""
+          )}`}
+        />
+      </Head>
+      <div className={clsx(theme === "dark" && "dark", "h-screen w-full ")}>
+        <div className="h-full overflow-scroll bg-white @container dark:bg-zinc-900">
+          <div className="min-h-full w-full max-w-6xl p-12 pb-24 lg:mx-auto">
+            <div className="p-8">
+              <PageHeader disabled />
             </div>
-          ) : (
-            <EmptyState />
-          )}
+            {site.extensions && site.extensions.length > 0 ? (
+              <div ref={itemsRef}>
+                <ResponsiveGridLayout
+                  layouts={site.layouts ? site.layouts : {}}
+                  breakpoints={{ lg: 991, md: 768, sm: 0 }}
+                  cols={{ lg: 3, md: 2, sm: 1 }}
+                  rowHeight={1}
+                  width={1000}
+                  margin={[24, 24]}
+                  isResizable={false}
+                  isDraggable={false}
+                  measureBeforeMount={true}
+                  onWidthChange={() => {
+                    console.log("Widtch changed");
+                    handleLayoutChange(itemsRef);
+                  }}
+                  onBreakpointChange={(breakpoint) => {
+                    console.log("Breakpoint changed");
+                    setBreakpoint(breakpoint);
+                  }}
+                  onLayoutChange={(layout: Layout[], layouts: Layouts) => {
+                    console.log("layout changed");
+                    handleLayoutChange(itemsRef, layouts);
+                  }}
+                >
+                  {site.extensions &&
+                    site.extensions.map((extension, index) => {
+                      if (components[extension.id]) {
+                        const Extension = components[
+                          extension.id
+                        ] as FC<BlockProps>;
+                        if (!breakpoint && !site.layouts) return null;
+                        const size = site.layouts
+                          ? site.layouts[breakpoint]
+                            ? (site.layouts[breakpoint].find(
+                                (layout: Layout) => layout.i === extension.id
+                              )?.w as 1 | 2 | 3)
+                            : 3
+                          : 3;
+
+                        return (
+                          <div key={extension.id} id={extension.id}>
+                            <Extension
+                              gridRef={itemsRef}
+                              extension={extension}
+                              size={size}
+                              isEditable={false}
+                            />
+                          </div>
+                        );
+                      }
+                    })}
+                </ResponsiveGridLayout>
+              </div>
+            ) : (
+              <EmptyState />
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

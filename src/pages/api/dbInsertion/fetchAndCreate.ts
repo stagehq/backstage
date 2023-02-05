@@ -1,4 +1,3 @@
-import { decodeGlobalID } from "@pothos/plugin-relay";
 import { AuthType } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import wretch from "wretch";
@@ -124,7 +123,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           },
         },
       });
-      res.status(200).json({ data: {extension} });
+      res.status(200).json({ data: { extension } });
     } else {
       console.log("Api already added");
       res.status(500).json({ error: "Api already added" });
@@ -176,8 +175,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             apiConnector: true,
             apiResponses: true,
           },
-        }   
-      }
+        },
+      },
     });
     res.status(200).json({ extension: extension });
   }
