@@ -1,22 +1,64 @@
 const Logo = () => {
   /* TODO: When we have a logo, we can use it here, but check all references in the UI if they get rendered correctly. */
   return (
+    
     <div
-      className="relative flex h-20 w-20 flex-shrink-0 flex-grow-0 items-center justify-center gap-[20.000001907348633px] rounded-[20px] bg-white px-[10.000000953674316px] py-[7.5px]"
+      className="relative flex h-20 w-20 flex-shrink-0 flex-grow-0 items-center justify-center gap-[20.000001907348633px] rounded-[20px]"
       style={{ boxShadow: "0px 2.6666667461395264px 16px 0 rgba(0,0,0,0.04)" }}
     >
       <svg
-        width="43"
-        height="46"
-        viewBox="0 0 43 46"
-        fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="none"
+        width="80"
+        height="80"
+        fill="none"
+        viewBox="0 0 400 400"
+        className="rounded-[20px]"
       >
         <path
-          d="M23.0125 39.3375C22.1125 40.0375 20.8375 40.0375 19.9375 39.3375L4.56254 27.3875C4.12698 27.0473 3.59019 26.8625 3.03754 26.8625C2.48488 26.8625 1.94809 27.0473 1.51254 27.3875C1.21475 27.6206 0.973936 27.9185 0.808321 28.2585C0.642707 28.5985 0.556641 28.9718 0.556641 29.35C0.556641 29.7282 0.642707 30.1014 0.808321 30.4414C0.973936 30.7815 1.21475 31.0793 1.51254 31.3125L18.4125 44.4625C20.2125 45.8625 22.7375 45.8625 24.5625 44.4625L41.4625 31.3125C42.7375 30.3125 42.7375 28.3875 41.4625 27.3875L41.4375 27.3625C41.002 27.0223 40.4652 26.8375 39.9125 26.8375C39.3599 26.8375 38.8231 27.0223 38.3875 27.3625L23.0125 39.3375ZM24.5875 31.7875L41.4875 18.6375C42.7625 17.6375 42.7625 15.6875 41.4875 14.6875L24.5875 1.53749C22.7875 0.137488 20.2625 0.137488 18.4375 1.53749L1.53754 14.7125C0.262538 15.7125 0.262538 17.6625 1.53754 18.6625L18.4375 31.8125C20.2375 33.2125 22.7875 33.2125 24.5875 31.7875Z"
-          fill="#A1A1AA"
+          fill="#18181B"
+          d="M0 0H400V400H0z"
+          transform="matrix(-1 0 0 1 400 0)"
         ></path>
+        <path
+          fill="url(#paint0_radial_350_51489)"
+          d="M317.083 295.583L201 80 84.917 295.583h232.166z"
+        ></path>
+        <path
+          fill="url(#paint1_radial_350_51489)"
+          d="M317.083 295.583L201 80 84.917 295.583h232.166z"
+        ></path>
+        <ellipse
+          cx="116.083"
+          cy="24.875"
+          fill="#D4D4D8"
+          rx="116.083"
+          ry="24.875"
+          transform="matrix(-1 0 0 1 317.083 270.708)"
+        ></ellipse>
+        <defs>
+          <radialGradient
+            id="paint0_radial_350_51489"
+            cx="0"
+            cy="0"
+            r="1"
+            gradientTransform="matrix(0 -211.437 227.702 0 201 295.583)"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stopColor="#E4E4E7" stopOpacity="0"></stop>
+            <stop offset="1" stopColor="#E4E4E7"></stop>
+          </radialGradient>
+          <radialGradient
+            id="paint1_radial_350_51489"
+            cx="0"
+            cy="0"
+            r="1"
+            gradientTransform="matrix(0 -215.583 232.167 0 201 295.583)"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0.625" stopColor="#E4E4E7" stopOpacity="0"></stop>
+            <stop offset="1" stopColor="#E4E4E7"></stop>
+          </radialGradient>
+        </defs>
       </svg>
     </div>
   );
