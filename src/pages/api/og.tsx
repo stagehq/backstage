@@ -17,6 +17,10 @@ export default async function handler(req: NextRequest) {
   const regularFontData = await regular;
   const semiboldFontData = await semibold;
 
+  function cleanUpString(str: string): string {
+    return str.replace(/([\uD800-\uDBFF][\uDC00-\uDFFF])/g, "");
+  }
+
   const getBaseUrl = () => {
     if (process.env.NODE_ENV === "development") {
       return `${process.env.NEXT_PUBLIC_HOST_URL}`;
@@ -25,9 +29,6 @@ export default async function handler(req: NextRequest) {
     return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
   };
 
-  function cleanUpString(str: string): string {
-    return str.replace(/([\uD800-\uDBFF][\uDC00-\uDFFF])/g, "");
-  }
 
   try {
     const { searchParams } = new URL(req.url);

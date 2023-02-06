@@ -8,6 +8,7 @@ import { BlockProps } from "../../blocks/type";
 import { siteSlugState, siteState } from "../../store/site";
 import { gridBreakpointState } from "../../store/ui/grid-dnd";
 import { themeState } from "../../store/ui/theme";
+import { getBaseUrl } from "../GridList";
 import { PageHeader } from "../PageHeader";
 import EmptyState from "../studio/EmptyState";
 import { useHandleLayoutChange } from "../studio/hooks/useHandleLayoutChange";
@@ -75,14 +76,6 @@ const SitePage: FC = () => {
   window.dispatchEvent(new Event("resize"));
 
   console.log("site", site);
-
-  const getBaseUrl = () => {
-    if (process.env.NODE_ENV === "development") {
-      return `${process.env.NEXT_PUBLIC_HOST_URL}`;
-    }
-
-    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
-  };
 
   if (!site || !initialCalculated) return null;
 

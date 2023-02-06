@@ -15,6 +15,7 @@ import {
   siteSettingsOpenState,
   storeOpenState,
 } from "../../store/ui/modals";
+import { getBaseUrl } from "../GridList";
 
 export default function Navigation() {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ export default function Navigation() {
     if (!site || typeof navigator === "undefined")
       return console.error("No site found");
 
-    const url = `https://getstage.app/${site?.subdomain}`;
+    const url = `${getBaseUrl()}/${site?.subdomain}`;
     navigator.clipboard.writeText(url).then(
       () => {
         console.log(`Copied URL to clipboard: ${url}`);

@@ -5,6 +5,14 @@ import { useRecoilValue } from "recoil";
 import { dashboardQueryState } from "../store/ui/dashboardSearch";
 import { currentUserState } from "../store/user";
 
+export const getBaseUrl = () => {
+  if (process.env.NODE_ENV === "development") {
+    return `${process.env.NEXT_PUBLIC_HOST_URL}`;
+  }
+
+  return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+};
+
 export default function GridList() {
   const user = useRecoilValue(currentUserState);
   const query = useRecoilValue(dashboardQueryState);
@@ -29,14 +37,6 @@ export default function GridList() {
   function handleBlur() {
     setFocusedId(null);
   }
-
-  const getBaseUrl = () => {
-    if (process.env.NODE_ENV === "development") {
-      return `${process.env.NEXT_PUBLIC_HOST_URL}`;
-    }
-
-    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
-  };
 
   return (
     <div className="mt-8 mb-16 grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3">
