@@ -8,8 +8,6 @@ import { isrState } from "../store/isr";
 import { BlockProps } from "./type";
 
 const Blogs: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
-  console.log(extension);
-
   const [data, setData] = useState<any[]>([]);
   const [profileLink, setProfileLink] = useState("");
   const [isrMode, setIsrMode] = useRecoilState(isrState);

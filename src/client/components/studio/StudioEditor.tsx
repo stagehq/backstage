@@ -31,7 +31,6 @@ const StudioEditor = () => {
     if (!draggedBefore) {
       setDraggedBefore(true);
     }
-    console.log("dragged");
   };
 
   //hook
