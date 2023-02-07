@@ -17,6 +17,7 @@ import {
   siteSettingsOpenState,
   storeOpenState,
 } from "../../store/ui/modals";
+import { AddIcon, AnalyticsIcon, CopyLinkIcon, SettingsIcon } from "../CustomIcons";
 
 export default function Navigation() {
   const navigate = useNavigate();
@@ -65,35 +66,35 @@ export default function Navigation() {
   };
 
   const navigation = [
-    { name: "Copy link", icon: LinkIcon, action: handleCopyLink },
-    { name: "Settings", icon: Cog8ToothIcon, action: handleSettingsClick },
-    { name: "Analytics", icon: ChartBarIcon, action: handleAnalyticsClick },
-    { name: "Add block", icon: PlusIcon, action: handleAddBlockClick },
+    { name: "Copy link", icon: CopyLinkIcon, action: handleCopyLink },
+    { name: "Settings", icon: SettingsIcon, action: handleSettingsClick },
+    { name: "Analytics", icon: AnalyticsIcon, action: handleAnalyticsClick },
+    { name: "Add block", icon: AddIcon, action: handleAddBlockClick },
   ];
 
   return (
     <TooltipPrimitive.Provider>
-      <div className="flex flex-grow flex-col overflow-y-auto border-r border-zinc-300 bg-white pt-5 pb-4 dark:border-zinc-600 dark:bg-zinc-900">
+      <div className="flex w-16 items-center flex-col overflow-y-auto border-r border-zinc-300 bg-white pt-5 pb-4 dark:border-zinc-600 dark:bg-zinc-900">
         <div className="flex h-full flex-col">
           <div className="px-2">
             <span
               onClick={() => navigate("/s")}
               className={clsx(
-                "text-zinc-800 hover:bg-slate-50 dark:text-zinc-100 dark:hover:bg-zinc-700",
-                "group flex items-center rounded-md px-2 py-2 text-sm font-medium"
+                "text-zinc-600 hover:bg-zinc-100 dark:text-zinc-100 dark:hover:bg-zinc-700 cursor-pointer",
+                "group flex items-center justify-center m-0 rounded-md px-2 py-2 text-sm font-medium"
               )}
             >
               <ArrowLeftIcon
                 className={clsx(
-                  "text-zinc-800 hover:bg-slate-50 dark:text-zinc-100 dark:hover:bg-zinc-700",
-                  "mr-1 h-6 w-6 flex-shrink-0"
+                  "text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700",
+                  "h-6 w-6 flex-shrink-0"
                 )}
                 aria-hidden="true"
               />
             </span>
           </div>
           <nav
-            className="flex h-full flex-col justify-center gap-1 px-2"
+            className="flex h-full flex-col justify-center gap-4 px-2 pb-12"
             aria-label="Sidebar"
           >
             {navigation.map((item) => (
@@ -103,17 +104,12 @@ export default function Navigation() {
                     key={item.name}
                     onClick={() => item.action()}
                     className={clsx(
-                      "text-zinc-800 hover:bg-slate-50 dark:text-zinc-100 dark:hover:bg-zinc-700",
-                      "group flex items-center rounded-md px-2 py-2 text-sm font-medium"
+                      "text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 cursor-pointer",
+                      "group flex items-center rounded-md p-1 text-sm font-medium"
                     )}
                   >
-                    <item.icon
-                      className={clsx(
-                        "text-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700",
-                        "mr-1 h-6 w-6 flex-shrink-0"
-                      )}
-                      aria-hidden="true"
-                    />
+                    <item.icon aria-hidden="true" />
+                    
                   </span>
                 </TooltipPrimitive.Trigger>
                 <TooltipPrimitive.Content
@@ -124,11 +120,11 @@ export default function Navigation() {
                     "radix-side-right:animate-slide-left-fade",
                     "radix-side-bottom:animate-slide-up-fade",
                     "radix-side-left:animate-slide-right-fade",
-                    "inline-flex items-center rounded-md px-2 py-1.5",
+                    "inline-flex items-center rounded-md px-2.5 py-2",
                     "z-10 bg-zinc-800 font-semibold hover:text-zinc-100"
                   )}
                 >
-                  <span className="block text-xs leading-none text-zinc-100">
+                  <span className="block text-sm leading-none text-zinc-100">
                     {item.name}
                   </span>
                 </TooltipPrimitive.Content>
