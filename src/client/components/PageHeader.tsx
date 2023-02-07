@@ -133,37 +133,37 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
   const renderSocials = (social: string) => {
     switch (social) {
       case "twitter":
-        return <Twitter className="h-4 w-4" />;
+        return <Twitter className="h-5 w-5" />;
       case "instagram":
-        return <Instagram className="h-4 w-4" />;
+        return <Instagram className="h-5 w-5" />;
       case "facebook":
-        return <Facebook className="h-4 w-4" />;
+        return <Facebook className="h-5 w-5" />;
       case "linkedin":
-        return <Linkedin className="h-4 w-4" />;
+        return <Linkedin className="h-5 w-5" />;
       case "github":
-        return <Github className="h-4 w-4" />;
+        return <Github className="h-5 w-5" />;
       case "gitlab":
-        return <Gitlab className="h-4 w-4" />;
+        return <Gitlab className="h-5 w-5" />;
       case "youtube":
-        return <Youtube className="h-4 w-4" />;
+        return <Youtube className="h-5 w-5" />;
       case "twitch":
-        return <Twitch className="h-4 w-4" />;
+        return <Twitch className="h-5 w-5" />;
       case "pinterest":
-        return <Pinterest className="h-4 w-4" />;
+        return <Pinterest className="h-5 w-5" />;
       case "tiktok":
-        return <Tiktok className="h-4 w-4" />;
+        return <Tiktok className="h-5 w-5" />;
       case "reddit":
-        return <Reddit className="h-4 w-4" />;
+        return <Reddit className="h-5 w-5" />;
       case "spotify":
-        return <Spotify className="h-4 w-4" />;
+        return <Spotify className="h-5 w-5" />;
       case "soundcloud":
-        return <Soundcloud className="h-4 w-4" />;
+        return <Soundcloud className="h-5 w-5" />;
       case "dribbble":
-        return <Dribbble className="h-4 w-4" />;
+        return <Dribbble className="h-5 w-5" />;
       case "behance":
-        return <Behance className="h-4 w-4" />;
+        return <Behance className="h-5 w-5" />;
       default:
-        return <LinkIcon className="h-4 w-4" />;
+        return <LinkIcon className="h-5 w-5" />;
     }
   };
 

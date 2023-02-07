@@ -170,6 +170,11 @@
   user-select: none;
 }
 
+[data-rbd-draggable-id] {
+  left: auto !important;
+  top: auto !important;
+}
+
 /* .react-grid-item > .react-resizable-handle {
   position: absolute;
   width: 20px;

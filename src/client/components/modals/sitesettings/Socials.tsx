@@ -1,9 +1,11 @@
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { Bars2Icon, TrashIcon } from "@heroicons/react/24/outline";
 import debounce from "lodash.debounce";
 import React, { FC, useCallback, useEffect, useState } from "react";
+import { Draggable } from "react-beautiful-dnd";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useUpdateSiteSocialsMutation } from "../../../graphql/updateSiteSocials.generated";
 import { siteSlugState, siteState } from "../../../store/site";
+import { SocialsDnDContext } from "../../dnd/socials/SocialsDnDContext";
 
 interface Link {
   network: string;
@@ -108,6 +110,19 @@ const Socials: FC = () => {
     setSelectedValues((prevValues) => prevValues.filter((_, i) => i !== index));
   };
 
+  const handleDragEnd = (result: any) => {
+    if (!result.destination) return;
+
+    const items = Array.from(site?.socials);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setSite({
+      ...site,
+      socials: items,
+    });
+  };
+
   return (
     <div className="sm:overflow-hidden">
       <div className="bg-white px-6 pt-6">
@@ -126,70 +141,98 @@ const Socials: FC = () => {
               </p>
             </div>
             <div className="flex flex-col">
-              {site.socials &&
-                site.socials.map((link: Link, index: number) => (
-                  <div key={index} className="my-1">
-                    <div>
-                      <div className="relative mt-1 flex rounded-md shadow-sm">
-                        <div className="absolute inset-y-0 left-0 flex items-center">
-                          <select
-                            id="country"
-                            name="country"
-                            autoComplete="country"
-                            className="h-full w-[120px] rounded-md border-transparent bg-transparent py-0 pl-3 pr-7 text-gray-500 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
-                            value={selectedValues ? selectedValues[index] : ""}
-                            onChange={(e) => {
-                              setSelectedValues((prevValues) => {
-                                const newValues = [...prevValues];
-                                newValues[index] = e.target.value;
-                                return newValues;
-                              });
-                              handleSelect(e, index);
-                            }}
-                          >
-                            <option value="">Select</option>
-                            {(
-                              Object.keys(SocialsType) as Array<
-                                keyof typeof SocialsType
-                              >
-                            )
-                              .filter(
-                                (network) =>
-                                  !site.socials.some(
-                                    (l: Link, i: number) =>
-                                      l.network === network.toLowerCase() &&
-                                      i !== index
-                                  )
-                              )
-                              .map((social) => (
-                                <option
-                                  key={SocialsType[social]}
-                                  value={SocialsType[social]}
-                                >
-                                  {social}
-                                </option>
-                              ))}
-                          </select>
-                        </div>
-                        <input
-                          type="text"
-                          name="link"
-                          id="link"
-                          value={link.url}
-                          onChange={(e) => handleChange(e, index)}
-                          className="block w-full rounded-md border-gray-300 pl-32 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
-                          placeholder="https://link.com"
-                        />
-                        <button
-                          className="ml-2 inline-flex items-center justify-center rounded-md border border-transparent bg-red-100 px-3 py-2 font-medium text-red-700 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:text-sm"
-                          onClick={() => handleRemoveLink(index)}
+              <SocialsDnDContext onDragEnd={handleDragEnd}>
+                {site.socials &&
+                  site.socials.map((link: Link, index: number) => (
+                    <Draggable
+                      key={link.network}
+                      draggableId={link.network}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          style={{
+                            marginTop: "8px",
+                            ...provided.draggableProps.style,
+                          }}
                         >
-                          <TrashIcon className="h-4 w-4" aria-hidden="true" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                          <div className="flex items-center gap-2">
+                            <div
+                              key={index}
+                              className="relative flex w-full rounded-md"
+                            >
+                              <div className="absolute inset-y-0 left-0 flex items-center">
+                                <select
+                                  id="country"
+                                  name="country"
+                                  autoComplete="country"
+                                  className="h-full w-[120px] rounded-md border-transparent bg-transparent py-0 pl-3 pr-7 text-gray-500 shadow-sm focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
+                                  value={
+                                    selectedValues ? selectedValues[index] : ""
+                                  }
+                                  onChange={(e) => {
+                                    setSelectedValues((prevValues) => {
+                                      const newValues = [...prevValues];
+                                      newValues[index] = e.target.value;
+                                      return newValues;
+                                    });
+                                    handleSelect(e, index);
+                                  }}
+                                >
+                                  <option value="">Select</option>
+                                  {(
+                                    Object.keys(SocialsType) as Array<
+                                      keyof typeof SocialsType
+                                    >
+                                  )
+                                    .filter(
+                                      (network) =>
+                                        !site.socials.some(
+                                          (l: Link, i: number) =>
+                                            l.network ===
+                                              network.toLowerCase() &&
+                                            i !== index
+                                        )
+                                    )
+                                    .map((social) => (
+                                      <option
+                                        key={SocialsType[social]}
+                                        value={SocialsType[social]}
+                                      >
+                                        {social}
+                                      </option>
+                                    ))}
+                                </select>
+                              </div>
+                              <input
+                                type="text"
+                                name="link"
+                                id="link"
+                                value={link.url}
+                                onChange={(e) => handleChange(e, index)}
+                                className="block w-full rounded-md border-gray-300 pl-32 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
+                                placeholder="https://link.com"
+                              />
+                              <button
+                                className="ml-2 inline-flex items-center justify-center rounded-md border border-transparent bg-red-100 px-3 py-2 font-medium text-red-700 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:text-sm"
+                                onClick={() => handleRemoveLink(index)}
+                              >
+                                <TrashIcon
+                                  className="h-4 w-4"
+                                  aria-hidden="true"
+                                />
+                              </button>
+                            </div>
+                            <Bars2Icon className="h-5 w-5 text-gray-400" />
+                          </div>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+              </SocialsDnDContext>
               <div className="my-2">
                 <button
                   className="inline-flex w-full justify-center rounded-md border border-transparent bg-zinc-900 px-4 py-2 text-base font-medium text-zinc-100 shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-800 focus:ring-offset-2 sm:w-auto sm:text-sm"
