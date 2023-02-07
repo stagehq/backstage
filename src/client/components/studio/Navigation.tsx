@@ -9,13 +9,13 @@ import clsx from "clsx";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { getBaseUrl } from "../../../helper/getBaseUrl";
 import { siteSlugState, siteState } from "../../store/site";
 import {
   analyticsOpenState,
   siteSettingsOpenState,
   storeOpenState,
 } from "../../store/ui/modals";
-import { getBaseUrl } from "../GridList";
 
 export default function Navigation() {
   const navigate = useNavigate();

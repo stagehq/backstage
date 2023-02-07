@@ -2,16 +2,9 @@ import clsx from "clsx";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
+import { getBaseUrl } from "../../helper/getBaseUrl";
 import { dashboardQueryState } from "../store/ui/dashboardSearch";
 import { currentUserState } from "../store/user";
-
-export const getBaseUrl = () => {
-  if (process.env.NODE_ENV === "development") {
-    return `${process.env.NEXT_PUBLIC_HOST_URL}`;
-  }
-
-  return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
-};
 
 export default function GridList() {
   const user = useRecoilValue(currentUserState);
