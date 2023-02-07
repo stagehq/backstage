@@ -1,12 +1,10 @@
-import clsx from "clsx";
 import dynamic from "next/dynamic";
 import { FC, useEffect, useRef, useState } from "react";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { BlockProps } from "../../blocks/type";
 import { siteSlugState, siteState } from "../../store/site";
-import { gridBreakpointState, gridLayoutState } from "../../store/ui/grid-dnd";
-import { themeState } from "../../store/ui/theme";
+import { gridBreakpointState } from "../../store/ui/grid-dnd";
 import { currentUserState } from "../../store/user";
 import { PageHeader } from "../PageHeader";
 import EmptyState from "./EmptyState";
@@ -19,9 +17,7 @@ const StudioEditor = () => {
   const itemsRef = useRef<HTMLDivElement>(null);
 
   //recoil
-  const [layouts, setLayouts] = useRecoilState(gridLayoutState);
   const [breakpoint, setBreakpoint] = useRecoilState(gridBreakpointState);
-  const [theme] = useRecoilState(themeState);
   const user = useRecoilValue(currentUserState);
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
@@ -87,7 +83,7 @@ const StudioEditor = () => {
   if (!site || !user || !initialCalculated) return null;
 
   return (
-    <div className={clsx(theme === "dark" && "dark", "h-full w-full ")}>
+    <div className="h-full w-full ">
       <div className="h-full overflow-scroll bg-white @container dark:bg-zinc-900">
         <div className="min-h-full w-full max-w-6xl p-12 pb-24 lg:mx-auto">
           <div className="p-8">
