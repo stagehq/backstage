@@ -16,7 +16,7 @@ builder.prismaNode('Extension', {
   }),
 });
 
-builder.mutationField('updateExtensionTitle', (t) => t.prismaField({
+builder.mutationField('updateBlockTitle', (t) => t.prismaField({
   type: 'Extension',
   args: {
     id: t.arg.string({ required: true }),

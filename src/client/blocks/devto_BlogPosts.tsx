@@ -1,7 +1,7 @@
 import { Block, List } from "@stagehq/ui";
 import { FC, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { useChangeExtensionTitle } from "../components/studio/hooks/useChangeExtensionTitle";
+import { useChangeBlockTitle } from "../components/studio/hooks/useChangeBlockTitle";
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
 import { useDeleteExtension } from "../components/studio/hooks/useDeleteExtension";
 import { isrState } from "../store/isr";
@@ -12,7 +12,7 @@ const Blogs: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
   const [profileLink, setProfileLink] = useState("");
   const [isrMode, setIsrMode] = useRecoilState(isrState);
 
-  const changeExtensionTitle = useChangeExtensionTitle();
+  const changeBlockTitle = useChangeBlockTitle();
   const changeExtensionSize = useChangeExtensionSize();
   const deleteExtension = useDeleteExtension();
 
@@ -71,7 +71,7 @@ const Blogs: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
       actions={{ link: { url: profileLink } }}
       handleTitleChange={
         isEditable
-          ? (title) => changeExtensionTitle(extension.id, title)
+          ? (title) => changeBlockTitle(extension.id, title)
           : undefined
       }
       handleSizeChange={

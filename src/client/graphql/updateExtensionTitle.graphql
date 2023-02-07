@@ -1,5 +1,5 @@
-mutation UpdateExtensionTitle($id: String!, $title: String!) {
-  updateExtensionTitle(id: $id, title: $title) {
+mutation updateBlockTitle($id: String!, $title: String!) {
+  updateBlockTitle(id: $id, title: $title) {
     id
     title
   }

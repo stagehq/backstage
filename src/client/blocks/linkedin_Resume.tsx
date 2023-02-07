@@ -1,6 +1,6 @@
 import { Block, List, Seperator } from "@stagehq/ui";
 import { FC, useEffect, useState } from "react";
-import { useChangeExtensionTitle } from "../components/studio/hooks/useChangeExtensionTitle";
+import { useChangeBlockTitle } from "../components/studio/hooks/useChangeBlockTitle";
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
 import { BlockProps } from "./type";
 
@@ -9,7 +9,7 @@ const Resume: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
   const [university, setUniversity] = useState<any[]>([]);
   const [publicIdentifier, setPublicIdentifier] = useState<string>("");
 
-  const changeExtensionTitle = useChangeExtensionTitle();
+  const changeBlockTitle = useChangeBlockTitle();
   const changeExtensionSize = useChangeExtensionSize();
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const Resume: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
       title={"Experience"}
       size={size}
       isEditable={isEditable}
-      handleTitleChange={(title) => changeExtensionTitle(extension.id, title)}
+      handleTitleChange={(title) => changeBlockTitle(extension.id, title)}
       handleSizeChange={(size) =>
         changeExtensionSize(extension.id, size, gridRef)
       }

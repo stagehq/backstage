@@ -1,6 +1,6 @@
 import { Block, List } from "@stagehq/ui";
 import { FC, useEffect, useState } from "react";
-import { useChangeExtensionTitle } from "../components/studio/hooks/useChangeExtensionTitle";
+import { useChangeBlockTitle } from "../components/studio/hooks/useChangeBlockTitle";
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
 import { useDeleteExtension } from "../components/studio/hooks/useDeleteExtension";
 import { BlockProps } from "./type";
@@ -15,7 +15,7 @@ const Repositories: FC<BlockProps> = ({
   const [profileLink, setProfileLink] = useState("");
   const [languages, setLanguages] = useState<string[]>([]);
 
-  const changeExtensionTitle = useChangeExtensionTitle();
+  const changeBlockTitle = useChangeBlockTitle();
   const changeExtensionSize = useChangeExtensionSize();
   const deleteExtension = useDeleteExtension();
 
@@ -84,7 +84,7 @@ const Repositories: FC<BlockProps> = ({
         isEditable={isEditable}
         handleTitleChange={
           isEditable
-            ? (title) => changeExtensionTitle(extension.id, title)
+            ? (title) => changeBlockTitle(extension.id, title)
             : undefined
         }
         handleSizeChange={

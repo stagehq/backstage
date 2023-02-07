@@ -63,7 +63,7 @@ type Mutation {
   createOAuthforApi(accessToken: String, apiConnectorName: String, expiresIn: Int, idToken: String, refreshToken: String, scope: String): OAuth
   deleteExtension(id: String!, siteId: String!): Extension
   deleteSite(subdomain: String!): Site
-  updateExtensionTitle(id: String!, title: String!): Extension
+  updateBlockTitle(id: String!, title: String!): Extension
   updateSiteHeader(bio: String, image: String, siteId: String!, tagline: String): Site
   updateSiteLayouts(id: String!, layouts: String!): Site
   updateSiteSocials(id: String!, socials: String!): Site
