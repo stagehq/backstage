@@ -1,7 +1,7 @@
 import { decodeGlobalID } from "@pothos/plugin-relay";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Site } from "../../../graphql/types.generated";
-import { useupdateBlockTitleMutation } from "../../../graphql/updateExtensionTitle.generated";
+import { useUpdateBlockTitleMutation } from "../../../graphql/updateExtensionTitle.generated";
 import { siteSlugState, siteState } from "../../../store/site";
 
 /**
@@ -18,7 +18,7 @@ export const useChangeBlockTitle = () => {
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
 
-  const [, updateBlockTitle] = useupdateBlockTitleMutation();
+  const [, updateBlockTitle] = useUpdateBlockTitleMutation();
 
   const changeBlockTitle = async (id: string, title: string) => {
     // update extension in database
