@@ -90,14 +90,14 @@ const StudioEditor = () => {
             <PageHeader />
           </div>
           {site.extensions && site.extensions.length > 0 ? (
-            <div ref={itemsRef}>
+            <div ref={itemsRef} className="py-12">
               <ResponsiveGridLayout
                 layouts={site.layouts ? site.layouts : {}}
                 breakpoints={{ lg: 991, md: 768, sm: 0 }}
                 cols={{ lg: 3, md: 2, sm: 1 }}
                 rowHeight={1}
                 width={1000}
-                margin={[24, 24]}
+                margin={[32, 0]}
                 isResizable={false}
                 measureBeforeMount={true}
                 onWidthChange={() => {
