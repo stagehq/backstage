@@ -1,6 +1,7 @@
-import { decodeGlobalID } from "@pothos/plugin-relay";
+import { decodeGlobalID, encodeGlobalID } from "@pothos/plugin-relay";
 import { AuthType } from "@prisma/client";
 import { Site, StoreExtension, User } from "../../../graphql/types.generated";
+import { addingState } from "../../../store/ui/addingBlock";
 import { upsertExtension } from "../../helper/upsertExtension";
 
 export const filterArray = (
@@ -36,7 +37,10 @@ export const addOAuthExtension = async (
   apiName: string | null,
   storeExtension: StoreExtension,
   site: Site | null,
-  user: User
+  setSite: (value: Site) => void,
+  user: User,
+  setAddingInProcess: (value: addingState) => void,
+  setOpenStoreModal: (value: boolean) => void
 ) => {
   const serviceModule = await import("../../../api/service/" + apiName);
   //authorize
@@ -46,7 +50,7 @@ export const addOAuthExtension = async (
   if (!tokens.isExpired()) {
     if (!site || !user || !storeExtension || !storeExtension.routes || !apiName)
       return;
-    await upsertExtension({
+    const response = await upsertExtension({
       siteId: decodeGlobalID(site.id).id,
       storeExtensionId: decodeGlobalID(storeExtension.id).id,
       userId: decodeGlobalID(user.id).id,
@@ -63,5 +67,26 @@ export const addOAuthExtension = async (
       authType: AuthType.oAuth,
       apiConnectorName: apiName,
     });
+    const newSite = {
+      ...site,
+      extensions: [
+        ...(site.extensions ? site.extensions : []),
+        {
+          ...response.extension,
+          id: encodeGlobalID("Extension", response.extension.id),
+          storeExtension: {
+            ...response.extension.storeExtension,
+            id: encodeGlobalID(
+              "StoreExtension",
+              response.extension.storeExtension.id
+            ),
+          },
+        },
+      ],
+    };
+    console.log(response);
+    setSite({ ...newSite });
+    setAddingInProcess("added");
+    setOpenStoreModal(false);
   }
 };

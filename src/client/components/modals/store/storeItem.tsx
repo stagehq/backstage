@@ -32,7 +32,7 @@ interface StoreItemProps {
 
 const StoreItem: FC<StoreItemProps> = ({ storeExtension }) => {
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site] = useRecoilState(siteState(siteSlug));
+  const [site, setSite] = useRecoilState(siteState(siteSlug));
   const refreshSite = useRecoilRefresher_UNSTABLE(siteState(siteSlug));
   const [, setOpenPreferencesModal] = useRecoilState(preferencesOpenState);
   const [, setOpenStoreModal] = useRecoilState(storeOpenState);
@@ -78,7 +78,7 @@ const StoreItem: FC<StoreItemProps> = ({ storeExtension }) => {
 
     if (authType === AuthType.oAuth) {
       try {
-        await addOAuthExtension(apiName, storeExtension, site, user);
+        await addOAuthExtension(apiName, storeExtension, site, setSite, user, setAddingInProcess, setOpenStoreModal);
         setAddingInProcess("added");
       } catch (error) {
         //handle error
