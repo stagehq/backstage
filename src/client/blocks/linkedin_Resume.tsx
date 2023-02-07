@@ -7,6 +7,7 @@ import { BlockProps } from "./type";
 const Resume: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
   const [experience, setExperience] = useState<any[]>([]);
   const [university, setUniversity] = useState<any[]>([]);
+  const [publicIdentifier, setPublicIdentifier] = useState<string>("");
 
   const changeExtensionTitle = useChangeExtensionTitle();
   const changeExtensionSize = useChangeExtensionSize();
@@ -39,6 +40,8 @@ const Resume: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
                   image: edu.logo_url,
                 });
               });
+            apiResponse.response.public_identifier &&
+              setPublicIdentifier(apiResponse.response.public_identifier);
           });
         }
       });
@@ -64,7 +67,7 @@ const Resume: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
   return (
     <Block
       actions={{
-        link: { url: "https://www.linkedin.com/in/alexander-herzog/" },
+        link: { url: `https://www.linkedin.com/in/${publicIdentifier}/` },
       }}
       title={"Experience"}
       size={size}
