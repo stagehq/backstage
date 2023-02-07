@@ -41,6 +41,7 @@
     "@pothos/plugin-prisma": "^3.6.1",
     "@pothos/plugin-relay": "^3.10.2",
     "@prisma/client": "^4.1.1",
+    "@radix-ui/react-tooltip": "^1.0.3",
     "@react-hook/resize-observer": "^1.2.6",
     "@splitbee/web": "^0.3.0",
     "@stagehq/ui": "^0.1.13",
