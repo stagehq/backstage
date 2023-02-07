@@ -109,7 +109,7 @@ const SitePage: FC = () => {
                   cols={{ lg: 3, md: 2, sm: 1 }}
                   rowHeight={1}
                   width={1000}
-                  margin={[24, 24]}
+                  margin={[32, 0]}
                   isResizable={false}
                   isDraggable={false}
                   measureBeforeMount={true}

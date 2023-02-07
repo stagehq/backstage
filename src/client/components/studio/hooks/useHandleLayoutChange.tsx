@@ -40,7 +40,7 @@ export const useHandleLayoutChange = () => {
         for (const element of itemsRef.current.children[0].children) {
           const content = element.children[0] as HTMLDivElement;
           if (content.offsetHeight !== 0) {
-            const newHeight = content.offsetHeight + 32;
+            const newHeight = (content.offsetHeight - (content.offsetHeight/32) + 32) / 32;
             newItems[index] = {
               ...newItems[index],
               h: newHeight,

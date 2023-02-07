@@ -92,7 +92,7 @@ const StudioEditor = () => {
                 cols={{ lg: 3, md: 2, sm: 1 }}
                 rowHeight={1}
                 width={1000}
-                margin={[32, 0]}
+                margin={[32, 32]}
                 isResizable={false}
                 measureBeforeMount={true}
                 onWidthChange={() => {
