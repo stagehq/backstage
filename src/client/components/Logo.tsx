@@ -1,7 +1,6 @@
 const Logo = () => {
   /* TODO: When we have a logo, we can use it here, but check all references in the UI if they get rendered correctly. */
   return (
-    
     <div
       className="relative flex h-20 w-20 flex-shrink-0 flex-grow-0 items-center justify-center gap-[20.000001907348633px] rounded-[20px]"
       style={{ boxShadow: "0px 2.6666667461395264px 16px 0 rgba(0,0,0,0.04)" }}
