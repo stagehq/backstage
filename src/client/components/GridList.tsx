@@ -72,8 +72,8 @@ export default function GridList() {
               </div>
             </div>
             <div className="mt-6 ">
-              <p className="inline text-sm font-medium text-zinc-600 px-3 py-1 rounded-full bg-zinc-100">
-                {getBaseUrl() + '/' + site.subdomain}
+              <p className="inline rounded-full bg-zinc-100 px-3 py-1 text-sm font-medium text-zinc-600">
+                {getBaseUrl() + "/" + site.subdomain}
               </p>
             </div>
             <a

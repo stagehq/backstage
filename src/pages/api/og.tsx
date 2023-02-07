@@ -1,6 +1,5 @@
 import { ImageResponse } from "@vercel/og";
 import { NextRequest } from "next/server";
-import { getBaseUrl } from "../../helper/getBaseUrl";
 
 export const config = {
   runtime: "experimental-edge",
