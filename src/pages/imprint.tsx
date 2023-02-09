@@ -4,7 +4,7 @@ import Favicons from "../client/components/landingpage/Favicons";
 import { Footer } from "../client/components/landingpage/Footer";
 import { Header } from "../client/components/landingpage/Header";
 
-export default function Home() {
+export default function Imprint() {
   return (
     <>
       <Head>
