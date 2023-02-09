@@ -34,7 +34,7 @@ const Search: FC<SearchProps> = ({ search, setSearch }) => {
         href="https://developers.getstage.app/introduction/readme"
         target={"_blank"}
         rel="noreferrer"
-        className="relative flex cursor-pointer items-start justify-start gap-2 rounded-md border border-zinc-300 px-4 py-2 text-zinc-600 hover:bg-zinc-200 hover:text-zinc-900"
+        className="relative flex cursor-pointer items-start justify-start gap-2 rounded-md border border-zinc-300 px-4 py-2 text-zinc-600 hover:bg-zinc-200 hover:text-zinc-900 focus:outline-zinc-500"
       >
         <p className="text-left text-sm font-medium">Build your own block</p>
       </a>
