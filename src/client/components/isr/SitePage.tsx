@@ -84,6 +84,8 @@ const SitePage: FC = () => {
       <Head>
         <title>{site.tagline}</title>
         <meta name="description" content={site.bio ? site.bio : ""} />
+        <meta name="og:type" content="website" />
+        <meta name="robots" content="index,follow" />
         <meta
           property="og:image"
           content={`${getBaseUrl()}/api/og?tagline=${encodeURIComponent(
@@ -94,6 +96,9 @@ const SitePage: FC = () => {
             "https://" + site.image ? "https://" + site.image : ""
           )}`}
         />
+        <meta property="og:title" content={site.tagline ? site.tagline : ""} />
+        <meta property="og:description" content={site.bio ? site.bio : ""} />
+        <meta property="og:url" content={getBaseUrl() + '/' + site.subdomain} />
       </Head>
       <div className={clsx(theme === "dark" && "dark", "h-screen w-full ")}>
         <div className="h-full overflow-scroll bg-white @container dark:bg-zinc-900">

@@ -40,54 +40,6 @@ class MyDocument extends Document {
           />
           <meta name="msapplication-TileColor" content="#ffffff" />
           <meta name="theme-color" content="#ffffff" />
-          {/* Social Cards */}
-          <meta property="og:url" content="https://getstage.app/" />
-          <meta property="og:title" content="Stage" />
-          <meta
-            property="og:description"
-            content="API-based developer portfolio, that converts."
-          />
-          {/* Big */}
-          {/* <meta
-            property="og:image"
-            content="https://getstage.app/images/social/social-big.png"
-          />
-          <meta
-            property="og:image:secure"
-            content="https://getstage.app/images/social/social-big.png"
-          />
-          <meta property="og:image:type" content="image/png" />
-          <meta property="og:image:width" content="1200" />
-          <meta property="og:image:height" content="630" />
-          <meta property="og:image:alt" content="Stage" /> */}
-          {/* Small */}
-          {/* <meta
-            property="og:image"
-            content="https://getstage.app/images/social/social-small.png"
-          />
-          <meta
-            property="og:image:secure"
-            content="https://getstage.app/images/social/social-small.png"
-          />
-          <meta property="og:image:type" content="image/png" />
-          <meta property="og:image:width" content="600" />
-          <meta property="og:image:height" content="314" />
-          <meta property="og:image:alt" content="Stage" /> */}
-          {/* Logo */}
-          {/* <meta
-            property="og:image"
-            content="https://getstage.app/images/social/social-logo.jpg"
-          />
-          <meta
-            property="og:image:secure"
-            content="https://getstage.app/images/social/social-logo.jpg"
-          />
-          <meta property="og:image:type" content="image/jpeg" />
-          <meta property="og:image:width" content="400" />
-          <meta property="og:image:height" content="400" />
-          <meta property="og:image:alt" content="Stage" /> */}
-          {/* Twitter */}
-          <meta name="twitter:site" content="@stage_hq" />
         </Head>
         <body className="selection:bg-zinc-800 selection:text-white">
           <Main />
