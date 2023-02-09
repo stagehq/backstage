@@ -1,4 +1,6 @@
 import { decodeGlobalID } from "@pothos/plugin-relay";
+import debounce from "lodash.debounce";
+import { useCallback, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Site } from "../../../graphql/types.generated";
 import { useUpdateBlockTitleMutation } from "../../../graphql/updateExtensionTitle.generated";
@@ -20,25 +22,37 @@ export const useChangeBlockTitle = () => {
 
   const [, updateBlockTitle] = useUpdateBlockTitleMutation();
 
+  const debounceChangeBlockTitle = useCallback(
+    debounce(async (id, title) => {
+      if (id && title) {
+        await updateBlockTitle({
+          id: decodeGlobalID(id).id,
+          title,
+        });
+      }
+    }, 1000),
+    [] // will be created only once initially
+  );
+
   const changeBlockTitle = async (id: string, title: string) => {
-    // update extension in database
-    await updateBlockTitle({
-      id: decodeGlobalID(id).id,
-      title,
-    });
-    
     // update extension in recoil site store with id with immutability
-    setSite((prevSite) => {
-      const newSite = { ...prevSite };
-      const newExtensions = newSite.extensions?.map((extension) => {
+    setSite(() => {
+      const newSite = { ...site };
+      const newBlocks = newSite?.extensions?.map((extension) => {
         if (extension.id === id) {
-          return { ...extension, title };
+          return {
+            ...extension,
+            title,
+          };
         }
         return extension;
       });
-      newSite.extensions = newExtensions;
-      return newSite;
+      newSite.extensions = newBlocks;
+      return newSite as Site;
     });
+
+    // update extension in database
+    await debounceChangeBlockTitle(id, title);
   };
 
   return changeBlockTitle;

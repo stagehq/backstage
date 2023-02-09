@@ -82,7 +82,7 @@ const Blogs: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
       handleDelete={
         isEditable ? () => deleteExtension(extension.id) : undefined
       }
-      title={"Blog Posts"}
+      title={extension.title ? extension.title : "Blog Posts"}
       imagePath={"https://avatars.githubusercontent.com/u/65030610?s=200&v=4"}
       size={size}
       isEditable={isEditable}

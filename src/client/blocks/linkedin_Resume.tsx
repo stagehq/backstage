@@ -74,7 +74,7 @@ const Resume: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
       actions={{
         link: { url: `https://www.linkedin.com/in/${publicIdentifier}/` },
       }}
-      title={"Experience"}
+      title={extension.title ? extension.title : "Experience"}
       size={size}
       isEditable={isEditable}
       handleTitleChange={

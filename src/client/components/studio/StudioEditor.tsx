@@ -85,7 +85,7 @@ const StudioEditor = () => {
             <PageHeader />
           </div>
           {site.extensions && site.extensions.length > 0 ? (
-            <div ref={itemsRef} className="py-12">
+            <div ref={itemsRef} className="py-4">
               <ResponsiveGridLayout
                 layouts={site.layouts ? site.layouts : {}}
                 breakpoints={{ lg: 991, md: 768, sm: 0 }}

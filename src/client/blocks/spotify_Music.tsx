@@ -47,7 +47,7 @@ const Spotify: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
 
   return (
     <Block
-      title="Top tracks"
+      title={extension.title ? extension.title : "Top tracks"}
       size={size}
       isEditable={isEditable}
       handleTitleChange={
