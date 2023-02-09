@@ -117,7 +117,7 @@ export namespace OAuth {
 
       const getRedirectURI = () => {
         const { protocol, host } = window.location;
-        return `${protocol}//${host}/s`;
+        return `${protocol}//${host}/service/authenticated`;
       };
 
       const codeVerifier = generateCodeVerifier();
@@ -169,6 +169,8 @@ export namespace OAuth {
       if (!loginWindow) throw new Error("Could not open login window");
 
       const response = await this.pollForResponse(loginWindow);
+
+      loginWindow.close();
 
       return response;
     };
