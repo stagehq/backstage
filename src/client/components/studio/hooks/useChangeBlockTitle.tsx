@@ -26,22 +26,19 @@ export const useChangeBlockTitle = () => {
       id: decodeGlobalID(id).id,
       title,
     });
-
-    console.log(site);
     
-
     // update extension in recoil site store with id with immutability
-    const newSite = { ...site };
-    const newExtensions = newSite.extensions?.map((extension) => {
-      if (extension.id === id) {
-        return { ...extension, title };
-      }
-      return extension;
-    }
-    );
-    newSite.extensions = newExtensions;
-    console.log(newSite);
-    setSite(newSite as Site);
+    setSite((prevSite) => {
+      const newSite = { ...prevSite };
+      const newExtensions = newSite.extensions?.map((extension) => {
+        if (extension.id === id) {
+          return { ...extension, title };
+        }
+        return extension;
+      });
+      newSite.extensions = newExtensions;
+      return newSite;
+    });
   };
 
   return changeBlockTitle;
