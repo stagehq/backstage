@@ -98,7 +98,7 @@ export default function Navigation() {
             aria-label="Sidebar"
           >
             {navigation.map((item) => (
-              <TooltipPrimitive.Root>
+              <TooltipPrimitive.Root key={item.name}>
                 <TooltipPrimitive.Trigger asChild>
                   <span
                     key={item.name}
