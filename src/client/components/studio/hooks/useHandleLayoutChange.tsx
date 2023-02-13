@@ -28,7 +28,7 @@ export const useHandleLayoutChange = () => {
     newlayouts?: Layouts
   ) => {
     let currentLayouts = newlayouts ? newlayouts : site?.layouts;
-    if (!currentLayouts) return null;
+    if (!currentLayouts || !site) return null;
 
     //calculate height
     const calculateLayout = () => {
@@ -40,7 +40,8 @@ export const useHandleLayoutChange = () => {
         for (const element of itemsRef.current.children[0].children) {
           const content = element.children[0] as HTMLDivElement;
           if (content.offsetHeight !== 0) {
-            const newHeight = (content.offsetHeight - (content.offsetHeight/32) + 32) / 32;
+            const newHeight =
+              (content.offsetHeight - content.offsetHeight / 32 + 32) / 32;
             newItems[index] = {
               ...newItems[index],
               h: newHeight,
@@ -72,7 +73,7 @@ export const useHandleLayoutChange = () => {
     }
 
     //update db
-    if (!site?.subdomain) return null;
+    if (!site?.subdomain || !currentLayouts) return null;
     const response = await updateSiteLayouts({
       id: site.subdomain,
       layouts: JSON.stringify(currentLayouts),
