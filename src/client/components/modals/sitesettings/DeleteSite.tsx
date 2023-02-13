@@ -29,6 +29,7 @@ const DeleteSite: FC<DeleteSiteProps> = ({ site }) => {
   const siteSlug = useRecoilValue(siteSlugState);
   const currentSite = useRecoilValue(siteState(siteSlug));
   const [user, setUser] = useRecoilState(currentUserState);
+  const [, setSite] = useRecoilState(siteState(siteSlug));
 
   const navigate = useNavigate();
 
@@ -118,6 +119,7 @@ const DeleteSite: FC<DeleteSiteProps> = ({ site }) => {
                             ),
                           });
                           navigate("/s");
+                          setSite(null);
                           setSiteSettingsOpen(false);
                         });
                     }
