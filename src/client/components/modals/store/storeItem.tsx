@@ -78,7 +78,15 @@ const StoreItem: FC<StoreItemProps> = ({ storeExtension }) => {
 
     if (authType === AuthType.oAuth) {
       try {
-        await addOAuthExtension(apiName, storeExtension, site, setSite, user, setAddingInProcess, setOpenStoreModal);
+        await addOAuthExtension(
+          apiName,
+          storeExtension,
+          site,
+          setSite,
+          user,
+          setAddingInProcess,
+          setOpenStoreModal
+        );
         setAddingInProcess("added");
       } catch (error) {
         //handle error

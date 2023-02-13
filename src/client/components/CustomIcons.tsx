@@ -1,5 +1,3 @@
-import React from "react";
-
 export function AddIcon() {
   return (
     <svg
@@ -31,7 +29,6 @@ export function AddIcon() {
     </svg>
   );
 }
-
 
 export function AnalyticsIcon() {
   return (
@@ -123,28 +120,28 @@ export function SettingsIcon() {
 }
 
 export function CopyLinkIcon() {
-    return (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        fill="none"
-        viewBox="0 0 32 32"
-      >
-        <path d="M0 0H32V32H0z"></path>
-        <path
-          className="fill-current"
-          fillRule="evenodd"
-          d="M11.177 14.237a.75.75 0 00-1.061 0L6.822 17.53a5.406 5.406 0 000 7.646 5.409 5.409 0 007.648 0l3.294-3.293a.75.75 0 00-1.06-1.06l-3.295 3.293a3.908 3.908 0 01-5.526-5.525l3.294-3.293a.75.75 0 000-1.06zM20.819 17.764a.75.75 0 001.06 0l3.295-3.293a5.406 5.406 0 000-7.646 5.409 5.409 0 00-7.648 0l-3.294 3.293a.75.75 0 001.06 1.06l3.295-3.293a3.908 3.908 0 015.526 5.525l-3.294 3.294a.75.75 0 000 1.06z"
-          clipRule="evenodd"
-        ></path>
-        <rect
-          width="10.814"
-          height="1.5"
-          className="fill-current"
-          rx="0.75"
-          transform="rotate(-44.994 29.15 -4.652)"
-        ></rect>
-      </svg>
-    );
-  }
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      fill="none"
+      viewBox="0 0 32 32"
+    >
+      <path d="M0 0H32V32H0z"></path>
+      <path
+        className="fill-current"
+        fillRule="evenodd"
+        d="M11.177 14.237a.75.75 0 00-1.061 0L6.822 17.53a5.406 5.406 0 000 7.646 5.409 5.409 0 007.648 0l3.294-3.293a.75.75 0 00-1.06-1.06l-3.295 3.293a3.908 3.908 0 01-5.526-5.525l3.294-3.293a.75.75 0 000-1.06zM20.819 17.764a.75.75 0 001.06 0l3.295-3.293a5.406 5.406 0 000-7.646 5.409 5.409 0 00-7.648 0l-3.294 3.293a.75.75 0 001.06 1.06l3.295-3.293a3.908 3.908 0 015.526 5.525l-3.294 3.294a.75.75 0 000 1.06z"
+        clipRule="evenodd"
+      ></path>
+      <rect
+        width="10.814"
+        height="1.5"
+        className="fill-current"
+        rx="0.75"
+        transform="rotate(-44.994 29.15 -4.652)"
+      ></rect>
+    </svg>
+  );
+}

@@ -37,6 +37,6 @@ export const upsertExtension = async ({
       routes,
     }),
   }).then((response) => response.json());
-  
+
   return response;
 };

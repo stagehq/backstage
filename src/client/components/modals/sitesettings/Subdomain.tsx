@@ -106,7 +106,7 @@ const Subdomain: FC<SubdomainProps> = ({ site }) => {
                   handleSubdomainChange(event);
                 }}
                 className={clsx(
-                  "block w-full min-w-0 flex-1 rounded-none rounded-r-md border-zinc-300 text-gray-900 focus:border-zinc-500 focus:ring-zinc-500 focus:ring-inset sm:text-sm",
+                  "block w-full min-w-0 flex-1 rounded-none rounded-r-md border-zinc-300 text-gray-900 focus:border-zinc-500 focus:ring-inset focus:ring-zinc-500 sm:text-sm",
                   (!subdomainValid || subdomainTooShort) &&
                     "border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:ring-red-500"
                 )}

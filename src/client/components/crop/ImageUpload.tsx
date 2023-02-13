@@ -197,7 +197,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
             name="photo"
             type="file"
             className={clsx(
-              "dark:border-no ne absolute inset-0 rounded-md border-gray-300 opacity-0 text-[0]",
+              "dark:border-no ne absolute inset-0 rounded-md border-gray-300 text-[0] opacity-0",
               !disabled && "cursor-pointer"
             )}
             style={{ cursor: disabled ? "" : "pointer" }}

@@ -1,6 +1,6 @@
 import { decodeGlobalID } from "@pothos/plugin-relay";
 import debounce from "lodash.debounce";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Site } from "../../../graphql/types.generated";
 import { useUpdateBlockTitleMutation } from "../../../graphql/updateExtensionTitle.generated";

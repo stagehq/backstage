@@ -1,10 +1,4 @@
-import {
-  ArrowLeftIcon,
-  ChartBarIcon,
-  Cog8ToothIcon,
-  LinkIcon,
-  PlusIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import clsx from "clsx";
 import { toast } from "react-hot-toast";
@@ -17,7 +11,12 @@ import {
   siteSettingsOpenState,
   storeOpenState,
 } from "../../store/ui/modals";
-import { AddIcon, AnalyticsIcon, CopyLinkIcon, SettingsIcon } from "../CustomIcons";
+import {
+  AddIcon,
+  AnalyticsIcon,
+  CopyLinkIcon,
+  SettingsIcon,
+} from "../CustomIcons";
 
 export default function Navigation() {
   const navigate = useNavigate();
@@ -74,14 +73,14 @@ export default function Navigation() {
 
   return (
     <TooltipPrimitive.Provider>
-      <div className="flex w-16 items-center flex-col overflow-y-auto border-r border-zinc-300 bg-white pt-5 pb-4 dark:border-zinc-600 dark:bg-zinc-900">
+      <div className="flex w-16 flex-col items-center overflow-y-auto border-r border-zinc-300 bg-white pt-5 pb-4 dark:border-zinc-600 dark:bg-zinc-900">
         <div className="flex h-full flex-col">
           <div className="px-2">
             <span
               onClick={() => navigate("/s")}
               className={clsx(
-                "text-zinc-600 hover:bg-zinc-100 dark:text-zinc-100 dark:hover:bg-zinc-700 cursor-pointer",
-                "group flex items-center justify-center m-0 rounded-md px-2 py-2 text-sm font-medium"
+                "cursor-pointer text-zinc-600 hover:bg-zinc-100 dark:text-zinc-100 dark:hover:bg-zinc-700",
+                "group m-0 flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium"
               )}
             >
               <ArrowLeftIcon
@@ -104,12 +103,11 @@ export default function Navigation() {
                     key={item.name}
                     onClick={() => item.action()}
                     className={clsx(
-                      "text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 cursor-pointer",
+                      "cursor-pointer text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700",
                       "group flex items-center rounded-md p-1 text-sm font-medium"
                     )}
                   >
                     <item.icon aria-hidden="true" />
-                    
                   </span>
                 </TooltipPrimitive.Trigger>
                 <TooltipPrimitive.Content
