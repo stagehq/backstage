@@ -106,7 +106,9 @@ const ImageUpload: FC<ImageUploadProps> = ({
     for (let i = 0; i < binary.length; i++) {
       array.push(binary.charCodeAt(i));
     }
-    return new Blob([new Uint8Array(array)], { type: dataURI.substring(dataURI.indexOf(":") + 1, dataURI.indexOf(";")) });
+    return new Blob([new Uint8Array(array)], {
+      type: dataURI.substring(dataURI.indexOf(":") + 1, dataURI.indexOf(";")),
+    });
   }
 
   const handleUpload = async (url: string) => {

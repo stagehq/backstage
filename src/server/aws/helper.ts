@@ -14,7 +14,7 @@ export const uploadFile = async (
     console.error(`File size of ${file.size} bytes exceeds the 2 MB limit.`);
     return;
   }
-  
+
   const regex = /image\/(jpeg|png|gif)/;
   const ext = file.type.match(regex)[1];
   const date = Date.now();
