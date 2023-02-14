@@ -34,6 +34,7 @@ const BasicFunnel: FC<BlockProps> = ({
 
   return (
     <Block
+      isHighlighted={true}
       actions={{
         "link": {
           "url": email
@@ -41,7 +42,7 @@ const BasicFunnel: FC<BlockProps> = ({
       }}
       title={extension.title ? extension.title : "Hire me!"}
       size={size}
-      isEditable={isEditable}
+      
       handleTitleChange={
         isEditable
           ? (title) => changeBlockTitle(extension.id, title)
@@ -55,6 +56,7 @@ const BasicFunnel: FC<BlockProps> = ({
       handleDelete={
         isEditable ? () => deleteExtension(extension.id) : undefined
       }
+      isEditable={isEditable}
     >
     </Block>
   );
