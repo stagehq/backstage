@@ -102,7 +102,7 @@ const SitePage: FC = () => {
       </Head>
       <div className={clsx(theme === "dark" && "dark", "h-screen w-full ")}>
         <div className="h-full overflow-scroll bg-white @container dark:bg-zinc-900">
-          <div className="min-h-full w-full max-w-6xl p-12 pb-24 lg:mx-auto">
+          <div className="min-h-full w-full max-w-6xl p-0 sm:p-4 lg:p-12 pb-24 lg:mx-auto">
             <div className="p-8">
               <PageHeader disabled />
             </div>
