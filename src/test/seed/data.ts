@@ -64,6 +64,18 @@ export const apiConnectorsData: apiConnectorSeedInput = [
       },
     ],
   },
+  {
+    name: "funnel",
+    markdown: "best funnel ever",
+    authType: AuthType.preferences,
+    apiConnectorRoutes: [
+      {
+        name: "funnel_empty",
+        url: "",
+        urlParameter: ["email"],
+      },
+    ],
+  },
 ];
 
 export const storeExtensionsData: storeExtensionSeedInput = [
@@ -144,9 +156,13 @@ export const storeExtensionsData: storeExtensionSeedInput = [
     name: "Funnel",
     description: "Grow your personal brand",
     image: "funnel",
-    blockId: "funnel_Funnel",
+    blockId: "basic_Funnel",
     markdown: "This is a extension where you could grow your brand",
     icon: "BriefcaseIcon",
-    routes: [],
+    routes: [
+      {
+        name: "funnel_empty",
+      },
+    ],
   },
 ];

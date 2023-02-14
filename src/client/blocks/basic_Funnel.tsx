@@ -1,5 +1,5 @@
 import { Block } from "@stagehq/ui";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useChangeBlockTitle } from "../components/studio/hooks/useChangeBlockTitle";
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
 import { useDeleteExtension } from "../components/studio/hooks/useDeleteExtension";
@@ -11,18 +11,32 @@ const BasicFunnel: FC<BlockProps> = ({
   size,
   isEditable,
 }) => {
-
   console.log(extension);
+  const [email, setEmail] = useState("");
   
   const changeBlockTitle = useChangeBlockTitle();
   const changeExtensionSize = useChangeExtensionSize();
   const deleteExtension = useDeleteExtension();
 
+  useEffect(() => {
+    if (extension.underlayingApis) {
+      extension.underlayingApis?.forEach((api) => {
+        if (api.apiConnector?.name === "funnel") {
+          api.apiResponses?.forEach((apiResponse) => {
+            if (email === "") {
+              setEmail(apiResponse.response.email);
+            }
+          });
+        }
+      });
+    }
+  }, [extension]);
+
   return (
     <Block
       actions={{
         "link": {
-          "url": "https://www.google.com"
+          "url": email
         }
       }}
       title={extension.title ? extension.title : "Hire me!"}
@@ -41,7 +55,6 @@ const BasicFunnel: FC<BlockProps> = ({
       handleDelete={
         isEditable ? () => deleteExtension(extension.id) : undefined
       }
-      imagePath={"https://avatars.githubusercontent.com/u/9919?s=200&v=4"}
     >
     </Block>
   );
