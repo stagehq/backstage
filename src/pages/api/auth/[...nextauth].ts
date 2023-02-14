@@ -5,6 +5,7 @@ import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
 import GitlabProvider from "next-auth/providers/gitlab";
 import GoogleProvider from "next-auth/providers/google";
+import { getInvite } from "../../../helper/invites/airtable";
 import prisma from "../../../server/db/prisma";
 
 const authHandler: NextApiHandler = (req, res) =>
@@ -48,4 +49,18 @@ export const authOptions = {
     }),
     // ...add more providers here
   ],
+  callbacks: {
+    async signIn({ user }: { user: any }) {
+      const invite = await getInvite(user.email);
+      const isAllowedToSignIn = invite.invited;
+      if (isAllowedToSignIn) {
+        return true;
+      } else {
+        // Return false to display a default error message
+        return false;
+        // Or you can return a URL to redirect to:
+        // return '/unauthorized'
+      }
+    },
+  },
 };
