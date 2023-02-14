@@ -8,8 +8,15 @@ export const uploadFile = async (
   type: uploadType
 ) => {
   if (!file) return;
-  const re = /(?:\.([^.]+))?$/;
-  const ext = re.exec(file.name)?.[1];
+
+  const maxFileSize = 2 * 1024 * 1024; // 2 MB in bytes
+  if (file.size > maxFileSize) {
+    console.error(`File size of ${file.size} bytes exceeds the 2 MB limit.`);
+    return;
+  }
+  
+  const regex = /image\/(jpeg|png|gif)/;
+  const ext = file.type.match(regex)[1];
   const date = Date.now();
 
   // Get presigned post call
@@ -45,8 +52,8 @@ export const createFileUrl = (
   type: uploadType,
   date: number
 ) => {
-  const re = /(?:\.([^.]+))?$/;
-  const ext = re.exec(file.name)?.[1];
+  const regex = /image\/(jpeg|png|gif)/;
+  const ext = file.type.match(regex)[1];
 
   const filename = `${userId}/${type}-${date}`;
   const bucketname = process.env.NEXT_PUBLIC_S3_BUCKET_NAME;

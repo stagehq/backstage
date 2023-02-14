@@ -106,7 +106,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
     for (let i = 0; i < binary.length; i++) {
       array.push(binary.charCodeAt(i));
     }
-    return new Blob([new Uint8Array(array)], { type: "image/jpeg" });
+    return new Blob([new Uint8Array(array)], { type: dataURI.substring(dataURI.indexOf(":") + 1, dataURI.indexOf(";")) });
   }
 
   const handleUpload = async (url: string) => {
@@ -192,7 +192,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
           )}
           <input
             onChange={onChange}
-            accept="image/*"
+            accept="image/png, image/gif, image/jpeg"
             id="photo"
             name="photo"
             type="file"
