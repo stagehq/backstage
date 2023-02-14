@@ -76,11 +76,12 @@ export default function Navigation() {
       <div className="flex w-16 flex-col items-center overflow-y-auto border-r border-zinc-300 bg-white pt-5 pb-4 dark:border-zinc-600 dark:bg-zinc-900">
         <div className="flex h-full flex-col">
           <div className="px-2">
-            <span
+            <button
               onClick={() => navigate("/s")}
+              aria-label={"Back to all sites"}
               className={clsx(
                 "cursor-pointer text-zinc-600 hover:bg-zinc-100 dark:text-zinc-100 dark:hover:bg-zinc-700",
-                "group m-0 flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium"
+                "group m-0 flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-zinc-800 dark:focus:ring-zinc-300"
               )}
             >
               <ArrowLeftIcon
@@ -90,7 +91,7 @@ export default function Navigation() {
                 )}
                 aria-hidden="true"
               />
-            </span>
+            </button>
           </div>
           <nav
             className="flex h-full flex-col justify-center gap-4 px-2 pb-12"
@@ -99,16 +100,17 @@ export default function Navigation() {
             {navigation.map((item) => (
               <TooltipPrimitive.Root key={item.name}>
                 <TooltipPrimitive.Trigger asChild>
-                  <span
+                  <button
                     key={item.name}
+                    aria-label={item.name}
                     onClick={() => item.action()}
                     className={clsx(
                       "cursor-pointer text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700",
-                      "group flex items-center rounded-md p-1 text-sm font-medium"
+                      "group flex items-center rounded-md p-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-zinc-800 dark:focus:ring-zinc-300"
                     )}
                   >
                     <item.icon aria-hidden="true" />
-                  </span>
+                  </button>
                 </TooltipPrimitive.Trigger>
                 <TooltipPrimitive.Content
                   sideOffset={4}
