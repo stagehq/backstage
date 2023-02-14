@@ -80,7 +80,7 @@ export default function GridList() {
               href={`${getBaseUrl()}/${site.subdomain}`}
               target="_blank"
               rel="noopener"
-              className="absolute top-6 right-6 flex h-10 w-10 items-center justify-center rounded-3xl border border-zinc-200 bg-white shadow-sm hover:border-zinc-300 hover:shadow"
+              className="absolute top-6 right-6 flex h-10 w-10 items-center justify-center rounded-3xl border border-zinc-200 bg-white shadow-sm hover:border-zinc-300 hover:shadow focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

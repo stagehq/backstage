@@ -49,7 +49,7 @@ export default function DashboardHeader() {
                     <div className="flex items-center justify-start gap-1">
                       <a
                         href="mailto:office@getstage.app"
-                        className="flex h-8 cursor-pointer items-center justify-start gap-2 overflow-hidden rounded border border-zinc-200 px-4 py-2 text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900"
+                        className="flex h-8 cursor-pointer items-center justify-start gap-2 overflow-hidden rounded border border-zinc-200 px-4 py-2 text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800"
                       >
                         <p className="text-sm font-medium">Feedback</p>
                       </a>
@@ -57,7 +57,7 @@ export default function DashboardHeader() {
                         href="https://developers.getstage.app/introduction/readme"
                         target={"_blank"}
                         rel={"noopener"}
-                        className="flex h-8 cursor-pointer items-center justify-start gap-2 overflow-hidden rounded py-2 px-4 text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900"
+                        className="flex h-8 cursor-pointer items-center justify-start gap-2 overflow-hidden rounded border border-transparent py-2 px-4 text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800"
                       >
                         <p className="text-sm font-medium">Docs</p>
                       </a>
@@ -65,7 +65,7 @@ export default function DashboardHeader() {
                         href="https://discord.gg/PDBGggcTyW"
                         target={"_blank"}
                         rel={"noopener"}
-                        className="flex h-8 cursor-pointer items-center justify-start gap-2 overflow-hidden rounded py-2 px-4 text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900"
+                        className="flex h-8 cursor-pointer items-center justify-start gap-2 overflow-hidden rounded border border-transparent py-2 px-4 text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800"
                       >
                         <p className="text-sm font-medium">Community</p>
                       </a>
