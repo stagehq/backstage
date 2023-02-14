@@ -1,7 +1,9 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { FC, Fragment, useRef, useState } from "react";
+import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { client } from "../../graphql/client";
+import { GetValidSubdomainDocument } from "../../graphql/getValidSubdomain.generated";
 import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
 import { subdomainCardOpenState } from "../../store/ui/modals";
 import { currentUserState } from "../../store/user";
@@ -93,22 +95,31 @@ const InSiteSubdomain: FC = () => {
   const [user, setUser] = useRecoilState(currentUserState);
   const [, setSubdomainCardOpen] = useRecoilState(subdomainCardOpenState);
   const [subdomainValid, setSubdomainValid] = useState(false);
+  const [subdomainTooShort, setSubdomainTooShort] = useState(true);
   const [, upsertSite] = useUpsertSiteMutation();
 
   const navigate = useNavigate();
 
-  const handleSubdomainChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value === "") {
-      setSubdomain(value);
-      setSubdomainValid(false);
-    } else if (value.match(/^[a-z]+$/)) {
-      setSubdomain(value);
-      if (value.length > 3) {
-        setSubdomainValid(true);
-      } else {
-        setSubdomainValid(false);
-      }
+  // handle subdomain change
+  const handleSubdomainChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setSubdomain(e.target.value);
+
+    // Check if subdomain is valid
+    if (e.target.value && e.target.value !== subdomain) {
+      await client
+        .query(GetValidSubdomainDocument, {
+          subdomain: e.target.value,
+        })
+        .toPromise()
+        .then((result) => {
+          if (result.data?.getValidSubdomain) {
+            setSubdomainValid(false);
+          } else {
+            setSubdomainValid(true);
+          }
+        });
     }
   };
 
@@ -129,6 +140,7 @@ const InSiteSubdomain: FC = () => {
             ? [...user?.sites, response.data.upsertSite]
             : [response.data.upsertSite],
         });
+
         setSubdomainCardOpen(false);
         setTimeout(() => {
           if (subdomain) navigate(`/s/${subdomain}`);
@@ -136,6 +148,16 @@ const InSiteSubdomain: FC = () => {
       }
     }
   };
+
+  // useEffect to set subdomain error states
+  useEffect(() => {
+    // Check if subdomain is long enough
+    if (subdomain && subdomain.length < 3) {
+      setSubdomainTooShort(true);
+    } else {
+      setSubdomainTooShort(false);
+    }
+  }, [subdomain]);
 
   return (
     <>
@@ -186,11 +208,28 @@ const InSiteSubdomain: FC = () => {
                 className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
               />
             </div>
+            {!subdomainValid && subdomain !== "" && (
+              <p
+                className="mt-2 text-left text-xs font-medium text-zinc-500"
+                id="email-error"
+              >
+                This subdomain is already taken or not valid.
+              </p>
+            )}
+            {subdomainTooShort && subdomain !== "" && (
+              <p
+                className="mt-2 text-left text-xs font-medium text-zinc-500"
+                id="email-error"
+              >
+                Your subdomain must be 3 characters or more.
+              </p>
+            )}
           </div>
           <button
             type="button"
-            disabled={!subdomainValid}
+            disabled={!subdomain || subdomainTooShort || !subdomainValid}
             onClick={() => {
+              if (!subdomain || subdomainTooShort || !subdomainValid) return;
               handleUpsertSite();
             }}
             className="mt-4 flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"

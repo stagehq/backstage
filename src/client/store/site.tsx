@@ -30,6 +30,10 @@ export const siteState = atomFamily<Site | null, string | null>({
         return null;
       }
     },
+    cachePolicy_UNSTABLE: {
+      // Only store the most recent set of dependencies and their values
+      eviction: "most-recent",
+    },
   }),
 });
 

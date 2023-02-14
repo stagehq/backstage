@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRecoilState } from "recoil";
+import { client } from "../../graphql/client";
+import { GetValidSubdomainDocument } from "../../graphql/getValidSubdomain.generated";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { useUpsertSiteMutation } from "../../graphql/upsertSite.generated";
 import { onboardingState } from "../../store/onboarding";
@@ -283,22 +285,31 @@ export const OnboardingSubdomain: FC = () => {
   const [user, setUser] = useRecoilState(currentUserState);
   const [, setSubdomainCardOpen] = useRecoilState(subdomainCardOpenState);
   const [subdomainValid, setSubdomainValid] = useState(false);
+  const [subdomainTooShort, setSubdomainTooShort] = useState(true);
   const [, upsertSite] = useUpsertSiteMutation();
 
   const router = useRouter();
 
-  const handleSubdomainChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value === "") {
-      setOnboarding({ ...onboarding, subdomain: value });
-      setSubdomainValid(false);
-    } else if (value.match(/^[a-z]+$/)) {
-      setOnboarding({ ...onboarding, subdomain: value });
-      if (value.length > 3) {
-        setSubdomainValid(true);
-      } else {
-        setSubdomainValid(false);
-      }
+  // handle subdomain change
+  const handleSubdomainChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setOnboarding({ ...onboarding, subdomain: e.target.value });
+
+    // Check if subdomain is valid
+    if (e.target.value && e.target.value !== onboarding.subdomain) {
+      await client
+        .query(GetValidSubdomainDocument, {
+          subdomain: e.target.value,
+        })
+        .toPromise()
+        .then((result) => {
+          if (result.data?.getValidSubdomain) {
+            setSubdomainValid(false);
+          } else {
+            setSubdomainValid(true);
+          }
+        });
     }
   };
 
@@ -334,6 +345,11 @@ export const OnboardingSubdomain: FC = () => {
         subdomain: user.mainSite.subdomain,
       });
       setSubdomainValid(true);
+    }
+    if (onboarding.subdomain && onboarding.subdomain.length < 3) {
+      setSubdomainTooShort(true);
+    } else {
+      setSubdomainTooShort(false);
     }
   }, [onboarding, setOnboarding, user]);
 
@@ -386,11 +402,31 @@ export const OnboardingSubdomain: FC = () => {
                 className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
               />
             </div>
+            {!subdomainValid && onboarding.subdomain !== "" && (
+              <p
+                className="mt-2 text-left text-xs font-medium text-zinc-500"
+                id="email-error"
+              >
+                This subdomain is already taken or not valid.
+              </p>
+            )}
+            {subdomainTooShort && onboarding.subdomain !== "" && (
+              <p
+                className="mt-2 text-left text-xs font-medium text-zinc-500"
+                id="email-error"
+              >
+                Your subdomain must be 3 characters or more.
+              </p>
+            )}
           </div>
           <button
             type="button"
-            disabled={!subdomainValid}
+            disabled={
+              !onboarding.subdomain || subdomainTooShort || !subdomainValid
+            }
             onClick={() => {
+              if (!onboarding.subdomain || subdomainTooShort || !subdomainValid)
+                return;
               handleUpsertSite();
             }}
             className="mt-4 flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"

@@ -5,7 +5,11 @@ import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  useRecoilRefresher_UNSTABLE,
+  useRecoilState,
+  useRecoilValue,
+} from "recoil";
 import { useDeleteSiteMutation } from "../../../graphql/deleteSite.generated";
 import { Site } from "../../../graphql/types.generated";
 import { siteSlugState, siteState } from "../../../store/site";
@@ -26,10 +30,11 @@ const DeleteSite: FC<DeleteSiteProps> = ({ site }) => {
   const [editCurrentInput, setEditCurrentInput] = useState("");
 
   const [, setSiteSettingsOpen] = useRecoilState(siteSettingsOpenState);
-  const siteSlug = useRecoilValue(siteSlugState);
+  const [siteSlug, setSiteSlug] = useRecoilState(siteSlugState);
   const currentSite = useRecoilValue(siteState(siteSlug));
   const [user, setUser] = useRecoilState(currentUserState);
   const [, setSite] = useRecoilState(siteState(siteSlug));
+  const resetSite = useRecoilRefresher_UNSTABLE(siteState(siteSlug));
 
   const navigate = useNavigate();
 
@@ -118,9 +123,10 @@ const DeleteSite: FC<DeleteSiteProps> = ({ site }) => {
                               (site) => site.subdomain !== currentSite.subdomain
                             ),
                           });
-                          navigate("/s");
-                          setSite(null);
+                          // close modal
                           setSiteSettingsOpen(false);
+                          // // navigate to sites with hard reload to clean up the state
+                          window.location.href = "/s";
                         });
                     }
                   }

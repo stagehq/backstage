@@ -22,8 +22,12 @@ const Site = () => {
   return (
     <>
       <div className={clsx(theme === "dark" && "dark", "flex h-screen w-full")}>
-        <Navigation />
-        <StudioEditor />
+        {siteId && (
+          <>
+            <Navigation />
+            <StudioEditor />
+          </>
+        )}
       </div>
     </>
   );

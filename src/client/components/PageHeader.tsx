@@ -167,8 +167,6 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
     }
   };
 
-  console.log(site?.socials);
-
   if (!site) return null;
 
   return (

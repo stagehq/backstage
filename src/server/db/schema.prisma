@@ -87,12 +87,12 @@ model Site {
   image                 String?
 
   userId                String                
-  user                  User                  @relation("tailorings", fields: [userId], references: [id])
+  user                  User                  @relation("tailorings", fields: [userId], references: [id], onDelete: Cascade)
 
   extensions            Extension[]
 
   userMainSiteId        String?               @unique
-  userMainSite          User?                 @relation("mainSite", fields: [userMainSiteId], references: [id])
+  userMainSite          User?                 @relation("mainSite", fields: [userMainSiteId], references: [id], onDelete: SetNull)
 
   analyticsId           String?
   analytics             Analytics?            @relation(fields: [analyticsId], references: [id])
