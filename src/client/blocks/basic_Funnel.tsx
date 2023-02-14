@@ -13,7 +13,7 @@ const BasicFunnel: FC<BlockProps> = ({
 }) => {
   console.log(extension);
   const [email, setEmail] = useState("");
-  
+
   const changeBlockTitle = useChangeBlockTitle();
   const changeExtensionSize = useChangeExtensionSize();
   const deleteExtension = useDeleteExtension();
@@ -36,13 +36,12 @@ const BasicFunnel: FC<BlockProps> = ({
     <Block
       isHighlighted={true}
       actions={{
-        "link": {
-          "url": email
-        }
+        link: {
+          url: email,
+        },
       }}
       title={extension.title ? extension.title : "Hire me!"}
       size={size}
-      
       handleTitleChange={
         isEditable
           ? (title) => changeBlockTitle(extension.id, title)
@@ -58,6 +57,7 @@ const BasicFunnel: FC<BlockProps> = ({
       }
       isEditable={isEditable}
     >
+      <span>fix no children</span>
     </Block>
   );
 };

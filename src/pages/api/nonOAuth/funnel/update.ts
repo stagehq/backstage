@@ -10,8 +10,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const response = {
-      email: email
-    }
+      email: email,
+    };
     res.status(200).json(response);
   } catch (error) {
     console.error(error);
