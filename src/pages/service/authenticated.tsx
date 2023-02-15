@@ -3,7 +3,18 @@ import Head from "next/head";
 import { Container } from "../../client/components/landingpage/Container";
 import Favicons from "../../client/components/landingpage/Favicons";
 
-export default function Imprint() {
+/*
+These two URLs can be used as the callback URLs when setting up an OAuth application with a specific provider:
+
+http://localhost:3000/service/authenticated
+https://getstage.app/service/authenticated
+
+When the OAuth provider redirects the user back to the callback URL after authentication, 
+the application can use the provided access token to make authorized requests on behalf of the user. 
+Make sure to configure the OAuth provider to allow these specific URLs as callback URLs for your application.
+*/
+
+export default function ServcieAuthenticated() {
   return (
     <>
       <Head>
