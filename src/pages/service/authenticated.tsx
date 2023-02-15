@@ -26,7 +26,7 @@ export default function Imprint() {
                 Service successfully authenticated.
               </h3>
               <p className="mt-1 text-sm text-zinc-500">
-                This window could be closed.
+                This window can be closed.
               </p>
             </div>
           </Container>
