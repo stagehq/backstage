@@ -40,7 +40,7 @@ const BasicFunnel: FC<BlockProps> = ({
           url: email,
         },
       }}
-      title={extension.title ? extension.title : "Hire me!"}
+      title={extension.title ? extension.title : "Let's talk!"}
       size={size}
       handleTitleChange={
         isEditable
