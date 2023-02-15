@@ -56,8 +56,7 @@ const BasicFunnel: FC<BlockProps> = ({
         isEditable ? () => deleteExtension(extension.id) : undefined
       }
       isEditable={isEditable}
-    >
-    </Block>
+    ></Block>
   );
 };
 
