@@ -14,7 +14,7 @@ the application can use the provided access token to make authorized requests on
 Make sure to configure the OAuth provider to allow these specific URLs as callback URLs for your application.
 */
 
-export default function ServcieAuthenticated() {
+export default function ServiceAuthenticated() {
   return (
     <>
       <Head>
