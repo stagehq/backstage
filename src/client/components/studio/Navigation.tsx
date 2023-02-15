@@ -67,7 +67,7 @@ export default function Navigation() {
   const navigation = [
     { name: "Copy link", icon: CopyLinkIcon, action: handleCopyLink },
     { name: "Settings", icon: SettingsIcon, action: handleSettingsClick },
-    { name: "Analytics", icon: AnalyticsIcon, action: handleAnalyticsClick },
+    // { name: "Analytics", icon: AnalyticsIcon, action: handleAnalyticsClick },
     { name: "Add block", icon: AddIcon, action: handleAddBlockClick },
   ];
 
