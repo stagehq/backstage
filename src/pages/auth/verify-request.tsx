@@ -1,5 +1,6 @@
 import { useSession } from "next-auth/react";
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { Icon } from "../../client/components/Icons";
 import SignLayout from "../../client/components/layouts/Login";
@@ -11,10 +12,6 @@ export default function VerifyRequestPage() {
 
   if (status === "loading") {
     return <LoadingPage />;
-  }
-
-  if (status === "unauthenticated") {
-    router.push("/logout");
   }
 
   if (status === "authenticated") {
@@ -32,7 +29,7 @@ export default function VerifyRequestPage() {
           <div>
             <div className="text-center">
               <div className="flex justify-center">
-                <Icon name="EnvelopeIcon" size="lg" color="neutral" />
+                <Icon name="EnvelopeIcon" size="lg" color="success" />
               </div>
               <h2 className="mt-2 text-lg font-medium text-gray-900">
                 You got mail!
@@ -42,6 +39,11 @@ export default function VerifyRequestPage() {
                 <br />
                 Please try again if no mail is sent at all.
               </p>
+              <Link href={"/auth/login"}>
+                <a className="mt-4 inline-flex rounded-md border border-transparent bg-gray-600 py-2 px-4 text-center text-sm font-medium text-white shadow-sm hover:bg-gray-700">
+                  Go back to Login
+                </a>
+              </Link>
             </div>
           </div>
         </div>

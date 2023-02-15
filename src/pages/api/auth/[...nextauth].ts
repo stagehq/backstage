@@ -29,8 +29,16 @@ export const authOptions = {
       from: process.env.EMAIL_FROM,
     }),
     GithubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID as string,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+      clientId: (process.env.GITHUB_CLIENT_ID as string) || "",
+      clientSecret: (process.env.GITHUB_CLIENT_SECRET as string) || "",
+      profile(profile) {
+        return {
+          id: profile.id.toString(),
+          name: profile.name || profile.login,
+          email: profile.email,
+          image: profile.avatar_url,
+        };
+      },
     }),
     GitlabProvider({
       clientId: process.env.GITLAB_CLIENT_ID as string,
@@ -50,8 +58,25 @@ export const authOptions = {
     // ...add more providers here
   ],
   callbacks: {
-    async signIn({ user }: { user: any }) {
+    async signIn({
+      user,
+      account,
+      profile,
+    }: {
+      user: any;
+      account: any;
+      profile: any;
+    }) {
+      console.log("signIn", user, account, profile);
+
+      if (!user.email) return false;
+
+      // Check if the user is allowed to sign in
       const invite = await getInvite(user.email);
+      // Check if invite exists
+      if (!invite) return false;
+
+      // Check if invite is allowed to sign in
       const isAllowedToSignIn = invite.invited;
       if (isAllowedToSignIn) {
         return true;

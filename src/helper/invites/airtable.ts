@@ -23,8 +23,9 @@ const airtable = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY });
 const base = airtable.base(process.env.AIRTABLE_BASE_ID);
 
 // get an invite by invite code (promisified)
-export async function getInvite(email: string): Promise<Invite> {
+export async function getInvite(email: string): Promise<Invite | undefined> {
   const inviteRecord = await getInviteRecord(email);
+  if (!inviteRecord) return undefined;
 
   return {
     email: String(inviteRecord.fields.email),
@@ -35,7 +36,9 @@ export async function getInvite(email: string): Promise<Invite> {
   };
 }
 
-export function getInviteRecord(email: string): Promise<Record<FieldSet>> {
+export function getInviteRecord(
+  email: string
+): Promise<Record<FieldSet> | undefined> {
   return new Promise((resolve, reject) => {
     base("stage-invites")
       // runs a query on the `invites` table
@@ -51,14 +54,8 @@ export function getInviteRecord(email: string): Promise<Record<FieldSet>> {
           return reject(err);
         }
 
-        // if the record could not be found
-        // we consider it an error
-        if (!records || records.length === 0) {
-          return reject(new Error("Invite not found"));
-        }
-
         // returns the first record
-        resolve(records[0]);
+        resolve(!records || records.length === 0 ? undefined : records[0]);
       });
   });
 }
