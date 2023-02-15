@@ -1,7 +1,7 @@
-import wretch from "wretch";
 // nextjs api route for github
 
 import type { NextApiRequest, NextApiResponse } from "next";
+import wretch from "wretch";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {

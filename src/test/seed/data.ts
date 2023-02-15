@@ -55,12 +55,11 @@ export const apiConnectorsData: apiConnectorSeedInput = [
   {
     name: "spotify",
     markdown: "best player ever",
-    authType: AuthType.preferences,
+    authType: AuthType.oAuth,
     apiConnectorRoutes: [
       {
         name: "spotify_toptracks",
-        url: "",
-        urlParameter: [],
+        url: "/v1/me/top/tracks?time_range=short_term&limit=5",
       },
     ],
   },

@@ -10,19 +10,24 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const { authCode, codeVerifier, redirectURI } = req.body;
 
     const data = new URLSearchParams();
+    // data.append("grant_type", "client_credentials");
+    data.append("code", authCode);
+    data.append("code_verifier", codeVerifier);
+    data.append("redirect_uri", redirectURI);
     data.append(
       "client_id",
       process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID
         ? process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID
         : ""
     );
-    data.append("code", authCode);
-    data.append("code_verifier", codeVerifier);
-    data.append("grant_type", "authorization_code");
-    data.append("redirect_uri", redirectURI);
 
-    const response = await wretch("https://accounts.spotify.com/api/token")
+    const response = await wretch(
+      "https://accounts.spotify.com/api/token?grant_type=client_credentials"
+    )
       .addon(FormUrlAddon)
+      .headers({
+        "Content-Type": "application/x-www-form-urlencoded",
+      })
       .auth(
         `Basic ${Buffer.from(
           `${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
