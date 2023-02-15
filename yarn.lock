@@ -3095,10 +3095,10 @@
   resolved "https://registry.yarnpkg.com/@splitbee/web/-/web-0.3.0.tgz#676ebe877b6d82a10ece6527a07f70b1994d242e"
   integrity sha512-jNPDKg0GQGa4jCaBc6JQsv0NHmBA80WCwZE49nFyhcbo32WF0GyqXeice7ZApy7OUHI16bAUAzm4MOQw3gvxfQ==
 
-"@stagehq/ui@^0.1.20":
-  version "0.1.20"
-  resolved "https://registry.yarnpkg.com/@stagehq/ui/-/ui-0.1.20.tgz#4238ed8f4d902ae79486243e571580f258c1dc6d"
-  integrity sha512-3BoZmFSK6WUnoeeDGtWD8YDOpF3gXYwVJ+CrfE3X8T5PbskuRpMlxbINszIc1EgvkInYWHv6PhbNyfeDoEUAQw==
+"@stagehq/ui@^0.1.21":
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/@stagehq/ui/-/ui-0.1.21.tgz#7240e628d69bc648464f1979b89abe50be06197c"
+  integrity sha512-Sf5B85+bNfO3DwnHWyiZC+rjy2FlNqazFI35eX71vf9MxkjNxwuNYgEuXdSljhhHs4nLkyumPvIeS9/Q3fjDRw==
   dependencies:
     "@heroicons/react" "^2.0.13"
     "@storybook/addon-a11y" "^6.5.13"
