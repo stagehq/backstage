@@ -57,7 +57,6 @@ const BasicFunnel: FC<BlockProps> = ({
       }
       isEditable={isEditable}
     >
-      <span>fix no children</span>
     </Block>
   );
 };
