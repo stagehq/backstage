@@ -375,8 +375,8 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                   onClick={() => {
                     setEditCurrentUser(user);
                     setCurrentUser(user);
-                    setAliasValid(true);
-                    setAliasTooShort(false);
+                    // setAliasValid(true);
+                    // setAliasTooShort(false);
                     setFieldsEdited(false);
                   }}
                   className="inline-flex justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
@@ -396,37 +396,34 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                       toast.error("Last name is not valid.");
                       return false;
                     }
-                    // Catch if alias is not provided
-                    if (!editCurrentUser.alias) {
-                      setAliasValid(false);
-                      toast.error("This alias is not valid.");
-                      return false;
-                    }
-                    // Catch if alias is not valid
-                    if (!aliasValid) {
-                      toast.error("This alias is already taken or not valid.");
-                      return false;
-                    }
-                    // Catch if alias is too short
-                    if (
-                      editCurrentUser.alias &&
-                      editCurrentUser.alias.length < 3
-                    ) {
-                      setAliasTooShort(true);
-                      toast.error("Your alias must be 3 characters or more.");
-                      return false;
-                    }
+                    // // Catch if alias is not provided
+                    // if (!editCurrentUser.alias) {
+                    //   setAliasValid(false);
+                    //   toast.error("This alias is not valid.");
+                    //   return false;
+                    // }
+                    // // Catch if alias is not valid
+                    // if (!aliasValid) {
+                    //   toast.error("This alias is already taken or not valid.");
+                    //   return false;
+                    // }
+                    // // Catch if alias is too short
+                    // if (
+                    //   editCurrentUser.alias &&
+                    //   editCurrentUser.alias.length < 3
+                    // ) {
+                    //   setAliasTooShort(true);
+                    //   toast.error("Your alias must be 3 characters or more.");
+                    //   return false;
+                    // }
 
                     setUpdateUserLoading(true);
-                    if (session?.user?.email && editCurrentUser.alias) {
+                    if (session?.user?.email) {
                       toast
                         .promise(
                           updateUser({
-                            alias: editCurrentUser.alias,
                             firstName: editCurrentUser.firstName,
                             lastName: editCurrentUser.lastName,
-                            // bio: editCurrentUser.bio,
-                            // url: editCurrentUser.url,
                           }),
                           {
                             loading: `Save profile ...`,
@@ -447,7 +444,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                           setCurrentUser(editCurrentUser);
                           if (isOnboarding) {
                             setRedirectToDiscover(true);
-                            router.push("/s/discover");
+                            router.push("/s");
                           }
                         });
                     }
