@@ -15,6 +15,7 @@ import {
 import { currentUserState } from "../../store/user";
 import ImageUpload from "../crop/ImageUpload";
 import Gradient from "../Gradient";
+import LoadingPage from "../loading/Page";
 import LoginCard from "../LoginCard";
 import Logo from "../Logo";
 import { parseName } from "../modals/settings/helper/parseName";
@@ -33,7 +34,17 @@ const renderOnboardingSection = (activeSection: OnboardingSection) => {
   }
 };
 const Onboarding: FC = () => {
+  const [user, setUser] = useRecoilState(currentUserState);
   const [activeSection] = useRecoilState(activeSectionState);
+
+  const router = useRouter();
+
+  // if user has site, redirect to dashboard
+  if (user?.sites && user.sites.length > 0) {
+    router.push("/s");
+    return <LoadingPage />;
+  }
+
   return (
     <LoginCard>
       <div className="flex h-full flex-col sm:min-h-[530px]">
@@ -184,7 +195,7 @@ const OnboardingProfile = () => {
                   value={user.lastName || ""}
                   id="lastname"
                   name="lastname"
-                  placeholder="Surname"
+                  placeholder="Last name"
                   type="text"
                   autoComplete="lastname"
                   maxLength={50}
@@ -364,14 +375,14 @@ export const OnboardingSubdomain: FC = () => {
       </div>
       <div className="mt-auto flex flex-col items-start justify-start gap-2 px-4 pt-8 sm:px-6">
         <p className="text-left text-xl font-semibold text-zinc-900">
-          Get your alias
+          Get your link
         </p>
         <p className="text-left text-xs font-medium text-zinc-500">
-          The alias is the name which is displayed in your url.{" "}
+          The link is the name which is displayed in your url.{" "}
           {onboarding.subdomain.length === 0 ? (
             <>
               For example: getstage.app/
-              <span className="underline">nilsjacobsen</span>
+              <span className="underline">link</span>
             </>
           ) : (
             <>
@@ -388,7 +399,7 @@ export const OnboardingSubdomain: FC = () => {
               htmlFor="link"
               className="block text-sm font-medium text-zinc-600"
             >
-              Alias
+              Link
             </label>
             <div className="relative mt-1">
               <input
@@ -431,7 +442,7 @@ export const OnboardingSubdomain: FC = () => {
             }}
             className="mt-4 flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
           >
-            Claim alias
+            Let's get started 🎉
           </button>
         </div>
       </div>

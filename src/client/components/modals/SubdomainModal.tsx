@@ -170,14 +170,14 @@ const InSiteSubdomain: FC = () => {
       </div>
       <div className="mt-auto flex flex-col items-start justify-start gap-2 px-4 pt-8 sm:px-6">
         <p className="text-left text-xl font-semibold text-zinc-900">
-          Get your alias
+          Get your link
         </p>
         <p className="text-left text-xs font-medium text-zinc-500">
-          The alias is the name which is displayed in your url.{" "}
+          The link is the name which is displayed in your url.{" "}
           {subdomain.length === 0 ? (
             <>
               For example: getstage.app/
-              <span className="underline">nilsjacobsen</span>
+              <span className="underline">link</span>
             </>
           ) : (
             <>
@@ -194,7 +194,7 @@ const InSiteSubdomain: FC = () => {
               htmlFor="link"
               className="block text-sm font-medium text-zinc-600"
             >
-              Alias
+              Link
             </label>
             <div className="relative mt-1">
               <input
@@ -234,7 +234,7 @@ const InSiteSubdomain: FC = () => {
             }}
             className="mt-4 flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
           >
-            Claim alias
+            Let's get started 🎉
           </button>
         </div>
       </div>
