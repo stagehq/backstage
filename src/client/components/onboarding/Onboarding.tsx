@@ -170,7 +170,6 @@ const OnboardingProfile = () => {
                   value={user.firstName || ""}
                   id="firstname"
                   name="firstname"
-                  placeholder="First Name"
                   type="text"
                   autoComplete="firstname"
                   maxLength={50}
@@ -195,7 +194,6 @@ const OnboardingProfile = () => {
                   value={user.lastName || ""}
                   id="lastname"
                   name="lastname"
-                  placeholder="Last name"
                   type="text"
                   autoComplete="lastname"
                   maxLength={50}
