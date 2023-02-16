@@ -1,11 +1,14 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { dashboardQueryState } from "../store/ui/dashboardSearch";
 import { subdomainCardOpenState } from "../store/ui/modals";
+import { currentUserState } from "../store/user";
 
 const ListHeader = () => {
   const [, setQuery] = useRecoilState(dashboardQueryState);
   const [, setSubdomainCardOpen] = useRecoilState(subdomainCardOpenState);
+  const user = useRecoilValue(currentUserState);
+
   return (
     <div className="flex w-full gap-2">
       <div className="flex flex-1 items-center justify-center ">
@@ -29,7 +32,8 @@ const ListHeader = () => {
         </div>
       </div>
       <button
-        className="inline-flex w-full justify-center rounded-md border border-transparent bg-zinc-900 px-4 py-2 text-base font-medium text-zinc-100 shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-800 focus:ring-offset-2 sm:w-auto sm:text-sm"
+        disabled={user?.sites && user.sites.length >= 1 ? true : false}
+        className="inline-flex w-full justify-center rounded-md border border-transparent bg-zinc-900 px-4 py-2 text-base font-medium text-zinc-100 shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-800 focus:ring-offset-2 disabled:opacity-30 sm:w-auto sm:text-sm"
         onClick={() => setSubdomainCardOpen(true)}
       >
         Create site
