@@ -10,7 +10,7 @@ export const apiConnectorsData: apiConnectorSeedInput = [
     apiConnectorRoutes: [
       {
         name: "github_projects",
-        url: "/user/repos",
+        url: "/user/repos?sort=stars&direction=desc&per_page=100&type=owner",
       },
     ],
   },
