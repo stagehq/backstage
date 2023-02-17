@@ -269,7 +269,7 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
           />
         </div>
         <div className="flex w-full flex-col items-start justify-start gap-4">
-          <div className="flex items-center justify-start gap-4">
+          <div className="flex flex-wrap items-center justify-start gap-4">
             {site.socials?.map(
               (social: { url: string; network: SocialsType }) => {
                 return (
@@ -279,7 +279,7 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
                     target="_blank"
                     rel="noreferrer"
                     className={clsx(
-                      "block w-full resize-none border-transparent bg-white text-sm text-zinc-600 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-600 dark:bg-zinc-900 dark:text-zinc-200",
+                      "block resize-none border-transparent bg-white text-sm text-zinc-600 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-600 dark:bg-zinc-900 dark:text-zinc-200",
                       !disabled &&
                         "hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-2 focus:ring-zinc-600 active:border-zinc-600 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
                     )}
