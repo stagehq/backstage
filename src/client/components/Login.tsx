@@ -12,14 +12,14 @@ interface Errors {
 }
 
 const errors: Errors = {
-  Signin: "Try signing with a different account.",
-  OAuthSignin: "OAuthSignin Error: Try signing with a different account.",
-  OAuthCallback: "OAuthCallback Error: Try signing with a different account.",
+  Signin: "Try to sign-in with a different account.",
+  OAuthSignin: "OAuthSignin Error: Try to sign-in with a different account.",
+  OAuthCallback: "OAuthCallback Error: Try to sign-in with a different account.",
   OAuthCreateAccount:
-    "OAuthCreateAccount Error: Try signing with a different account.",
+    "OAuthCreateAccount Error: Try to sign-in with a different account.",
   EmailCreateAccount:
-    "EmailCreateAccount Error: Try signing with a different account.",
-  Callback: "Callback Error: Try signing with a different account.",
+    "EmailCreateAccount Error: Try to sign-in with a different account.",
+  Callback: "Callback Error: Try to sign-in with a different account.",
   OAuthAccountNotLinked:
     "To confirm your identity, sign in with the same account you used originally.",
   EmailSignin: "Check your email address.",
