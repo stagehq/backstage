@@ -84,7 +84,7 @@ const Repositories: FC<BlockProps> = ({
           changeExtensionSize(extension.id, size, gridRef)
         }
         handleDelete={() => deleteExtension(extension.id)}
-        imagePath={"https://avatars.githubusercontent.com/u/9919?s=200&v=4"}
+        imagePath={"https://avatars.githubusercontent.com/u/22105643?s=200&v=4"}
       >
         <List>
           {data.map((project, index) => (
