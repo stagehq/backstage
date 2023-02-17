@@ -1,3 +1,4 @@
+import { Block, Card, List } from "@stagehq/ui";
 import { FC, useEffect, useState } from "react";
 import { useChangeBlockTitle } from "../components/studio/hooks/useChangeBlockTitle";
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
@@ -6,6 +7,7 @@ import { BlockProps } from "./type";
 
 const Spotify: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
   const [data, setData] = useState<any[]>([]);
+  const [render, setRender] = useState(false);
 
   const changeBlockTitle = useChangeBlockTitle();
   const changeExtensionSize = useChangeExtensionSize();
@@ -41,61 +43,62 @@ const Spotify: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
       }
 
       setData(favoriteTracks);
-      console.log(data);
+      setRender(true);
     }
   }, [extension]);
 
-  return (
-    <pre>{data}</pre>
-    // <Block
-    //   title={extension.title ? extension.title : "Top tracks"}
-    //   size={size}
-    //   isEditable={isEditable}
-    //   handleTitleChange={
-    //     isEditable
-    //       ? (title) => changeBlockTitle(extension.id, title)
-    //       : undefined
-    //   }
-    //   handleSizeChange={
-    //     isEditable
-    //       ? (size) => changeExtensionSize(extension.id, size, gridRef)
-    //       : undefined
-    //   }
-    //   handleDelete={
-    //     isEditable ? () => deleteExtension(extension.id) : undefined
-    //   }
-    //   imagePath={"https://avatars.githubusercontent.com/u/357098?s=200&v=4"}
-    // >
-    //   <Card
-    //     type="horizontal"
-    //     title={data[0].title}
-    //     subtitle={data[0].subtitle}
-    //     image={data[0].image}
-    //     icon="PlayIcon"
-    //     actions={{ link: { url: data[0].link } }}
-    //   />
-    //   <List>
-    //     {data
-    //       .filter((track, index) => index !== 0)
-    //       .map((track: any, index) => (
-    //         <List.Item
-    //           index={index + 1}
-    //           type={track.type}
-    //           title={track.title}
-    //           subtitle={track.subtitle}
-    //           image={track.image}
-    //           count={
-    //             track.count && {
-    //               // value: track.count.value,
-    //               icon: "PlayCircleIcon",
-    //             }
-    //           }
-    //           key={track.title + index}
-    //         />
-    //       ))}
-    //   </List>
-    // </Block>
-  );
+  return render
+    ? data && (
+        <Block
+          title={extension.title ? extension.title : "Top tracks"}
+          size={size}
+          isEditable={isEditable}
+          handleTitleChange={
+            isEditable
+              ? (title) => changeBlockTitle(extension.id, title)
+              : undefined
+          }
+          handleSizeChange={
+            isEditable
+              ? (size) => changeExtensionSize(extension.id, size, gridRef)
+              : undefined
+          }
+          handleDelete={
+            isEditable ? () => deleteExtension(extension.id) : undefined
+          }
+          imagePath={"https://avatars.githubusercontent.com/u/251374?s=200&v=4"}
+        >
+          <Card
+            type="horizontal"
+            title={data[0].title}
+            subtitle={data[0].subtitle}
+            image={data[0].image}
+            icon="PlayIcon"
+            actions={{ open: { url: data[0].link } }}
+          />
+          <List>
+            {data
+              .filter((track, index) => index !== 0)
+              .map((track: any, index) => (
+                <List.Item
+                  index={index + 1}
+                  type={track.type}
+                  title={track.title}
+                  subtitle={track.subtitle}
+                  image={track.image}
+                  count={
+                    track.count && {
+                      value: track.count.value,
+                    }
+                  }
+                  actions={{ open: { url: track.link } }}
+                  key={track.title + index}
+                />
+              ))}
+          </List>
+        </Block>
+      )
+    : null;
 };
 
 export default Spotify;

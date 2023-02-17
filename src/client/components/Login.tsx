@@ -14,7 +14,8 @@ interface Errors {
 const errors: Errors = {
   Signin: "Try to sign-in with a different account.",
   OAuthSignin: "OAuthSignin Error: Try to sign-in with a different account.",
-  OAuthCallback: "OAuthCallback Error: Try to sign-in with a different account.",
+  OAuthCallback:
+    "OAuthCallback Error: Try to sign-in with a different account.",
   OAuthCreateAccount:
     "OAuthCreateAccount Error: Try to sign-in with a different account.",
   EmailCreateAccount:
@@ -213,7 +214,9 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
                     d="M21.456 10.154c.123.659.19 1.348.19 2.067 0 5.624-3.764 9.623-9.449 9.623A9.841 9.841 0 012.353 12a9.841 9.841 0 019.844-9.844c2.658 0 4.879.978 6.583 2.566l-2.775 2.775V7.49c-1.033-.984-2.344-1.489-3.808-1.489-3.248 0-5.888 2.744-5.888 5.993 0 3.248 2.64 5.998 5.888 5.998 2.947 0 4.953-1.685 5.365-3.999h-5.365v-3.839h9.26z"
                   ></path>
                 </svg>
-                <span className="ml-2 hover:cursor-default">Continue with Google</span>
+                <span className="ml-2 hover:cursor-default">
+                  Continue with Google
+                </span>
               </span>
             </div>
           </div>

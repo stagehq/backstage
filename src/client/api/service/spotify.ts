@@ -25,7 +25,10 @@ export const authorize = async () => {
       "user-top-read user-read-recently-played user-read-currently-playing",
   };
   const authRequest = await spotify.authorizationRequest(request);
-  const { authorizationCode } = await spotify.authorize(request);
+  const { authorizationCode } = await spotify.authorize(
+    request,
+    authRequest.codeVerifier
+  );
   await spotify.setTokens(await fetchTokens(authRequest, authorizationCode));
 };
 

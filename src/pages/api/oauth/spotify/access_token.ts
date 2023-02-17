@@ -1,8 +1,7 @@
+// nextjs api route for spotify
+import type { NextApiRequest, NextApiResponse } from "next";
 import wretch from "wretch";
 import FormUrlAddon from "wretch/addons/formUrl";
-// nextjs api route for spotify
-
-import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -22,6 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         grant_type: "authorization_code",
         code: authCode,
         redirect_uri: redirectURI,
+        client_id: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID,
         code_verifier: codeVerifier,
       })
       .post()

@@ -25,7 +25,10 @@ export const authorize = async () => {
     scope: "read:user,repo",
   };
   const authRequest = await github.authorizationRequest(request);
-  const { authorizationCode } = await github.authorize(request);
+  const { authorizationCode } = await github.authorize(
+    request,
+    authRequest.codeVerifier
+  );
   await github.setTokens(await fetchTokens(authRequest, authorizationCode));
 };
 

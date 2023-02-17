@@ -19,6 +19,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .formUrl({
         grant_type: grantType,
         refresh_token: refreshToken,
+        client_id: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID,
       })
       .post()
       .json();

@@ -23,7 +23,10 @@ export const authorize = async () => {
     scope: "read_api read_user read_repository profile",
   };
   const authRequest = await gitlab.authorizationRequest(options);
-  const { authorizationCode } = await gitlab.authorize(options);
+  const { authorizationCode } = await gitlab.authorize(
+    options,
+    authRequest.codeVerifier
+  );
   await gitlab.setTokens(await fetchTokens(authRequest, authorizationCode));
 };
 

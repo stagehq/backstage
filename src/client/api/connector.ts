@@ -84,7 +84,8 @@ export namespace OAuth {
     }
 
     authorizationRequest = async (
-      options: AuthorizationRequestOptions
+      options: AuthorizationRequestOptions,
+      codeVerifier?: string
     ): Promise<AuthorizationRequest> => {
       const { endpoint, clientId, scope, extraParameters } = options;
 
@@ -120,7 +121,9 @@ export namespace OAuth {
         return `${protocol}//${host}/service/authenticated`;
       };
 
-      const codeVerifier = generateCodeVerifier();
+      if (!codeVerifier) {
+        codeVerifier = generateCodeVerifier();
+      }
       const codeChallenge = generateCodeChallenge(codeVerifier);
       const state = generateState();
       const redirectURI = getRedirectURI();
@@ -147,12 +150,16 @@ export namespace OAuth {
     };
 
     authorize = async (
-      options: AuthorizationRequestOptions
+      options: AuthorizationRequestOptions,
+      codeVerifier: string
     ): Promise<AuthorizationResponse> => {
       let authorizationRequest: AuthorizationRequest;
       if ("endpoint" in options) {
         // options is an AuthorizationRequestOptions object
-        authorizationRequest = await this.authorizationRequest(options);
+        authorizationRequest = await this.authorizationRequest(
+          options,
+          codeVerifier
+        );
       } else {
         // options is an AuthorizationRequest object
         authorizationRequest = options;
