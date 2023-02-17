@@ -29,16 +29,16 @@ export const authOptions = {
       from: process.env.EMAIL_FROM,
     }),
     GithubProvider({
-      clientId: (process.env.GITHUB_CLIENT_ID as string) || "",
-      clientSecret: (process.env.GITHUB_CLIENT_SECRET as string) || "",
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     }),
     GitlabProvider({
       clientId: process.env.GITLAB_CLIENT_ID as string,
       clientSecret: process.env.GITLAB_CLIENT_SECRET as string,
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
       authorization: {
         params: {
           prompt: "consent",
@@ -59,8 +59,6 @@ export const authOptions = {
       account: any;
       profile: any;
     }) {
-      console.log("signIn", user, account, profile);
-
       if (!user.email) return false;
 
       // Check if the user is allowed to sign in
