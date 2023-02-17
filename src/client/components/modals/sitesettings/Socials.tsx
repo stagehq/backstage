@@ -1,4 +1,5 @@
 import { Bars2Icon, TrashIcon } from "@heroicons/react/24/outline";
+import clsx from "clsx";
 import debounce from "lodash.debounce";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
@@ -123,6 +124,15 @@ const Socials: FC = () => {
     });
   };
 
+  const isStringHttpsUrl = (url: string) => {
+    try {
+      const u = new URL(url);
+      return u.protocol === "https:";
+    } catch (_) {
+      return false;
+    }
+  };
+
   return (
     <div className="sm:overflow-hidden">
       <div className="bg-white px-6 pt-6">
@@ -213,7 +223,12 @@ const Socials: FC = () => {
                                 id="link"
                                 value={link.url}
                                 onChange={(e) => handleChange(e, index)}
-                                className="block w-full rounded-md border-gray-300 pl-32 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm"
+                                className={clsx(
+                                  "block w-full rounded-md border-gray-300 pl-32 focus:border-zinc-500 focus:ring-zinc-500 sm:text-sm",
+                                  link.url.length > 0 &&
+                                    !isStringHttpsUrl(link.url) &&
+                                    "border-red-300"
+                                )}
                                 placeholder="https://link.com"
                               />
                               <button

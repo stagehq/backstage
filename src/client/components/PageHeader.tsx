@@ -1,14 +1,17 @@
 import { LinkIcon, MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import {
+  Bandcamp,
   Behance,
   Dribbble,
   Facebook,
+  Figma,
   Github,
   Gitlab,
   Instagram,
   Linkedin,
   Pinterest,
   Reddit,
+  Snapchat,
   Soundcloud,
   Spotify,
   Tiktok,
@@ -130,40 +133,84 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
     }
   };
 
-  const renderSocials = (social: string) => {
+  const renderSocialsColorBorder = (social: SocialsType) => {
     switch (social) {
       case "twitter":
-        return <Twitter className="h-5 w-5" />;
+        return (
+          <Twitter className="h-12 w-12 rounded border border-[#1DA1F2] bg-[#1DA1F2] bg-opacity-5 p-3 text-[#1DA1F2]" />
+        );
       case "instagram":
-        return <Instagram className="h-5 w-5" />;
+        return (
+          <Instagram className="h-12 w-12 rounded border border-[#E1306C] bg-[#E1306C] bg-opacity-5 p-3 text-[#E1306C]" />
+        );
+      case "bandcamp":
+        return (
+          <Bandcamp className="h-12 w-12 rounded border border-[#629aa9] bg-[#629aa9] bg-opacity-5 p-3 text-[#629aa9]" />
+        );
       case "facebook":
-        return <Facebook className="h-5 w-5" />;
+        return (
+          <Facebook className="h-12 w-12 rounded border border-[#1877F2] bg-[#1877F2] bg-opacity-5 p-3 text-[#1877F2]" />
+        );
       case "linkedin":
-        return <Linkedin className="h-5 w-5" />;
+        return (
+          <Linkedin className="h-12 w-12 rounded border border-[#0A66C2] bg-[#0A66C2] bg-opacity-5 p-3 text-[#0A66C2]" />
+        );
       case "github":
-        return <Github className="h-5 w-5" />;
+        return (
+          <Github className="h-12 w-12 rounded border border-[#333] bg-[#333] bg-opacity-5 p-3 text-[#333] dark:border-[#eee] dark:bg-[#eee] dark:bg-opacity-5 dark:text-[#eee]" />
+        );
       case "gitlab":
-        return <Gitlab className="h-5 w-5" />;
+        return (
+          <Gitlab className="h-12 w-12 rounded border border-[#FCA326] bg-[#FCA326] bg-opacity-5 p-3 text-[#FCA326]" />
+        );
       case "youtube":
-        return <Youtube className="h-5 w-5" />;
+        return (
+          <Youtube className="h-12 w-12 rounded border border-[#FF0000] bg-[#FF0000] bg-opacity-5 p-3 text-[#FF0000]" />
+        );
       case "twitch":
-        return <Twitch className="h-5 w-5" />;
+        return (
+          <Twitch className="h-12 w-12 rounded border border-[#9146FF] bg-[#9146FF] bg-opacity-5 p-3 text-[#9146FF]" />
+        );
       case "pinterest":
-        return <Pinterest className="h-5 w-5" />;
+        return (
+          <Pinterest className="h-12 w-12 rounded border border-[#E60023] bg-[#E60023] bg-opacity-5 p-3 text-[#E60023]" />
+        );
       case "tiktok":
-        return <Tiktok className="h-5 w-5" />;
+        return (
+          <Tiktok className="h-12 w-12 rounded border border-[#000000] bg-[#000000] bg-opacity-5 p-3 text-[#000000] dark:border-[#eee] dark:bg-[#eee] dark:bg-opacity-5 dark:text-[#eee]" />
+        );
       case "reddit":
-        return <Reddit className="h-5 w-5" />;
+        return (
+          <Reddit className="h-12 w-12 rounded border border-[#FF4500] bg-[#FF4500] bg-opacity-5 p-3 text-[#FF4500]" />
+        );
       case "spotify":
-        return <Spotify className="h-5 w-5" />;
+        return (
+          <Spotify className="h-12 w-12 rounded border border-[#1DB954] bg-[#1DB954] bg-opacity-5 p-3 text-[#1DB954]" />
+        );
       case "soundcloud":
-        return <Soundcloud className="h-5 w-5" />;
+        return (
+          <Soundcloud className="h-12 w-12 rounded border border-[#FF3300] bg-[#FF3300] bg-opacity-5 p-3 text-[#FF3300]" />
+        );
+      case "snapchat":
+        return (
+          <Snapchat className="h-12 w-12 rounded border border-[#e3e02b] bg-[#e3e02b] bg-opacity-5 p-3 text-[#e3e02b]" />
+        );
       case "dribbble":
-        return <Dribbble className="h-5 w-5" />;
+        return (
+          <Dribbble className="h-12 w-12 rounded border border-[#EA4C89] bg-[#EA4C89] bg-opacity-5 p-3 text-[#EA4C89]" />
+        );
       case "behance":
-        return <Behance className="h-5 w-5" />;
+        return (
+          <Behance className="h-12 w-12 rounded border border-[#1769FF] bg-[#1769FF] bg-opacity-5 p-3 text-[#1769FF]" />
+        );
+      case "figma":
+        return (
+          <Figma className="h-12 w-12 rounded border border-[#333] bg-[#333] bg-opacity-5 p-3 text-[#333] dark:border-[#eee] dark:bg-[#eee] dark:bg-opacity-5 dark:text-[#eee]" />
+        );
       default:
-        return <LinkIcon className="h-5 w-5" />;
+        return (
+          <LinkIcon className="h-12 w-12 rounded border border-[#333] bg-[#333] bg-opacity-5 p-3 text-[#333] dark:border-[#eee] dark:bg-[#eee] dark:bg-opacity-5 dark:text-[#eee]" />
+        );
     }
   };
 
@@ -237,7 +284,7 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
                         "hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-2 focus:ring-zinc-600 active:border-zinc-600 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
                     )}
                   >
-                    {renderSocials(social.network)}
+                    {renderSocialsColorBorder(social.network)}
                   </a>
                 );
               }
