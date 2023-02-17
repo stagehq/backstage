@@ -81,16 +81,11 @@ const Spotify: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
               .filter((track, index) => index !== 0)
               .map((track: any, index) => (
                 <List.Item
-                  index={index + 1}
+                  index={index + 2}
                   type={track.type}
                   title={track.title}
                   subtitle={track.subtitle}
                   image={track.image}
-                  count={
-                    track.count && {
-                      value: track.count.value,
-                    }
-                  }
                   actions={{ open: { url: track.link } }}
                   key={track.title + index}
                 />
