@@ -12,7 +12,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .headers({
         "Content-Type": "application/json",
         Accept: "application/json",
-        // Authorization: `Bearer ${token}`,
       })
       .get()
       .json();

@@ -22,7 +22,7 @@ export const authorize = async () => {
     endpoint: "https://accounts.spotify.com/authorize",
     clientId: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID as string,
     scope:
-      "user-read-currently-playing user-top-read user-read-recently-played",
+      "user-top-read user-read-recently-played user-read-currently-playing",
   };
   const authRequest = await spotify.authorizationRequest(request);
   const { authorizationCode } = await spotify.authorize(request);
