@@ -22,7 +22,7 @@ export const apiConnectorsData: apiConnectorSeedInput = [
     apiConnectorRoutes: [
       {
         name: "gitlab_projects",
-        url: "/api/v4/projects",
+        url: "/api/v4/users/user_id/projects?order_by=last_activity_at&sort=desc&per_page=100&membership=true",
       },
     ],
   },
