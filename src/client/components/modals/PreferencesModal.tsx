@@ -167,8 +167,8 @@ const PreferencesModal: FC = () => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative inline-block transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-[530px] sm:p-6 sm:align-middle">
-                <div className="absolute top-0 right-0 hidden pt-4 pr-4 sm:block">
+              <Dialog.Panel className="relative inline-block w-full max-w-[530px] transform overflow-hidden rounded-lg bg-white p-6 px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all sm:my-8 sm:align-middle">
+                <div className="absolute top-0 right-0 block pt-4 pr-4">
                   <button
                     type="button"
                     className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2"

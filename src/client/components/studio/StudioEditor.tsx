@@ -80,7 +80,7 @@ const StudioEditor = () => {
   return (
     <div className="h-full w-full">
       <div className="h-full overflow-x-hidden overflow-y-scroll bg-white @container dark:bg-zinc-900">
-        <div className="min-h-full w-full max-w-6xl p-12 pb-24 lg:mx-auto">
+        <div className="min-h-full w-full max-w-6xl pb-24 sm:p-12 lg:mx-auto">
           <div className="p-8">
             <PageHeader />
           </div>
