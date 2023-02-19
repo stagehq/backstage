@@ -1,7 +1,7 @@
-// nextjs api route for gitlab
-
+// nextjs api route for spotify
 import type { NextApiRequest, NextApiResponse } from "next";
 import wretch from "wretch";
+import FormUrlAddon from "wretch/addons/formUrl";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -10,14 +10,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const response = await wretch(
       "https://stackoverflow.com/oauth/access_token"
     )
-      .post({
-        client_id: process.env.NEXT_PUBLIC_GITLAB_CLIENT_ID,
-        client_secret: process.env.GITLAB_CLIENT_SECRET,
-        code: authCode,
-        code_verifier: codeVerifier,
-        grant_type: "authorization_code",
-        redirect_uri: redirectURI,
+      .addon(FormUrlAddon)
+      .headers({
+        "Content-Type": "application/x-www-form-urlencoded",
       })
+      .formUrl({
+        client_id: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID,
+        client_secret: process.env.SPOTIFY_CLIENT_SECRET,
+        code: authCode,
+        redirect_uri: redirectURI,
+        code_verifier: codeVerifier,
+      })
+      .post()
       .json();
 
     res.status(200).json(response);

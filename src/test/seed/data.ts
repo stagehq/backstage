@@ -75,6 +75,17 @@ export const apiConnectorsData: apiConnectorSeedInput = [
       },
     ],
   },
+  {
+    name: "stackoverflow",
+    markdown: "stackoverflow top answers",
+    authType: AuthType.oAuth,
+    apiConnectorRoutes: [
+      {
+        name: "stackoverflow_answers",
+        url: "/2.3/me/answers?order=desc&sort=votes&site=stackoverflow",
+      },
+    ],
+  },
 ];
 
 export const storeExtensionsData: storeExtensionSeedInput = [
@@ -161,6 +172,20 @@ export const storeExtensionsData: storeExtensionSeedInput = [
     routes: [
       {
         name: "funnel_empty",
+      },
+    ],
+  },
+  {
+    id: "clbz5lknp001zpgpx4nboixet",
+    name: "Stackoverflow",
+    description: "Show skills through answers",
+    image: "stackoverflow",
+    blockId: "stackoverflow_Answers",
+    markdown: "This is a extension where you show your answers",
+    icon: "BriefcaseIcon",
+    routes: [
+      {
+        name: "stackoverflow_answers",
       },
     ],
   },
