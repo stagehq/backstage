@@ -11,7 +11,12 @@ import {
   siteSettingsOpenState,
   storeOpenState,
 } from "../../store/ui/modals";
-import { AddIcon, CopyLinkIcon, FeedbackIcon, SettingsIcon } from "../CustomIcons";
+import {
+  AddIcon,
+  CopyLinkIcon,
+  FeedbackIcon,
+  SettingsIcon,
+} from "../CustomIcons";
 
 export default function Navigation() {
   const navigate = useNavigate();

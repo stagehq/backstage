@@ -133,8 +133,6 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
     }
   };
 
-
-
   if (!site) return null;
 
   return (

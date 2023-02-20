@@ -1,21 +1,4 @@
-import { LinkIcon, MoonIcon, SunIcon } from "@heroicons/react/24/outline";
-import {
-  Behance,
-  Dribbble,
-  Facebook,
-  Github,
-  Gitlab,
-  Instagram,
-  Linkedin,
-  Pinterest,
-  Reddit,
-  Soundcloud,
-  Spotify,
-  Tiktok,
-  Twitch,
-  Twitter,
-  Youtube,
-} from "@icons-pack/react-simple-icons";
+import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 import Head from "next/head";
@@ -158,7 +141,7 @@ const SitePage: React.FC<{ data: Site }> = (data) => {
               <EmptyState />
             )}
           </div>
-          <Footer socials={site.socials}/>
+          <Footer socials={site.socials} />
         </div>
       </div>
     </>

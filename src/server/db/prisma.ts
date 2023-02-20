@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { fieldEncryptionMiddleware } from 'prisma-field-encryption'
+import { fieldEncryptionMiddleware } from "prisma-field-encryption";
 
 // Make global.cachedPrisma work with TypeScript
 declare global {
@@ -20,7 +20,8 @@ if (process.env.NODE_ENV === "production") {
   prisma = global.cachedPrisma;
 }
 
-prisma.$use(fieldEncryptionMiddleware({
+prisma.$use(
+  fieldEncryptionMiddleware({
     encryptionKey: process.env.PRISMA_FIELD_ENCRYPTION_KEY,
   })
 );
