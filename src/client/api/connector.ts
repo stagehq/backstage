@@ -176,6 +176,7 @@ export namespace OAuth {
       if (!loginWindow) throw new Error("Could not open login window");
 
       const response = await this.pollForResponse(loginWindow);
+      console.log(response);
 
       loginWindow.close();
 

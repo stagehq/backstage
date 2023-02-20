@@ -7,7 +7,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { route, token, preferences } = req.body;
 
-    interface GitHubUser {
+    interface GitLabUser {
       id: number;
       username: string;
       name: string;
@@ -52,7 +52,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // fetch user.id from /user
-    const user: GitHubUser = await wretch(
+    const user: GitLabUser = await wretch(
       `https://gitlab.com/api/v4/user?access_token=${token}`
     )
       .headers({

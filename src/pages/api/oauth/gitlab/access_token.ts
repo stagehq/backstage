@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const { authCode, codeVerifier, redirectURI } = req.body;
 
     const response = await wretch(
-      "https://stackoverflow.com/oauth/access_token"
+      "https://gitlab.com/oauth/token"
     )
       .post({
         client_id: process.env.NEXT_PUBLIC_GITLAB_CLIENT_ID,
@@ -19,7 +19,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         redirect_uri: redirectURI,
       })
       .json();
-
     res.status(200).json(response);
   } catch (error) {
     console.error(error);
