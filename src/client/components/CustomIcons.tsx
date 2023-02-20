@@ -49,6 +49,25 @@ export function AnalyticsIcon() {
   );
 }
 
+export function FeedbackIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      fill="none"
+      viewBox="0 0 32 32"
+    >
+      <path d="M0 0H32V32H0z"></path>
+      <path
+        className="stroke-current"
+        strokeWidth="1.5"
+        d="M12.35 21.444v-.75H8a2.25 2.25 0 01-2.25-2.25V10A2.25 2.25 0 018 7.75h16A2.25 2.25 0 0126.25 10v8.444a2.25 2.25 0 01-2.25 2.25h-4.942l-.197.142-6.511 4.698v-4.09z"
+      ></path>
+    </svg>
+  );
+}
+
 export function SettingsIcon() {
   return (
     <svg

@@ -11,7 +11,7 @@ import {
   siteSettingsOpenState,
   storeOpenState,
 } from "../../store/ui/modals";
-import { AddIcon, CopyLinkIcon, SettingsIcon } from "../CustomIcons";
+import { AddIcon, CopyLinkIcon, FeedbackIcon, SettingsIcon } from "../CustomIcons";
 
 export default function Navigation() {
   const navigate = useNavigate();
@@ -51,8 +51,8 @@ export default function Navigation() {
     setSiteSettingsOpen(true);
   };
 
-  const handleAnalyticsClick = () => {
-    setAnalyticsOpen(true);
+  const handleFeedbackClick = () => {
+    window.location.href = "mailto:office@getstage.app";
   };
 
   const handleAddBlockClick = () => {
@@ -62,7 +62,7 @@ export default function Navigation() {
   const navigation = [
     { name: "Copy link", icon: CopyLinkIcon, action: handleCopyLink },
     { name: "Settings", icon: SettingsIcon, action: handleSettingsClick },
-    // { name: "Analytics", icon: AnalyticsIcon, action: handleAnalyticsClick },
+    { name: "Feedback", icon: FeedbackIcon, action: handleFeedbackClick },
     { name: "Add block", icon: AddIcon, action: handleAddBlockClick },
   ];
 
