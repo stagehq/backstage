@@ -1,10 +1,13 @@
 import { FC } from "react";
 import Devto from "./devto";
+import Freefunnel from "./freefunnel";
 import Funnel from "./funnel";
 import Github from "./github";
 import Gitlab from "./gitlab";
+import Images from "./images";
 import Linkedin from "./linkedin";
 import Spotify from "./spotify";
+import Stackoverflow from "./stackoverflow";
 import WebLinks from "./webLinks";
 
 interface StoreWireframe {
@@ -17,6 +20,8 @@ const StoreWireframe: FC<StoreWireframe> = ({ name }) => {
       return <Devto />;
     case "funnel":
       return <Funnel />;
+    case "freefunnel":
+      return <Freefunnel />;
     case "github":
       return <Github />;
     case "gitlab":
@@ -27,6 +32,10 @@ const StoreWireframe: FC<StoreWireframe> = ({ name }) => {
       return <Spotify />;
     case "webLinks":
       return <WebLinks />;
+    case "stackoverflow":
+      return <Stackoverflow />;
+    case "images":
+      return <Images />;
     default:
       return <Devto />;
   }

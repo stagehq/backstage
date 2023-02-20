@@ -76,6 +76,18 @@ export const apiConnectorsData: apiConnectorSeedInput = [
     ],
   },
   {
+    name: "images",
+    markdown: "best image block",
+    authType: AuthType.preferences,
+    apiConnectorRoutes: [
+      {
+        name: "image_single",
+        url: "",
+        urlParameter: ["path"],
+      },
+    ],
+  },
+  {
     name: "stackoverflow",
     markdown: "stackoverflow top answers",
     authType: AuthType.oAuth,
@@ -165,7 +177,7 @@ export const storeExtensionsData: storeExtensionSeedInput = [
     id: "clbz5lknp001zpgpx4nboixes",
     name: "Funnel",
     description: "Grow your personal brand",
-    image: "funnel",
+    image: "freefunnel",
     blockId: "basic_Funnel",
     markdown: "This is a extension where you could grow your brand",
     icon: "BriefcaseIcon",
@@ -186,6 +198,20 @@ export const storeExtensionsData: storeExtensionSeedInput = [
     routes: [
       {
         name: "stackoverflow_answers",
+      },
+    ],
+  },
+  {
+    id: "clbz5lknp001zpgpx4nboixelst",
+    name: "Images",
+    description: "Paste your own image",
+    image: "images",
+    blockId: "image_single",
+    markdown: "This is a extension where you show your answers",
+    icon: "BriefcaseIcon",
+    routes: [
+      {
+        name: "image_single",
       },
     ],
   },

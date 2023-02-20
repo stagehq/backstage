@@ -105,6 +105,8 @@ const StoreItem: FC<StoreItemProps> = ({ storeExtension }) => {
     }
   };
 
+  console.log(storeExtension.image);
+
   return (
     <div
       className={clsx(
