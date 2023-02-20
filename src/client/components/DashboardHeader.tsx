@@ -203,7 +203,7 @@ export default function DashboardHeader() {
   );
 }
 
-function Logo() {
+export function Logo() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

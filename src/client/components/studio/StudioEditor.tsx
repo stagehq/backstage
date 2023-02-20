@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import dynamic from "next/dynamic";
 import { FC, useEffect, useRef, useState } from "react";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
@@ -6,7 +7,10 @@ import { BlockProps } from "../../blocks/type";
 import { siteSlugState, siteState } from "../../store/site";
 import { gridBreakpointState } from "../../store/ui/grid-dnd";
 import { currentUserState } from "../../store/user";
-import { PageHeader } from "../PageHeader";
+import { Logo } from "../DashboardHeader";
+import Footer from "../Footer";
+import { SocialsType } from "../modals/sitesettings/Socials";
+import { PageHeader, renderSocialsColorBorder } from "../PageHeader";
 import EmptyState from "./EmptyState";
 import { useHandleLayoutChange } from "./hooks/useHandleLayoutChange";
 
@@ -152,6 +156,7 @@ const StudioEditor = () => {
             <EmptyState />
           )}
         </div>
+        <Footer socials={site.socials}/>
       </div>
     </div>
   );

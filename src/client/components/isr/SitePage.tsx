@@ -25,7 +25,9 @@ import { getBaseUrl } from "../../../helper/getBaseUrl";
 import { BlockProps } from "../../blocks/type";
 import { Site } from "../../graphql/types.generated";
 import { handleDynamicHeight } from "../../helper/racingBuffer";
+import Footer from "../Footer";
 import { SocialsType } from "../modals/sitesettings/Socials";
+import { renderSocialsColorBorder } from "../PageHeader";
 import EmptyState from "../studio/EmptyState";
 import { useHandleLayoutChange } from "../studio/hooks/useHandleLayoutChange";
 
@@ -156,6 +158,7 @@ const SitePage: React.FC<{ data: Site }> = (data) => {
               <EmptyState />
             )}
           </div>
+          <Footer socials={site.socials}/>
         </div>
       </div>
     </>
@@ -200,42 +203,42 @@ const IsrPageHeader: FC<PageHeaderProps> = (props) => {
     handleDynamicHeight(taglineRef);
   };
 
-  const renderSocials = (social: string) => {
-    switch (social) {
-      case "twitter":
-        return <Twitter className="h-5 w-5" />;
-      case "instagram":
-        return <Instagram className="h-5 w-5" />;
-      case "facebook":
-        return <Facebook className="h-5 w-5" />;
-      case "linkedin":
-        return <Linkedin className="h-5 w-5" />;
-      case "github":
-        return <Github className="h-5 w-5" />;
-      case "gitlab":
-        return <Gitlab className="h-5 w-5" />;
-      case "youtube":
-        return <Youtube className="h-5 w-5" />;
-      case "twitch":
-        return <Twitch className="h-5 w-5" />;
-      case "pinterest":
-        return <Pinterest className="h-5 w-5" />;
-      case "tiktok":
-        return <Tiktok className="h-5 w-5" />;
-      case "reddit":
-        return <Reddit className="h-5 w-5" />;
-      case "spotify":
-        return <Spotify className="h-5 w-5" />;
-      case "soundcloud":
-        return <Soundcloud className="h-5 w-5" />;
-      case "dribbble":
-        return <Dribbble className="h-5 w-5" />;
-      case "behance":
-        return <Behance className="h-5 w-5" />;
-      default:
-        return <LinkIcon className="h-5 w-5" />;
-    }
-  };
+  // const renderSocials = (social: string) => {
+  //   switch (social) {
+  //     case "twitter":
+  //       return <Twitter className="h-5 w-5" />;
+  //     case "instagram":
+  //       return <Instagram className="h-5 w-5" />;
+  //     case "facebook":
+  //       return <Facebook className="h-5 w-5" />;
+  //     case "linkedin":
+  //       return <Linkedin className="h-5 w-5" />;
+  //     case "github":
+  //       return <Github className="h-5 w-5" />;
+  //     case "gitlab":
+  //       return <Gitlab className="h-5 w-5" />;
+  //     case "youtube":
+  //       return <Youtube className="h-5 w-5" />;
+  //     case "twitch":
+  //       return <Twitch className="h-5 w-5" />;
+  //     case "pinterest":
+  //       return <Pinterest className="h-5 w-5" />;
+  //     case "tiktok":
+  //       return <Tiktok className="h-5 w-5" />;
+  //     case "reddit":
+  //       return <Reddit className="h-5 w-5" />;
+  //     case "spotify":
+  //       return <Spotify className="h-5 w-5" />;
+  //     case "soundcloud":
+  //       return <Soundcloud className="h-5 w-5" />;
+  //     case "dribbble":
+  //       return <Dribbble className="h-5 w-5" />;
+  //     case "behance":
+  //       return <Behance className="h-5 w-5" />;
+  //     default:
+  //       return <LinkIcon className="h-5 w-5" />;
+  //   }
+  // };
 
   if (!site) return null;
 
@@ -302,7 +305,7 @@ const IsrPageHeader: FC<PageHeaderProps> = (props) => {
                         "hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-2 focus:ring-zinc-600 active:border-zinc-600 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
                     )}
                   >
-                    {renderSocials(social.network)}
+                    {renderSocialsColorBorder(social.network)}
                   </a>
                 );
               }
