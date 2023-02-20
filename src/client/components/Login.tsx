@@ -199,9 +199,9 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
             </div> */}
 
             <div>
-              <span
+              <button
                 onClick={() => signIn("google")}
-                className="inline-flex w-full justify-center rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-900 shadow-sm hover:bg-zinc-50"
+                className="inline-flex w-full justify-center rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-900 shadow-sm hover:bg-zinc-100 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 sm:text-sm"
               >
                 <svg
                   className="h-5 w-5"
@@ -217,7 +217,7 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
                 <span className="ml-2 hover:cursor-default">
                   Continue with Google
                 </span>
-              </span>
+              </button>
             </div>
           </div>
         </div>
