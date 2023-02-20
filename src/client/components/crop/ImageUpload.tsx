@@ -194,7 +194,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
           )}
           <input
             onChange={onChange}
-            accept="image/png, image/gif, image/jpeg"
+            accept="image/png, image/jpeg"
             id="photo"
             name="photo"
             type="file"

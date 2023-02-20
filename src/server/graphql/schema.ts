@@ -1,6 +1,8 @@
 import './User'
 import './Site'
 import './Extension'
+import './SiteImage'
+import './SiteLink'
 import './Analytics'
 import './Api'
 import './StoreExtension'

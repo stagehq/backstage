@@ -9,6 +9,8 @@ builder.prismaNode('Site', {
     bio: t.exposeString('bio'),
     subdomain: t.exposeString('subdomain'),
     image: t.exposeString('image'),
+    images: t.relation('images'),
+    links: t.relation('links'),
     layouts: t.field({ type: 'JSON', resolve: site => site.layouts}),
     socials: t.field({ type: 'JSON', resolve: site => site.socials}),
     createdAt: t.string({ resolve: site => site.createdAt.toString()}),

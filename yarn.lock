@@ -3158,10 +3158,10 @@
   resolved "https://registry.yarnpkg.com/@stablelib/utf8/-/utf8-1.0.1.tgz#fd5e7ad353b7e3cd1ce85e49099360e57693cfd1"
   integrity sha512-FrYD1xadah/TtAP6VJ04lDD5h9rdDj/d8wH/jMYTtHqZBv9z2btdvEU8vTxdjdkFmo1b/BH+t3R1wi/mYhCCNg==
 
-"@stagehq/ui@^0.1.21":
-  version "0.1.21"
-  resolved "https://registry.yarnpkg.com/@stagehq/ui/-/ui-0.1.21.tgz#7240e628d69bc648464f1979b89abe50be06197c"
-  integrity sha512-Sf5B85+bNfO3DwnHWyiZC+rjy2FlNqazFI35eX71vf9MxkjNxwuNYgEuXdSljhhHs4nLkyumPvIeS9/Q3fjDRw==
+"@stagehq/ui@^0.1.23":
+  version "0.1.23"
+  resolved "https://registry.yarnpkg.com/@stagehq/ui/-/ui-0.1.23.tgz#8ee8d4c57bac5a316cc7cb58409d1391d13cf52c"
+  integrity sha512-1hDxRUsPvFt9vkCiUL/+oAg+yULib/7y/NEXOKvu8HGNIhnKHsoPjrkMLAkFsjyuYXsx0SgPCfk9M7VxWytOkA==
   dependencies:
     "@heroicons/react" "^2.0.13"
     "@storybook/addon-a11y" "^6.5.13"
@@ -12601,7 +12601,7 @@ react-draggable@^4.0.0, react-draggable@^4.0.3:
     clsx "^1.1.1"
     prop-types "^15.8.1"
 
-react-dropzone@^14.2.1:
+react-dropzone@^14.2.3:
   version "14.2.3"
   resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-14.2.3.tgz#0acab68308fda2d54d1273a1e626264e13d4e84b"
   integrity sha512-O3om8I+PkFKbxCukfIR3QAGftYXDZfOE2N1mr/7qebQJHs7U+/RSL/9xomJNpRg9kM5h9soQSdf0Gc7OHF5Fug==

@@ -1,7 +1,9 @@
 import dynamic from "next/dynamic";
 import { FC, useEffect, useRef, useState } from "react";
+import { useDropzone } from "react-dropzone";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { ImageBlock } from "../../blocks/Image";
 import { BlockProps } from "../../blocks/type";
 import { siteSlugState, siteState } from "../../store/site";
 import { gridBreakpointState } from "../../store/ui/grid-dnd";
@@ -28,6 +30,15 @@ const StudioEditor = () => {
   const [initialCalculated, setInitialCalculated] = useState(false);
   const [draggedBefore, setDraggedBefore] = useState(false);
 
+  // dropzone
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+    accept: {
+      "image/jpeg": [],
+      "image/png": [],
+      "image/gif": [],
+    },
+  });
+
   const onDrag = () => {
     if (!draggedBefore) {
       setDraggedBefore(true);
@@ -36,6 +47,58 @@ const StudioEditor = () => {
 
   //hook
   const handleLayoutChange = useHandleLayoutChange();
+
+  // use effect when accepted files change to upload files to server and update site state with new image in images array
+  useEffect(() => {
+    if (acceptedFiles.length > 0) {
+      const formData = new FormData();
+      acceptedFiles.forEach((file) => {
+        // convert file to base64 string
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const base64 = reader.result;
+          if (base64 && site !== null) {
+            setSite((prevSite) => {
+              if (!prevSite) return null;
+              return {
+                ...prevSite,
+                images: prevSite.images
+                  ? [
+                      ...prevSite.images,
+                      { id: file.name, url: base64.toString() },
+                    ]
+                  : [{ id: file.name, url: base64.toString() }],
+              };
+            });
+          }
+        };
+        reader.onerror = (error) => {
+          console.log("Error: ", error);
+        };
+
+        formData.append("files", file);
+      });
+      fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data) {
+            setSite((prevSite) => {
+              if (!prevSite) return null;
+              return {
+                ...prevSite,
+                images: prevSite.images
+                  ? [...prevSite.images, ...data]
+                  : [data],
+              };
+            });
+          }
+        });
+    }
+  }, [acceptedFiles]);
 
   useEffect(() => {
     if (site?.layouts == null) {
@@ -76,84 +139,118 @@ const StudioEditor = () => {
     if (itemsRef.current) itemsRef.current.classList.remove("animated");
   }, []);
 
+  useEffect(() => {
+    console.log(site);
+  }, [site]);
+
   if (!site || !user || !initialCalculated) return null;
 
   return (
     <div className="h-full w-full">
-      <div className="h-full overflow-x-hidden overflow-y-scroll bg-white @container dark:bg-zinc-900">
-        <div className="min-h-full w-full max-w-6xl pb-24 sm:p-12 lg:mx-auto">
-          <div className="p-8">
-            <PageHeader />
-          </div>
-          {site.extensions && site.extensions.length > 0 ? (
-            <div ref={itemsRef} className="py-4">
-              <ResponsiveGridLayout
-                layouts={site.layouts ? site.layouts : {}}
-                breakpoints={{ lg: 991, md: 768, sm: 0 }}
-                cols={{ lg: 3, md: 2, sm: 1 }}
-                rowHeight={1}
-                width={1000}
-                margin={[32, 32]}
-                isResizable={false}
-                measureBeforeMount={true}
-                onWidthChange={() => {
-                  console.log("Widtch changed");
-                  handleLayoutChange(itemsRef);
-                }}
-                onBreakpointChange={(breakpoint) => {
-                  console.log("Breakpoint changed");
-                  setBreakpoint(breakpoint);
-                }}
-                onLayoutChange={(layout: Layout[], layouts: Layouts) => {
-                  console.log("layout changed");
-                  handleLayoutChange(itemsRef, layouts);
-                }}
-                onDrag={onDrag}
-              >
-                {site.extensions &&
-                  site.extensions.map((extension, index) => {
-                    if (components[extension.id]) {
-                      const Extension = components[
-                        extension.id
-                      ] as FC<BlockProps>;
-                      if (!breakpoint && !site.layouts) return null;
+      <div
+        {...getRootProps({
+          className: "h-full w-full",
+          onClick: (event) => event.stopPropagation(),
+        })}
+      >
+        <div className="h-full overflow-x-hidden overflow-y-scroll bg-white @container dark:bg-zinc-900">
+          <div className="min-h-full w-full max-w-6xl pb-24 sm:p-12 lg:mx-auto">
+            <div className="p-8">
+              <PageHeader />
+            </div>
+            {site.extensions && site.extensions.length > 0 ? (
+              <div ref={itemsRef} className="py-4">
+                <ResponsiveGridLayout
+                  layouts={site.layouts ? site.layouts : {}}
+                  breakpoints={{ lg: 991, md: 768, sm: 0 }}
+                  cols={{ lg: 3, md: 2, sm: 1 }}
+                  rowHeight={1}
+                  width={1000}
+                  margin={[32, 32]}
+                  isResizable={false}
+                  measureBeforeMount={true}
+                  onWidthChange={() => {
+                    console.log("Width changed");
+                    handleLayoutChange(itemsRef);
+                  }}
+                  onBreakpointChange={(breakpoint) => {
+                    console.log("Breakpoint changed");
+                    setBreakpoint(breakpoint);
+                  }}
+                  onLayoutChange={(layout: Layout[], layouts: Layouts) => {
+                    console.log("layout changed");
+                    handleLayoutChange(itemsRef, layouts);
+                  }}
+                  onDrag={onDrag}
+                >
+                  {site.extensions &&
+                    site.extensions.map((extension, index) => {
+                      if (components[extension.id]) {
+                        const Extension = components[
+                          extension.id
+                        ] as FC<BlockProps>;
+                        if (!breakpoint && !site.layouts) return null;
+                        const size = site.layouts
+                          ? site.layouts[breakpoint]
+                            ? (site.layouts[breakpoint].find(
+                                (layout: Layout) => layout.i === extension.id
+                              )?.w as 1 | 2 | 3)
+                            : 3
+                          : 3;
+
+                        return (
+                          <div
+                            key={extension.id}
+                            id={extension.id}
+                            onClick={(e) => {
+                              if (draggedBefore) {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                setDraggedBefore(false);
+                              }
+                            }}
+                          >
+                            <Extension
+                              gridRef={itemsRef}
+                              extension={extension}
+                              size={size}
+                              isEditable={true}
+                            />
+                          </div>
+                        );
+                      }
+                    })}
+                  {site.images &&
+                    site.images.length > 0 &&
+                    site.images.map((image, index) => {
+                      if (!image.url) return null;
                       const size = site.layouts
                         ? site.layouts[breakpoint]
                           ? (site.layouts[breakpoint].find(
-                              (layout: Layout) => layout.i === extension.id
+                              (layout: Layout) => layout.i === image.id
                             )?.w as 1 | 2 | 3)
                           : 3
                         : 3;
 
                       return (
-                        <div
-                          key={extension.id}
-                          id={extension.id}
-                          onClick={(e) => {
-                            if (draggedBefore) {
-                              e.stopPropagation();
-                              e.preventDefault();
-                              setDraggedBefore(false);
-                            }
-                          }}
-                        >
-                          <Extension
+                        <div key={image.id} id={image.id}>
+                          <ImageBlock
                             gridRef={itemsRef}
-                            extension={extension}
+                            image={image}
                             size={size}
                             isEditable={true}
                           />
                         </div>
                       );
-                    }
-                  })}
-              </ResponsiveGridLayout>
-            </div>
-          ) : (
-            <EmptyState />
-          )}
+                    })}
+                </ResponsiveGridLayout>
+              </div>
+            ) : (
+              <EmptyState />
+            )}
+          </div>
+          <Footer socials={site.socials} />
         </div>
-        <Footer socials={site.socials} />
       </div>
     </div>
   );

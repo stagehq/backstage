@@ -12,10 +12,10 @@ const Footer: FC<FooterProps> = ({ socials }) => {
       <div className="flex w-full max-w-6xl flex-col items-center justify-between gap-8 p-8 pb-24 sm:p-12 lg:mx-auto lg:flex-row lg:gap-2">
         <div className="flex flex-col items-center gap-2 px-8 lg:items-start">
           <div className=" text-center text-sm font-semibold text-zinc-400 dark:text-zinc-600 lg:text-left">
-            Build with
+            Built with
           </div>
           <div className=" text-center text-lg font-semibold text-zinc-600 dark:text-zinc-400 lg:text-left">
-            Stage ©, API-based developer portfolio.
+            Stage, the API-based developer portfolio.
           </div>
           <div className="font-mdeium flex flex-wrap gap-4 pt-4 text-center text-sm text-zinc-500 dark:text-zinc-600 lg:text-left">
             <a
