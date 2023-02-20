@@ -29,6 +29,7 @@
     "configure-husky": "npx husky install && npx husky add .husky/pre-commit \"npx --no-install lint-staged\""
   },
   "dependencies": {
+    "@47ng/cloak": "^1.1.0",
     "@emoji-mart/data": "^1.0.6",
     "@emoji-mart/react": "^1.0.1",
     "@graphql-codegen/schema-ast": "^2.5.1",
@@ -82,6 +83,7 @@
     "notion-utils": "^6.11.0",
     "postcss-focus-visible": "^7.1.0",
     "postmark": "^3.0.1",
+    "prisma-field-encryption": "^1.4.1",
     "query-string": "^8.1.0",
     "raw-body": "^2.5.1",
     "react": "^17.0.2",

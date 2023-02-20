@@ -22,7 +22,7 @@ model User {
   image                String?
   coverImageUrl        String?
   alias                String?               @unique
-  name                 String?
+  name                 String?               
   firstName            String?
   lastName             String?
 
@@ -139,12 +139,12 @@ model OAuth {
   createdAt             DateTime              @default(now())
   modifiedAt            DateTime              @default(now())
 
-  accessToken           String
+  accessToken           String                /// @encrypted
   isExpired             Boolean               @default(false)
 
   expiresIn             Int?
   idToken               String?
-  refreshToken          String?
+  refreshToken          String?               /// @encrypted
   scope                 String?
 
   userId                String                
