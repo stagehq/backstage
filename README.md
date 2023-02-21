@@ -2,14 +2,14 @@
 
 ### Setup
 
-#### Optional
+### Optional
 
 You'll need certain environment variables to run Bedrock's functionality in local development. The first step is to:
 
 - Sign up for [Stripe](https://stripe.com), used for payments
 - Sign up for [Postmark](https://postmarkapp.com), used for sending emails
 
-#### Steps
+### Steps 🏎️
 
 Copy `.env.example` to `.env` and fill out the `.env` file with your environment variables!
 
@@ -43,7 +43,7 @@ docker-compose up
 yarn prisma:migrate
 ```
 
-### Development workflow
+### Development workflow 🧑‍💻
 
 To develop your app, you always need to have two commands running concurrently:
 
