@@ -1,14 +1,17 @@
+import { decodeGlobalID, encodeGlobalID } from "@pothos/plugin-relay";
+import { AuthType } from "@prisma/client";
 import dynamic from "next/dynamic";
 import { FC, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { ImageBlock } from "../../blocks/Image";
 import { BlockProps } from "../../blocks/type";
+import { storeExtensionState } from "../../store/extensions";
 import { siteSlugState, siteState } from "../../store/site";
 import { gridBreakpointState } from "../../store/ui/grid-dnd";
 import { currentUserState } from "../../store/user";
 import Footer from "../Footer";
+import { upsertExtension } from "../helper/upsertExtension";
 import { PageHeader } from "../PageHeader";
 import EmptyState from "./EmptyState";
 import { useHandleLayoutChange } from "./hooks/useHandleLayoutChange";
@@ -24,6 +27,7 @@ const StudioEditor = () => {
   const user = useRecoilValue(currentUserState);
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
+  const storeExtensions = useRecoilValue(storeExtensionState);
   const [components, setComponents] = useState<{
     [key: string]: FC<BlockProps>;
   }>({});
@@ -52,25 +56,49 @@ const StudioEditor = () => {
   useEffect(() => {
     if (acceptedFiles.length > 0) {
       const formData = new FormData();
+      console.log(acceptedFiles);
       acceptedFiles.forEach((file) => {
         // convert file to base64 string
         const reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onload = () => {
+        reader.onload = async () => {
           const base64 = reader.result;
           if (base64 && site !== null) {
-            setSite((prevSite) => {
-              if (!prevSite) return null;
-              return {
-                ...prevSite,
-                images: prevSite.images
-                  ? [
-                      ...prevSite.images,
-                      { id: file.name, url: base64.toString() },
-                    ]
-                  : [{ id: file.name, url: base64.toString() }],
-              };
+            if(!user) return null;
+
+            const response = await upsertExtension({
+              userId: decodeGlobalID(user.id).id,
+              siteId: decodeGlobalID(site.id).id,
+              storeExtensionId: "clbz5lknp001zpgpx4nboixelst",
+              apiConnectorName: "images",
+              routes: [{
+                  id: "cleee4xhl00jgeobkzju5z2nf",
+                  url: "",
+                  apiConnector: {
+                    name: "images",
+                  },
+                }],
+              preferences: [{ key: "image path", value: base64.toString() }],
+              authType: AuthType.preferences,
             });
+            const newSite = {
+              ...site,
+              extensions: [
+                ...(site.extensions ? site.extensions : []),
+                {
+                  ...response.extension,
+                  id: encodeGlobalID("Extension", response.extension.id),
+                  storeExtension: {
+                    ...response.extension.storeExtension,
+                    id: encodeGlobalID(
+                      "StoreExtension",
+                      response.extension.storeExtension.id
+                    ),
+                  },
+                },
+              ],
+            };
+            setSite({ ...newSite });
           }
         };
         reader.onerror = (error) => {
@@ -79,24 +107,25 @@ const StudioEditor = () => {
 
         formData.append("files", file);
       });
-      fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data) {
-            setSite((prevSite) => {
-              if (!prevSite) return null;
-              return {
-                ...prevSite,
-                images: prevSite.images
-                  ? [...prevSite.images, ...data]
-                  : [data],
-              };
-            });
-          }
-        });
+      
+      // fetch("/api/upload", {
+      //   method: "POST",
+      //   body: formData,
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     if (data) {
+      //       setSite((prevSite) => {
+      //         if (!prevSite) return null;
+      //         return {
+      //           ...prevSite,
+      //           images: prevSite.images
+      //             ? [...prevSite.images, ...data]
+      //             : [data],
+      //         };
+      //       });
+      //     }
+      //   });
     }
   }, [acceptedFiles]);
 
@@ -234,12 +263,12 @@ const StudioEditor = () => {
 
                       return (
                         <div key={image.id} id={image.id}>
-                          <ImageBlock
+                          {/* <ImageBlock
                             gridRef={itemsRef}
                             image={image}
                             size={size}
                             isEditable={true}
-                          />
+                          /> */}
                         </div>
                       );
                     })}

@@ -51,10 +51,27 @@ const PreferencesModal: FC = () => {
 
     const keyArr = fillPreferences(preferencesExtension, preferencesApi);
     console.log(event);
-    keyArr.map((key) => {
-      // @ts-ignore
-      processedPreferences.push({ key: key, value: event.target[key].value });
-    });
+    await Promise.all(keyArr.map((key) => {
+      return new Promise<void>((resolve) => {
+        // @ts-ignore
+        if(event.target[key].files){
+          const reader = new FileReader();
+          // @ts-ignore
+          reader.readAsDataURL(event.target[key].files[0] as Blob);
+          reader.onload = () => {
+            const path = reader.result;
+            if(path){
+              processedPreferences.push({ key: key, value: path.toString()});
+            }
+            resolve();
+          };
+        }else{
+          // @ts-ignore
+          processedPreferences.push({ key: key, value: event.target[key].value });
+          resolve();
+        }
+      })
+    }));
 
     if (!site) throw new Error("Site not found");
     if (!preferencesExtension.routes) throw new Error("No routes found");
@@ -239,33 +256,19 @@ interface FileInput {
   preference: string;
 }
 
-const FileInput: FC<FileInput> = ({ preference }) => {
+const FileInput:FC<FileInput> = ({preference}) => {
   const [file, setFile] = useState<File | undefined>(undefined);
 
-  useEffect(() => {
-    console.log(file);
-  }, [file]);
-
-  return (
-    <div className="flex flex-col items-start gap-4">
-      <label className="flex w-full cursor-pointer justify-center rounded-md border border-zinc-300 bg-zinc-100 py-2 text-sm hover:bg-zinc-200">
-        <input
-          id={preference}
-          type="file"
-          className="hidden"
-          onChange={(event) => {
-            setFile(event.target.files?.[0]);
-            console.log(event.target.value);
-          }}
-        />
-        {file ? "Change image" : "Upload image"}
-      </label>
-      {file && (
-        <div className="flex gap-2 text-sm font-medium text-zinc-600">
-          <CheckCircleIcon className="h-5 w-5" />
-          {file.name}
-        </div>
-      )}
-    </div>
-  );
-};
+  return <div className="flex flex-col items-start gap-4">
+    <label className="w-full border-zinc-300 border rounded-md py-2 text-sm flex justify-center bg-zinc-100 hover:bg-zinc-200 cursor-pointer">
+      <input id={preference} type="file" className="hidden" onChange={(event)=>setFile(event.target.files?.[0])}/>
+      {file ? "Change image" : "Upload image"}
+    </label> 
+    {file && 
+      <div className="flex gap-2 text-sm font-medium text-zinc-600">
+        <CheckCircleIcon className="w-5 h-5"/>
+        {file.name}
+      </div>
+    }
+  </div>
+}

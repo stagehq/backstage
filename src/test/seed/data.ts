@@ -3,36 +3,42 @@ import { apiConnectorSeedInput, storeExtensionSeedInput } from "./index";
 
 export const apiConnectorsData: apiConnectorSeedInput = [
   {
+    id:"cleee4xhi00igeobkfevk6t4k",
     name: "github",
     markdown:
       "GitHub is where over 94 million developers shape the future of software, together.",
     authType: AuthType.oAuth,
     apiConnectorRoutes: [
       {
+        id: "cleee4xhi00iieobkp05dtpag",
         name: "github_projects",
         url: "/user/repos?sort=stars&direction=desc&per_page=100&type=owner",
       },
     ],
   },
   {
+    id: "cleee4xhi00ifeobkzirr5y9b",
     name: "gitlab",
     markdown:
       "From planning to production, GitLab brings teams together to shorten cycle times, reduce costs, strengthen security, and increase developer productivity.",
     authType: AuthType.oAuth,
     apiConnectorRoutes: [
       {
+        id: "cleee4xhi00iheobkpxukkafn",
         name: "gitlab_projects",
         url: "/api/v4/users/user_id/projects?order_by=last_activity_at&sort=desc&per_page=100&membership=true",
       },
     ],
   },
   {
+    id: "cleea34v700eseobkeq757sq1",
     name: "linkedin",
     markdown:
       "LinkedIn is the world's largest professional network on the internet.",
     authType: AuthType.preferences,
     apiConnectorRoutes: [
       {
+        id: "cleee4xhj00iqeobk0e5mm5js",
         name: "linkedin_cv",
         url: "/api/v2/linkedin",
         urlParameter: ["linkedin_url"],
@@ -40,12 +46,14 @@ export const apiConnectorsData: apiConnectorSeedInput = [
     ],
   },
   {
+    id: "cleea34v700f4eobkirj1t7mt",
     name: "devto",
     markdown:
       "Dev.to is the blog platform developers love for their simplicity.",
     authType: AuthType.preferences,
     apiConnectorRoutes: [
       {
+        id: "cleee4xhj00ixeobkedim5sw4", 
         name: "devto_posts",
         url: "",
         urlParameter: ["username"],
@@ -53,22 +61,26 @@ export const apiConnectorsData: apiConnectorSeedInput = [
     ],
   },
   {
+    id: "cleea34v800faeobkwbvuvs2k",
     name: "spotify",
     markdown: "best player ever",
     authType: AuthType.oAuth,
     apiConnectorRoutes: [
       {
+        id: "cleee4xhj00j0eobkrh6b3i5j",
         name: "spotify_toptracks",
         url: "/v1/me/top/tracks?time_range=short_term&limit=5",
       },
     ],
   },
   {
+    id: "cleea34v800fceobk1p38j188",
     name: "funnel",
     markdown: "best funnel ever",
     authType: AuthType.preferences,
     apiConnectorRoutes: [
       {
+        id: "cleee4xhj00j8eobkty4t3z08",
         name: "funnel_empty",
         url: "",
         urlParameter: ["email"],
@@ -76,11 +88,13 @@ export const apiConnectorsData: apiConnectorSeedInput = [
     ],
   },
   {
+    id: "cleea34v900fmeobkb7lqq4wr",
     name: "images",
     markdown: "best image block",
     authType: AuthType.preferences,
     apiConnectorRoutes: [
       {
+        id: "cleee4xhl00jgeobkzju5z2nf",
         name: "image_single",
         url: "",
         urlParameter: ["image path"],
@@ -88,11 +102,13 @@ export const apiConnectorsData: apiConnectorSeedInput = [
     ],
   },
   {
+    id: "cleea34va00fseobklnfql48q",
     name: "stackoverflow",
     markdown: "stackoverflow top answers",
     authType: AuthType.oAuth,
     apiConnectorRoutes: [
       {
+        id: "cleee4xhq00jmeobka427slfr",
         name: "stackoverflow_answers",
         url: "/2.3/me/answers?order=desc&sort=votes&site=stackoverflow",
       },
