@@ -20,7 +20,7 @@
     "prisma:migrate": "yarn prisma migrate dev",
     "prisma:studio": "prisma studio",
     "prisma:seed": "npx prisma db seed",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "typecheck": "concurrently --raw yarn:typecheck:*",
     "typecheck:app": "tsc --noEmit",
     "typecheck:cypress": "tsc --noEmit -p cypress/tsconfig.json",
