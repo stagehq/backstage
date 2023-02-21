@@ -21,7 +21,7 @@ cp .env.example .env
 
 Now you're ready to set everything up locally:
 
-1. **Install Docker** by following their [installation instructions for your OS](https://docs.docker.com/get-docker/). Bedrock uses Docker to start the local development database.
+1. **Install Docker** by following their [installation instructions for your OS](https://docs.docker.com/get-docker/). Backstage uses Docker to start the local development database.
 
 2. Then, **install the dependencies** with `yarn`:
 
@@ -59,7 +59,7 @@ docker-compose up
 yarn dev
 ```
 
-That's it! Now you should have Bedrock running locally and should be able to visit http://localhost:3000 🎉
+That's it! Now you should have Backstage running locally and should be able to visit http://localhost:3000 🎉
 
 #### Scripts
 
