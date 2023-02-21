@@ -80,106 +80,57 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   //---------------------------------------------------------------------------------------------------------------
 
-  //Check if extension is already there
-  const extensionCheck = await checkExtension(
-    data.siteId,
-    data.storeExtensionId
-  );
-
-  if (extensionCheck) {
-    console.log("extension is already there");
-    //check if api is already there
-    const apiCheck = await checkApi(extensionCheck.id, data.apiConnectorName);
-    if (!apiCheck) {
-      //add api to extension
-      console.log("add api to extension");
-
-      const extension = await prisma.extension.update({
-        where: {
-          id: extensionCheck.id,
+  //create extension
+  console.log("create extension");
+  console.log(prismaCreateRoutesArray);
+  const extension = await prisma.extension.create({
+    data: {
+      sortOrder: 0,
+      site: {
+        connect: {
+          id: data.siteId,
         },
-        data: {
-          underlayingApis: {
-            create: {
-              apiConnector: {
-                connect: {
-                  name: data.apiConnectorName,
-                },
-              },
-              ...(data.authType !== AuthType.preferences && {
-                oAuth: {
-                  connect: {
-                    id: data.oAuthId,
-                  },
-                },
-              }),
-              apiResponses: {
-                create: prismaCreateRoutesArray,
-              },
-              preferences: {
-                create: prismaCreatePreferencesArray,
-              },
+      },
+      storeExtension: {
+        connect: {
+          id: data.storeExtensionId,
+        },
+      },
+      underlayingApis: {
+        create: {
+          apiConnector: {
+            connect: {
+              name: data.apiConnectorName,
             },
           },
-        },
-      });
-      res.status(200).json({ data: { extension } });
-    } else {
-      console.log("Api already added");
-      res.status(500).json({ error: "Api already added" });
-    }
-  } else {
-    //create extension
-    console.log("create extension");
-    console.log(prismaCreateRoutesArray);
-    const extension = await prisma.extension.create({
-      data: {
-        sortOrder: 0,
-        site: {
-          connect: {
-            id: data.siteId,
-          },
-        },
-        storeExtension: {
-          connect: {
-            id: data.storeExtensionId,
-          },
-        },
-        underlayingApis: {
-          create: {
-            apiConnector: {
+          ...(data.authType !== AuthType.preferences && {
+            oAuth: {
               connect: {
-                name: data.apiConnectorName,
+                id: data.oAuthId,
               },
             },
-            ...(data.authType !== AuthType.preferences && {
-              oAuth: {
-                connect: {
-                  id: data.oAuthId,
-                },
-              },
-            }),
-            apiResponses: {
-              create: prismaCreateRoutesArray,
-            },
-            preferences: {
-              create: prismaCreatePreferencesArray,
-            },
+          }),
+          apiResponses: {
+            create: prismaCreateRoutesArray,
+          },
+          preferences: {
+            create: prismaCreatePreferencesArray,
           },
         },
       },
-      include: {
-        storeExtension: true,
-        underlayingApis: {
-          include: {
-            apiConnector: true,
-            apiResponses: true,
-          },
+    },
+    include: {
+      storeExtension: true,
+      underlayingApis: {
+        include: {
+          apiConnector: true,
+          apiResponses: true,
         },
       },
-    });
-    res.status(200).json({ extension: extension });
-  }
+    },
+  });
+  res.status(200).json({ extension: extension });
+
 };
 
 //fetch oAuthToken
@@ -306,7 +257,7 @@ const checkExtension = async (siteId: string, storeExtensionId: string) => {
   });
 };
 
-//check if extension is already there
+//check if api is already there
 const checkApi = async (extensionId: string, apiConnectorName: string) => {
   return await prisma.api.findFirst({
     where: {

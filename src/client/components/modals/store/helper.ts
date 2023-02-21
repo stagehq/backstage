@@ -23,16 +23,6 @@ export const getAuthTypeOfExtension = (storeExtension: StoreExtension) => {
   return storeExtension.routes[0].apiConnector.authType as AuthType;
 };
 
-export const isExtensionPartOfSite = (
-  storeExtension: StoreExtension,
-  site: Site
-) => {
-  if (!site.extensions) return null;
-  return site.extensions.some(
-    (extension) => extension.storeExtension?.id === storeExtension.id
-  );
-};
-
 export const addOAuthExtension = async (
   apiName: string | null,
   storeExtension: StoreExtension,

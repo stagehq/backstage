@@ -4,7 +4,6 @@ import clsx from "clsx";
 import { FC, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import {
-  useRecoilRefresher_UNSTABLE,
   useRecoilState,
   useRecoilValue,
 } from "recoil";
@@ -23,7 +22,6 @@ import {
   addOAuthExtension,
   getApiNameOfExtension,
   getAuthTypeOfExtension,
-  isExtensionPartOfSite,
 } from "./helper";
 
 interface StoreItemProps {
@@ -33,7 +31,6 @@ interface StoreItemProps {
 const StoreItem: FC<StoreItemProps> = ({ storeExtension }) => {
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
-  const refreshSite = useRecoilRefresher_UNSTABLE(siteState(siteSlug));
   const [, setOpenPreferencesModal] = useRecoilState(preferencesOpenState);
   const [, setOpenStoreModal] = useRecoilState(storeOpenState);
   const [, setPreferencesExtension] = useRecoilState(preferencesExtensionState);
@@ -41,40 +38,22 @@ const StoreItem: FC<StoreItemProps> = ({ storeExtension }) => {
   const user = useRecoilValue(currentUserState);
   const [addingInProcess, setAddingInProcess] =
     useRecoilState(addingInProcessState);
-  const [addingState, setAddingState] = useState<
-    "unadded" | "added" | "loading"
-  >("unadded");
+  const [loadingState, setLoadingState] = useState<boolean>(false);
 
-  let isAdded: boolean | null = false;
-
-  if (site && storeExtension) {
-    isAdded = isExtensionPartOfSite(storeExtension, site);
-  }
 
   useEffect(() => {
-    setAddingState(isAdded ? "added" : "unadded");
-  }, [isAdded]);
-
-  useEffect(() => {
-    if (addingInProcess !== "loading" && addingState === "loading") {
-      setAddingState(addingInProcess);
-      if (addingInProcess === "added") {
-        //refreshSite();
-        console.log("Added");
-        setOpenStoreModal(false);
-      }
+    if (addingInProcess !== "loading" && loadingState) {
+      setLoadingState(false);
     }
-  }, [addingInProcess, addingState, refreshSite]);
+  }, [addingInProcess, loadingState]);
 
   const clickHandler = async (storeExtension: StoreExtension) => {
     setAddingInProcess("loading");
-    setAddingState("loading");
+    setLoadingState(true);
     const apiName = getApiNameOfExtension(storeExtension);
     const authType = getAuthTypeOfExtension(storeExtension);
 
     if (!site || !storeExtension || !user) return null;
-    const isAdded = isExtensionPartOfSite(storeExtension, site);
-    if (isAdded) return null;
 
     if (authType === AuthType.oAuth) {
       try {
@@ -105,14 +84,9 @@ const StoreItem: FC<StoreItemProps> = ({ storeExtension }) => {
     }
   };
 
-  console.log(storeExtension.image);
-
   return (
     <div
-      className={clsx(
-        "relative flex w-full cursor-pointer flex-col gap-3 rounded-lg p-4",
-        isAdded ? "cursor-not-allowed" : "hover:bg-zinc-50"
-      )}
+      className="relative flex w-full cursor-pointer flex-col gap-3 rounded-lg p-4 hover:bg-zinc-50"
       onClick={() => clickHandler(storeExtension)}
     >
       <div
@@ -127,12 +101,7 @@ const StoreItem: FC<StoreItemProps> = ({ storeExtension }) => {
           <p className="text-base font-semibold text-zinc-900">
             {storeExtension.name}
           </p>
-          {addingState === "added" && (
-            <div className="flex items-center gap-1 rounded-full bg-green-200 p-1 text-xs text-green-800">
-              <CheckCircleIcon className="h-5 w-5" />
-            </div>
-          )}
-          {addingState === "loading" && <Spinner color="text-zinc-600" />}
+          {loadingState && <Spinner color="text-zinc-600" />}
         </div>
         <p className="text-sm text-zinc-700">{storeExtension.description}</p>
       </div>

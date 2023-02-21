@@ -36,7 +36,8 @@ async function fetchTokens(
   authRequest: OAuth.AuthorizationRequest,
   authCode: string
 ): Promise<OAuth.TokenResponse> {
-  const response = await fetch("/api/oauth/stackoverflow/access_token", {
+  console.log("moin");
+  const response = await fetch("/api/oauth/stackoverflow/access_token/json", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

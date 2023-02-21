@@ -33,30 +33,33 @@ const BasicFunnel: FC<BlockProps> = ({
   }, [extension]);
 
   return (
-    <Block
-      isHighlighted={true}
-      actions={{
-        link: {
-          url: email,
-        },
-      }}
-      title={extension.title ? extension.title : "Let's talk!"}
-      size={size}
-      handleTitleChange={
-        isEditable
-          ? (title) => changeBlockTitle(extension.id, title)
-          : undefined
-      }
-      handleSizeChange={
-        isEditable
-          ? (size) => changeExtensionSize(extension.id, size, gridRef)
-          : undefined
-      }
-      handleDelete={
-        isEditable ? () => deleteExtension(extension.id) : undefined
-      }
-      isEditable={isEditable}
-    ></Block>
+    <div>
+      Test
+    </div>
+    // <Block
+    //   isHighlighted={true}
+    //   actions={{
+    //     link: {
+    //       url: email,
+    //     },
+    //   }}
+    //   title={extension.title ? extension.title : "Let's talk!"}
+    //   size={size}
+    //   handleTitleChange={
+    //     isEditable
+    //       ? (title) => changeBlockTitle(extension.id, title)
+    //       : undefined
+    //   }
+    //   handleSizeChange={
+    //     isEditable
+    //       ? (size) => changeExtensionSize(extension.id, size, gridRef)
+    //       : undefined
+    //   }
+    //   handleDelete={
+    //     isEditable ? () => deleteExtension(extension.id) : undefined
+    //   }
+    //   isEditable={isEditable}
+    // ></Block>
   );
 };
 

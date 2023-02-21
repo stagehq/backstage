@@ -165,12 +165,12 @@ model OAuth {
   createdAt             DateTime              @default(now())
   modifiedAt            DateTime              @default(now())
 
-  accessToken           String                /// @encrypted
+  accessToken           String                ///@encrypted
   isExpired             Boolean               @default(false)
 
   expiresIn             Int?
   idToken               String?
-  refreshToken          String?               /// @encrypted
+  refreshToken          String?               ///@encrypted
   scope                 String?
 
   userId                String                
