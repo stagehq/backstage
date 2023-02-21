@@ -153,7 +153,7 @@ export namespace OAuth {
       options: AuthorizationRequestOptions,
       codeVerifier: string
     ): Promise<AuthorizationResponse> => {
-      console.log(options, codeVerifier)
+      console.log(options, codeVerifier);
       let authorizationRequest: AuthorizationRequest;
       if ("endpoint" in options) {
         // options is an AuthorizationRequestOptions object

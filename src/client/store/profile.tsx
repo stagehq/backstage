@@ -1,7 +1,7 @@
 import { atom, atomFamily, selectorFamily } from "recoil";
 
 import { client } from "../graphql/client";
-import { GetUserDocument } from "../graphql/getUser.generated";
+import { GetCurrentUserDocument } from "../graphql/getCurrentUser.generated";
 import { User } from "../graphql/types.generated";
 
 // set user alias for fetching user data
@@ -20,7 +20,7 @@ export const userState = atomFamily<User | null, string | null>({
         if (userAlias === null) return null;
 
         const response = await client
-          .query(GetUserDocument, {
+          .query(GetCurrentUserDocument, {
             alias: userAlias,
           })
           .toPromise();

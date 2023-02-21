@@ -1,6 +1,6 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { NextApiHandler } from "next";
-import NextAuth from "next-auth";
+import NextAuth, { Account, AuthOptions, Profile, User } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
 import GitlabProvider from "next-auth/providers/gitlab";
@@ -10,9 +10,10 @@ import prisma from "../../../server/db/prisma";
 
 const authHandler: NextApiHandler = (req, res) =>
   NextAuth(req, res, authOptions);
+
 export default authHandler;
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
@@ -50,15 +51,12 @@ export const authOptions = {
     // ...add more providers here
   ],
   callbacks: {
-    async signIn({
-      user,
-      account,
-      profile,
-    }: {
-      user: any;
-      account: any;
-      profile: any;
-    }) {
+    async signIn(params) {
+      const {
+        user,
+        account,
+        profile,
+      }: { user: User; account: Account | null; profile?: Profile } = params;
       if (!user.email) return false;
 
       // Check if the user is allowed to sign in

@@ -1,5 +1,5 @@
 import { oneLine } from "common-tags";
-import { graphql as executeGraphQL, Source } from "graphql";
+import { graphql as executeGraphQL, GraphQLArgs, Source } from "graphql";
 import { schema } from "../server/graphql/schema";
 
 interface Options {
@@ -26,11 +26,19 @@ interface Options {
  * })).toMatchSnapshot()
  * ```
  */
+
 export const request = (
   query: string | Source,
   { context, variables }: Options = {}
 ) => {
-  return executeGraphQL(schema, query, undefined, context || {}, variables);
+  const graphqlArgs: GraphQLArgs = {
+    schema,
+    source: query,
+    contextValue: context || {},
+    variableValues: variables || {},
+  };
+
+  return executeGraphQL(graphqlArgs);
 };
 
 /**
