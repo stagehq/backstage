@@ -1,12 +1,8 @@
-import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { AuthType } from "@prisma/client";
 import clsx from "clsx";
 import { FC, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import {
-  useRecoilState,
-  useRecoilValue,
-} from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { StoreExtension } from "../../../graphql/types.generated";
 import {
   preferencesApiState,
@@ -39,7 +35,6 @@ const StoreItem: FC<StoreItemProps> = ({ storeExtension }) => {
   const [addingInProcess, setAddingInProcess] =
     useRecoilState(addingInProcessState);
   const [loadingState, setLoadingState] = useState<boolean>(false);
-
 
   useEffect(() => {
     if (addingInProcess !== "loading" && loadingState) {

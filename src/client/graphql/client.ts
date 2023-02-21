@@ -2,6 +2,7 @@ import {
   createClient,
   dedupExchange,
   errorExchange,
+  Exchange,
   fetchExchange,
 } from "urql";
 
@@ -59,6 +60,6 @@ export const client = createClient({
   url: getAPIURl(),
   exchanges:
     process.env.NODE_ENV === `development`
-      ? [devtoolsExchange, ...defaultExchanges]
-      : [...defaultExchanges],
+      ? ([devtoolsExchange, ...defaultExchanges] as Exchange[])
+      : ([...defaultExchanges] as Exchange[]),
 });

@@ -1,0 +1,29 @@
+# Migrate the database when something is pushed to main/master
+name: Migrate
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  production:
+    name: Production
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: Install
+        run: yarn install --frozen-lockfile --silent
+
+      - name: Run migrations
+        run: yarn prisma migrate deploy --preview-feature
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}

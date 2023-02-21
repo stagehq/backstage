@@ -1,14 +1,9 @@
 /// <reference types="cypress" />
-import { reseedDatabase, SeedData } from "../../src/test/seed";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { GoogleSocialLogin } = require("cypress-social-logins").plugins;
 
-const plugins: Cypress.PluginConfig = (on) => {
+module.exports = (on, config) => {
   on("task", {
-    // Re-seed the database (delete all data & insert fresh)
-    async reseed(data?: SeedData) {
-      await reseedDatabase(data);
-      return null;
-    },
+    GoogleSocialLogin: GoogleSocialLogin,
   });
 };
-
-module.exports = plugins;

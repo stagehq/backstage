@@ -201,15 +201,17 @@ const PreferencesModal: FC = () => {
                         {preference}
                       </label>
                       <div className="relative mt-1">
-                        {preference === "image path" 
-                        ? <FileInput preference={preference}/>
-                        : <input
-                          id={preference}
-                          name={preference}
-                          type="text"
-                          autoComplete={preference}
-                          className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
-                        />}
+                        {preference === "image path" ? (
+                          <FileInput preference={preference} />
+                        ) : (
+                          <input
+                            id={preference}
+                            name={preference}
+                            type="text"
+                            autoComplete={preference}
+                            className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
+                          />
+                        )}
                       </div>
                     </div>
                   ))}
@@ -234,28 +236,36 @@ const PreferencesModal: FC = () => {
 export default PreferencesModal;
 
 interface FileInput {
-  preference: string
+  preference: string;
 }
 
-const FileInput:FC<FileInput> = ({preference}) => {
-
+const FileInput: FC<FileInput> = ({ preference }) => {
   const [file, setFile] = useState<File | undefined>(undefined);
 
   useEffect(() => {
     console.log(file);
-  },[file])
+  }, [file]);
 
-  return <div className="flex flex-col items-start gap-4">
-  <label className="w-full border-zinc-300 border rounded-md py-2 text-sm flex justify-center bg-zinc-100 hover:bg-zinc-200 cursor-pointer">
-    <input id={preference} type="file" className="hidden" onChange={(event)=>{setFile(event.target.files?.[0]); console.log(event.target.value)}}/>
-    {file ? "Change image" : "Upload image"}
-  </label> 
-  {file && 
-    <div className="flex gap-2 text-sm font-medium text-zinc-600">
-      <CheckCircleIcon className="w-5 h-5"/>
-      {file.name}
+  return (
+    <div className="flex flex-col items-start gap-4">
+      <label className="flex w-full cursor-pointer justify-center rounded-md border border-zinc-300 bg-zinc-100 py-2 text-sm hover:bg-zinc-200">
+        <input
+          id={preference}
+          type="file"
+          className="hidden"
+          onChange={(event) => {
+            setFile(event.target.files?.[0]);
+            console.log(event.target.value);
+          }}
+        />
+        {file ? "Change image" : "Upload image"}
+      </label>
+      {file && (
+        <div className="flex gap-2 text-sm font-medium text-zinc-600">
+          <CheckCircleIcon className="h-5 w-5" />
+          {file.name}
+        </div>
+      )}
     </div>
-  }
-  
-</div>
-}
+  );
+};
