@@ -1,82 +1,17 @@
-# Make the setup
+# Backstage 🕺
 
-### Setup amplify
+### Setup
 
-Before you clone the repo you have to setup amplify.
-
-```sh
-yarn global add @aws-amplify/cli
-```
-
-When you installed the cli you have to add a amplify profile to your local maschine. The profile represents a iam user. Iam users can be specified with password or accessIds. For amplify we need user with accessIDs, therefore we can't use the existing users. AccessID users were created with the naming convention: 'nils-macbook', so it's clear that it is a machine. It has only amplify-admin access. To create a profile you can use the command:
-
-```sh
-amplify configure
-```
-
-!Do not create a new user.
-
-Now your profile is stored globally. It's time to clone the repo. Go in the target folder and clone the repo:
-
-```sh
-git clone git@gitlab.com:homeOfOpenSource/homeofopensource.git
-```
-
-Then go in the project folder and enter the following command to check out the dev amplifiy environment. Use your profile and enter the required inputs.
-
-```sh
-amplify pull --appId dqjh6lcvjv24j  --envName dev
-```
-
-### Install dependencies
-
-```sh
-yarn install
-```
-
-### run application
-
-```sh
-yarn dev
-```
-
-We can have multible environments and change them like changing branches with git.
-
-# Bedrock
-
-Welcome to Bedrock! 👋
-
-Before you get started, please **join the community** where you can chat with other folks using Bedrock, ask questions and get help:
-
-https://discord.gg/XKU3jArbm7
-
-## Getting started
-
-### Getting the code
-
-**Please do not clone the repository directly**, as that would defeat the purpose of using Bedrock — you don't want all of its git history in your own project.
-
-Instead, **download the "Source code (.zip)" file of [the latest release](https://github.com/mxstbr/bedrock/releases)**. Once that download finishes:
-
-1. Unzip the folder
-2. Rename the unzipped folder from `bedrock-x.y.z` to your product's name
-3. Open the directory on your terminal and initialize git:
-
-```sh
-cd <project>
-git init
-```
-
-After that, you're ready to get started!
-
-### Initial setup
+#### Optional
 
 You'll need certain environment variables to run Bedrock's functionality in local development. The first step is to:
 
 - Sign up for [Stripe](https://stripe.com), used for payments
 - Sign up for [Postmark](https://postmarkapp.com), used for sending emails
 
-Then, copy `.env.example` to `.env` and fill out the `.env` file with your environment variables!
+#### Steps
+
+Copy `.env.example` to `.env` and fill out the `.env` file with your environment variables!
 
 ```sh
 cp .env.example .env
