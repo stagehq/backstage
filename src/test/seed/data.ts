@@ -83,7 +83,7 @@ export const apiConnectorsData: apiConnectorSeedInput = [
       {
         name: "image_single",
         url: "",
-        urlParameter: ["path"],
+        urlParameter: ["image path"],
       },
     ],
   },
