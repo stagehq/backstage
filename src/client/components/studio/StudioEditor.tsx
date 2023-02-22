@@ -58,7 +58,9 @@ const StudioEditor = () => {
 
   // use effect when accepted files change to upload files to server and update site state with new image in images array
   useEffect(() => {
-    dropImage(acceptedFiles);
+    if(acceptedFiles.length !== 0){
+      dropImage(acceptedFiles);
+    }
   }, [acceptedFiles]);
 
   useEffect(() => {

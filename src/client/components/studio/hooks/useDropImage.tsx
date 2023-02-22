@@ -1,5 +1,6 @@
 import { decodeGlobalID, encodeGlobalID } from "@pothos/plugin-relay";
 import { AuthType } from "@prisma/client";
+import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { uploadFile } from "../../../../server/aws/helper";
 import { siteSlugState, siteState } from "../../../store/site";
@@ -15,7 +16,7 @@ export const useDropImage = () => {
   const dropImage = (
     acceptedFiles: File[],
   ) => {
-    if (acceptedFiles.length > 0) {
+    if (acceptedFiles.length > 0 && site?.extensions && site.extensions?.length < 10 ) {
       
         console.log(acceptedFiles);
         acceptedFiles.forEach((file) => {
@@ -93,7 +94,9 @@ export const useDropImage = () => {
           };
         });
   
-      }
+    } else {
+      toast.error("Block limit reached!");
+    }
   };
 
   return dropImage;

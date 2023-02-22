@@ -44,84 +44,91 @@ const PreferencesModal: FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     //close modal
     setPreferencesOpen(false);
+    console.log(site?.extensions?.length);
+    if(site?.extensions && site.extensions?.length < 10) {
+      //handleSubmit
+      if (!preferencesExtension || !preferencesApi || !user) return;
+      const processedPreferences: { key: string; value: string }[] = [];
+      event.preventDefault();
 
-    //handleSubmit
-    if (!preferencesExtension || !preferencesApi || !user) return;
-    const processedPreferences: { key: string; value: string }[] = [];
-    event.preventDefault();
-
-    const keyArr = fillPreferences(preferencesExtension, preferencesApi);
-    await Promise.all(keyArr.map((key) => {
-      return new Promise<void>((resolve) => {
-        // @ts-ignore
-        if(event.target[key].files){
+      const keyArr = fillPreferences(preferencesExtension, preferencesApi);
+      await Promise.all(keyArr.map((key) => {
+        return new Promise<void>((resolve) => {
           // @ts-ignore
-          uploadFile(event.target[key].files[0], decodeGlobalID(user.id).id, "blockImage").then((data) => {
-            if(data){
-              processedPreferences.push({ key: key, value: data});
-              resolve();
-            }else{
-              resolve();
-            }
-          });
-        }else{
-          // @ts-ignore
-          processedPreferences.push({ key: key, value: event.target[key].value });
-          resolve();
-        }
-      })
-    }));
+          if(event.target[key].files){
+            // @ts-ignore
+            uploadFile(event.target[key].files[0], decodeGlobalID(user.id).id, "blockImage").then((data) => {
+              if(data){
+                processedPreferences.push({ key: key, value: data});
+                resolve();
+              }else{
+                resolve();
+              }
+            });
+          }else{
+            // @ts-ignore
+            processedPreferences.push({ key: key, value: event.target[key].value });
+            resolve();
+          }
+        })
+      }));
 
-    if (!site) throw new Error("Site not found");
-    if (!preferencesExtension.routes) throw new Error("No routes found");
-    if (!preferencesApi) throw new Error("No preferences api found");
-    if (!processedPreferences) throw new Error("No preferences found");
+      if (!site) throw new Error("Site not found");
+      if (!preferencesExtension.routes) throw new Error("No routes found");
+      if (!preferencesApi) throw new Error("No preferences api found");
+      if (!processedPreferences) throw new Error("No preferences found");
 
-    try {
-      const response = await upsertExtension({
-        userId: decodeGlobalID(user.id).id,
-        siteId: decodeGlobalID(site.id).id,
-        storeExtensionId: decodeGlobalID(preferencesExtension.id).id,
-        apiConnectorName: preferencesApi,
-        routes: preferencesExtension.routes.map((route) => {
-          return {
-            id: decodeGlobalID(route.id).id,
-            url: route.url as string,
-            apiConnector: {
-              name: route.apiConnector?.name as string,
+      try {
+        const response = await upsertExtension({
+          userId: decodeGlobalID(user.id).id,
+          siteId: decodeGlobalID(site.id).id,
+          storeExtensionId: decodeGlobalID(preferencesExtension.id).id,
+          apiConnectorName: preferencesApi,
+          routes: preferencesExtension.routes.map((route) => {
+            return {
+              id: decodeGlobalID(route.id).id,
+              url: route.url as string,
+              apiConnector: {
+                name: route.apiConnector?.name as string,
+              },
+            };
+          }),
+          preferences: processedPreferences,
+          authType: AuthType.preferences,
+        });
+        const newSite = {
+          ...site,
+          extensions: [
+            ...(site.extensions ? site.extensions : []),
+            {
+              ...response.extension,
+              id: encodeGlobalID("Extension", response.extension.id),
+              storeExtension: {
+                ...response.extension.storeExtension,
+                id: encodeGlobalID(
+                  "StoreExtension",
+                  response.extension.storeExtension.id
+                ),
+              },
             },
-          };
-        }),
-        preferences: processedPreferences,
-        authType: AuthType.preferences,
-      });
-      const newSite = {
-        ...site,
-        extensions: [
-          ...(site.extensions ? site.extensions : []),
-          {
-            ...response.extension,
-            id: encodeGlobalID("Extension", response.extension.id),
-            storeExtension: {
-              ...response.extension.storeExtension,
-              id: encodeGlobalID(
-                "StoreExtension",
-                response.extension.storeExtension.id
-              ),
-            },
-          },
-        ],
-      };
-      console.log(response);
-      setSite({ ...newSite });
-      //handle success
-      setAddingInProcess("added");
-      setOpenStoreModal(false);
-    } catch (error) {
-      //handle error
-      console.log(error);
-      toast.error("Something went wrong!");
+          ],
+        };
+        console.log(response);
+        setSite({ ...newSite });
+        //handle success
+        setAddingInProcess("added");
+        setOpenStoreModal(false);
+      } catch (error) {
+        //handle error
+        console.log(error);
+        toast.error("Something went wrong!");
+        setAddingInProcess("unadded");
+      }
+    }else{
+      event.preventDefault();
+      toast.error("Block limit reached!");
       setAddingInProcess("unadded");
+      setOpenStoreModal(false);
     }
   };
 
