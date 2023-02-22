@@ -101,19 +101,19 @@ export const apiConnectorsData: apiConnectorSeedInput = [
       },
     ],
   },
-  {
-    id: "cleea34va00fseobklnfql48q",
-    name: "stackoverflow",
-    markdown: "stackoverflow top answers",
-    authType: AuthType.oAuth,
-    apiConnectorRoutes: [
-      {
-        id: "cleee4xhq00jmeobka427slfr",
-        name: "stackoverflow_answers",
-        url: "/2.3/me/answers?order=desc&sort=votes&site=stackoverflow",
-      },
-    ],
-  },
+  // {
+  //   id: "cleea34va00fseobklnfql48q",
+  //   name: "stackoverflow",
+  //   markdown: "stackoverflow top answers",
+  //   authType: AuthType.oAuth,
+  //   apiConnectorRoutes: [
+  //     {
+  //       id: "cleee4xhq00jmeobka427slfr",
+  //       name: "stackoverflow_answers",
+  //       url: "/2.3/me/answers?order=desc&sort=votes&site=stackoverflow",
+  //     },
+  //   ],
+  // },
 ];
 
 export const storeExtensionsData: storeExtensionSeedInput = [
@@ -203,20 +203,20 @@ export const storeExtensionsData: storeExtensionSeedInput = [
       },
     ],
   },
-  {
-    id: "clbz5lknp001zpgpx4nboixet",
-    name: "Stackoverflow",
-    description: "Show skills through answers",
-    image: "stackoverflow",
-    blockId: "stackoverflow_Answers",
-    markdown: "This is a extension where you show your answers",
-    icon: "BriefcaseIcon",
-    routes: [
-      {
-        name: "stackoverflow_answers",
-      },
-    ],
-  },
+  // {
+  //   id: "clbz5lknp001zpgpx4nboixet",
+  //   name: "Stackoverflow",
+  //   description: "Show skills through answers",
+  //   image: "stackoverflow",
+  //   blockId: "stackoverflow_Answers",
+  //   markdown: "This is a extension where you show your answers",
+  //   icon: "BriefcaseIcon",
+  //   routes: [
+  //     {
+  //       name: "stackoverflow_answers",
+  //     },
+  //   ],
+  // },
   {
     id: "clbz5lknp001zpgpx4nboixelst",
     name: "Images",
