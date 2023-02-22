@@ -14,7 +14,6 @@ import { siteSlugState, siteState } from "../../store/site";
 import { gridBreakpointState } from "../../store/ui/grid-dnd";
 import { currentUserState } from "../../store/user";
 import Footer from "../Footer";
-import { upsertExtension } from "../helper/upsertExtension";
 import { PageHeader } from "../PageHeader";
 import EmptyState from "./EmptyState";
 import { useDropImage } from "./hooks/useDropImage";
@@ -30,8 +29,7 @@ const StudioEditor = () => {
   const [breakpoint, setBreakpoint] = useRecoilState(gridBreakpointState);
   const user = useRecoilValue(currentUserState);
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site, setSite] = useRecoilState(siteState(siteSlug));
-  const storeExtensions = useRecoilValue(storeExtensionState);
+  const [site, ] = useRecoilState(siteState(siteSlug));
   const [components, setComponents] = useState<{
     [key: string]: FC<BlockProps>;
   }>({});
@@ -188,29 +186,6 @@ const StudioEditor = () => {
                           </div>
                         );
                       }
-                    })}
-                  {site.images &&
-                    site.images.length > 0 &&
-                    site.images.map((image, index) => {
-                      if (!image.url) return null;
-                      const size = site.layouts
-                        ? site.layouts[breakpoint]
-                          ? (site.layouts[breakpoint].find(
-                              (layout: Layout) => layout.i === image.id
-                            )?.w as 1 | 2 | 3)
-                          : 3
-                        : 3;
-
-                      return (
-                        <div key={image.id} id={image.id}>
-                          {/* <ImageBlock
-                            gridRef={itemsRef}
-                            image={image}
-                            size={size}
-                            isEditable={true}
-                          /> */}
-                        </div>
-                      );
                     })}
                 </ResponsiveGridLayout>
               </div>

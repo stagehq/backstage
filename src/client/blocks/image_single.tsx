@@ -6,7 +6,6 @@ import { FC, useEffect, useState } from "react";
 import { uploadFile } from "../../server/aws/helper";
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
 import { useDeleteExtension } from "../components/studio/hooks/useDeleteExtension";
-import { SiteImage } from "../graphql/types.generated";
 import { BlockProps } from "./type";
 
 const ImageBlock: FC<BlockProps> = ({
