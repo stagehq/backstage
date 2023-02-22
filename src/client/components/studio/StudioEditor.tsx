@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { FC, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
+import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { uploadFile } from "../../../server/aws/helper";
 import { BlockProps } from "../../blocks/type";
@@ -38,12 +39,17 @@ const StudioEditor = () => {
   const [draggedBefore, setDraggedBefore] = useState(false);
 
   // dropzone
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+  const { acceptedFiles, getRootProps, fileRejections } = useDropzone({
     accept: {
       "image/jpeg": [],
       "image/png": [],
       "image/gif": [],
     },
+    maxFiles: 1
+  });
+
+  fileRejections.map(({ file, errors }) => {
+    toast.error("Wrong format!");
   });
 
   const onDrag = () => {
@@ -65,7 +71,7 @@ const StudioEditor = () => {
 
   useEffect(() => {
     if (site?.layouts == null) {
-      console.log("empty");
+      //console.log("empty");
       setInitialCalculated(true);
 
       setTimeout(() => {
@@ -74,7 +80,7 @@ const StudioEditor = () => {
     }
     //set extensions
     if (site?.extensions) {
-      console.log("test");
+      //console.log("test");
       site.extensions.forEach(async (extension) => {
         const Extension = dynamic(
           () => import(`../../blocks/${extension.storeExtension?.blockId}`)
@@ -103,7 +109,7 @@ const StudioEditor = () => {
   }, []);
 
   useEffect(() => {
-    console.log(site);
+    //console.log(site);
   }, [site]);
 
   if (!site || !user || !initialCalculated) return null;

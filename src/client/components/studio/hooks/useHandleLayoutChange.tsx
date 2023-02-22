@@ -63,7 +63,7 @@ export const useHandleLayoutChange = () => {
       }, 100)
     );
 
-    console.log(currentLayouts);
+    // console.log(currentLayouts);
     //update layout
     if (site) {
       setSite({
@@ -79,7 +79,7 @@ export const useHandleLayoutChange = () => {
       layouts: JSON.stringify(currentLayouts),
     });
     if (response.data?.updateSiteLayouts) {
-      console.log(response.data?.updateSiteLayouts);
+      //console.log(response.data?.updateSiteLayouts);
     }
   };
 

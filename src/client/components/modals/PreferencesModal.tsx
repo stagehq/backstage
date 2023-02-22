@@ -44,7 +44,6 @@ const PreferencesModal: FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     //close modal
     setPreferencesOpen(false);
-    console.log(site?.extensions?.length);
     if(site?.extensions && site.extensions?.length < 10) {
       //handleSubmit
       if (!preferencesExtension || !preferencesApi || !user) return;
@@ -267,7 +266,7 @@ const FileInput:FC<FileInput> = ({preference}) => {
 
   return <div className="flex flex-col items-start gap-4">
     <label className="w-full border-zinc-300 border rounded-md py-2 text-sm flex justify-center bg-zinc-100 hover:bg-zinc-200 cursor-pointer">
-      <input id={preference} type="file" className="hidden" onChange={(event)=>setFile(event.target.files?.[0])}/>
+      <input id={preference} type="file" accept="image/png, image/jpeg, image/gif" className="hidden" onChange={(event)=>setFile(event.target.files?.[0])}/>
       {file ? "Change image" : "Upload image"}
     </label> 
     {file && 

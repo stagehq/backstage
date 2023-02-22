@@ -20,6 +20,15 @@ export const useDropImage = () => {
       
         console.log(acceptedFiles);
         acceptedFiles.forEach((file) => {
+          //check correct format
+          const regex = /image\/(jpeg|png|gif)/;
+          console.log("match");
+          if(file.type.match(regex)){
+            console.log(file.type.match(regex));
+          }else{
+            toast.error("Wrong format!");
+          }
+          
           // convert file to base64 string
           const reader = new FileReader();
           reader.readAsDataURL(file);
