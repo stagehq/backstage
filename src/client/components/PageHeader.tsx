@@ -1,24 +1,24 @@
 import { LinkIcon, MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import {
-  Bandcamp,
-  Behance,
-  Dribbble,
-  Facebook,
-  Figma,
-  Github,
-  Gitlab,
-  Instagram,
-  Linkedin,
-  Pinterest,
-  Reddit,
-  Snapchat,
-  Soundcloud,
-  Spotify,
-  Tiktok,
-  Twitch,
-  Twitter,
-  Youtube,
-} from "@icons-pack/react-simple-icons";
+  SiBandcamp,
+  SiBehance,
+  SiDribbble,
+  SiFacebook,
+  SiFigma,
+  SiGithub,
+  SiGitlab,
+  SiInstagram,
+  SiLinkedin,
+  SiPinterest,
+  SiReddit,
+  SiSnapchat,
+  SiSoundcloud,
+  SiSpotify,
+  SiTiktok,
+  SiTwitch,
+  SiTwitter,
+  SiYoutube,
+} from "react-icons/si";
 import { decodeGlobalID } from "@pothos/plugin-relay";
 import clsx from "clsx";
 import { FC, useEffect, useRef, useState } from "react";
@@ -219,75 +219,75 @@ export const renderSocialsColorBorder = (social: SocialsType) => {
   switch (social) {
     case "twitter":
       return (
-        <Twitter className="h-12 w-12 rounded border border-[#1DA1F2] bg-[#1DA1F2] bg-opacity-5 p-3 text-[#1DA1F2]" />
+        <SiTwitter className="h-12 w-12 rounded border border-[#1DA1F2] bg-[#1DA1F2] bg-opacity-5 p-3 text-[#1DA1F2]" />
       );
     case "instagram":
       return (
-        <Instagram className="h-12 w-12 rounded border border-[#E1306C] bg-[#E1306C] bg-opacity-5 p-3 text-[#E1306C]" />
+        <SiInstagram className="h-12 w-12 rounded border border-[#E1306C] bg-[#E1306C] bg-opacity-5 p-3 text-[#E1306C]" />
       );
     case "bandcamp":
       return (
-        <Bandcamp className="h-12 w-12 rounded border border-[#629aa9] bg-[#629aa9] bg-opacity-5 p-3 text-[#629aa9]" />
+        <SiBandcamp className="h-12 w-12 rounded border border-[#629aa9] bg-[#629aa9] bg-opacity-5 p-3 text-[#629aa9]" />
       );
     case "facebook":
       return (
-        <Facebook className="h-12 w-12 rounded border border-[#1877F2] bg-[#1877F2] bg-opacity-5 p-3 text-[#1877F2]" />
+        <SiFacebook className="h-12 w-12 rounded border border-[#1877F2] bg-[#1877F2] bg-opacity-5 p-3 text-[#1877F2]" />
       );
     case "linkedin":
       return (
-        <Linkedin className="h-12 w-12 rounded border border-[#0A66C2] bg-[#0A66C2] bg-opacity-5 p-3 text-[#0A66C2]" />
+        <SiLinkedin className="h-12 w-12 rounded border border-[#0A66C2] bg-[#0A66C2] bg-opacity-5 p-3 text-[#0A66C2]" />
       );
     case "github":
       return (
-        <Github className="h-12 w-12 rounded border border-[#333] bg-[#333] bg-opacity-5 p-3 text-[#333] dark:border-[#eee] dark:bg-[#eee] dark:bg-opacity-5 dark:text-[#eee]" />
+        <SiGithub className="h-12 w-12 rounded border border-[#333] bg-[#333] bg-opacity-5 p-3 text-[#333] dark:border-[#eee] dark:bg-[#eee] dark:bg-opacity-5 dark:text-[#eee]" />
       );
     case "gitlab":
       return (
-        <Gitlab className="h-12 w-12 rounded border border-[#FCA326] bg-[#FCA326] bg-opacity-5 p-3 text-[#FCA326]" />
+        <SiGitlab className="h-12 w-12 rounded border border-[#FCA326] bg-[#FCA326] bg-opacity-5 p-3 text-[#FCA326]" />
       );
     case "youtube":
       return (
-        <Youtube className="h-12 w-12 rounded border border-[#FF0000] bg-[#FF0000] bg-opacity-5 p-3 text-[#FF0000]" />
+        <SiYoutube className="h-12 w-12 rounded border border-[#FF0000] bg-[#FF0000] bg-opacity-5 p-3 text-[#FF0000]" />
       );
     case "twitch":
       return (
-        <Twitch className="h-12 w-12 rounded border border-[#9146FF] bg-[#9146FF] bg-opacity-5 p-3 text-[#9146FF]" />
+        <SiTwitch className="h-12 w-12 rounded border border-[#9146FF] bg-[#9146FF] bg-opacity-5 p-3 text-[#9146FF]" />
       );
     case "pinterest":
       return (
-        <Pinterest className="h-12 w-12 rounded border border-[#E60023] bg-[#E60023] bg-opacity-5 p-3 text-[#E60023]" />
+        <SiPinterest className="h-12 w-12 rounded border border-[#E60023] bg-[#E60023] bg-opacity-5 p-3 text-[#E60023]" />
       );
     case "tiktok":
       return (
-        <Tiktok className="h-12 w-12 rounded border border-[#000000] bg-[#000000] bg-opacity-5 p-3 text-[#000000] dark:border-[#eee] dark:bg-[#eee] dark:bg-opacity-5 dark:text-[#eee]" />
+        <SiTiktok className="h-12 w-12 rounded border border-[#000000] bg-[#000000] bg-opacity-5 p-3 text-[#000000] dark:border-[#eee] dark:bg-[#eee] dark:bg-opacity-5 dark:text-[#eee]" />
       );
     case "reddit":
       return (
-        <Reddit className="h-12 w-12 rounded border border-[#FF4500] bg-[#FF4500] bg-opacity-5 p-3 text-[#FF4500]" />
+        <SiReddit className="h-12 w-12 rounded border border-[#FF4500] bg-[#FF4500] bg-opacity-5 p-3 text-[#FF4500]" />
       );
     case "spotify":
       return (
-        <Spotify className="h-12 w-12 rounded border border-[#1DB954] bg-[#1DB954] bg-opacity-5 p-3 text-[#1DB954]" />
+        <SiSpotify className="h-12 w-12 rounded border border-[#1DB954] bg-[#1DB954] bg-opacity-5 p-3 text-[#1DB954]" />
       );
     case "soundcloud":
       return (
-        <Soundcloud className="h-12 w-12 rounded border border-[#FF3300] bg-[#FF3300] bg-opacity-5 p-3 text-[#FF3300]" />
+        <SiSoundcloud className="h-12 w-12 rounded border border-[#FF3300] bg-[#FF3300] bg-opacity-5 p-3 text-[#FF3300]" />
       );
     case "snapchat":
       return (
-        <Snapchat className="h-12 w-12 rounded border border-[#e3e02b] bg-[#e3e02b] bg-opacity-5 p-3 text-[#e3e02b]" />
+        <SiSnapchat className="h-12 w-12 rounded border border-[#e3e02b] bg-[#e3e02b] bg-opacity-5 p-3 text-[#e3e02b]" />
       );
     case "dribbble":
       return (
-        <Dribbble className="h-12 w-12 rounded border border-[#EA4C89] bg-[#EA4C89] bg-opacity-5 p-3 text-[#EA4C89]" />
+        <SiDribbble className="h-12 w-12 rounded border border-[#EA4C89] bg-[#EA4C89] bg-opacity-5 p-3 text-[#EA4C89]" />
       );
     case "behance":
       return (
-        <Behance className="h-12 w-12 rounded border border-[#1769FF] bg-[#1769FF] bg-opacity-5 p-3 text-[#1769FF]" />
+        <SiBehance className="h-12 w-12 rounded border border-[#1769FF] bg-[#1769FF] bg-opacity-5 p-3 text-[#1769FF]" />
       );
     case "figma":
       return (
-        <Figma className="h-12 w-12 rounded border border-[#333] bg-[#333] bg-opacity-5 p-3 text-[#333] dark:border-[#eee] dark:bg-[#eee] dark:bg-opacity-5 dark:text-[#eee]" />
+        <SiFigma className="h-12 w-12 rounded border border-[#333] bg-[#333] bg-opacity-5 p-3 text-[#333] dark:border-[#eee] dark:bg-[#eee] dark:bg-opacity-5 dark:text-[#eee]" />
       );
     default:
       return (

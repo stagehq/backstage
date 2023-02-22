@@ -1,4 +1,3 @@
-import { Block } from "@stagehq/ui";
 import { FC, useEffect, useState } from "react";
 import { useChangeBlockTitle } from "../components/studio/hooks/useChangeBlockTitle";
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
@@ -33,9 +32,7 @@ const BasicFunnel: FC<BlockProps> = ({
   }, [extension]);
 
   return (
-    <div>
-      Test
-    </div>
+    <div>Test</div>
     // <Block
     //   isHighlighted={true}
     //   actions={{

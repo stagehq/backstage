@@ -15,24 +15,6 @@ query GetSite($subdomain: String!) {
       hostUrl
     }
 
-    images {
-      id
-      modifiedAt
-      createdAt
-      url
-      alt
-    }
-
-    links {
-      id
-      modifiedAt
-      createdAt
-      url
-      title
-      description
-      image
-    }
-
     extensions {
       id
       modifiedAt

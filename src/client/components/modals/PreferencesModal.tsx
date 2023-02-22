@@ -5,6 +5,7 @@ import { AuthType } from "@prisma/client";
 import { FC, Fragment, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { uploadFile } from "../../../server/aws/helper";
 import {
   ApiConnectorRoute,
   StoreExtension,
@@ -43,69 +44,90 @@ const PreferencesModal: FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     //close modal
     setPreferencesOpen(false);
+    if(site?.extensions && site.extensions?.length < 10) {
+      //handleSubmit
+      if (!preferencesExtension || !preferencesApi || !user) return;
+      const processedPreferences: { key: string; value: string }[] = [];
+      event.preventDefault();
 
-    //handleSubmit
-    if (!preferencesExtension || !preferencesApi || !user) return;
-    const processedPreferences: { key: string; value: string }[] = [];
-    event.preventDefault();
+      const keyArr = fillPreferences(preferencesExtension, preferencesApi);
+      await Promise.all(keyArr.map((key) => {
+        return new Promise<void>((resolve) => {
+          // @ts-ignore
+          if(event.target[key].files){
+            // @ts-ignore
+            uploadFile(event.target[key].files[0], decodeGlobalID(user.id).id, "blockImage").then((data) => {
+              if(data){
+                processedPreferences.push({ key: key, value: data});
+                resolve();
+              }else{
+                resolve();
+              }
+            });
+          }else{
+            // @ts-ignore
+            processedPreferences.push({ key: key, value: event.target[key].value });
+            resolve();
+          }
+        })
+      }));
 
-    const keyArr = fillPreferences(preferencesExtension, preferencesApi);
-    console.log(event);
-    keyArr.map((key) => {
-      // @ts-ignore
-      processedPreferences.push({ key: key, value: event.target[key].value });
-    });
+      if (!site) throw new Error("Site not found");
+      if (!preferencesExtension.routes) throw new Error("No routes found");
+      if (!preferencesApi) throw new Error("No preferences api found");
+      if (!processedPreferences) throw new Error("No preferences found");
 
-    if (!site) throw new Error("Site not found");
-    if (!preferencesExtension.routes) throw new Error("No routes found");
-    if (!preferencesApi) throw new Error("No preferences api found");
-    if (!processedPreferences) throw new Error("No preferences found");
-
-    try {
-      const response = await upsertExtension({
-        userId: decodeGlobalID(user.id).id,
-        siteId: decodeGlobalID(site.id).id,
-        storeExtensionId: decodeGlobalID(preferencesExtension.id).id,
-        apiConnectorName: preferencesApi,
-        routes: preferencesExtension.routes.map((route) => {
-          return {
-            id: decodeGlobalID(route.id).id,
-            url: route.url as string,
-            apiConnector: {
-              name: route.apiConnector?.name as string,
+      try {
+        const response = await upsertExtension({
+          userId: decodeGlobalID(user.id).id,
+          siteId: decodeGlobalID(site.id).id,
+          storeExtensionId: decodeGlobalID(preferencesExtension.id).id,
+          apiConnectorName: preferencesApi,
+          routes: preferencesExtension.routes.map((route) => {
+            return {
+              id: decodeGlobalID(route.id).id,
+              url: route.url as string,
+              apiConnector: {
+                name: route.apiConnector?.name as string,
+              },
+            };
+          }),
+          preferences: processedPreferences,
+          authType: AuthType.preferences,
+        });
+        const newSite = {
+          ...site,
+          extensions: [
+            ...(site.extensions ? site.extensions : []),
+            {
+              ...response.extension,
+              id: encodeGlobalID("Extension", response.extension.id),
+              storeExtension: {
+                ...response.extension.storeExtension,
+                id: encodeGlobalID(
+                  "StoreExtension",
+                  response.extension.storeExtension.id
+                ),
+              },
             },
-          };
-        }),
-        preferences: processedPreferences,
-        authType: AuthType.preferences,
-      });
-      const newSite = {
-        ...site,
-        extensions: [
-          ...(site.extensions ? site.extensions : []),
-          {
-            ...response.extension,
-            id: encodeGlobalID("Extension", response.extension.id),
-            storeExtension: {
-              ...response.extension.storeExtension,
-              id: encodeGlobalID(
-                "StoreExtension",
-                response.extension.storeExtension.id
-              ),
-            },
-          },
-        ],
-      };
-      console.log(response);
-      setSite({ ...newSite });
-      //handle success
-      setAddingInProcess("added");
-      setOpenStoreModal(false);
-    } catch (error) {
-      //handle error
-      console.log(error);
-      toast.error("Something went wrong!");
+          ],
+        };
+        console.log(response);
+        setSite({ ...newSite });
+        //handle success
+        setAddingInProcess("added");
+        setOpenStoreModal(false);
+      } catch (error) {
+        //handle error
+        console.log(error);
+        toast.error("Something went wrong!");
+        setAddingInProcess("unadded");
+      }
+    }else{
+      event.preventDefault();
+      toast.error("Block limit reached!");
       setAddingInProcess("unadded");
+      setOpenStoreModal(false);
     }
   };
 
@@ -201,15 +223,17 @@ const PreferencesModal: FC = () => {
                         {preference}
                       </label>
                       <div className="relative mt-1">
-                        {preference === "image path" 
-                        ? <FileInput preference={preference}/>
-                        : <input
-                          id={preference}
-                          name={preference}
-                          type="text"
-                          autoComplete={preference}
-                          className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
-                        />}
+                        {preference === "image path" ? (
+                          <FileInput preference={preference} />
+                        ) : (
+                          <input
+                            id={preference}
+                            name={preference}
+                            type="text"
+                            autoComplete={preference}
+                            className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
+                          />
+                        )}
                       </div>
                     </div>
                   ))}
@@ -234,28 +258,22 @@ const PreferencesModal: FC = () => {
 export default PreferencesModal;
 
 interface FileInput {
-  preference: string
+  preference: string;
 }
 
 const FileInput:FC<FileInput> = ({preference}) => {
-
   const [file, setFile] = useState<File | undefined>(undefined);
 
-  useEffect(() => {
-    console.log(file);
-  },[file])
-
   return <div className="flex flex-col items-start gap-4">
-  <label className="w-full border-zinc-300 border rounded-md py-2 text-sm flex justify-center bg-zinc-100 hover:bg-zinc-200 cursor-pointer">
-    <input id={preference} type="file" className="hidden" onChange={(event)=>{setFile(event.target.files?.[0]); console.log(event.target.value)}}/>
-    {file ? "Change image" : "Upload image"}
-  </label> 
-  {file && 
-    <div className="flex gap-2 text-sm font-medium text-zinc-600">
-      <CheckCircleIcon className="w-5 h-5"/>
-      {file.name}
-    </div>
-  }
-  
-</div>
+    <label className="w-full border-zinc-300 border rounded-md py-2 text-sm flex justify-center bg-zinc-100 hover:bg-zinc-200 cursor-pointer">
+      <input id={preference} type="file" accept="image/png, image/jpeg, image/gif" className="hidden" onChange={(event)=>setFile(event.target.files?.[0])}/>
+      {file ? "Change image" : "Upload image"}
+    </label> 
+    {file && 
+      <div className="flex gap-2 text-sm font-medium text-zinc-600">
+        <CheckCircleIcon className="w-5 h-5"/>
+        {file.name}
+      </div>
+    }
+  </div>
 }

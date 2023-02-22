@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { error } from "next/dist/build/output/log";
 import getRawBody from "raw-body";
 import Stripe from "stripe";
-import prisma from "../../../server/db/prisma";
 import stripe from "../../../server/stripe";
 
 const secondsToMsDate = (seconds: number) => new Date(seconds * 1000);
@@ -44,44 +43,44 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
   const session = event.data?.object as StripeSession;
 
   // Initial upgrade to paid
-  if (event.type === "checkout.session.completed") {
-    const subscription = await stripe.subscriptions.retrieve(
-      session.subscription
-    );
+  // if (event.type === "checkout.session.completed") {
+  //   const subscription = await stripe.subscriptions.retrieve(
+  //     session.subscription
+  //   );
 
-    await prisma.project.update({
-      where: {
-        id: session.metadata.projectId,
-      },
-      data: {
-        stripeCurrentPeriodEnd: secondsToMsDate(
-          subscription.current_period_end
-        ),
-        stripeSubscriptionId: subscription.id,
-        stripeCustomerId: session.customer,
-        stripePriceId: subscription.items.data[0].price.id,
-      },
-    });
-  }
+  //   await prisma.project.update({
+  //     where: {
+  //       id: session.metadata.projectId,
+  //     },
+  //     data: {
+  //       stripeCurrentPeriodEnd: secondsToMsDate(
+  //         subscription.current_period_end
+  //       ),
+  //       stripeSubscriptionId: subscription.id,
+  //       stripeCustomerId: session.customer,
+  //       stripePriceId: subscription.items.data[0].price.id,
+  //     },
+  //   });
+  // }
 
   // Recurring payments
-  if (event.type === "invoice.payment_succeeded") {
-    const subscription = await stripe.subscriptions.retrieve(
-      session.subscription
-    );
+  // if (event.type === "invoice.payment_succeeded") {
+  //   const subscription = await stripe.subscriptions.retrieve(
+  //     session.subscription
+  //   );
 
-    await prisma.project.update({
-      where: {
-        stripeSubscriptionId: subscription.id,
-      },
-      data: {
-        stripeCurrentPeriodEnd: secondsToMsDate(
-          subscription.current_period_end
-        ),
-        stripePriceId: subscription.items.data[0].price.id,
-      },
-    });
-  }
+  //   await prisma.project.update({
+  //     where: {
+  //       stripeSubscriptionId: subscription.id,
+  //     },
+  //     data: {
+  //       stripeCurrentPeriodEnd: secondsToMsDate(
+  //         subscription.current_period_end
+  //       ),
+  //       stripePriceId: subscription.items.data[0].price.id,
+  //     },
+  //   });
+  // }
 
   response.json({ received: true });
 };

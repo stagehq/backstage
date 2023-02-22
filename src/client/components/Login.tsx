@@ -201,6 +201,7 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
             <div>
               <button
                 onClick={() => signIn("google")}
+                id="google"
                 className="inline-flex w-full justify-center rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-900 shadow-sm hover:bg-zinc-100 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 sm:text-sm"
               >
                 <svg
