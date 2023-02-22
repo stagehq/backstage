@@ -3,6 +3,7 @@
 import { Block, Image } from "@stagehq/ui";
 import { defineArguments } from "graphql/type/definition";
 import { FC, useEffect, useState } from "react";
+import { uploadFile } from "../../server/aws/helper";
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
 import { useDeleteExtension } from "../components/studio/hooks/useDeleteExtension";
 import { SiteImage } from "../graphql/types.generated";
@@ -14,9 +15,6 @@ const ImageBlock: FC<BlockProps> = ({
   gridRef,
   isEditable,
 }) => {
-
-  console.log(extension);
-  
   const [path, setPath] = useState("");
 
   const changeExtensionSize = useChangeExtensionSize();
@@ -36,25 +34,21 @@ const ImageBlock: FC<BlockProps> = ({
     }
   }, [extension]);
 
-  useEffect(() => {
-    if (path !== "") {
-      const reader = new FileReader();
-    }
-  }, [path]);
-
   return (
-    <Block
-      isEditable={true}
-      size={size}
-      handleSizeChange={
-        isEditable
-          ? (size) => changeExtensionSize(extension.id, size, gridRef)
-          : undefined
-      }
-      handleDelete={isEditable ? () => deleteExtension(extension.id) : undefined}
-    >
-      <Image src={path} alt={path ? path : "image"} />
-    </Block>
+    <>
+      {path && <Block
+        isEditable={true}
+        size={size}
+        handleSizeChange={
+          isEditable
+            ? (size) => changeExtensionSize(extension.id, size, gridRef)
+            : undefined
+        }
+        handleDelete={isEditable ? () => deleteExtension(extension.id) : undefined}
+      >
+        <Image src={path} alt={path ? path : "image"} />
+      </Block>}
+    </>
   );
 };
 

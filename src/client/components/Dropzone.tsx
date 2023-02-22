@@ -14,7 +14,7 @@ export interface DropzoneProps {
   user: User;
 }
 
-export type uploadType = "profileImage" | "profileCoverImage" | "siteImage";
+export type uploadType = "profileImage" | "profileCoverImage" | "siteImage" | "blockImage";
 
 export const Dropzone: React.FC<DropzoneProps> = ({
   children,

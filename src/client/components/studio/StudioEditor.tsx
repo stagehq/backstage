@@ -5,7 +5,9 @@ import { FC, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { uploadFile } from "../../../server/aws/helper";
 import { BlockProps } from "../../blocks/type";
+import { Site } from "../../graphql/types.generated";
 import { storeExtensionState } from "../../store/extensions";
 import { siteSlugState, siteState } from "../../store/site";
 import { gridBreakpointState } from "../../store/ui/grid-dnd";
@@ -14,6 +16,7 @@ import Footer from "../Footer";
 import { upsertExtension } from "../helper/upsertExtension";
 import { PageHeader } from "../PageHeader";
 import EmptyState from "./EmptyState";
+import { useDropImage } from "./hooks/useDropImage";
 import { useHandleLayoutChange } from "./hooks/useHandleLayoutChange";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
@@ -51,82 +54,11 @@ const StudioEditor = () => {
 
   //hook
   const handleLayoutChange = useHandleLayoutChange();
+  const dropImage = useDropImage();
 
   // use effect when accepted files change to upload files to server and update site state with new image in images array
   useEffect(() => {
-    if (acceptedFiles.length > 0) {
-      const formData = new FormData();
-      console.log(acceptedFiles);
-      acceptedFiles.forEach((file) => {
-        // convert file to base64 string
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = async () => {
-          const base64 = reader.result;
-          if (base64 && site !== null) {
-            if(!user) return null;
-
-            const response = await upsertExtension({
-              userId: decodeGlobalID(user.id).id,
-              siteId: decodeGlobalID(site.id).id,
-              storeExtensionId: "clbz5lknp001zpgpx4nboixelst",
-              apiConnectorName: "images",
-              routes: [{
-                  id: "cleee4xhl00jgeobkzju5z2nf",
-                  url: "",
-                  apiConnector: {
-                    name: "images",
-                  },
-                }],
-              preferences: [{ key: "image path", value: base64.toString() }],
-              authType: AuthType.preferences,
-            });
-            const newSite = {
-              ...site,
-              extensions: [
-                ...(site.extensions ? site.extensions : []),
-                {
-                  ...response.extension,
-                  id: encodeGlobalID("Extension", response.extension.id),
-                  storeExtension: {
-                    ...response.extension.storeExtension,
-                    id: encodeGlobalID(
-                      "StoreExtension",
-                      response.extension.storeExtension.id
-                    ),
-                  },
-                },
-              ],
-            };
-            setSite({ ...newSite });
-          }
-        };
-        reader.onerror = (error) => {
-          console.log("Error: ", error);
-        };
-
-        formData.append("files", file);
-      });
-      
-      // fetch("/api/upload", {
-      //   method: "POST",
-      //   body: formData,
-      // })
-      //   .then((res) => res.json())
-      //   .then((data) => {
-      //     if (data) {
-      //       setSite((prevSite) => {
-      //         if (!prevSite) return null;
-      //         return {
-      //           ...prevSite,
-      //           images: prevSite.images
-      //             ? [...prevSite.images, ...data]
-      //             : [data],
-      //         };
-      //       });
-      //     }
-      //   });
-    }
+    dropImage(acceptedFiles);
   }, [acceptedFiles]);
 
   useEffect(() => {

@@ -1,7 +1,6 @@
 import { decodeGlobalID } from "@pothos/plugin-relay";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useDeleteExtensionMutation } from "../../../graphql/deleteExtension.generated";
-import { useDeleteSiteImageMutation } from "../../../graphql/deleteSiteImage.generated";
 import { siteSlugState, siteState } from "../../../store/site";
 
 /**
@@ -19,39 +18,25 @@ export const useDeleteExtension = () => {
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
   const [, deleteExtension] = useDeleteExtensionMutation();
-  const [, deleteImage] = useDeleteSiteImageMutation();
 
   const deleteExtensionFromSite = async (extensionId: string) => {
     try {
       // delete extension from database
       if (!siteSlug) return null;
       // delete extension from recoil site store
-      if (!site || !site.extensions || !site.images) return null;
+      if (!site || !site.extensions) return null;
 
       const newExtensions = [...site.extensions];
-      const newImages = [...site.images];
 
       const extensionIndex = newExtensions.findIndex(
         (extension) => extension.id === extensionId
       );
       if (extensionIndex !== -1) {
         newExtensions.splice(extensionIndex, 1);
+        setSite({...site});
         setSite({ ...site, extensions: newExtensions });
 
         await deleteExtension({
-          id: decodeGlobalID(extensionId).id,
-          siteId: siteSlug,
-        });
-      }
-
-      const imageIndex = newImages.findIndex(
-        (image) => image.id === extensionId
-      );
-      if (imageIndex !== -1) {
-        newImages.splice(imageIndex, 1);
-        setSite({ ...site, images: newImages });
-
-        await deleteImage({
           id: decodeGlobalID(extensionId).id,
           siteId: siteSlug,
         });

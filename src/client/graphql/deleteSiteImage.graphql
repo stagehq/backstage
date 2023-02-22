@@ -1,5 +1,0 @@
-mutation DeleteSiteImage($id: String!, $siteId: String!) {
-  deleteSiteImage(id: $id, siteId: $siteId) {
-    id
-  }
-}

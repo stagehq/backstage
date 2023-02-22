@@ -112,10 +112,11 @@ const ImageUpload: FC<ImageUploadProps> = ({
   }
 
   const handleUpload = async (url: string) => {
+    console.log(url);
     const file = dataURItoBlob(url);
 
     if (!currentUser) return null;
-
+    console.log(file, currentUser.id, uploadType);
     uploadFile(file, currentUser.id, uploadType).then((data) => {
       if (uploadType === "profileImage" || uploadType === "profileCoverImage") {
         // Update user images

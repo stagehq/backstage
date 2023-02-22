@@ -5,6 +5,7 @@ import { AuthType } from "@prisma/client";
 import { FC, Fragment, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { uploadFile } from "../../../server/aws/helper";
 import {
   ApiConnectorRoute,
   StoreExtension,
@@ -50,21 +51,19 @@ const PreferencesModal: FC = () => {
     event.preventDefault();
 
     const keyArr = fillPreferences(preferencesExtension, preferencesApi);
-    console.log(event);
     await Promise.all(keyArr.map((key) => {
       return new Promise<void>((resolve) => {
         // @ts-ignore
         if(event.target[key].files){
-          const reader = new FileReader();
           // @ts-ignore
-          reader.readAsDataURL(event.target[key].files[0] as Blob);
-          reader.onload = () => {
-            const path = reader.result;
-            if(path){
-              processedPreferences.push({ key: key, value: path.toString()});
+          uploadFile(event.target[key].files[0], decodeGlobalID(user.id).id, "blockImage").then((data) => {
+            if(data){
+              processedPreferences.push({ key: key, value: data});
+              resolve();
+            }else{
+              resolve();
             }
-            resolve();
-          };
+          });
         }else{
           // @ts-ignore
           processedPreferences.push({ key: key, value: event.target[key].value });
