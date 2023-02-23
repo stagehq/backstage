@@ -44,12 +44,22 @@ export async function updateStore(
           markdown: apiConnector.markdown,
           authType: apiConnector.authType,
           apiConnectorRoute: {
-            create: apiConnector.apiConnectorRoutes.map((route) => {
+            upsert: apiConnector.apiConnectorRoutes.map((route) => {
               return {
-                id: route.id,
-                name: route.name,
-                url: route.url,
-                urlParameter: route.urlParameter,
+                where: {
+                  id: route.id,
+                },
+                update: {
+                  name: route.name,
+                  url: route.url,
+                  urlParameter: route.urlParameter,
+                },
+                create: {
+                  id: route.id,
+                  name: route.name,
+                  url: route.url,
+                  urlParameter: route.urlParameter,
+                },
               };
             }),
           },
@@ -75,8 +85,7 @@ export async function updateStore(
     })
   );
 
-  //console.log("start with e");
-  //create storeExtensions
+  // Create or update storeExtensions
   await Promise.all(
     storeExtensions.map(async (storeExtension) => {
       const e = await prisma.storeExtension.upsert({

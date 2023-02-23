@@ -111,6 +111,6 @@ export async function reseedDatabase(
   storeExtensions: storeExtensionSeedInput
 ) {
   console.log("test");
-  await emptyDatabase();
-  await seedDatabase(apiConnectors, storeExtensions);
+  //await emptyDatabase();
+  //await seedDatabase(apiConnectors, storeExtensions);
 }

@@ -27,7 +27,8 @@
     "cypress:open": "cypress open",
     "prepare": "husky install",
     "configure-husky": "npx husky install && npx husky add .husky/pre-commit \"npx --no-install lint-staged\"",
-    "analyze": "cross-env ANALYZE=true next build"
+    "analyze": "cross-env ANALYZE=true next build",
+    "store:update": "npx ts-node -O '{\"module\": \"commonjs\"}' src/server/store/update.ts"
   },
   "dependencies": {
     "@47ng/cloak": "^1.1.0",

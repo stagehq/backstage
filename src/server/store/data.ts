@@ -164,7 +164,7 @@ export const storeExtensionsData: StoreExtensionUpdate[] = [
   {
     id: "clbz5lknp001zpgpx4nboixez",
     name: "DEV",
-    description: "Writings",
+    description: "Blog Posts",
     image: "devto",
     blockId: "devto_BlogPosts",
     markdown: "This is a extension for your best blog posts.",
