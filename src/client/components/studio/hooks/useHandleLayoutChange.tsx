@@ -1,6 +1,7 @@
 import { RefObject } from "react";
 import { Layouts } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { Site } from "../../../graphql/types.generated";
 import { useUpdateSiteLayoutsMutation } from "../../../graphql/updateSiteLayouts.generated";
 import { siteSlugState, siteState } from "../../../store/site";
 import { gridBreakpointState } from "../../../store/ui/grid-dnd";
@@ -25,16 +26,27 @@ export const useHandleLayoutChange = () => {
 
   const handleLayoutChange = async (
     itemsRef: RefObject<HTMLDivElement>,
-    newlayouts?: Layouts
+    newlayouts?: Layouts,
+    alternativeSite?: Site | undefined,
+    alternativeSetSite?: (value: Site) => void,
+    alternativeBreakpoint?: string
   ) => {
     let currentLayouts = newlayouts ? newlayouts : site?.layouts;
-    if (!currentLayouts || !site) return null;
+    if(site == null && alternativeSite) currentLayouts = alternativeSite.layouts;
+    if (!currentLayouts || !(site || alternativeSite)) return null;
+    
+    console.log("before calculation", currentLayouts);
 
     //calculate height
     const calculateLayout = () => {
-      if (!currentLayouts || !currentLayouts[breakpoint]) return null;
+      if (!currentLayouts || !(breakpoint || alternativeBreakpoint)) return null;
       let index = 0;
-      const newItems = [...currentLayouts[breakpoint]];
+      const currentBreakPoint = breakpoint ? breakpoint : alternativeBreakpoint;
+      if(!currentBreakPoint) return null;
+      if(!currentLayouts[currentBreakPoint]) return null;
+      const newItems = [...currentLayouts[currentBreakPoint]];
+
+      console.log("everything ready for calculation");
 
       if (itemsRef.current?.children[0].children) {
         for (const element of itemsRef.current.children[0].children) {
@@ -56,9 +68,12 @@ export const useHandleLayoutChange = () => {
       });
     };
     calculateLayout();
+    console.log("after calculation", currentLayouts);
+
     await new Promise((resolve) =>
       setTimeout(() => {
         calculateLayout();
+        console.log("after second calculation", currentLayouts);
         resolve(true);
       }, 100)
     );
@@ -66,10 +81,17 @@ export const useHandleLayoutChange = () => {
     // console.log(currentLayouts);
     //update layout
     if (site) {
+      console.log("for dynamic rendering");
       setSite({
         ...site,
         layouts: currentLayouts,
       });
+    } else if(alternativeSite && alternativeSetSite) {
+      console.log("for static rendering");
+      alternativeSetSite({
+        ...alternativeSite,
+        layouts: currentLayouts,
+      })
     }
 
     //update db

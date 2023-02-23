@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { RecoilRoot } from "recoil";
 import SitePage from "../client/components/isr/SitePage";
 
 const Page: React.FC<{ data: string }> = (props) => {
@@ -6,7 +7,9 @@ const Page: React.FC<{ data: string }> = (props) => {
   console.log(data);
   return (
     // <pre>{JSON.stringify(data, null, 2)}</pre>
-    <SitePage data={data} />
+    <RecoilRoot>
+      <SitePage data={data} />
+    </RecoilRoot>
   );
 };
 
