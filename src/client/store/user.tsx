@@ -23,3 +23,8 @@ export const currentUserState = atom<User | null>({
   key: "currentUserState",
   default: currentUserFetch,
 });
+
+export const isrUserState = atom<User | null>({
+  key: "isrUserState",
+  default: null,
+});

@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Site } from "../../../graphql/types.generated";
 import { useUpdateBlockTitleMutation } from "../../../graphql/updateExtensionTitle.generated";
+import { isrDataState, isrState } from "../../../store/isr";
 import { siteSlugState, siteState } from "../../../store/site";
 
 /**
@@ -17,8 +18,9 @@ import { siteSlugState, siteState } from "../../../store/site";
  */
 
 export const useChangeBlockTitle = () => {
+  const [isIsrMode,] = useRecoilState(isrState);
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site, setSite] = useRecoilState(siteState(siteSlug));
+  const [site, setSite] = useRecoilState(isIsrMode ? isrDataState : siteState(siteSlug));
 
   const [, updateBlockTitle] = useUpdateBlockTitleMutation();
 
