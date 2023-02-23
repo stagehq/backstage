@@ -26,7 +26,8 @@
     "typecheck:cypress": "tsc --noEmit -p cypress/tsconfig.json",
     "cypress:open": "cypress open",
     "prepare": "husky install",
-    "configure-husky": "npx husky install && npx husky add .husky/pre-commit \"npx --no-install lint-staged\""
+    "configure-husky": "npx husky install && npx husky add .husky/pre-commit \"npx --no-install lint-staged\"",
+    "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
     "@47ng/cloak": "^1.1.0",
@@ -36,7 +37,7 @@
     "@headlessui/react": "^1.6.1",
     "@heroicons/react": "^2.0.13",
     "@next-auth/prisma-adapter": "^1.0.3",
-    "@next/bundle-analyzer": "^12.2.3",
+    "@next/bundle-analyzer": "^12.2.5",
     "@pothos/core": "^3.10.1",
     "@pothos/plugin-prisma": "^3.6.1",
     "@pothos/plugin-relay": "^3.10.2",
