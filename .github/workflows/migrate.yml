@@ -1,4 +1,4 @@
-# Migrate the database when something is pushed to main/master
+# Migrate the database when something is pushed to main/test
 name: Migrate
 
 on:
