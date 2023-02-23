@@ -27,3 +27,6 @@ jobs:
         run: yarn prisma migrate deploy --preview-feature
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Seed store data
+        run: yarn store:update
