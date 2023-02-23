@@ -28,15 +28,17 @@ import { useUpdateSiteHeaderMutation } from "../graphql/updateSiteHeader.generat
 import { handleDynamicHeight } from "../helper/racingBuffer";
 import { siteSlugState, siteState } from "../store/site";
 import { themeState } from "../store/ui/theme";
-import { currentUserState } from "../store/user";
+import { currentUserState, isrUserState } from "../store/user";
 import ImageUpload from "./crop/ImageUpload";
 import { SocialsType } from "./modals/sitesettings/Socials";
+import { isrDataState, isrState } from "../store/isr";
 
 interface PageHeaderProps {
   disabled?: boolean;
 }
 
 export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
+  
   //refs
   const bioRef = useRef<HTMLTextAreaElement>(null);
   const taglineRef = useRef<HTMLTextAreaElement>(null);
@@ -49,10 +51,18 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
   const [, updateSiteHeader] = useUpdateSiteHeaderMutation();
 
   //state
+  //const siteSlug = useRecoilValue(siteSlugState);
+  const [isIsrMode, ] = useRecoilState(isrState);
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site, setSite] = useRecoilState(siteState(siteSlug));
+  const [site, setSite] = useRecoilState(isIsrMode ? isrDataState : siteState(siteSlug));
+
   const [theme, setTheme] = useRecoilState(themeState);
-  const [user, setUser] = useRecoilState(currentUserState);
+  const [user, setUser] = useRecoilState(isIsrMode ? isrUserState : currentUserState);
+
+
+  useEffect(() => {
+    console.log(site);
+  }, [site])
 
   //set initial value
   useEffect(() => {

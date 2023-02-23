@@ -4,9 +4,8 @@ import SitePage from "../client/components/isr/SitePage";
 
 const Page: React.FC<{ data: string }> = (props) => {
   const data = JSON.parse(props.data);
-  console.log(data);
+
   return (
-    // <pre>{JSON.stringify(data, null, 2)}</pre>
     <RecoilRoot>
       <SitePage data={data} />
     </RecoilRoot>

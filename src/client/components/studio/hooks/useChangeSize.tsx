@@ -1,5 +1,6 @@
 import { Layout } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { isrDataState, isrState } from "../../../store/isr";
 import { siteSlugState, siteState } from "../../../store/site";
 import { gridBreakpointState } from "../../../store/ui/grid-dnd";
 import { useHandleLayoutChange } from "./useHandleLayoutChange";
@@ -14,9 +15,10 @@ import { useHandleLayoutChange } from "./useHandleLayoutChange";
  */
 
 export const useChangeExtensionSize = () => {
+  const [isIsrMode,] = useRecoilState(isrState);
   const breakpoint = useRecoilValue(gridBreakpointState);
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site] = useRecoilState(siteState(siteSlug));
+  const [site] = useRecoilState(isIsrMode ? isrDataState : siteState(siteSlug));
   const handleLayoutChange = useHandleLayoutChange();
 
   const changeExtensionSize = (

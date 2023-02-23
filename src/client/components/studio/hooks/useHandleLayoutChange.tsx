@@ -3,6 +3,7 @@ import { Layouts } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Site } from "../../../graphql/types.generated";
 import { useUpdateSiteLayoutsMutation } from "../../../graphql/updateSiteLayouts.generated";
+import { isrDataState, isrState } from "../../../store/isr";
 import { siteSlugState, siteState } from "../../../store/site";
 import { gridBreakpointState } from "../../../store/ui/grid-dnd";
 
@@ -18,8 +19,9 @@ import { gridBreakpointState } from "../../../store/ui/grid-dnd";
  */
 
 export const useHandleLayoutChange = () => {
+  const [isIsrMode,] = useRecoilState(isrState);
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site, setSite] = useRecoilState(siteState(siteSlug));
+  const [site, setSite] = useRecoilState(isIsrMode ? isrDataState : siteState(siteSlug));
   const [breakpoint] = useRecoilState(gridBreakpointState);
 
   const [, updateSiteLayouts] = useUpdateSiteLayoutsMutation();
@@ -27,24 +29,18 @@ export const useHandleLayoutChange = () => {
   const handleLayoutChange = async (
     itemsRef: RefObject<HTMLDivElement>,
     newlayouts?: Layouts,
-    alternativeSite?: Site | undefined,
-    alternativeSetSite?: (value: Site) => void,
-    alternativeBreakpoint?: string
   ) => {
+    console.log("compare", site?.layouts, newlayouts)
     let currentLayouts = newlayouts ? newlayouts : site?.layouts;
-    if(site == null && alternativeSite) currentLayouts = alternativeSite.layouts;
-    if (!currentLayouts || !(site || alternativeSite)) return null;
+    if (!currentLayouts || !site) return null;
     
     console.log("before calculation", currentLayouts);
 
     //calculate height
     const calculateLayout = () => {
-      if (!currentLayouts || !(breakpoint || alternativeBreakpoint)) return null;
+      if (!currentLayouts || !currentLayouts[breakpoint] || !breakpoint) return null;
       let index = 0;
-      const currentBreakPoint = breakpoint ? breakpoint : alternativeBreakpoint;
-      if(!currentBreakPoint) return null;
-      if(!currentLayouts[currentBreakPoint]) return null;
-      const newItems = [...currentLayouts[currentBreakPoint]];
+      const newItems = [...currentLayouts[breakpoint]];
 
       console.log("everything ready for calculation");
 
@@ -78,31 +74,20 @@ export const useHandleLayoutChange = () => {
       }, 100)
     );
 
-    // console.log(currentLayouts);
     //update layout
     if (site) {
-      console.log("for dynamic rendering");
       setSite({
         ...site,
         layouts: currentLayouts,
       });
-    } else if(alternativeSite && alternativeSetSite) {
-      console.log("for static rendering");
-      alternativeSetSite({
-        ...alternativeSite,
-        layouts: currentLayouts,
-      })
     }
 
     //update db
-    if (!site?.subdomain || !currentLayouts) return null;
-    const response = await updateSiteLayouts({
+    if (!site?.subdomain || !currentLayouts || isIsrMode) return null;
+    await updateSiteLayouts({
       id: site.subdomain,
       layouts: JSON.stringify(currentLayouts),
     });
-    if (response.data?.updateSiteLayouts) {
-      //console.log(response.data?.updateSiteLayouts);
-    }
   };
 
   return handleLayoutChange;
