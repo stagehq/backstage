@@ -60,6 +60,9 @@ jobs:
       - name: Migrate the CI database
         run: yarn prisma:migrate
 
+      - name: Seed store data
+        run: yarn store:update
+
       - name: Lint
         run: yarn lint
 

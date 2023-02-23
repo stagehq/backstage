@@ -2,8 +2,8 @@ import dynamic from "next/dynamic";
 import { FC, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
+import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { ImageBlock } from "../../blocks/Image";
 import { BlockProps } from "../../blocks/type";
 import { siteSlugState, siteState } from "../../store/site";
 import { gridBreakpointState } from "../../store/ui/grid-dnd";
@@ -11,6 +11,7 @@ import { currentUserState } from "../../store/user";
 import Footer from "../Footer";
 import { PageHeader } from "../PageHeader";
 import EmptyState from "./EmptyState";
+import { useDropImage } from "./hooks/useDropImage";
 import { useHandleLayoutChange } from "./hooks/useHandleLayoutChange";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
@@ -23,7 +24,7 @@ const StudioEditor = () => {
   const [breakpoint, setBreakpoint] = useRecoilState(gridBreakpointState);
   const user = useRecoilValue(currentUserState);
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site, setSite] = useRecoilState(siteState(siteSlug));
+  const [site, ] = useRecoilState(siteState(siteSlug));
   const [components, setComponents] = useState<{
     [key: string]: FC<BlockProps>;
   }>({});
@@ -31,12 +32,17 @@ const StudioEditor = () => {
   const [draggedBefore, setDraggedBefore] = useState(false);
 
   // dropzone
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+  const { acceptedFiles, getRootProps, fileRejections } = useDropzone({
     accept: {
       "image/jpeg": [],
       "image/png": [],
       "image/gif": [],
     },
+    maxFiles: 1
+  });
+
+  fileRejections.map(({ file, errors }) => {
+    toast.error("Wrong format!");
   });
 
   const onDrag = () => {
@@ -47,71 +53,25 @@ const StudioEditor = () => {
 
   //hook
   const handleLayoutChange = useHandleLayoutChange();
+  const dropImage = useDropImage();
 
   // use effect when accepted files change to upload files to server and update site state with new image in images array
   useEffect(() => {
-    if (acceptedFiles.length > 0) {
-      const formData = new FormData();
-      acceptedFiles.forEach((file) => {
-        // convert file to base64 string
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          const base64 = reader.result;
-          if (base64 && site !== null) {
-            setSite((prevSite) => {
-              if (!prevSite) return null;
-              return {
-                ...prevSite,
-                images: prevSite.images
-                  ? [
-                      ...prevSite.images,
-                      { id: file.name, url: base64.toString() },
-                    ]
-                  : [{ id: file.name, url: base64.toString() }],
-              };
-            });
-          }
-        };
-        reader.onerror = (error) => {
-          console.log("Error: ", error);
-        };
-
-        formData.append("files", file);
-      });
-      fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data) {
-            setSite((prevSite) => {
-              if (!prevSite) return null;
-              return {
-                ...prevSite,
-                images: prevSite.images
-                  ? [...prevSite.images, ...data]
-                  : [data],
-              };
-            });
-          }
-        });
+    if(acceptedFiles.length !== 0){
+      dropImage(acceptedFiles);
     }
   }, [acceptedFiles]);
 
   useEffect(() => {
     if (site?.layouts == null) {
-      console.log("empty");
       setInitialCalculated(true);
-
       setTimeout(() => {
         if (itemsRef.current) itemsRef.current.classList.add("animated");
       }, 300);
     }
     //set extensions
     if (site?.extensions) {
-      console.log("test");
+      //console.log("test");
       site.extensions.forEach(async (extension) => {
         const Extension = dynamic(
           () => import(`../../blocks/${extension.storeExtension?.blockId}`)
@@ -140,7 +100,7 @@ const StudioEditor = () => {
   }, []);
 
   useEffect(() => {
-    console.log(site);
+    console.log(site?.layouts);
   }, [site]);
 
   if (!site || !user || !initialCalculated) return null;
@@ -219,29 +179,6 @@ const StudioEditor = () => {
                           </div>
                         );
                       }
-                    })}
-                  {site.images &&
-                    site.images.length > 0 &&
-                    site.images.map((image, index) => {
-                      if (!image.url) return null;
-                      const size = site.layouts
-                        ? site.layouts[breakpoint]
-                          ? (site.layouts[breakpoint].find(
-                              (layout: Layout) => layout.i === image.id
-                            )?.w as 1 | 2 | 3)
-                          : 3
-                        : 3;
-
-                      return (
-                        <div key={image.id} id={image.id}>
-                          <ImageBlock
-                            gridRef={itemsRef}
-                            image={image}
-                            size={size}
-                            isEditable={true}
-                          />
-                        </div>
-                      );
                     })}
                 </ResponsiveGridLayout>
               </div>

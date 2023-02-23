@@ -4,10 +4,12 @@ import { AuthType, PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export type apiConnectorSeedInput = {
+  id: string;
   name: string;
   markdown: string;
   authType: AuthType;
   apiConnectorRoutes: {
+    id: string;
     name: string;
     url: string;
     urlParameter?: string[];
@@ -57,12 +59,14 @@ async function seedDatabase(
     apiConnectors.map(async (apiConnector) => {
       const a = await prisma.apiConnector.create({
         data: {
+          id: apiConnector.id,
           name: apiConnector.name,
           markdown: apiConnector.markdown,
           authType: apiConnector.authType,
           apiConnectorRoute: {
             create: apiConnector.apiConnectorRoutes.map((route) => {
               return {
+                id: route.id,
                 name: route.name,
                 url: route.url,
                 urlParameter: route.urlParameter,

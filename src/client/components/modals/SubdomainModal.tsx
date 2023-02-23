@@ -205,6 +205,7 @@ const InSiteSubdomain: FC = () => {
                 name="subdomain"
                 type="text"
                 autoComplete="subdomain"
+                autoFocus
                 className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
               />
             </div>

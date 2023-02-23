@@ -1,7 +1,9 @@
 import { RefObject } from "react";
 import { Layouts } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { Site } from "../../../graphql/types.generated";
 import { useUpdateSiteLayoutsMutation } from "../../../graphql/updateSiteLayouts.generated";
+import { isrDataState, isrState } from "../../../store/isr";
 import { siteSlugState, siteState } from "../../../store/site";
 import { gridBreakpointState } from "../../../store/ui/grid-dnd";
 
@@ -17,24 +19,30 @@ import { gridBreakpointState } from "../../../store/ui/grid-dnd";
  */
 
 export const useHandleLayoutChange = () => {
+  const [isIsrMode,] = useRecoilState(isrState);
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site, setSite] = useRecoilState(siteState(siteSlug));
+  const [site, setSite] = useRecoilState(isIsrMode ? isrDataState : siteState(siteSlug));
   const [breakpoint] = useRecoilState(gridBreakpointState);
 
   const [, updateSiteLayouts] = useUpdateSiteLayoutsMutation();
 
   const handleLayoutChange = async (
     itemsRef: RefObject<HTMLDivElement>,
-    newlayouts?: Layouts
+    newlayouts?: Layouts,
   ) => {
+    console.log("compare", site?.layouts, newlayouts)
     let currentLayouts = newlayouts ? newlayouts : site?.layouts;
     if (!currentLayouts || !site) return null;
+    
+    console.log("before calculation", currentLayouts);
 
     //calculate height
     const calculateLayout = () => {
-      if (!currentLayouts || !currentLayouts[breakpoint]) return null;
+      if (!currentLayouts || !currentLayouts[breakpoint] || !breakpoint) return null;
       let index = 0;
       const newItems = [...currentLayouts[breakpoint]];
+
+      console.log("everything ready for calculation");
 
       if (itemsRef.current?.children[0].children) {
         for (const element of itemsRef.current.children[0].children) {
@@ -56,14 +64,16 @@ export const useHandleLayoutChange = () => {
       });
     };
     calculateLayout();
+    console.log("after calculation", currentLayouts);
+
     await new Promise((resolve) =>
       setTimeout(() => {
         calculateLayout();
+        console.log("after second calculation", currentLayouts);
         resolve(true);
       }, 100)
     );
 
-    console.log(currentLayouts);
     //update layout
     if (site) {
       setSite({
@@ -73,14 +83,11 @@ export const useHandleLayoutChange = () => {
     }
 
     //update db
-    if (!site?.subdomain || !currentLayouts) return null;
-    const response = await updateSiteLayouts({
+    if (!site?.subdomain || !currentLayouts || isIsrMode) return null;
+    await updateSiteLayouts({
       id: site.subdomain,
       layouts: JSON.stringify(currentLayouts),
     });
-    if (response.data?.updateSiteLayouts) {
-      console.log(response.data?.updateSiteLayouts);
-    }
   };
 
   return handleLayoutChange;

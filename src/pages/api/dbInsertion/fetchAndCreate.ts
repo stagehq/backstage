@@ -30,7 +30,7 @@ export interface FetchAndCreateProps {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   console.log("I am on the fetch route");
   const data: FetchAndCreateProps = await JSON.parse(req.body);
-  console.log(data);
+  //console.log(data);
   let prismaCreateRoutesArray;
   let prismaCreatePreferencesArray;
 
@@ -41,7 +41,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       data.preferences,
       data.userId
     );
-    console.log(prismaCreatePreferencesArray);
+    //console.log(prismaCreatePreferencesArray);
   }
 
   //---------------------------------------------------------------------------------------------------------------
@@ -74,7 +74,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         data.apiConnectorName,
         data.preferences
       );
-      console.log(prismaCreateRoutesArray);
+      //console.log(prismaCreateRoutesArray);
     }
   }
 
@@ -82,7 +82,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   //create extension
   console.log("create extension");
-  console.log(prismaCreateRoutesArray);
   const extension = await prisma.extension.create({
     data: {
       sortOrder: 0,

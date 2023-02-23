@@ -63,7 +63,6 @@ type Mutation {
   createOAuthforApi(accessToken: String, apiConnectorName: String, expiresIn: Int, idToken: String, refreshToken: String, scope: String): OAuth
   deleteExtension(id: String!, siteId: String!): Extension
   deleteSite(subdomain: String!): Site
-  deleteSiteImage(id: String!, siteId: String!): SiteImage
   updateBlockTitle(id: String!, title: String!): Extension
   updateSiteHeader(bio: String, image: String, siteId: String!, tagline: String): Site
   updateSiteLayouts(id: String!, layouts: String!): Site
@@ -121,33 +120,11 @@ type Site implements Node {
   extensions: [Extension!]
   id: ID!
   image: String
-  images: [SiteImage!]
   layouts: JSON
-  links: [SiteLink!]
   modifiedAt: String
   socials: JSON
   subdomain: String
   tagline: String
-}
-
-type SiteImage implements Node {
-  alt: String
-  createdAt: String
-  id: ID!
-  modifiedAt: String
-  siteId: String
-  url: String
-}
-
-type SiteLink implements Node {
-  createdAt: String
-  description: String
-  id: ID!
-  image: String
-  modifiedAt: String
-  siteId: String
-  title: String
-  url: String
 }
 
 type StoreExtension implements Node {

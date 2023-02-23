@@ -1,11 +1,11 @@
-# Migrate the database when something is pushed to main/master
+# Migrate the database when something is pushed to main/test
 name: Migrate
 
 on:
   push:
     branches:
       - main
-      - master
+      - test
 
 jobs:
   production:
@@ -27,3 +27,6 @@ jobs:
         run: yarn prisma migrate deploy --preview-feature
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Seed store data
+        run: yarn store:update

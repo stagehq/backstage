@@ -93,7 +93,7 @@ const StoreModal: FC = () => {
                     </div>
                   </div>
                   <div className="flex-1 overflow-y-scroll">
-                    <ul className="grid grid-cols-1 gap-6 px-4 pt-3 sm:grid-cols-2 lg:grid-cols-3">
+                    <ul className="grid grid-cols-1 gap-6 px-4 pt-3 pb-3 sm:grid-cols-2 lg:grid-cols-3">
                       {filteredStoreExtensions.map((storeExtension) => (
                         <div
                           key={storeExtension.id}

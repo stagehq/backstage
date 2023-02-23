@@ -90,38 +90,12 @@ model Site {
   user                  User                  @relation("tailorings", fields: [userId], references: [id], onDelete: Cascade)
 
   extensions            Extension[]
-  images                SiteImage[]
-  links                 SiteLink[]
 
   userMainSiteId        String?               @unique
   userMainSite          User?                 @relation("mainSite", fields: [userMainSiteId], references: [id], onDelete: SetNull)
 
   analyticsId           String?
   analytics             Analytics?            @relation(fields: [analyticsId], references: [id])
-}
-
-model SiteImage {
-  id                    String                @id @default(cuid())
-  createdAt             DateTime              @default(now())
-  modifiedAt            DateTime              @default(now())
-  url                   String
-  alt                   String?
-
-  siteId                String
-  site                  Site                  @relation(fields: [siteId], references: [id], onDelete: Cascade)
-}
-
-model SiteLink {
-  id                    String                @id @default(cuid())
-  createdAt             DateTime              @default(now())
-  modifiedAt            DateTime              @default(now())
-  url                   String
-  title                 String?
-  description           String?
-  image                 String?
-
-  siteId                String
-  site                  Site                  @relation(fields: [siteId], references: [id], onDelete: Cascade)
 }
 
 model Extension {
