@@ -182,7 +182,7 @@ const fetchDataFromRoutes = async (
     routes.map(async (route) => {
       if (route.apiConnector.name === apiConnectorName) {
         await wretch(
-          `http://localhost:3000/api/oauth/${apiConnectorName}/update`
+          `${process.env.NEXT_PUBLIC_HOST_URL}/api/oauth/${apiConnectorName}/update`
         )
           .post({
             route: route.url,
@@ -222,7 +222,7 @@ const fetchDataFromRoutesWithoutOAuth = async (
     routes.map(async (route) => {
       if (route.apiConnector.name === apiConnectorName) {
         await wretch(
-          `http://localhost:3000/api/nonOAuth/${apiConnectorName}/update`
+          `${process.env.NEXT_PUBLIC_HOST_URL}/api/nonOAuth/${apiConnectorName}/update`
         )
           .post({
             route: route.url,
