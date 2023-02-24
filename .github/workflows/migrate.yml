@@ -33,3 +33,5 @@ jobs:
 
       - name: Seed store data
         run: yarn store:update
+        env:
+          PRISMA_FIELD_ENCRYPTION_KEY: ${{ secrets.PRISMA_FIELD_ENCRYPTION_KEY }}
