@@ -11,6 +11,11 @@ jobs:
   production:
     name: Production
     runs-on: ubuntu-latest
+    
+    env:
+      PRISMA_FIELD_ENCRYPTION_KEY: ${{ secrets.PRISMA_FIELD_ENCRYPTION_KEY }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -28,10 +33,7 @@ jobs:
 
       - name: Run migrations
         run: yarn prisma migrate deploy --preview-feature
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: Seed store data
         run: yarn store:update
-        env:
-          PRISMA_FIELD_ENCRYPTION_KEY: ${{ secrets.PRISMA_FIELD_ENCRYPTION_KEY }}
+
