@@ -3,6 +3,7 @@ import { AuthType } from "@prisma/client";
 import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { uploadFile } from "../../../../server/aws/helper";
+import { useUpdateUploadCreditMutation } from "../../../graphql/updateUploadCredit.generated";
 import { siteSlugState, siteState } from "../../../store/site";
 import { currentUserState } from "../../../store/user";
 import { upsertExtension } from "../../helper/upsertExtension";
@@ -11,12 +12,21 @@ import { upsertExtension } from "../../helper/upsertExtension";
 export const useDropImage = () => {
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
-  const user = useRecoilValue(currentUserState);
+  const user = useRecoilValue(currentUserState)
+  const [, updateUploadCredit] = useUpdateUploadCreditMutation();;
 
   const dropImage = (
     acceptedFiles: File[],
   ) => {
-    if (acceptedFiles.length > 0 && site?.extensions && site.extensions?.length < 10 ) {
+    if (user?.uploadCredit && user.uploadCredit < 100){
+      if (acceptedFiles.length > 0 && site?.extensions && site.extensions?.length < 10) {
+        updateUploadCredit().then((result) => {
+          if (result.data?.updateUploadCredit) {
+            console.log("Updated Credit");
+          } else {
+            throw new Error("Error adding upload credit to user");
+          }
+        })
       
         console.log(acceptedFiles);
         acceptedFiles.forEach((file) => {
@@ -102,9 +112,11 @@ export const useDropImage = () => {
             console.log("Error: ", error);
           };
         });
-  
+      } else {
+        toast.error("Block limit reached!");
+      }
     } else {
-      toast.error("Block limit reached!");
+      toast.error("Wow, your already uploaded 200 images!! Congrats 🎊 If you want more images, please get in touch.");
     }
   };
 
