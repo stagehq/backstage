@@ -6,6 +6,7 @@ builder.prismaNode('Extension', {
   id: { resolve: (extension) => extension.id },
   fields: (t) => ({
     title: t.exposeString('title'),
+    description: t.exposeString('description'),
     createdAt: t.string({ resolve: extension => extension.createdAt.toString()}),
     modifiedAt: t.string({ resolve: extension => extension.modifiedAt.toString()}),
     sortOrder: t.exposeInt('sortOrder'),
@@ -28,6 +29,23 @@ builder.mutationField('updateBlockTitle', (t) => t.prismaField({
     const extension = await prisma.extension.update({
       where: { id: id },
       data: { title: title },
+    });
+    return extension;
+  },
+}));
+
+builder.mutationField('updateBlockDescription', (t) => t.prismaField({
+  type: 'Extension',
+  args: {
+    id: t.arg.string({ required: true }),
+    description: t.arg.string({ required: true }),
+  },
+  resolve: async (query, root, { id, description }, ctx) => {
+    if(!ctx.session?.user.email) return null;
+
+    const extension = await prisma.extension.update({
+      where: { id: id },
+      data: { description: description },
     });
     return extension;
   },

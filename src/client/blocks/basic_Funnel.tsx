@@ -1,6 +1,7 @@
 import { Block, Button } from "@stagehq/ui";
 import { FC, useEffect, useState } from "react";
 import { useChangeBlockTitle } from "../components/studio/hooks/useChangeBlockTitle";
+import { useChangeBlockDescription } from "../components/studio/hooks/useChangeBlockDescription";
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
 import { useDeleteExtension } from "../components/studio/hooks/useDeleteExtension";
 import { BlockProps } from "./type";
@@ -15,6 +16,7 @@ const BasicFunnel: FC<BlockProps> = ({
   const [email, setEmail] = useState("");
 
   const changeBlockTitle = useChangeBlockTitle();
+  const changeBlockDescription = useChangeBlockDescription();
   const changeExtensionSize = useChangeExtensionSize();
   const deleteExtension = useDeleteExtension();
 
@@ -35,11 +37,16 @@ const BasicFunnel: FC<BlockProps> = ({
   return (
     <Block
       title={extension.title ? extension.title : "Let's talk!"}
-      description={"Test"}
+      description={extension.description ? extension.description : "Write a description ..."}
       size={size}
       handleTitleChange={
         isEditable
           ? (title) => changeBlockTitle(extension.id, title)
+          : undefined
+      }
+      handleDescriptionChange={
+        isEditable
+          ? (title) => changeBlockDescription(extension.id, title)
           : undefined
       }
       handleSizeChange={

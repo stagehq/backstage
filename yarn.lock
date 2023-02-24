@@ -3016,10 +3016,10 @@
   resolved "https://registry.yarnpkg.com/@stablelib/utf8/-/utf8-1.0.1.tgz#fd5e7ad353b7e3cd1ce85e49099360e57693cfd1"
   integrity sha512-FrYD1xadah/TtAP6VJ04lDD5h9rdDj/d8wH/jMYTtHqZBv9z2btdvEU8vTxdjdkFmo1b/BH+t3R1wi/mYhCCNg==
 
-"@stagehq/ui@^0.1.24":
-  version "0.1.24"
-  resolved "https://registry.yarnpkg.com/@stagehq/ui/-/ui-0.1.24.tgz#3c938ba717a74b118cfc3dab7c730b43a02e1d1e"
-  integrity sha512-HbntVgcvmd7h7aneAsQelqlM8v4yFE3Bx2M/wJ7C+Ki3QRnSaKinbmHbLT+M/ViaQ4pjW8n/EUg0XCnwHupH6A==
+"@stagehq/ui@^0.1.26":
+  version "0.1.26"
+  resolved "https://registry.yarnpkg.com/@stagehq/ui/-/ui-0.1.26.tgz#ea0421ea3e2ddbbc8308a61c391bfa6c7ebefa68"
+  integrity sha512-Tc9idBD3ZDGx4RKioPIigLHRRDJ3RqL1TpYPwe9mAAnkAo+cP14HvDlQ7isK2n3b5Afhy4sIVRbMLT9FoR5KKw==
   dependencies:
     "@heroicons/react" "^2.0.13"
     "@storybook/addon-a11y" "^6.5.13"

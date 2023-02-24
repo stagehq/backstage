@@ -1,0 +1,6 @@
+mutation updateBlockDescription($id: String!, $description: String!) {
+  updateBlockDescription(id: $id, description: $description) {
+    id
+    description
+  }
+}

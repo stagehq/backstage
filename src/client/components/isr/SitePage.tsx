@@ -38,7 +38,6 @@ const SitePage: FC<SitePageProps> = ({data}) => {
   const [components, setComponents] = useState<{
     [key: string]: FC<BlockProps>;
   }>({});
-  const [initialCalculated, setInitialCalculated] = useState(false);
 
   //hook
   const handleLayoutChange = useHandleLayoutChange();
@@ -47,11 +46,8 @@ const SitePage: FC<SitePageProps> = ({data}) => {
   const itemsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    console.log(site?.extensions);
     if(site?.layouts){
-      if (site?.layouts == null) {
-        console.log("empty");
-        setInitialCalculated(false);
-      }
       //set extensions
       if (site?.extensions && site.layouts) {
         site.extensions.forEach(async (extension) => {
@@ -65,16 +61,6 @@ const SitePage: FC<SitePageProps> = ({data}) => {
             }));
         });
       }
-      
-      setTimeout(async () => {
-        if (!site?.layouts || site.layouts == null) return null;
-        await handleLayoutChange(itemsRef, site.layouts);
-        setInitialCalculated(true);
-
-        setTimeout(() => {
-          if (itemsRef.current) itemsRef.current.classList.add("animated");
-        }, 300);
-      }, 100);
     }
   }, [site?.extensions]);
 
