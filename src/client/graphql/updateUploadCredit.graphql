@@ -1,0 +1,7 @@
+mutation UpdateUploadCredit {
+  updateUploadCredit {
+    id
+    email
+    uploadCredit
+  }
+}

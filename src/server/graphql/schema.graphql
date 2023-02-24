@@ -68,6 +68,7 @@ type Mutation {
   updateSiteLayouts(id: String!, layouts: String!): Site
   updateSiteSocials(id: String!, socials: String!): Site
   updateSiteSubdomain(id: String!, subdomain: String!): Site
+  updateUploadCredit: User
   updateUser(alias: String, coverImageUrl: String, firstName: String, image: String, lastName: String): User
   upsertApiResponse(apiConnectorRouteId: String, apiId: String, response: String): ApiResponse
   upsertSite(bio: String, image: String, layouts: String, subdomain: String!, tagline: String): Site
@@ -153,4 +154,5 @@ type User implements Node {
   mainSite: Site
   name: String
   sites: [Site!]
+  uploadCredit: Int
 }
