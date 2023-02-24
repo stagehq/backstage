@@ -43,7 +43,6 @@ const ImageUpload: FC<ImageUploadProps> = ({
   const [isIsrMode,] = useRecoilState(isrState);
   const [currentUser, setCurrentUser] = useRecoilState(isIsrMode ? isrUserState : currentUserState);
   const siteSlug = useRecoilValue(siteSlugState);
-  const user = useRecoilValue(currentUserState);
   const [site, setSite] = useRecoilState(isIsrMode ? isrDataState : siteState(siteSlug));
 
   const [, updateUser] = useUpdateUserMutation();
@@ -118,7 +117,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
   }
 
   const handleUpload = async (url: string) => {
-    if(user?.uploadCredit && user.uploadCredit < 100){
+    if(currentUser?.uploadCredit && currentUser.uploadCredit < 100){
       console.log(url);
       const file = dataURItoBlob(url);
   
