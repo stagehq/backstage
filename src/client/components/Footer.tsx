@@ -19,11 +19,7 @@ const Footer: FC<FooterProps> = ({ socials }) => {
           </div>
           <div className="font-mdeium flex flex-wrap gap-4 pt-4 text-center text-sm text-zinc-500 dark:text-zinc-600 lg:text-left">
             <a
-              href={
-                process.env.NODE_ENV === `development`
-                  ? "http://localhost:3000/imprint"
-                  : "https://getstage.app/imprint"
-              }
+              href={`${process.env.NEXT_PUBLIC_HOST_URL}/imprint`}
               target={"_blank"}
               rel={"noopener"}
               className="cursor-pointer hover:text-zinc-600 hover:underline hover:dark:text-zinc-500"
