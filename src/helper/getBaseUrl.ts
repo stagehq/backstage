@@ -3,5 +3,5 @@ export const getBaseUrl = () => {
     return `${process.env.NEXT_PUBLIC_HOST_URL}`;
   }
 
-  return `${process.env.URL}`;
+  return `${process.env.NEXT_PUBLIC_HOST_URL}`;
 };
