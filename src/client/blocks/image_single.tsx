@@ -36,7 +36,7 @@ const ImageBlock: FC<BlockProps> = ({
   return (
     <>
       {path && <Block
-        isEditable={true}
+        isEditable={isEditable}
         size={size}
         handleSizeChange={
           isEditable

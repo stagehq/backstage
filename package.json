@@ -26,7 +26,9 @@
     "typecheck:cypress": "tsc --noEmit -p cypress/tsconfig.json",
     "cypress:open": "cypress open",
     "prepare": "husky install",
-    "configure-husky": "npx husky install && npx husky add .husky/pre-commit \"npx --no-install lint-staged\""
+    "configure-husky": "npx husky install && npx husky add .husky/pre-commit \"npx --no-install lint-staged\"",
+    "analyze": "cross-env ANALYZE=true next build",
+    "store:update": "npx ts-node -O '{\"module\": \"commonjs\"}' src/server/store/update.ts"
   },
   "dependencies": {
     "@47ng/cloak": "^1.1.0",
@@ -36,7 +38,7 @@
     "@headlessui/react": "^1.6.1",
     "@heroicons/react": "^2.0.13",
     "@next-auth/prisma-adapter": "^1.0.3",
-    "@next/bundle-analyzer": "^12.2.3",
+    "@next/bundle-analyzer": "^12.2.5",
     "@pothos/core": "^3.10.1",
     "@pothos/plugin-prisma": "^3.6.1",
     "@pothos/plugin-relay": "^3.10.2",
@@ -120,7 +122,7 @@
     "@graphql-codegen/typescript-operations": "2.3.2",
     "@graphql-codegen/typescript-urql": "^3.5.3",
     "@graphql-codegen/typescript-urql-graphcache": "^2.2.6",
-    "@netlify/plugin-nextjs": "^4.2.7",
+    "@netlify/plugin-nextjs": "^4.30.4",
     "@stripe/stripe-js": "^1.23.0",
     "@testing-library/cypress": "^9.0.0",
     "@types/base-64": "^1.0.0",

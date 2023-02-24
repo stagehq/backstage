@@ -12,7 +12,8 @@ import { uploadFile } from "../../../server/aws/helper";
 import { useUpdateSiteHeaderMutation } from "../../graphql/updateSiteHeader.generated";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { siteSlugState, siteState } from "../../store/site";
-import { currentUserState } from "../../store/user";
+import { currentUserState, isrUserState } from "../../store/user";
+import { isrDataState, isrState } from "../../store/isr";
 
 interface ImageUploadProps {
   imageUrl: string;
@@ -37,9 +38,10 @@ const ImageUpload: FC<ImageUploadProps> = ({
   const [cropper, setCropper] = useState<any>();
 
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+  const [isIsrMode,] = useRecoilState(isrState);
+  const [currentUser, setCurrentUser] = useRecoilState(isIsrMode ? isrUserState : currentUserState);
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site, setSite] = useRecoilState(siteState(siteSlug));
+  const [site, setSite] = useRecoilState(isIsrMode ? isrDataState : siteState(siteSlug));
 
   const [, updateUser] = useUpdateUserMutation();
   const [, updateSiteHeader] = useUpdateSiteHeaderMutation();

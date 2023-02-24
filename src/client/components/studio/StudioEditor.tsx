@@ -1,15 +1,10 @@
-import { decodeGlobalID, encodeGlobalID } from "@pothos/plugin-relay";
-import { AuthType } from "@prisma/client";
 import dynamic from "next/dynamic";
 import { FC, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { uploadFile } from "../../../server/aws/helper";
 import { BlockProps } from "../../blocks/type";
-import { Site } from "../../graphql/types.generated";
-import { storeExtensionState } from "../../store/extensions";
 import { siteSlugState, siteState } from "../../store/site";
 import { gridBreakpointState } from "../../store/ui/grid-dnd";
 import { currentUserState } from "../../store/user";
@@ -69,9 +64,7 @@ const StudioEditor = () => {
 
   useEffect(() => {
     if (site?.layouts == null) {
-      //console.log("empty");
       setInitialCalculated(true);
-
       setTimeout(() => {
         if (itemsRef.current) itemsRef.current.classList.add("animated");
       }, 300);
@@ -107,7 +100,7 @@ const StudioEditor = () => {
   }, []);
 
   useEffect(() => {
-    //console.log(site);
+    console.log(site?.layouts);
   }, [site]);
 
   if (!site || !user || !initialCalculated) return null;
