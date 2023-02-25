@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRecoilState } from "recoil";
+import { reservedRoutes } from "../../../helper/reservedRoutes";
 import { client } from "../../graphql/client";
 import { GetValidSubdomainDocument } from "../../graphql/getValidSubdomain.generated";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
@@ -316,7 +317,11 @@ export const OnboardingSubdomain: FC = () => {
           if (result.data?.getValidSubdomain) {
             setSubdomainValid(false);
           } else {
-            setSubdomainValid(true);
+            if (reservedRoutes.includes(e.target.value)){
+              setSubdomainValid(false);
+            } else {
+              setSubdomainValid(true);
+            }
           }
         });
     }
