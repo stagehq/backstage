@@ -21,6 +21,7 @@ query GetSite($subdomain: String!) {
       createdAt
       sortOrder
       title
+      description
 
       storeExtension {
         id

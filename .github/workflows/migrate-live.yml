@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-      - test
 
 jobs:
   production:
@@ -14,7 +13,7 @@ jobs:
     
     env:
       PRISMA_FIELD_ENCRYPTION_KEY: ${{ secrets.PRISMA_FIELD_ENCRYPTION_KEY }}
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL_LIVE }}
 
     steps:
       - name: Checkout

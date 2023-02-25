@@ -47,6 +47,7 @@ type ApiResponse implements Node {
 
 type Extension implements Node {
   createdAt: String
+  description: String
   id: ID!
   modifiedAt: String
   site: Site
@@ -63,6 +64,7 @@ type Mutation {
   createOAuthforApi(accessToken: String, apiConnectorName: String, expiresIn: Int, idToken: String, refreshToken: String, scope: String): OAuth
   deleteExtension(id: String!, siteId: String!): Extension
   deleteSite(subdomain: String!): Site
+  updateBlockDescription(description: String!, id: String!): Extension
   updateBlockTitle(id: String!, title: String!): Extension
   updateSiteHeader(bio: String, image: String, siteId: String!, tagline: String): Site
   updateSiteLayouts(id: String!, layouts: String!): Site
