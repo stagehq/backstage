@@ -74,6 +74,11 @@ export const useHandleLayoutChange = () => {
       }, 100)
     );
 
+    setTimeout(() => {
+      calculateLayout();
+      console.log("after third calculation", currentLayouts);
+    }, 200)
+
     //update layout
     if (site) {
       setSite({

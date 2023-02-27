@@ -13,6 +13,7 @@ import { Site } from "../../../graphql/types.generated";
 import { useUpdateSiteSubdomainMutation } from "../../../graphql/updateSiteSubdomain.generated";
 import { siteSlugState, siteState } from "../../../store/site";
 import Spinner from "../../loading/Spinner";
+import { reservedRoutes } from "../../../../helper/reservedRoutes";
 
 interface SubdomainProps {
   site: Site;
@@ -57,7 +58,11 @@ const Subdomain: FC<SubdomainProps> = ({ site }) => {
           if (result.data?.getValidSubdomain) {
             setSubdomainValid(false);
           } else {
-            setSubdomainValid(true);
+            if (reservedRoutes.includes(e.target.value)){
+              setSubdomainValid(false);
+            } else {
+              setSubdomainValid(true);
+            }
           }
         });
     }

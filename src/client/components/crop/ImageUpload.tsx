@@ -14,6 +14,9 @@ import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
 import { siteSlugState, siteState } from "../../store/site";
 import { currentUserState, isrUserState } from "../../store/user";
 import { isrDataState, isrState } from "../../store/isr";
+import { useUpdateUploadCreditMutation } from "../../graphql/updateUploadCredit.generated";
+import { toast } from "react-hot-toast";
+import { generateGradient } from "../../../helper/generateUserGradient";
 
 interface ImageUploadProps {
   imageUrl: string;
@@ -45,6 +48,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
 
   const [, updateUser] = useUpdateUserMutation();
   const [, updateSiteHeader] = useUpdateSiteHeaderMutation();
+  const [, updateUploadCredit] = useUpdateUploadCreditMutation();
 
   // handle image chnange and current user state image to new image
   const handleImageChange = (url: string, subdomain?: string) => {
@@ -114,50 +118,62 @@ const ImageUpload: FC<ImageUploadProps> = ({
   }
 
   const handleUpload = async (url: string) => {
-    console.log(url);
-    const file = dataURItoBlob(url);
-
-    if (!currentUser) return null;
-    console.log(file, currentUser.id, uploadType);
-    uploadFile(file, currentUser.id, uploadType).then((data) => {
-      if (uploadType === "profileImage" || uploadType === "profileCoverImage") {
-        // Update user images
-        updateUser({
-          image: data,
-        }).then((result) => {
-          // Success messages if image is uploaded
-          if (result.data?.updateUser) {
-            console.log("Success");
-            handleImageChange(
-              result.data?.updateUser.image ? result.data?.updateUser.image : ""
-            );
-          } else {
-            throw new Error("Error adding image to user");
-          }
-        });
-      } else if (uploadType === "siteImage" && mutationId != null) {
-        // Update site images
-        updateSiteHeader({
-          siteId: decodeGlobalID(mutationId).id,
-          image: data,
-        }).then((result) => {
-          // Success messages if image is uploaded
-          if (result.data?.updateSiteHeader) {
-            console.log("Success");
-            handleImageChange(
-              result.data?.updateSiteHeader.image
-                ? result.data?.updateSiteHeader.image
-                : "",
-              result.data?.updateSiteHeader.subdomain
-                ? result.data.updateSiteHeader.subdomain
-                : ""
-            );
-          } else {
-            throw new Error("Error adding image to user");
-          }
-        });
-      }
-    });
+    if(currentUser?.uploadCredit && currentUser.uploadCredit < 100){
+      console.log(url);
+      const file = dataURItoBlob(url);
+  
+      updateUploadCredit().then((result) => {
+        if (result.data?.updateUploadCredit) {
+          console.log("Updated Credit");
+        } else {
+          throw new Error("Error adding upload credit to user");
+        }
+      })
+  
+      if (!currentUser) return null;
+      console.log(file, currentUser.id, uploadType);
+      uploadFile(file, currentUser.id, uploadType).then((data) => {
+        if (uploadType === "profileImage" || uploadType === "profileCoverImage") {
+          // Update user images
+          updateUser({
+            image: data,
+          }).then((result) => {
+            // Success messages if image is uploaded
+            if (result.data?.updateUser) {
+              console.log("Success");
+              handleImageChange(
+                result.data?.updateUser.image ? result.data?.updateUser.image : ""
+              );
+            } else {
+              throw new Error("Error adding image to user");
+            }
+          });
+        } else if (uploadType === "siteImage" && mutationId != null) {
+          // Update site images
+          updateSiteHeader({
+            siteId: decodeGlobalID(mutationId).id,
+            image: data,
+          }).then((result) => {
+            // Success messages if image is uploaded
+            if (result.data?.updateSiteHeader) {
+              console.log("Success");
+              handleImageChange(
+                result.data?.updateSiteHeader.image
+                  ? result.data?.updateSiteHeader.image
+                  : "",
+                result.data?.updateSiteHeader.subdomain
+                  ? result.data.updateSiteHeader.subdomain
+                  : ""
+              );
+            } else {
+              throw new Error("Error adding image to user");
+            }
+          });
+        }
+      });
+    }else{
+      toast.error("Wow, your already uploaded 200 images!! Congrats 🎊 If you want more images, please get in touch.");
+    }
   };
 
   useEffect(() => {
@@ -165,6 +181,8 @@ const ImageUpload: FC<ImageUploadProps> = ({
       handleUpload(cropData);
     }
   }, [cropData]);
+
+  const gradient = generateGradient(currentUser?.firstName ? currentUser.firstName : "Horst");
 
   return (
     <>
@@ -185,7 +203,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
             />
           </div>
         ) : (
-          <div className="h-full w-full rounded-full border border-zinc-200 bg-zinc-100 dark:border-zinc-600 dark:bg-zinc-800" />
+          (!isIsrMode || imageUrl) && <div style={{"background": gradient}} className="h-full w-full rounded-full border border-zinc-200 dark:border-zinc-600 dark:bg-zinc-800" />
         )}
         <div className="absolute h-full w-full">
           {!disabled && (

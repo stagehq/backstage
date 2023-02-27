@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { Suspense } from "react";
 import { RecoilRoot } from "recoil";
 import SitePage from "../client/components/isr/SitePage";
 
@@ -7,7 +8,9 @@ const Page: React.FC<{ data: string }> = (props) => {
 
   return (
     <RecoilRoot>
-      <SitePage data={data} />
+      <Suspense fallback={(<div></div>)}>
+        <SitePage data={data} />
+      </Suspense> 
     </RecoilRoot>
   );
 };

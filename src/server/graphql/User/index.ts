@@ -1,6 +1,7 @@
 // import { extendType, nonNull, objectType, stringArg } from "nexus";
 import { builder } from '../builder';
 import prisma from "../../db/prisma";
+import { userAgent } from 'next/server';
 
 builder.prismaNode('User', {
   findUnique: (id) => ({ id: id }),
@@ -16,6 +17,7 @@ builder.prismaNode('User', {
     name: t.exposeString('name'),
     image: t.exposeString('image'),
     coverImageUrl: t.exposeString('coverImageUrl'),
+    uploadCredit: t.exposeInt('uploadCredit'),
 
     sites: t.relation('sites'),
     mainSite: t.relation('mainSite'),
@@ -79,6 +81,26 @@ builder.mutationField('updateUser', (t) =>
           coverImageUrl,
         }
       });
+    },
+  })
+);
+
+builder.mutationField('updateUploadCredit', (t) =>
+  t.prismaField({
+    type: "User",
+    resolve: async (query, root, _, ctx) => {
+      if (!ctx.session?.user.email) return null;
+
+      const user = await prisma.user.update({
+        where: { email: ctx.session?.user.email },
+        data: { 
+          uploadCredit: {
+            increment: 1,
+          }
+        }
+      });
+
+      return user;
     },
   })
 );

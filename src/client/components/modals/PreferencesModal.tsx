@@ -10,6 +10,7 @@ import {
   ApiConnectorRoute,
   StoreExtension,
 } from "../../graphql/types.generated";
+import { useUpdateUploadCreditMutation } from "../../graphql/updateUploadCredit.generated";
 import {
   preferencesApiState,
   preferencesExtensionState,
@@ -33,6 +34,8 @@ const PreferencesModal: FC = () => {
   const [, setAddingInProcess] = useRecoilState(addingInProcessState);
   const [, setOpenStoreModal] = useRecoilState(storeOpenState);
 
+  const [, updateUploadCredit] = useUpdateUploadCreditMutation();
+
   const [preferences, setPreferences] = useState<string[]>([]);
 
   useEffect(() => {
@@ -42,6 +45,7 @@ const PreferencesModal: FC = () => {
   }, [preferencesExtension, preferencesApi]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+
     //close modal
     setPreferencesOpen(false);
     if(site?.extensions && site.extensions?.length < 10) {
@@ -55,15 +59,28 @@ const PreferencesModal: FC = () => {
         return new Promise<void>((resolve) => {
           // @ts-ignore
           if(event.target[key].files){
-            // @ts-ignore
-            uploadFile(event.target[key].files[0], decodeGlobalID(user.id).id, "blockImage").then((data) => {
-              if(data){
-                processedPreferences.push({ key: key, value: data});
-                resolve();
-              }else{
-                resolve();
+            updateUploadCredit().then((result) => {
+              if (result.data?.updateUploadCredit) {
+                console.log("Updated Credit");
+              } else {
+                throw new Error("Error adding upload credit to user");
               }
-            });
+            })
+            
+            if(user.uploadCredit && user.uploadCredit < 100){
+              // @ts-ignore
+              uploadFile(event.target[key].files[0], decodeGlobalID(user.id).id, "blockImage").then((data) => {
+                if(data){
+                  processedPreferences.push({ key: key, value: data});
+                  resolve();
+                }else{
+                  resolve();
+                }
+              });
+            } else {
+              setAddingInProcess("unadded");
+              toast.error("Wow, your already uploaded 200 images!! Congrats 🎊 If you want more images, please get in touch.");
+            }
           }else{
             // @ts-ignore
             processedPreferences.push({ key: key, value: event.target[key].value });

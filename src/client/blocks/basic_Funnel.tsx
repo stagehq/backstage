@@ -1,5 +1,7 @@
+import { Block, Button } from "@stagehq/ui";
 import { FC, useEffect, useState } from "react";
 import { useChangeBlockTitle } from "../components/studio/hooks/useChangeBlockTitle";
+import { useChangeBlockDescription } from "../components/studio/hooks/useChangeBlockDescription";
 import { useChangeExtensionSize } from "../components/studio/hooks/useChangeSize";
 import { useDeleteExtension } from "../components/studio/hooks/useDeleteExtension";
 import { BlockProps } from "./type";
@@ -10,10 +12,10 @@ const BasicFunnel: FC<BlockProps> = ({
   size,
   isEditable,
 }) => {
-  console.log(extension);
   const [email, setEmail] = useState("");
 
   const changeBlockTitle = useChangeBlockTitle();
+  const changeBlockDescription = useChangeBlockDescription();
   const changeExtensionSize = useChangeExtensionSize();
   const deleteExtension = useDeleteExtension();
 
@@ -32,31 +34,34 @@ const BasicFunnel: FC<BlockProps> = ({
   }, [extension]);
 
   return (
-    <div>Test</div>
-    // <Block
-    //   isHighlighted={true}
-    //   actions={{
-    //     link: {
-    //       url: email,
-    //     },
-    //   }}
-    //   title={extension.title ? extension.title : "Let's talk!"}
-    //   size={size}
-    //   handleTitleChange={
-    //     isEditable
-    //       ? (title) => changeBlockTitle(extension.id, title)
-    //       : undefined
-    //   }
-    //   handleSizeChange={
-    //     isEditable
-    //       ? (size) => changeExtensionSize(extension.id, size, gridRef)
-    //       : undefined
-    //   }
-    //   handleDelete={
-    //     isEditable ? () => deleteExtension(extension.id) : undefined
-    //   }
-    //   isEditable={isEditable}
-    // ></Block>
+    <Block
+      title={extension.title ? extension.title : "Let's talk!"}
+      description={extension.description ? extension.description : ""}
+      enableDescription={isEditable ? true : extension.description === "" ? false : true}
+      
+      size={size}
+      handleTitleChange={
+        isEditable
+          ? (title) => changeBlockTitle(extension.id, title)
+          : undefined
+      }
+      handleDescriptionChange={
+        isEditable
+          ? (description) => {changeBlockDescription(extension.id, description)}
+          : undefined
+      }
+      handleSizeChange={
+        isEditable
+          ? (size) => changeExtensionSize(extension.id, size, gridRef)
+          : undefined
+      }
+      handleDelete={
+        isEditable ? () => deleteExtension(extension.id) : undefined
+      }
+      isEditable={isEditable}
+    >
+      <Button primary text="Contact me" icon="EnvelopeIcon" url={email}/>
+    </Block>
   );
 };
 

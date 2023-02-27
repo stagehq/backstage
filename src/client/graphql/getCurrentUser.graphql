@@ -9,6 +9,7 @@ query GetCurrentUser {
     fullName
     image
     coverImageUrl
+    uploadCredit
     sites {
       subdomain
       modifiedAt

@@ -3,7 +3,7 @@ import debounce from "lodash.debounce";
 import { useCallback } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Site } from "../../../graphql/types.generated";
-import { useUpdateBlockTitleMutation } from "../../../graphql/updateExtensionTitle.generated";
+import { useUpdateBlockDescriptionMutation } from "../../../graphql/updateExtensionDescription.generated";
 import { isrDataState, isrState } from "../../../store/isr";
 import { siteSlugState, siteState } from "../../../store/site";
 
@@ -17,35 +17,36 @@ import { siteSlugState, siteState } from "../../../store/site";
  * @returns {Function} changeBlockTitle - A function that takes in an extension id and a title, and updates the title of the extension in the database and in the Recoil state.
  */
 
-export const useChangeBlockTitle = () => {
+export const useChangeBlockDescription = () => {
   const [isIsrMode,] = useRecoilState(isrState);
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(isIsrMode ? isrDataState : siteState(siteSlug));
 
-  const [, updateBlockTitle] = useUpdateBlockTitleMutation();
+  const [, updateBlockDescription] = useUpdateBlockDescriptionMutation();
 
-  const debounceChangeBlockTitle = useCallback(
-    debounce(async (id, title) => {
-      if (id && title) {
-        await updateBlockTitle({
+  const debounceChangeBlockDescription = useCallback(
+    debounce(async (id, description) => {
+      if (id) {
+        await updateBlockDescription({
           id: decodeGlobalID(id).id,
-          title,
+          description,
         });
       }
     }, 1000),
     [] // will be created only once initially
   );
 
-  const changeBlockTitle = async (id: string, title: string) => {
+  const changeBlockDescription = async (id: string, description: string) => {
     // update extension in recoil site store with id with immutability
-    console.log("update Block Title");
+    console.log("update Block Description");
+    console.log(description);
     setSite(() => {
       const newSite = { ...site };
       const newBlocks = newSite?.extensions?.map((extension) => {
         if (extension.id === id) {
           return {
             ...extension,
-            title,
+            description,
           };
         }
         return extension;
@@ -55,8 +56,8 @@ export const useChangeBlockTitle = () => {
     });
 
     // update extension in database
-    await debounceChangeBlockTitle(id, title);
+    await debounceChangeBlockDescription(id, description);
   };
 
-  return changeBlockTitle;
+  return changeBlockDescription;
 };

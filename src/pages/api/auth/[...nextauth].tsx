@@ -1,3 +1,4 @@
+import { render } from '@react-email/render';
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { NextApiHandler } from "next";
 import NextAuth, { Account, AuthOptions, Profile, User } from "next-auth";
@@ -5,8 +6,10 @@ import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
 import GitlabProvider from "next-auth/providers/gitlab";
 import GoogleProvider from "next-auth/providers/google";
+import { createTransport } from "nodemailer";
 import { getInvite } from "../../../helper/invites/airtable";
 import prisma from "../../../server/db/prisma";
+import Email from './Email';
 
 const authHandler: NextApiHandler = (req, res) =>
   NextAuth(req, res, authOptions);
@@ -28,18 +31,37 @@ export const authOptions: AuthOptions = {
     EmailProvider({
       server: process.env.EMAIL_SERVER,
       from: process.env.EMAIL_FROM,
+      async sendVerificationRequest(params) {
+        const { identifier, url, provider } = params
+        const { host } = new URL(url);
+
+        const transport = createTransport(provider.server);
+        const email = render(<Email magicLink={url} />);
+        
+        const result = await transport.sendMail({
+          to: identifier,
+          from: provider.from,
+          subject: `Sign in to ${host}`,
+          html: email,
+        });
+        
+        const failed = result.rejected.concat(result.pending).filter(Boolean)
+        if (failed.length) {
+          throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`)
+        }
+      }
     }),
     GithubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID as string,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+      clientId: process.env.NEXTAUTH_GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.NEXTAUTH_GITHUB_CLIENT_SECRET as string,
     }),
     GitlabProvider({
-      clientId: process.env.GITLAB_CLIENT_ID as string,
-      clientSecret: process.env.GITLAB_CLIENT_SECRET as string,
+      clientId: process.env.NEXTAUTH_GITLAB_CLIENT_ID as string,
+      clientSecret: process.env.NEXTAUTH_GITLAB_CLIENT_SECRET as string,
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      clientId: process.env.NEXTAUTH_GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.NEXTAUTH_GOOGLE_CLIENT_SECRET as string,
       authorization: {
         params: {
           prompt: "consent",
