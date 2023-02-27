@@ -1,5 +1,6 @@
 // Upload files to aws
 
+import { toast } from "react-hot-toast";
 import { uploadType } from "../../client/components/Dropzone";
 
 export const uploadFile = async (
@@ -10,8 +11,11 @@ export const uploadFile = async (
   if (!file) return;
 
   const maxFileSize = 2 * 1024 * 1024; // 2 MB in bytes
+  console.log(file.size);
   if (file.size > maxFileSize) {
+    console.log(maxFileSize);
     console.error(`File size of ${file.size} bytes exceeds the 2 MB limit.`);
+    toast.error("File size is bigger than 2 MB limit.");
     return;
   }
 
@@ -42,6 +46,7 @@ export const uploadFile = async (
     console.log("Uploaded successfully!");
     return createFileUrl(file, userId, type, date);
   } else {
+    toast.error("Upload failed");
     console.error("Upload failed.");
   }
 };
