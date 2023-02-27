@@ -156,7 +156,7 @@
     "cross-env": "^7.0.3",
     "cypress": "^9.5.1",
     "cypress-social-logins": "^1.14.0",
-    "eslint": "^7.23.0",
+    "eslint": "^8.35.0",
     "eslint-config-next": "^13.1.1",
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-cypress": "^2.12.1",
