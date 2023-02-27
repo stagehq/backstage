@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { signOut } from "next-auth/react";
 import { Fragment } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { generateGradient } from "../../helper/generateUserGradient";
 import { settingsOpenState } from "../store/ui/modals";
 import { currentUserState } from "../store/user";
 import { Icon } from "./Icons";
@@ -12,6 +13,8 @@ export default function DashboardHeader() {
   const [, setSettingsOpen] = useRecoilState(settingsOpenState);
 
   if (!user) return null;
+
+  const gradient = generateGradient(user?.firstName ? user.firstName : "Horst");
 
   return (
     <div className="mx-auto w-full px-2 sm:w-full sm:px-4 md:w-[750] lg:w-[1200px]">
@@ -75,12 +78,13 @@ export default function DashboardHeader() {
                       <div>
                         <Menu.Button className="flex rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-zinc-800 focus:ring-offset-2">
                           <span className="sr-only">Open user menu</span>
-                          <img
+                          {user.image ? <img
                             className="h-8 w-8 rounded-full"
                             src={user.image ? user.image : ""}
                             referrerPolicy="no-referrer"
                             alt="profile image"
-                          />
+                          /> : 
+                          <div className="h-8 w-8 rounded-full" style={{background: gradient}}/>}
                         </Menu.Button>
                       </div>
                       <Transition

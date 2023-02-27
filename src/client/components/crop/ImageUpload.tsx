@@ -16,6 +16,7 @@ import { currentUserState, isrUserState } from "../../store/user";
 import { isrDataState, isrState } from "../../store/isr";
 import { useUpdateUploadCreditMutation } from "../../graphql/updateUploadCredit.generated";
 import { toast } from "react-hot-toast";
+import { generateGradient } from "../../../helper/generateUserGradient";
 
 interface ImageUploadProps {
   imageUrl: string;
@@ -181,6 +182,8 @@ const ImageUpload: FC<ImageUploadProps> = ({
     }
   }, [cropData]);
 
+  const gradient = generateGradient(currentUser?.firstName ? currentUser.firstName : "Horst");
+
   return (
     <>
       <div
@@ -200,7 +203,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
             />
           </div>
         ) : (
-          <div className="h-full w-full rounded-full border border-zinc-200 bg-zinc-100 dark:border-zinc-600 dark:bg-zinc-800" />
+          (!isIsrMode || imageUrl) && <div style={{"background": gradient}} className="h-full w-full rounded-full border border-zinc-200 dark:border-zinc-600 dark:bg-zinc-800" />
         )}
         <div className="absolute h-full w-full">
           {!disabled && (
