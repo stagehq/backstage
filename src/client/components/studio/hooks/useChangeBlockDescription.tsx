@@ -26,7 +26,7 @@ export const useChangeBlockDescription = () => {
 
   const debounceChangeBlockDescription = useCallback(
     debounce(async (id, description) => {
-      if (id && description) {
+      if (id) {
         await updateBlockDescription({
           id: decodeGlobalID(id).id,
           description,
@@ -39,6 +39,7 @@ export const useChangeBlockDescription = () => {
   const changeBlockDescription = async (id: string, description: string) => {
     // update extension in recoil site store with id with immutability
     console.log("update Block Description");
+    console.log(description);
     setSite(() => {
       const newSite = { ...site };
       const newBlocks = newSite?.extensions?.map((extension) => {

@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
+import { generateGradient } from "../../helper/generateUserGradient";
 import { getBaseUrl } from "../../helper/getBaseUrl";
 import { dashboardQueryState } from "../store/ui/dashboardSearch";
 import { currentUserState } from "../store/user";
@@ -31,6 +32,8 @@ export default function GridList() {
     setFocusedId(null);
   }
 
+  const gradient = generateGradient(user?.firstName ? user.firstName : "Horst");
+
   return (
     <div className="mt-8 mb-16 grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {filteredSites &&
@@ -51,7 +54,7 @@ export default function GridList() {
                   alt="site profile picture"
                 />
               ) : (
-                <div className="h-12 w-12 rounded-full bg-zinc-100" />
+                <div style={{background: gradient}} className="h-12 w-12 rounded-full" />
               )}
               <div className="mt-4">
                 <h3 className="text-lg font-medium">

@@ -22,7 +22,7 @@ export default function VerifyRequestPage() {
   return (
     <>
       <Head>
-        <title>E-mail Verification</title>
+        <title>Mail Verification</title>
       </Head>
       <SignLayout>
         <div className="mx-auto flex min-h-screen max-w-lg items-center justify-center px-6">
