@@ -2,14 +2,12 @@ import { Head } from '@react-email/head';
 import { Heading } from '@react-email/heading';
 import { Hr } from '@react-email/hr';
 import { Html } from '@react-email/html';
-import { Img } from '@react-email/img';
 import { Link } from '@react-email/link';
 import { Preview } from '@react-email/preview';
 import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import { Body } from '@react-email/body';
 import { Container } from '@react-email/container';
-import { getBaseUrl } from '../../../helper/getBaseUrl';
 import Logo from './Logo';
 
 interface EmailProps {
@@ -30,7 +28,7 @@ export default function Email({ magicLink }: EmailProps) {
           <Section style={body}>
             <Text style={paragraph}>
               <Link style={link} href={magicLink}>
-                👉 Click here to sign in 👈
+                Click here to sign in
               </Link>
             </Text>
             <Text style={paragraph}>
@@ -42,23 +40,6 @@ export default function Email({ magicLink }: EmailProps) {
             <br />- Stage Team
           </Text>
           <Hr style={hr} />
-          <Img
-            src={`${getBaseUrl()}/static/stage-logo.png`}
-            width={32}
-            height={32}
-            style={{
-              WebkitFilter: 'grayscale(100%)',
-              filter: 'grayscale(100%)',
-              margin: '20px 0',
-            }}
-          />
-          <div style={{
-            height: '32px', width: '32px', WebkitFilter: 'grayscale(100%)',
-            filter: 'grayscale(100%)',
-            margin: '20px 0', }}>
-            <Logo />
-          </div>
-          <Text style={footer}>Stage</Text>
           <Text style={footer}>
             Build with ❤️ in Germany
           </Text>
@@ -83,7 +64,7 @@ const container = {
 const heading = {
   fontSize: '28px',
   fontWeight: 'bold',
-  marginTop: '48px',
+  marginTop: '64px',
 };
 
 const body = {
@@ -96,7 +77,10 @@ const paragraph = {
 };
 
 const link = {
-  color: '#000000',
+  color: '#ffffff',
+  backgroundColor: '#222222',
+  borderRadius: '8px',
+  padding: '8px 16px',
 };
 
 const hr = {

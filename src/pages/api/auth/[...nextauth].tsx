@@ -31,25 +31,25 @@ export const authOptions: AuthOptions = {
     EmailProvider({
       server: process.env.EMAIL_SERVER,
       from: process.env.EMAIL_FROM,
-      // async sendVerificationRequest(params) {
-      //   const { identifier, url, provider } = params
-      //   const { host } = new URL(url);
+      async sendVerificationRequest(params) {
+        const { identifier, url, provider } = params
+        const { host } = new URL(url);
 
-      //   const transport = createTransport(provider.server);
-      //   const email = render(<Email magicLink={url} />);
+        const transport = createTransport(provider.server);
+        const email = render(<Email magicLink={url} />);
         
-      //   const result = await transport.sendMail({
-      //     to: identifier,
-      //     from: provider.from,
-      //     subject: `Sign in to ${host}`,
-      //     html: email,
-      //   });
+        const result = await transport.sendMail({
+          to: identifier,
+          from: provider.from,
+          subject: `Sign in to ${host}`,
+          html: email,
+        });
         
-      //   const failed = result.rejected.concat(result.pending).filter(Boolean)
-      //   if (failed.length) {
-      //     throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`)
-      //   }
-      // }
+        const failed = result.rejected.concat(result.pending).filter(Boolean)
+        if (failed.length) {
+          throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`)
+        }
+      }
     }),
     GithubProvider({
       clientId: process.env.NEXTAUTH_GITHUB_CLIENT_ID as string,
