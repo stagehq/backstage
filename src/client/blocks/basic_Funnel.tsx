@@ -12,7 +12,6 @@ const BasicFunnel: FC<BlockProps> = ({
   size,
   isEditable,
 }) => {
-  console.log(extension);
   const [email, setEmail] = useState("");
 
   const changeBlockTitle = useChangeBlockTitle();
@@ -37,7 +36,9 @@ const BasicFunnel: FC<BlockProps> = ({
   return (
     <Block
       title={extension.title ? extension.title : "Let's talk!"}
-      description={extension.description ? extension.description : "Write a description ..."}
+      description={extension.description ? extension.description : ""}
+      enableDescription={isEditable ? true : extension.description === "" ? false : true}
+      
       size={size}
       handleTitleChange={
         isEditable
@@ -46,7 +47,7 @@ const BasicFunnel: FC<BlockProps> = ({
       }
       handleDescriptionChange={
         isEditable
-          ? (title) => changeBlockDescription(extension.id, title)
+          ? (description) => {changeBlockDescription(extension.id, description)}
           : undefined
       }
       handleSizeChange={
