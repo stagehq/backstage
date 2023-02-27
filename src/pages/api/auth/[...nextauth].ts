@@ -30,16 +30,16 @@ export const authOptions: AuthOptions = {
       from: process.env.EMAIL_FROM,
     }),
     GithubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID as string,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+      clientId: process.env.NEXTAUTH_GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.NEXTAUTH_GITHUB_CLIENT_SECRET as string,
     }),
     GitlabProvider({
-      clientId: process.env.GITLAB_CLIENT_ID as string,
-      clientSecret: process.env.GITLAB_CLIENT_SECRET as string,
+      clientId: process.env.NEXTAUTH_GITLAB_CLIENT_ID as string,
+      clientSecret: process.env.NEXTAUTH_GITLAB_CLIENT_SECRET as string,
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      clientId: process.env.NEXTAUTH_GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.NEXTAUTH_GOOGLE_CLIENT_SECRET as string,
       authorization: {
         params: {
           prompt: "consent",
