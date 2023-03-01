@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRecoilState } from "recoil";
+import slug from "slug";
 import { reservedRoutes } from "../../../helper/reservedRoutes";
 import { client } from "../../graphql/client";
 import { GetValidSubdomainDocument } from "../../graphql/getValidSubdomain.generated";
@@ -304,7 +305,7 @@ export const OnboardingSubdomain: FC = () => {
   const handleSubdomainChange = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setOnboarding({ ...onboarding, subdomain: e.target.value });
+    setOnboarding({ ...onboarding, subdomain: slug(e.target.value, { lower: true }) });
 
     // Check if subdomain is valid
     if (e.target.value && e.target.value !== onboarding.subdomain) {
@@ -347,7 +348,9 @@ export const OnboardingSubdomain: FC = () => {
             ? [...user?.sites, response.data.upsertSite]
             : [response.data.upsertSite],
         });
-        if (subdomain) router.push(`/s/${subdomain}`);
+        if (subdomain) {
+          window.location.href = `/s/${subdomain}`;
+        } 
       }
     }
   };
