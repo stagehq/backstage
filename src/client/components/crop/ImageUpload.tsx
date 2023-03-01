@@ -172,7 +172,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
         }
       });
     }else{
-      toast.error("Wow, your already uploaded 200 images!! Congrats 🎊 If you want more images, please get in touch.");
+      toast.error("Wow, you already uploaded 200 images!! Congrats 🎊 If you want more images, please get in touch.");
     }
   };
 
