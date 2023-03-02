@@ -55,7 +55,7 @@ const PreferencesModal: FC = () => {
 
       const keyArr = fillPreferences(preferencesExtension, preferencesApi);
       await Promise.all(
-        keyArr.map((key) => {
+        keyArr.map((key: string) => {
           return new Promise<void>((resolve) => {
             // @ts-ignore
             if (event.target[key].files) {
@@ -68,8 +68,8 @@ const PreferencesModal: FC = () => {
               });
 
               if (user.uploadCredit && user.uploadCredit < 100) {
-                // @ts-ignore
                 uploadFile(
+                  // @ts-ignore
                   event.target[key].files[0],
                   decodeGlobalID(user.id).id,
                   "blockImage"
@@ -88,9 +88,9 @@ const PreferencesModal: FC = () => {
                 );
               }
             } else {
-              // @ts-ignore
               processedPreferences.push({
                 key: key,
+                // @ts-ignore
                 value: event.target[key].value,
               });
               resolve();
