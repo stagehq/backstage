@@ -45,49 +45,59 @@ const PreferencesModal: FC = () => {
   }, [preferencesExtension, preferencesApi]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-
     //close modal
     setPreferencesOpen(false);
-    if(site?.extensions && site.extensions?.length < 10) {
+    if (site?.extensions && site.extensions?.length < 10) {
       //handleSubmit
       if (!preferencesExtension || !preferencesApi || !user) return;
       const processedPreferences: { key: string; value: string }[] = [];
       event.preventDefault();
 
       const keyArr = fillPreferences(preferencesExtension, preferencesApi);
-      await Promise.all(keyArr.map((key) => {
-        return new Promise<void>((resolve) => {
-          // @ts-ignore
-          if(event.target[key].files){
-            updateUploadCredit().then((result) => {
-              if (result.data?.updateUploadCredit) {
-                console.log("Updated Credit");
-              } else {
-                throw new Error("Error adding upload credit to user");
-              }
-            })
-            
-            if(user.uploadCredit && user.uploadCredit < 100){
-              // @ts-ignore
-              uploadFile(event.target[key].files[0], decodeGlobalID(user.id).id, "blockImage").then((data) => {
-                if(data){
-                  processedPreferences.push({ key: key, value: data});
-                  resolve();
-                }else{
-                  resolve();
+      await Promise.all(
+        keyArr.map((key) => {
+          return new Promise<void>((resolve) => {
+            // @ts-ignore
+            if (event.target[key].files) {
+              updateUploadCredit().then((result) => {
+                if (result.data?.updateUploadCredit) {
+                  console.log("Updated Credit");
+                } else {
+                  throw new Error("Error adding upload credit to user");
                 }
               });
+
+              if (user.uploadCredit && user.uploadCredit < 100) {
+                // @ts-ignore
+                uploadFile(
+                  event.target[key].files[0],
+                  decodeGlobalID(user.id).id,
+                  "blockImage"
+                ).then((data) => {
+                  if (data) {
+                    processedPreferences.push({ key: key, value: data });
+                    resolve();
+                  } else {
+                    resolve();
+                  }
+                });
+              } else {
+                setAddingInProcess("unadded");
+                toast.error(
+                  "Wow, you already uploaded 200 images!! Congrats 🎊 If you want more images, please get in touch."
+                );
+              }
             } else {
-              setAddingInProcess("unadded");
-              toast.error("Wow, you already uploaded 200 images!! Congrats 🎊 If you want more images, please get in touch.");
+              // @ts-ignore
+              processedPreferences.push({
+                key: key,
+                value: event.target[key].value,
+              });
+              resolve();
             }
-          }else{
-            // @ts-ignore
-            processedPreferences.push({ key: key, value: event.target[key].value });
-            resolve();
-          }
+          });
         })
-      }));
+      );
 
       if (!site) throw new Error("Site not found");
       if (!preferencesExtension.routes) throw new Error("No routes found");
@@ -140,7 +150,7 @@ const PreferencesModal: FC = () => {
         toast.error("Something went wrong!");
         setAddingInProcess("unadded");
       }
-    }else{
+    } else {
       event.preventDefault();
       toast.error("Block limit reached!");
       setAddingInProcess("unadded");
@@ -278,19 +288,27 @@ interface FileInput {
   preference: string;
 }
 
-const FileInput:FC<FileInput> = ({preference}) => {
+const FileInput: FC<FileInput> = ({ preference }) => {
   const [file, setFile] = useState<File | undefined>(undefined);
 
-  return <div className="flex flex-col items-start gap-4">
-    <label className="w-full border-zinc-300 border rounded-md py-2 text-sm flex justify-center bg-zinc-100 hover:bg-zinc-200 cursor-pointer">
-      <input id={preference} type="file" accept="image/png, image/jpeg, image/gif" className="hidden" onChange={(event)=>setFile(event.target.files?.[0])}/>
-      {file ? "Change image" : "Upload image"}
-    </label> 
-    {file && 
-      <div className="flex gap-2 text-sm font-medium text-zinc-600">
-        <CheckCircleIcon className="w-5 h-5"/>
-        {file.name}
-      </div>
-    }
-  </div>
-}
+  return (
+    <div className="flex flex-col items-start gap-4">
+      <label className="flex w-full cursor-pointer justify-center rounded-md border border-zinc-300 bg-zinc-100 py-2 text-sm hover:bg-zinc-200">
+        <input
+          id={preference}
+          type="file"
+          accept="image/png, image/jpeg, image/gif"
+          className="hidden"
+          onChange={(event) => setFile(event.target.files?.[0])}
+        />
+        {file ? "Change image" : "Upload image"}
+      </label>
+      {file && (
+        <div className="flex gap-2 text-sm font-medium text-zinc-600">
+          <CheckCircleIcon className="h-5 w-5" />
+          {file.name}
+        </div>
+      )}
+    </div>
+  );
+};

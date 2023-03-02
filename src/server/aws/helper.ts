@@ -26,7 +26,9 @@ export const uploadFile = async (
   console.log(process.env.NEXT_PUBLIC_HOST_URL);
   // Get presigned post call
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST_URL}/api/aws/upload-url?file=${encodeURIComponent(
+    `${
+      process.env.NEXT_PUBLIC_HOST_URL
+    }/api/aws/upload-url?file=${encodeURIComponent(
       userId
     )}%2F${encodeURIComponent(type)}-${date}.${ext}`
   );

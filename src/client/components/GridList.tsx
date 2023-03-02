@@ -54,7 +54,10 @@ export default function GridList() {
                   alt="site profile picture"
                 />
               ) : (
-                <div style={{background: gradient}} className="h-12 w-12 rounded-full" />
+                <div
+                  style={{ background: gradient }}
+                  className="h-12 w-12 rounded-full"
+                />
               )}
               <div className="mt-4">
                 <h3 className="text-lg font-medium">

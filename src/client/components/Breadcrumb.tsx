@@ -49,7 +49,11 @@ const Breadcrumb = () => {
           </div>
           <Link to={`/s/${siteId}`}>
             <div className="flex h-8 items-center rounded px-4 text-sm font-medium text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900">
-              <p>{currentUser.firstName ? currentUser.firstName + `'s sites` : 'Sites'}</p>
+              <p>
+                {currentUser.firstName
+                  ? currentUser.firstName + `'s sites`
+                  : "Sites"}
+              </p>
             </div>
           </Link>
         </div>

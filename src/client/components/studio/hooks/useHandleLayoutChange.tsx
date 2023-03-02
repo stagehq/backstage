@@ -1,7 +1,6 @@
 import { RefObject } from "react";
 import { Layouts } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { Site } from "../../../graphql/types.generated";
 import { useUpdateSiteLayoutsMutation } from "../../../graphql/updateSiteLayouts.generated";
 import { isrDataState, isrState } from "../../../store/isr";
 import { siteSlugState, siteState } from "../../../store/site";
@@ -19,26 +18,29 @@ import { gridBreakpointState } from "../../../store/ui/grid-dnd";
  */
 
 export const useHandleLayoutChange = () => {
-  const [isIsrMode,] = useRecoilState(isrState);
+  const [isIsrMode] = useRecoilState(isrState);
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site, setSite] = useRecoilState(isIsrMode ? isrDataState : siteState(siteSlug));
+  const [site, setSite] = useRecoilState(
+    isIsrMode ? isrDataState : siteState(siteSlug)
+  );
   const [breakpoint] = useRecoilState(gridBreakpointState);
 
   const [, updateSiteLayouts] = useUpdateSiteLayoutsMutation();
 
   const handleLayoutChange = async (
     itemsRef: RefObject<HTMLDivElement>,
-    newlayouts?: Layouts,
+    newlayouts?: Layouts
   ) => {
-    console.log("compare", site?.layouts, newlayouts)
+    console.log("compare", site?.layouts, newlayouts);
     let currentLayouts = newlayouts ? newlayouts : site?.layouts;
     if (!currentLayouts || !site) return null;
-    
+
     console.log("before calculation", currentLayouts);
 
     //calculate height
     const calculateLayout = () => {
-      if (!currentLayouts || !currentLayouts[breakpoint] || !breakpoint) return null;
+      if (!currentLayouts || !currentLayouts[breakpoint] || !breakpoint)
+        return null;
       let index = 0;
       const newItems = [...currentLayouts[breakpoint]];
 
@@ -77,7 +79,7 @@ export const useHandleLayoutChange = () => {
     setTimeout(() => {
       calculateLayout();
       console.log("after third calculation", currentLayouts);
-    }, 200)
+    }, 200);
 
     //update layout
     if (site) {

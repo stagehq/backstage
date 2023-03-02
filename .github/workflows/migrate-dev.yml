@@ -10,7 +10,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    
+
     env:
       PRISMA_FIELD_ENCRYPTION_KEY: ${{ secrets.PRISMA_FIELD_ENCRYPTION_KEY }}
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -35,4 +35,3 @@ jobs:
 
       - name: Seed store data
         run: yarn store:update
-
