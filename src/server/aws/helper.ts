@@ -23,7 +23,6 @@ export const uploadFile = async (
   const ext = file.type.match(regex)[1];
   const date = Date.now();
 
-  console.log(process.env.NEXT_PUBLIC_HOST_URL);
   // Get presigned post call
   const res = await fetch(
     `${
