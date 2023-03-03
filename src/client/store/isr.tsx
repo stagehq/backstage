@@ -10,4 +10,3 @@ export const isrDataState = atom<Site | null>({
   key: "isrDataState",
   default: null,
 });
-

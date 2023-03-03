@@ -19,21 +19,21 @@ import { useHandleLayoutChange } from "../studio/hooks/useHandleLayoutChange";
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 interface SitePageProps {
-  data: Site | null
+  data: Site | null;
 }
 
-const SitePage: FC<SitePageProps> = ({data}) => {
+const SitePage: FC<SitePageProps> = ({ data }) => {
   //recoil
   const [breakpoint, setBreakpoint] = useRecoilState(gridBreakpointState);
   const [theme, setTheme] = useRecoilState(themeState);
   const [site, setSite] = useRecoilState(isrDataState);
   const [, setIsrMode] = useRecoilState(isrState);
-  
+
   useEffect(() => {
     setTheme("light");
     setIsrMode(true);
     setSite(data);
-  }, [data])
+  }, [data]);
 
   const [components, setComponents] = useState<{
     [key: string]: FC<BlockProps>;
@@ -47,7 +47,7 @@ const SitePage: FC<SitePageProps> = ({data}) => {
 
   useEffect(() => {
     console.log(site?.extensions);
-    if(site?.layouts){
+    if (site?.layouts) {
       //set extensions
       if (site?.extensions && site.layouts) {
         site.extensions.forEach(async (extension) => {
@@ -99,7 +99,7 @@ const SitePage: FC<SitePageProps> = ({data}) => {
       </Head>
       <div className={clsx(theme === "dark" && "dark", "h-screen w-full ")}>
         <div className="h-full overflow-scroll bg-white @container dark:bg-zinc-900">
-          <div className="min-h-full w-full max-w-6xl p-0 sm:p-4 lg:p-12 pb-24 lg:mx-auto">
+          <div className="min-h-full w-full max-w-6xl p-0 pb-24 sm:p-4 lg:mx-auto lg:p-12">
             <div className="p-8">
               <PageHeader disabled />
             </div>
@@ -146,7 +146,10 @@ const SitePage: FC<SitePageProps> = ({data}) => {
                           : 3;
 
                         return (
-                          <div key={encodeGlobalID("Extension", extension.id)} id={encodeGlobalID("Extension", extension.id)}>
+                          <div
+                            key={encodeGlobalID("Extension", extension.id)}
+                            id={encodeGlobalID("Extension", extension.id)}
+                          >
                             <Extension
                               gridRef={itemsRef}
                               extension={extension}
@@ -163,7 +166,7 @@ const SitePage: FC<SitePageProps> = ({data}) => {
               <EmptyState />
             )}
           </div>
-          <Footer socials={site.socials}/>
+          <Footer socials={site.socials} />
         </div>
       </div>
     </>

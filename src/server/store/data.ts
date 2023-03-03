@@ -12,10 +12,9 @@ import { ApiConnectorUpdate, StoreExtensionUpdate } from "./update";
  * development team to ensure that your changes will not cause any issues.
  */
 
-
 export const apiConnectorsData: ApiConnectorUpdate[] = [
   {
-    id:"cleee4xhi00igeobkfevk6t4k",
+    id: "cleee4xhi00igeobkfevk6t4k",
     name: "github",
     markdown:
       "GitHub is where over 94 million developers shape the future of software, together.",
@@ -65,7 +64,7 @@ export const apiConnectorsData: ApiConnectorUpdate[] = [
     authType: AuthType.preferences,
     apiConnectorRoutes: [
       {
-        id: "cleee4xhj00ixeobkedim5sw4", 
+        id: "cleee4xhj00ixeobkedim5sw4",
         name: "devto_posts",
         url: "",
         urlParameter: ["username"],

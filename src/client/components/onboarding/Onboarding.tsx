@@ -305,7 +305,10 @@ export const OnboardingSubdomain: FC = () => {
   const handleSubdomainChange = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setOnboarding({ ...onboarding, subdomain: slug(e.target.value, { lower: true }) });
+    setOnboarding({
+      ...onboarding,
+      subdomain: slug(e.target.value, { lower: true }),
+    });
 
     // Check if subdomain is valid
     if (e.target.value && e.target.value !== onboarding.subdomain) {
@@ -318,7 +321,7 @@ export const OnboardingSubdomain: FC = () => {
           if (result.data?.getValidSubdomain) {
             setSubdomainValid(false);
           } else {
-            if (reservedRoutes.includes(e.target.value)){
+            if (reservedRoutes.includes(e.target.value)) {
               setSubdomainValid(false);
             } else {
               setSubdomainValid(true);
@@ -350,7 +353,7 @@ export const OnboardingSubdomain: FC = () => {
         });
         if (subdomain) {
           window.location.href = `/s/${subdomain}`;
-        } 
+        }
       }
     }
   };

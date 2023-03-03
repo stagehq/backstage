@@ -1,5 +1,5 @@
-import { render } from '@react-email/render';
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { render } from "@react-email/render";
 import { NextApiHandler } from "next";
 import NextAuth, { Account, AuthOptions, Profile, User } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
@@ -9,7 +9,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { createTransport } from "nodemailer";
 import { getInvite } from "../../../helper/invites/airtable";
 import prisma from "../../../server/db/prisma";
-import Email from './Email';
+import Email from "./Email";
 
 const authHandler: NextApiHandler = (req, res) =>
   NextAuth(req, res, authOptions);
@@ -32,24 +32,24 @@ export const authOptions: AuthOptions = {
       server: process.env.EMAIL_SERVER,
       from: process.env.EMAIL_FROM,
       async sendVerificationRequest(params) {
-        const { identifier, url, provider } = params
+        const { identifier, url, provider } = params;
         const { host } = new URL(url);
 
         const transport = createTransport(provider.server);
         const email = render(<Email magicLink={url} />);
-        
+
         const result = await transport.sendMail({
           to: identifier,
           from: provider.from,
           subject: `Sign in to ${host}`,
           html: email,
         });
-        
-        const failed = result.rejected.concat(result.pending).filter(Boolean)
+
+        const failed = result.rejected.concat(result.pending).filter(Boolean);
         if (failed.length) {
-          throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`)
+          throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`);
         }
-      }
+      },
     }),
     GithubProvider({
       clientId: process.env.NEXTAUTH_GITHUB_CLIENT_ID as string,

@@ -78,13 +78,19 @@ export default function DashboardHeader() {
                       <div>
                         <Menu.Button className="flex rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-zinc-800 focus:ring-offset-2">
                           <span className="sr-only">Open user menu</span>
-                          {user.image ? <img
-                            className="h-8 w-8 rounded-full"
-                            src={user.image ? user.image : ""}
-                            referrerPolicy="no-referrer"
-                            alt="profile image"
-                          /> : 
-                          <div className="h-8 w-8 rounded-full" style={{background: gradient}}/>}
+                          {user.image ? (
+                            <img
+                              className="h-8 w-8 rounded-full"
+                              src={user.image ? user.image : ""}
+                              referrerPolicy="no-referrer"
+                              alt="profile image"
+                            />
+                          ) : (
+                            <div
+                              className="h-8 w-8 rounded-full"
+                              style={{ background: gradient }}
+                            />
+                          )}
                         </Menu.Button>
                       </div>
                       <Transition

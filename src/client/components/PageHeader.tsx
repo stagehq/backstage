@@ -1,4 +1,8 @@
 import { LinkIcon, MoonIcon, SunIcon } from "@heroicons/react/24/outline";
+import { decodeGlobalID } from "@pothos/plugin-relay";
+import clsx from "clsx";
+import { FC, useEffect, useRef, useState } from "react";
+import { toast } from "react-hot-toast";
 import {
   SiBandcamp,
   SiBehance,
@@ -19,26 +23,21 @@ import {
   SiTwitter,
   SiYoutube,
 } from "react-icons/si";
-import { decodeGlobalID } from "@pothos/plugin-relay";
-import clsx from "clsx";
-import { FC, useEffect, useRef, useState } from "react";
-import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useUpdateSiteHeaderMutation } from "../graphql/updateSiteHeader.generated";
 import { handleDynamicHeight } from "../helper/racingBuffer";
+import { isrDataState, isrState } from "../store/isr";
 import { siteSlugState, siteState } from "../store/site";
 import { themeState } from "../store/ui/theme";
 import { currentUserState, isrUserState } from "../store/user";
 import ImageUpload from "./crop/ImageUpload";
 import { SocialsType } from "./modals/sitesettings/Socials";
-import { isrDataState, isrState } from "../store/isr";
 
 interface PageHeaderProps {
   disabled?: boolean;
 }
 
 export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
-  
   //refs
   const bioRef = useRef<HTMLTextAreaElement>(null);
   const taglineRef = useRef<HTMLTextAreaElement>(null);
@@ -52,17 +51,20 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
 
   //state
   //const siteSlug = useRecoilValue(siteSlugState);
-  const [isIsrMode, ] = useRecoilState(isrState);
+  const [isIsrMode] = useRecoilState(isrState);
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site, setSite] = useRecoilState(isIsrMode ? isrDataState : siteState(siteSlug));
+  const [site, setSite] = useRecoilState(
+    isIsrMode ? isrDataState : siteState(siteSlug)
+  );
 
   const [theme, setTheme] = useRecoilState(themeState);
-  const [user, setUser] = useRecoilState(isIsrMode ? isrUserState : currentUserState);
-
+  const [user, setUser] = useRecoilState(
+    isIsrMode ? isrUserState : currentUserState
+  );
 
   useEffect(() => {
     console.log(site);
-  }, [site])
+  }, [site]);
 
   //set initial value
   useEffect(() => {

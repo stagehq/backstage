@@ -16,6 +16,7 @@ import { currentUserState } from "../../../store/user";
 import { Dropzone } from "../../Dropzone";
 import Spinner from "../../loading/Spinner";
 import { parseName } from "./helper/parseName";
+import { generateGradient } from "../../../../helper/generateUserGradient";
 
 interface ProfileProps {
   user: User;
@@ -158,6 +159,10 @@ const Profile: FC<ProfileProps> = ({ user }) => {
     }
   }, [editCurrentUser.lastName]);
 
+  const gradient = generateGradient(
+    editCurrentUser?.firstName ? editCurrentUser.firstName : "Horst"
+  );
+
   return (
     <div className="sm:overflow-hidden">
       <div className="bg-white py-6 px-4 sm:p-6">
@@ -290,12 +295,20 @@ const Profile: FC<ProfileProps> = ({ user }) => {
             </label>
             <Dropzone user={editCurrentUser} type={"profileImage"}>
               <div className="mt-1 flex items-center">
-                <img
-                  className="inline-block h-12 w-12 rounded-full"
-                  src={user.image ? user.image : ""}
-                  referrerPolicy="no-referrer"
-                  alt="profile image"
-                />
+                { user.image ?
+                  <img
+                    className="inline-block h-12 w-12 rounded-full"
+                    src={user.image}
+                    referrerPolicy="no-referrer"
+                    alt="profile image"
+                  />
+                  : 
+                  <div
+                    style={{ background: gradient }}
+                    className="h-12 w-12 rounded-full border border-zinc-200 dark:border-zinc-600 dark:bg-zinc-800"
+                  />
+                }
+                
                 <div className="ml-4 flex">
                   <div className="border-zinc-gray-300 hover:bg-zinc-gray-50 focus-within:ring-offset-zinc-gray-50 relative flex cursor-pointer items-center rounded-md border bg-white py-2 px-3 shadow-sm focus-within:outline-none focus-within:ring-2 focus-within:ring-zinc-500 focus-within:ring-offset-2">
                     <label

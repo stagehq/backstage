@@ -10,7 +10,7 @@ const Title = () => {
   return (
     <div className="mt-10 mb-4 flex w-full items-end justify-between">
       <p className="text-left text-xl font-semibold text-zinc-900 lg:text-2xl">
-        {user.firstName ? user.firstName + `'s sites` : 'Sites'}
+        {user.firstName ? user.firstName + `'s sites` : "Sites"}
       </p>
     </div>
   );
