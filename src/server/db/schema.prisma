@@ -25,7 +25,7 @@ model User {
   name                 String?               
   firstName            String?
   lastName             String?
-  uploadCredit         Int                  @default(0)
+  uploadCredit         Int                  @default(1)
 
   accounts             Account[]
   sessions             Session[]
