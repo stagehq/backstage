@@ -4,5 +4,5 @@ export const reservedRoutes = [
   "app",
   "auth",
   "imprint",
-  "index"
-]
+  "index",
+];

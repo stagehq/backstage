@@ -18,9 +18,11 @@ import { siteSlugState, siteState } from "../../../store/site";
  */
 
 export const useChangeBlockDescription = () => {
-  const [isIsrMode,] = useRecoilState(isrState);
+  const [isIsrMode] = useRecoilState(isrState);
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site, setSite] = useRecoilState(isIsrMode ? isrDataState : siteState(siteSlug));
+  const [site, setSite] = useRecoilState(
+    isIsrMode ? isrDataState : siteState(siteSlug)
+  );
 
   const [, updateBlockDescription] = useUpdateBlockDescriptionMutation();
 

@@ -8,9 +8,9 @@ const Page: React.FC<{ data: string }> = (props) => {
 
   return (
     <RecoilRoot>
-      <Suspense fallback={(<div></div>)}>
+      <Suspense fallback={<div></div>}>
         <SitePage data={data} />
-      </Suspense> 
+      </Suspense>
     </RecoilRoot>
   );
 };

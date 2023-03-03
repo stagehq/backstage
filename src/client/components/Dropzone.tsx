@@ -16,7 +16,11 @@ export interface DropzoneProps {
   user: User;
 }
 
-export type uploadType = "profileImage" | "profileCoverImage" | "siteImage" | "blockImage";
+export type uploadType =
+  | "profileImage"
+  | "profileCoverImage"
+  | "siteImage"
+  | "blockImage";
 
 export const Dropzone: React.FC<DropzoneProps> = ({
   children,
@@ -33,14 +37,13 @@ export const Dropzone: React.FC<DropzoneProps> = ({
 
   // handle image chnange and current user state image to new image
   const handleImageChange = (url: string) => {
-
     updateUploadCredit().then((result) => {
       if (result.data?.updateUploadCredit) {
         console.log("Updated Credit");
       } else {
         throw new Error("Error adding upload credit to user");
       }
-    })
+    });
 
     if (url === "" || currentUser === null) return;
     setCurrentUser({
@@ -50,11 +53,11 @@ export const Dropzone: React.FC<DropzoneProps> = ({
   };
 
   const onDrop = useCallback((acceptedFiles: any) => {
-    if(currentUser?.uploadCredit && currentUser.uploadCredit < 100){
+    if (currentUser?.uploadCredit && currentUser.uploadCredit < 100) {
       setFiles(
         acceptedFiles.map((file: any) => {
           console.log(file);
-  
+
           uploadFile(file ? file : null, user.id, type).then((data) => {
             // Update user images
             updateUser({
@@ -77,7 +80,9 @@ export const Dropzone: React.FC<DropzoneProps> = ({
         })
       );
     } else {
-      toast.error("Wow, your already uploaded 200 images!! Congrats 🎊 If you want more images, please get in touch.");
+      toast.error(
+        "Wow, you already uploaded 200 images!! Congrats 🎊 If you want more images, please get in touch."
+      );
     }
   }, []);
 

@@ -7,13 +7,13 @@ import router from "next/router";
 import toast from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import slug from "slug";
+import { reservedRoutes } from "../../../../helper/reservedRoutes";
 import { client } from "../../../graphql/client";
 import { GetValidSubdomainDocument } from "../../../graphql/getValidSubdomain.generated";
 import { Site } from "../../../graphql/types.generated";
 import { useUpdateSiteSubdomainMutation } from "../../../graphql/updateSiteSubdomain.generated";
 import { siteSlugState, siteState } from "../../../store/site";
 import Spinner from "../../loading/Spinner";
-import { reservedRoutes } from "../../../../helper/reservedRoutes";
 
 interface SubdomainProps {
   site: Site;
@@ -58,7 +58,7 @@ const Subdomain: FC<SubdomainProps> = ({ site }) => {
           if (result.data?.getValidSubdomain) {
             setSubdomainValid(false);
           } else {
-            if (reservedRoutes.includes(e.target.value)){
+            if (reservedRoutes.includes(e.target.value)) {
               setSubdomainValid(false);
             } else {
               setSubdomainValid(true);

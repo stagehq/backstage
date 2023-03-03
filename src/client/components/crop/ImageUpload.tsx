@@ -6,17 +6,17 @@ import Cropper from "react-cropper";
 import { Dialog, Transition } from "@headlessui/react";
 import { decodeGlobalID } from "@pothos/plugin-relay";
 import clsx from "clsx";
+import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { uploadType } from "../../../client/components/Dropzone";
+import { generateGradient } from "../../../helper/generateUserGradient";
 import { uploadFile } from "../../../server/aws/helper";
 import { useUpdateSiteHeaderMutation } from "../../graphql/updateSiteHeader.generated";
+import { useUpdateUploadCreditMutation } from "../../graphql/updateUploadCredit.generated";
 import { useUpdateUserMutation } from "../../graphql/updateUser.generated";
+import { isrDataState, isrState } from "../../store/isr";
 import { siteSlugState, siteState } from "../../store/site";
 import { currentUserState, isrUserState } from "../../store/user";
-import { isrDataState, isrState } from "../../store/isr";
-import { useUpdateUploadCreditMutation } from "../../graphql/updateUploadCredit.generated";
-import { toast } from "react-hot-toast";
-import { generateGradient } from "../../../helper/generateUserGradient";
 
 interface ImageUploadProps {
   imageUrl: string;
@@ -41,10 +41,14 @@ const ImageUpload: FC<ImageUploadProps> = ({
   const [cropper, setCropper] = useState<any>();
 
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [isIsrMode,] = useRecoilState(isrState);
-  const [currentUser, setCurrentUser] = useRecoilState(isIsrMode ? isrUserState : currentUserState);
+  const [isIsrMode] = useRecoilState(isrState);
+  const [currentUser, setCurrentUser] = useRecoilState(
+    isIsrMode ? isrUserState : currentUserState
+  );
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site, setSite] = useRecoilState(isIsrMode ? isrDataState : siteState(siteSlug));
+  const [site, setSite] = useRecoilState(
+    isIsrMode ? isrDataState : siteState(siteSlug)
+  );
 
   const [, updateUser] = useUpdateUserMutation();
   const [, updateSiteHeader] = useUpdateSiteHeaderMutation();
@@ -118,22 +122,25 @@ const ImageUpload: FC<ImageUploadProps> = ({
   }
 
   const handleUpload = async (url: string) => {
-    if(currentUser?.uploadCredit && currentUser.uploadCredit < 100){
+    if (currentUser?.uploadCredit && currentUser.uploadCredit < 100) {
       console.log(url);
       const file = dataURItoBlob(url);
-  
+
       updateUploadCredit().then((result) => {
         if (result.data?.updateUploadCredit) {
           console.log("Updated Credit");
         } else {
           throw new Error("Error adding upload credit to user");
         }
-      })
-  
+      });
+
       if (!currentUser) return null;
       console.log(file, currentUser.id, uploadType);
       uploadFile(file, currentUser.id, uploadType).then((data) => {
-        if (uploadType === "profileImage" || uploadType === "profileCoverImage") {
+        if (
+          uploadType === "profileImage" ||
+          uploadType === "profileCoverImage"
+        ) {
           // Update user images
           updateUser({
             image: data,
@@ -142,7 +149,9 @@ const ImageUpload: FC<ImageUploadProps> = ({
             if (result.data?.updateUser) {
               console.log("Success");
               handleImageChange(
-                result.data?.updateUser.image ? result.data?.updateUser.image : ""
+                result.data?.updateUser.image
+                  ? result.data?.updateUser.image
+                  : ""
               );
             } else {
               throw new Error("Error adding image to user");
@@ -171,8 +180,10 @@ const ImageUpload: FC<ImageUploadProps> = ({
           });
         }
       });
-    }else{
-      toast.error("Wow, your already uploaded 200 images!! Congrats 🎊 If you want more images, please get in touch.");
+    } else {
+      toast.error(
+        "Wow, you already uploaded 200 images!! Congrats 🎊 If you want more images, please get in touch."
+      );
     }
   };
 
@@ -182,7 +193,9 @@ const ImageUpload: FC<ImageUploadProps> = ({
     }
   }, [cropData]);
 
-  const gradient = generateGradient(currentUser?.firstName ? currentUser.firstName : "Horst");
+  const gradient = generateGradient(
+    currentUser?.firstName ? currentUser.firstName : "Horst"
+  );
 
   return (
     <>
@@ -203,7 +216,12 @@ const ImageUpload: FC<ImageUploadProps> = ({
             />
           </div>
         ) : (
-          (!isIsrMode || imageUrl) && <div style={{"background": gradient}} className="h-full w-full rounded-full border border-zinc-200 dark:border-zinc-600 dark:bg-zinc-800" />
+          (!isIsrMode || imageUrl) && (
+            <div
+              style={{ background: gradient }}
+              className="h-full w-full rounded-full border border-zinc-200 dark:border-zinc-600 dark:bg-zinc-800"
+            />
+          )
         )}
         <div className="absolute h-full w-full">
           {!disabled && (

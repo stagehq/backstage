@@ -7,7 +7,8 @@ interface ApiConnectorRemove {
   modifiedAt: Date;
 }
 
-export interface ApiConnectorUpdate extends Omit<ApiConnector, keyof ApiConnectorRemove> {
+export interface ApiConnectorUpdate
+  extends Omit<ApiConnector, keyof ApiConnectorRemove> {
   apiConnectorRoutes: {
     id: string;
     name: string;
@@ -21,7 +22,8 @@ interface StoreExtensionRemove {
   modifiedAt: Date;
 }
 
-export interface StoreExtensionUpdate extends Omit<StoreExtension, keyof StoreExtensionRemove> {
+export interface StoreExtensionUpdate
+  extends Omit<StoreExtension, keyof StoreExtensionRemove> {
   routes: {
     name: string;
   }[];
@@ -31,7 +33,6 @@ export async function updateStore(
   apiConnectors: ApiConnectorUpdate[],
   storeExtensions: StoreExtensionUpdate[]
 ) {
-
   //create apiConnectors
   await Promise.all(
     apiConnectors.map(async (apiConnector) => {

@@ -24,7 +24,7 @@ const StudioEditor = () => {
   const [breakpoint, setBreakpoint] = useRecoilState(gridBreakpointState);
   const user = useRecoilValue(currentUserState);
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site, ] = useRecoilState(siteState(siteSlug));
+  const [site] = useRecoilState(siteState(siteSlug));
   const [components, setComponents] = useState<{
     [key: string]: FC<BlockProps>;
   }>({});
@@ -38,7 +38,7 @@ const StudioEditor = () => {
       "image/png": [],
       "image/gif": [],
     },
-    maxFiles: 1
+    maxFiles: 1,
   });
 
   fileRejections.map(({ file, errors }) => {
@@ -57,7 +57,7 @@ const StudioEditor = () => {
 
   // use effect when accepted files change to upload files to server and update site state with new image in images array
   useEffect(() => {
-    if(acceptedFiles.length !== 0){
+    if (acceptedFiles.length !== 0) {
       dropImage(acceptedFiles);
     }
   }, [acceptedFiles]);

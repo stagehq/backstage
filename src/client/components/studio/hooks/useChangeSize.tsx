@@ -15,7 +15,7 @@ import { useHandleLayoutChange } from "./useHandleLayoutChange";
  */
 
 export const useChangeExtensionSize = () => {
-  const [isIsrMode,] = useRecoilState(isrState);
+  const [isIsrMode] = useRecoilState(isrState);
   const breakpoint = useRecoilValue(gridBreakpointState);
   const siteSlug = useRecoilValue(siteSlugState);
   const [site] = useRecoilState(isIsrMode ? isrDataState : siteState(siteSlug));

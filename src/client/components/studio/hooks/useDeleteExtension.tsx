@@ -16,9 +16,11 @@ import { siteSlugState, siteState } from "../../../store/site";
  */
 
 export const useDeleteExtension = () => {
-  const [isIsrMode,] = useRecoilState(isrState);
+  const [isIsrMode] = useRecoilState(isrState);
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site, setSite] = useRecoilState(isIsrMode ? isrDataState : siteState(siteSlug));
+  const [site, setSite] = useRecoilState(
+    isIsrMode ? isrDataState : siteState(siteSlug)
+  );
   const [, deleteExtension] = useDeleteExtensionMutation();
 
   const deleteExtensionFromSite = async (extensionId: string) => {
@@ -35,7 +37,7 @@ export const useDeleteExtension = () => {
       );
       if (extensionIndex !== -1) {
         newExtensions.splice(extensionIndex, 1);
-        setSite({...site});
+        setSite({ ...site });
         setSite({ ...site, extensions: newExtensions });
 
         await deleteExtension({
