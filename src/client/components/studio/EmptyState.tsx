@@ -9,7 +9,7 @@ const EmptyState = () => {
   const [theme] = useRecoilState(themeState);
 
   return (
-    <div className="p-8">
+    <div className="py-8">
       <div className="w-full rounded-2xl bg-gradient-to-b from-zinc-400 to-white p-[1px] dark:from-zinc-500 dark:to-zinc-900">
         <div className="flex flex-col items-center gap-6 rounded-2xl bg-white py-16 @container dark:bg-zinc-900">
           <div className="flex h-20 w-20 items-center justify-center rounded-[20px] border border-zinc-200 bg-white shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
