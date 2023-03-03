@@ -99,8 +99,8 @@ const SitePage: FC<SitePageProps> = ({ data }) => {
       </Head>
       <div className={clsx(theme === "dark" && "dark", "h-screen w-full ")}>
         <div className="h-full overflow-scroll bg-white @container dark:bg-zinc-900">
-          <div className="min-h-full w-full max-w-6xl p-0 pb-24 sm:p-4 lg:mx-auto lg:p-12">
-            <div className="p-8">
+          <div className="min-h-full w-full max-w-[1200px] p-0 pb-24 sm:p-4 lg:mx-auto ">
+            <div className="py-8">
               <PageHeader disabled />
             </div>
             {site.extensions && site.extensions.length > 0 ? (
@@ -112,6 +112,7 @@ const SitePage: FC<SitePageProps> = ({ data }) => {
                   rowHeight={1}
                   width={1000}
                   margin={[32, 32]}
+                  containerPadding={[0, 32]}
                   isResizable={false}
                   isDraggable={false}
                   measureBeforeMount={true}
