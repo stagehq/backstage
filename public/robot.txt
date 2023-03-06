@@ -1,3 +1,7 @@
 # Allow all crawlers
 User-agent: *
 Allow: /
+
+# Block all crawlers for /s
+User-agent: *
+Disallow: /s
