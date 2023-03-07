@@ -9,7 +9,7 @@ interface FooterProps {
 const Footer: FC<FooterProps> = ({ socials }) => {
   return (
     <div className="w-full bg-zinc-50 dark:bg-zinc-900">
-      <div className="flex w-full max-w-[1200px] flex-col items-center justify-between gap-8 pb-24 sm:py-12 lg:mx-auto lg:flex-row lg:gap-2">
+      <div className="flex w-full max-w-[1200px] flex-col items-center justify-between gap-8 py-12 lg:mx-auto lg:flex-row lg:gap-2">
         <div className="flex flex-col items-center gap-2 px-8 lg:items-start">
           <div className=" text-center text-sm font-semibold text-zinc-400 dark:text-zinc-600 lg:text-left">
             Built with
