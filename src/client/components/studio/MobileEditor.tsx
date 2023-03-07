@@ -13,7 +13,7 @@ const MobileEditor = () => {
             Please go to a desktop device to edit your personal page.
           </h2>
           <p className="mt-1 text-sm text-gray-500">
-            We will soon support mobile editing, stay tuned. 
+            We will soon support mobile editing, stay tuned.
           </p>
           <Link to={"/s"}>
             <a className="mt-4 inline-flex rounded-md border border-transparent bg-gray-600 py-2 px-4 text-center text-sm font-medium text-white shadow-sm hover:bg-gray-700">
