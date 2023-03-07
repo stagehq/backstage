@@ -153,6 +153,7 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
         <button
           className="relative flex cursor-pointer items-start justify-start gap-2 rounded-full bg-zinc-100/40 p-2 ring-1 ring-zinc-900/5 backdrop-blur focus:outline-none focus:ring-2 focus:ring-zinc-600 dark:bg-zinc-800/90 dark:ring-white/30 dark:focus:ring-zinc-300"
           onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+          aria-label="Toggle theme"
         >
           {theme === "light" ? (
             <SunIcon className="h-5 w-5 text-zinc-600" />
