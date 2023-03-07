@@ -16,7 +16,7 @@ describe("Login page", () => {
     //   headless: true,
     //   logs: false,
     //   isPopup: true,
-    //   loginSelector: `#google`
+    //   loginSelector: 'button#google'
     // };
 
     // return cy

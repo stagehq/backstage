@@ -25,6 +25,7 @@ export interface GraphQLContext {
 
 const apolloServer = new ApolloServer({
   schema,
+  cache: "bounded",
   context: ({ req }): GraphQLContext => ({
     session: req.user,
     origin: getRequestOrigin(req),
