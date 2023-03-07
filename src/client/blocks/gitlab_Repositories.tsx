@@ -75,7 +75,7 @@ const Repositories: FC<BlockProps> = ({
   return (
     data && (
       <Block
-        title={extension.title ? extension.title : "Repositories"}
+        title={extension.title ? extension.title : "My Code"}
         actions={{ link: { url: profileLink } }}
         size={size}
         isEditable={isEditable}
