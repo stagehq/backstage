@@ -153,6 +153,7 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
         <button
           className="relative flex cursor-pointer items-start justify-start gap-2 rounded-full bg-zinc-100/40 p-2 ring-1 ring-zinc-900/5 backdrop-blur focus:outline-none focus:ring-2 focus:ring-zinc-600 dark:bg-zinc-800/90 dark:ring-white/30 dark:focus:ring-zinc-300"
           onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+          aria-label="Toggle theme"
         >
           {theme === "light" ? (
             <SunIcon className="h-5 w-5 text-zinc-600" />
@@ -179,10 +180,11 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
             placeholder="Enter tagline..."
             className={clsx(
               "-ml-4 block w-full resize-none border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-2xl font-bold text-zinc-800 placeholder-zinc-300 dark:bg-zinc-900 dark:text-zinc-200 lg:text-4xl",
-              !disabled &&
-                "hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 hover:dark:border-zinc-600   focus:dark:border-zinc-300 active:dark:border-zinc-300"
+              !disabled ?
+                "hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
+                : "focus:ring-0 focus:border-white dark:focus:border-zinc-900"
             )}
-            disabled={disabled}
+            readOnly={disabled}
           />
           <textarea
             ref={bioRef}
@@ -192,11 +194,12 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
             id="bio"
             placeholder="Enter bio..."
             className={clsx(
-              "-ml-4 block w-full resize-none border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-sm text-zinc-800 placeholder-zinc-400   dark:bg-zinc-900 dark:text-zinc-200 focus:dark:border-zinc-300 ",
-              !disabled &&
+              "-ml-4 block w-full resize-none border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-sm text-zinc-800 placeholder-zinc-400 dark:bg-zinc-900 dark:text-zinc-200 focus:dark:border-zinc-300",
+              !disabled ?
                 "hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 hover:dark:border-zinc-600 active:dark:border-zinc-300"
+                : "focus:ring-0 focus:border-white dark:focus:border-zinc-900"
             )}
-            disabled={disabled}
+            readOnly={disabled}
           />
         </div>
         <div className="flex w-full flex-col items-start justify-start gap-4">

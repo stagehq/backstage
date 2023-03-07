@@ -75,7 +75,7 @@ const Repositories: FC<BlockProps> = ({
   return (
     data && (
       <Block
-        title={extension.title ? extension.title : "Repositories"}
+        title={extension.title ? extension.title : "My Code"}
         actions={{ link: { url: profileLink } }}
         size={size}
         isEditable={isEditable}
@@ -84,7 +84,8 @@ const Repositories: FC<BlockProps> = ({
           changeExtensionSize(extension.id, size, gridRef)
         }
         handleDelete={() => deleteExtension(extension.id)}
-        imagePath={"https://avatars.githubusercontent.com/u/22105643?s=200&v=4"}
+        image={"https://avatars.githubusercontent.com/u/22105643?s=200&v=4"}
+        imageAlt={"GitLab Logo"}
       >
         <List>
           {data.map((project, index) => (
