@@ -3254,10 +3254,10 @@
   resolved "https://registry.yarnpkg.com/@stablelib/utf8/-/utf8-1.0.1.tgz#fd5e7ad353b7e3cd1ce85e49099360e57693cfd1"
   integrity sha512-FrYD1xadah/TtAP6VJ04lDD5h9rdDj/d8wH/jMYTtHqZBv9z2btdvEU8vTxdjdkFmo1b/BH+t3R1wi/mYhCCNg==
 
-"@stagehq/ui@^0.1.30":
-  version "0.1.30"
-  resolved "https://registry.yarnpkg.com/@stagehq/ui/-/ui-0.1.30.tgz#791beed4bdf240ab2fdcaa317f924a37f3764e2c"
-  integrity sha512-mW9JUc4xjg1nXc1n2xQWvO+QJ3vNofT2DVGGidw5GsEhlbH4fkgP7luPcWfMqNOwZg1qPlep/lXWaHNMfl/3bg==
+"@stagehq/ui@^0.1.31":
+  version "0.1.31"
+  resolved "https://registry.yarnpkg.com/@stagehq/ui/-/ui-0.1.31.tgz#07d39327a7ab9dccafc5e58ec5024295b0d26cef"
+  integrity sha512-PofdQOYwmacrDua3Wra5SX17mw394cvYpQKoBVmhYMh9ug41I1woBSDcUp7YGJblnyvEr4AQAaRsFC1Tqtz/1w==
   dependencies:
     "@heroicons/react" "^2.0.13"
     "@storybook/addon-a11y" "^6.5.13"
@@ -3272,7 +3272,7 @@
     eslint-config-prettier "^8.3.0"
     eslint-plugin-prettier "^4.2.1"
     eslint-plugin-react-hooks "^4.6.0"
-    prettier "^2.7.1"
+    prettier "^2.8.4"
     react "^18.2.0"
     react-dom "^18.2.0"
     react-scripts "5.0.1"
@@ -12762,10 +12762,10 @@ prettier-plugin-tailwindcss@^0.2.4:
   resolved "https://registry.yarnpkg.com/prettier-plugin-tailwindcss/-/prettier-plugin-tailwindcss-0.2.4.tgz#ed0ca759bc948eb2bc48b419c6e57eb2adabdb0a"
   integrity sha512-wMyugRI2yD8gqmMpZSS8kTA0gGeKozX/R+w8iWE+yiCZL09zY0SvfiHfHabNhjGhzxlQ2S2VuTxPE3T72vppCQ==
 
-prettier@^2.7.1:
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.1.tgz#4e1fd11c34e2421bc1da9aea9bd8127cd0a35efc"
-  integrity sha512-lqGoSJBQNJidqCHE80vqZJHWHRFoNYsSpP9AjFhlhi9ODCJA541svILes/+/1GM3VaL/abZi7cpFzOpdR9UPKg==
+prettier@^2.8.4:
+  version "2.8.4"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.4.tgz#34dd2595629bfbb79d344ac4a91ff948694463c3"
+  integrity sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==
 
 prettier@^2.8.4:
   version "2.8.4"
