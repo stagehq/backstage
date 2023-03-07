@@ -30,6 +30,7 @@ const Resume: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
                   subtitle: job.company,
                   additional: job.starts_at.year,
                   image: job.logo_url,
+                  imageAlt: job.company,
                 });
               });
             apiResponse.response.education &&
@@ -43,6 +44,7 @@ const Resume: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
                   subtitle: edu.school,
                   additional: edu.starts_at?.year ? edu.starts_at.year : "",
                   image: edu.logo_url,
+                  imageAlt: edu.school,
                 });
               });
             apiResponse.response.public_identifier &&
@@ -90,7 +92,8 @@ const Resume: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
       handleDelete={
         isEditable ? () => deleteExtension(extension.id) : undefined
       }
-      imagePath={"https://avatars.githubusercontent.com/u/357098?s=200&v=4"}
+      image={"https://avatars.githubusercontent.com/u/357098?s=200&v=4"}
+      imageAlt={"LinkedIn Logo"}
     >
       <List>
         {experience.map((job: any, index) => (
@@ -100,6 +103,7 @@ const Resume: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
             subtitle={job.title}
             additional={job.additional}
             image={job.image}
+            imageAlt={job.subtitle}
             key={"experience" + index}
           />
         ))}
@@ -113,6 +117,7 @@ const Resume: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
             subtitle={edu.subtitle}
             additional={edu.additional}
             image={edu.image}
+            imageAlt={edu.subtitle}
             key={"university" + index}
           />
         ))}

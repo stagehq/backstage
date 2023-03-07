@@ -95,7 +95,8 @@ const Repositories: FC<BlockProps> = ({
         handleDelete={
           isEditable ? () => deleteExtension(extension.id) : undefined
         }
-        imagePath={"https://avatars.githubusercontent.com/u/9919?s=200&v=4"}
+        image={"https://avatars.githubusercontent.com/u/9919?s=200&v=4"}
+        imageAlt={"GitHub Logo"}
       >
         <List>
           {data.map((project, index) => (

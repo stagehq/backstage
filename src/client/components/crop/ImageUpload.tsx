@@ -243,6 +243,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
             )}
             style={{ cursor: disabled ? "" : "pointer" }}
             disabled={disabled}
+            aria-label="Upload image"
           />
         </div>
       </div>

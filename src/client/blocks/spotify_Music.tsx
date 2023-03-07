@@ -66,13 +66,15 @@ const Spotify: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
           handleDelete={
             isEditable ? () => deleteExtension(extension.id) : undefined
           }
-          imagePath={"https://avatars.githubusercontent.com/u/251374?s=200&v=4"}
+          image={"https://avatars.githubusercontent.com/u/251374?s=200&v=4"}
+          imageAlt={"Spotify Logo"}
         >
           <Card
             type="horizontal"
             title={data[0].title}
             subtitle={data[0].subtitle}
             image={data[0].image}
+            imageAlt={data[0].title + " cover"}
             icon="PlayIcon"
             actions={{ open: { url: data[0].link } }}
           />
@@ -86,6 +88,7 @@ const Spotify: FC<BlockProps> = ({ gridRef, extension, size, isEditable }) => {
                   title={track.title}
                   subtitle={track.subtitle}
                   image={track.image}
+                  imageAlt={track.title + " cover"}
                   actions={{ open: { url: track.link } }}
                   key={track.title + index}
                 />
