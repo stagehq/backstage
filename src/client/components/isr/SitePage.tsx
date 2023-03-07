@@ -47,6 +47,14 @@ const SitePage: FC<SitePageProps> = ({ data }) => {
 
   useEffect(() => {
     console.log(site?.extensions);
+    const screenWidth = window.screen.width;
+    if(screenWidth > 991) {
+      setBreakpoint('lg');
+    } else if(screenWidth > 768) {
+      setBreakpoint('md');
+    } else if(screenWidth > 0) { 
+      setBreakpoint('sm');
+    }
     if (site?.layouts) {
       //set extensions
       if (site?.extensions && site.layouts) {
@@ -54,23 +62,21 @@ const SitePage: FC<SitePageProps> = ({ data }) => {
           const Extension = dynamic(
             () => import(`../../blocks/${extension.storeExtension?.blockId}`)
           ) as FC<BlockProps>;
-          if (Extension)
+          if (Extension && !(String(extension.id) in components)){
+            console.log("add Extension");
             setComponents((prevComponents) => ({
               ...prevComponents,
               [extension.id]: Extension,
             }));
+          }
         });
       }
     }
+    setTimeout(() => {
+      window.dispatchEvent(new Event("resize"));
+    }, 1000);
+    
   }, [site?.extensions]);
-
-  useEffect(() => {
-    if (itemsRef.current) {
-      itemsRef.current.classList.remove("animated");
-    }
-  }, []);
-
-  //window.dispatchEvent(new Event("resize"));
 
   if (!site) return null;
 
@@ -99,7 +105,7 @@ const SitePage: FC<SitePageProps> = ({ data }) => {
       </Head>
       <div className={clsx(theme === "dark" && "dark", "h-screen w-full ")}>
         <div className="h-full overflow-scroll bg-white @container dark:bg-zinc-900">
-          <div className="min-h-full w-full max-w-[1200px] p-0 pb-24 sm:p-4 lg:mx-auto ">
+          <div className="min-h-full w-full max-w-[1200px] p-8 pb-24 sm:p-16 xl:p-4 lg:mx-auto ">
             <div className="py-8">
               <PageHeader disabled />
             </div>
