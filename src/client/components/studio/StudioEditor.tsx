@@ -1,9 +1,11 @@
 import dynamic from "next/dynamic";
+import Head from "next/head";
 import { FC, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { toast } from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { getBaseUrl } from "../../../helper/getBaseUrl";
 import { BlockProps } from "../../blocks/type";
 import { siteSlugState, siteState } from "../../store/site";
 import { gridBreakpointState } from "../../store/ui/grid-dnd";
@@ -108,10 +110,29 @@ const StudioEditor = () => {
 
   return (
     <>
+      <Head>
+        <title>{site.tagline}</title>
+        <meta name="description" content={site.bio ? site.bio : ""} />
+        <meta name="og:type" content="website" />
+        <meta name="robots" content="noindex,nofollow" />
+        <meta
+          property="og:image"
+          content={`${getBaseUrl()}/api/og?tagline=${encodeURIComponent(
+            site.tagline ? site.tagline : ""
+          )}&bio=${encodeURIComponent(
+            site.bio ? site.bio : ""
+          )}&image=${encodeURIComponent(
+            "https://" + site.image ? "https://" + site.image : ""
+          )}`}
+        />
+        <meta property="og:title" content={site.tagline ? site.tagline : ""} />
+        <meta property="og:description" content={site.bio ? site.bio : ""} />
+        <meta property="og:url" content={getBaseUrl() + "/" + site.subdomain} />
+      </Head>
       <div className="h-full w-full sm:hidden">
         <MobileEditor />
       </div>
-      <div className="h-full w-full hidden sm:block">
+      <div className="hidden h-full w-full sm:block">
         <div
           {...getRootProps({
             className: "h-full w-full",
