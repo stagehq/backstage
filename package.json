@@ -37,7 +37,7 @@
     "@emoji-mart/react": "^1.0.1",
     "@graphql-codegen/schema-ast": "^2.5.1",
     "@headlessui/react": "^1.6.1",
-    "@heroicons/react": "^2.0.13",
+    "@heroicons/react": "^2.0.16",
     "@next-auth/prisma-adapter": "^1.0.3",
     "@next/bundle-analyzer": "^12.2.5",
     "@pothos/core": "^3.10.1",
