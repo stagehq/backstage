@@ -112,6 +112,20 @@ export const apiConnectorsData: ApiConnectorUpdate[] = [
       },
     ],
   },
+  {
+    id: "cleea34v900fneobkq7q7q7q7",
+    name: "links",
+    markdown: "best link block",
+    authType: AuthType.preferences,
+    apiConnectorRoutes: [
+      {
+        id: "cleee4xhl00jheobkq7q7q7q7",
+        name: "link_single",
+        url: "",
+        urlParameter: ["link url"],
+      },
+    ],
+  },
   // {
   //   id: "cleea34va00fseobklnfql48q",
   //   name: "stackoverflow",
@@ -203,7 +217,7 @@ export const storeExtensionsData: StoreExtensionUpdate[] = [
     description: "Personality through music",
     image: "spotify",
     blockId: "spotify_Music",
-    markdown: "This is a extension where you show your musik",
+    markdown: "This is a extension where you show your music",
     icon: "BriefcaseIcon",
     routes: [
       {
@@ -245,11 +259,25 @@ export const storeExtensionsData: StoreExtensionUpdate[] = [
     description: "Paste your own image",
     image: "images",
     blockId: "image_single",
-    markdown: "This is a extension where you show your answers",
+    markdown: "This is a extension where you show your images",
     icon: "BriefcaseIcon",
     routes: [
       {
         name: "image_single",
+      },
+    ],
+  },
+  {
+    id: "clbz5lknp001zpgpx4nboixelfm",
+    name: "Links",
+    description: "Paste your own link",
+    image: "links",
+    blockId: "link_single",
+    markdown: "This is a extension where you show your links",
+    icon: "BriefcaseIcon",
+    routes: [
+      {
+        name: "link_single",
       },
     ],
   },
