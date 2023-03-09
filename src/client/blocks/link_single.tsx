@@ -61,6 +61,7 @@ const LinkBlock: FC<BlockProps> = ({
             image={link.ogImage}
             imageAlt={link.title}
             type="vertical"
+            bordered={false}
           />
         </Block>
       )}

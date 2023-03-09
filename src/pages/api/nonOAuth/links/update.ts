@@ -3,11 +3,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import wretch from "wretch";
 
 interface Metadata {
-  title: string;
-  description: string;
-  favicon: string;
-  ogImage: string;
-  mainColor: string;
+  title: string | null;
+  description: string | null;
+  favicon: string | null;
+  ogImage: string | null;
+  mainColor: string | null;
   url: string;
 }
 
@@ -35,6 +35,7 @@ interface Metadata {
  */
 
 const getUrlMetadata = async (url: string): Promise<Metadata> => {
+  const domain = new URL(url);
   const response = await wretch(url).get().text();
   const { window } = new JSDOM(response);
   const document = window.document;
@@ -42,19 +43,25 @@ const getUrlMetadata = async (url: string): Promise<Metadata> => {
   const description =
     document
       .querySelector('meta[name="description"]')
-      ?.getAttribute("content") || "";
-  const favicon =
+      ?.getAttribute("content") || null;
+  let favicon =
     document
       .querySelector('link[rel="shortcut icon"], link[rel="icon"]')
-      ?.getAttribute("href") || "";
-  const ogImage =
+      ?.getAttribute("href") || null;
+    if (favicon && favicon.startsWith("/")) {
+      favicon = `${domain.origin}${favicon}`;
+    }
+  let ogImage =
     document
       .querySelector('meta[property="og:image"]')
-      ?.getAttribute("content") || "";
+      ?.getAttribute("content") || null;
+      if (ogImage && ogImage.startsWith("/")) {
+        ogImage = `${domain.origin}${ogImage}`;
+      }
   const themeColor = document
     .querySelector('meta[name="theme-color"]')
     ?.getAttribute("content");
-  const mainColor = themeColor ? themeColor : "";
+  const mainColor = themeColor ? themeColor : null;
   return {
     title,
     description,
@@ -89,5 +96,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
   // get the metadata
   const metadata = await getUrlMetadata(url);
+  if(!metadata.title || !metadata.description) {
+    res.status(404).json({ error: "URL is not supported yet" });
+  }
   res.status(200).json(metadata);
 };
