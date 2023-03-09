@@ -147,7 +147,9 @@ const PreferencesModal: FC = () => {
       } catch (error) {
         //handle error
         console.log(error);
-        toast.error("Oops! It's not your fault, seems like this doesn't work atm. We're working hard to bring more functionality to Stage soon.");
+        toast.error(
+          "Oops! It's not your fault, seems like this doesn't work atm. We're working hard to bring more functionality to Stage soon."
+        );
         setAddingInProcess("unadded");
       }
     } else {

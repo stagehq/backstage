@@ -11,28 +11,10 @@ interface Metadata {
   url: string;
 }
 
-/**
- * Get metadata from a URL
- * @param {string} url - The URL to get metadata from
- * @returns {Promise<Metadata>} - The metadata
- * @typedef {Object} Metadata
- * @property {string} title - The title of the page
- * @property {string} description - The description of the page
- * @property {string} favicon - The favicon of the page
- * @property {string} ogImage - The og:image of the page
- * @property {string} mainColor - The main color of the page
- * @property {string} url - The url of the page
- * @example
- * const metadata = await getUrlMetadata("https://github.com");
- * console.log(metadata);
- * // {
- * //   title: "GitHub",
- * //   description: "GitHub is where over 65 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code like a pro, track bugs and features, power your CI/CD and DevOps workflows, and secure code before you commit it.",
- * //   favicon: "https://github.githubassets.com/favicon.ico",
- * //   ogImage: "https://github.githubassets.com/images/modules/open_graph/github-mark.png",
- * //   mainColor: "#24292e"
- * // }
- */
+async function checkImage(url: string): Promise<string | null> {
+  const response = await fetch(url, { method: "HEAD" });
+  return response.status >= 200 && response.status < 300 ? url : null;
+}
 
 const getUrlMetadata = async (url: string): Promise<Metadata> => {
   const domain = new URL(url);
@@ -48,16 +30,22 @@ const getUrlMetadata = async (url: string): Promise<Metadata> => {
     document
       .querySelector('link[rel="shortcut icon"], link[rel="icon"]')
       ?.getAttribute("href") || null;
-    if (favicon && favicon.startsWith("/")) {
-      favicon = `${domain.origin}${favicon}`;
-    }
+  if (favicon && favicon.startsWith("/")) {
+    favicon = `${domain.origin}${favicon}`;
+  }
+  if (favicon) {
+    favicon = await checkImage(favicon);
+  }
   let ogImage =
     document
       .querySelector('meta[property="og:image"]')
       ?.getAttribute("content") || null;
-      if (ogImage && ogImage.startsWith("/")) {
-        ogImage = `${domain.origin}${ogImage}`;
-      }
+  if (ogImage && ogImage.startsWith("/")) {
+    ogImage = `${domain.origin}${ogImage}`;
+  }
+  if (ogImage) {
+    ogImage = await checkImage(ogImage);
+  }
   const themeColor = document
     .querySelector('meta[name="theme-color"]')
     ?.getAttribute("content");
@@ -96,7 +84,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
   // get the metadata
   const metadata = await getUrlMetadata(url);
-  if(!metadata.title || !metadata.description) {
+  if (!metadata.title || !metadata.description) {
     res.status(404).json({ error: "URL is not supported yet" });
   }
   res.status(200).json(metadata);
