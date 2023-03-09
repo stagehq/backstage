@@ -35,7 +35,7 @@
     "@47ng/cloak": "^1.1.0",
     "@emoji-mart/data": "^1.0.6",
     "@emoji-mart/react": "^1.0.1",
-    "@graphql-codegen/schema-ast": "^2.5.1",
+    "@graphql-codegen/schema-ast": "^3.0.1",
     "@headlessui/react": "^1.6.1",
     "@heroicons/react": "^2.0.13",
     "@next-auth/prisma-adapter": "^1.0.3",
