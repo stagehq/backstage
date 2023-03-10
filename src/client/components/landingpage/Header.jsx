@@ -116,10 +116,10 @@ export function Header() {
                           </div>
                           <div className="mt-8 flex flex-col gap-4">
                             <Button
-                              href="https://tally.so/r/w4a70o"
+                              href="/auth/login"
                               variant="outline"
                             >
-                              Contact
+                              Log in
                             </Button>
                             <Button href="https://tally.so/r/w4a70o">
                               Sign up
@@ -133,11 +133,11 @@ export function Header() {
               )}
             </Popover>
             <Button
-              href="https://discord.gg/PDBGggcTyW"
+              href="/auth/login"
               variant="outline"
               className="hidden lg:block"
             >
-              Contact
+              Log in
             </Button>
             <Button
               href="https://tally.so/r/w4a70o"
