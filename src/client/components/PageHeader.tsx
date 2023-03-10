@@ -62,9 +62,9 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
     isIsrMode ? isrUserState : currentUserState
   );
 
-  useEffect(() => {
-    console.log(site);
-  }, [site]);
+  // useEffect(() => {
+  //   console.log(site);
+  // }, [site]);
 
   //set initial value
   useEffect(() => {
