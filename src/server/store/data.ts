@@ -71,19 +71,19 @@ export const apiConnectorsData: ApiConnectorUpdate[] = [
       },
     ],
   },
-  {
-    id: "cleea34v800faeobkwbvuvs2k",
-    name: "spotify",
-    markdown: "best player ever",
-    authType: AuthType.oAuth,
-    apiConnectorRoutes: [
-      {
-        id: "cleee4xhj00j0eobkrh6b3i5j",
-        name: "spotify_toptracks",
-        url: "/v1/me/top/tracks?time_range=short_term&limit=5",
-      },
-    ],
-  },
+  // {
+  //   id: "cleea34v800faeobkwbvuvs2k",
+  //   name: "spotify",
+  //   markdown: "best player ever",
+  //   authType: AuthType.oAuth,
+  //   apiConnectorRoutes: [
+  //     {
+  //       id: "cleee4xhj00j0eobkrh6b3i5j",
+  //       name: "spotify_toptracks",
+  //       url: "/v1/me/top/tracks?time_range=short_term&limit=5",
+  //     },
+  //   ],
+  // },
   {
     id: "cleea34v800fceobk1p38j188",
     name: "funnel",
@@ -211,20 +211,20 @@ export const storeExtensionsData: StoreExtensionUpdate[] = [
       },
     ],
   },
-  {
-    id: "clbz5lknp001zpgpx4nboixep",
-    name: "Spotify",
-    description: "Personality through music",
-    image: "spotify",
-    blockId: "spotify_Music",
-    markdown: "This is a extension where you show your music",
-    icon: "BriefcaseIcon",
-    routes: [
-      {
-        name: "spotify_toptracks",
-      },
-    ],
-  },
+  // {
+  //   id: "clbz5lknp001zpgpx4nboixep",
+  //   name: "Spotify",
+  //   description: "Personality through music",
+  //   image: "spotify",
+  //   blockId: "spotify_Music",
+  //   markdown: "This is a extension where you show your music",
+  //   icon: "BriefcaseIcon",
+  //   routes: [
+  //     {
+  //       name: "spotify_toptracks",
+  //     },
+  //   ],
+  // },
   {
     id: "clbz5lknp001zpgpx4nboixes",
     name: "Funnel",
