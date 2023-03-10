@@ -6,9 +6,9 @@ import Github from "./github";
 import Gitlab from "./gitlab";
 import Images from "./images";
 import Linkedin from "./linkedin";
+import WebLinks from "./links";
 import Spotify from "./spotify";
 import Stackoverflow from "./stackoverflow";
-import WebLinks from "./webLinks";
 
 interface StoreWireframe {
   name: string;
@@ -30,7 +30,7 @@ const StoreWireframe: FC<StoreWireframe> = ({ name }) => {
       return <Linkedin />;
     case "spotify":
       return <Spotify />;
-    case "webLinks":
+    case "links":
       return <WebLinks />;
     case "stackoverflow":
       return <Stackoverflow />;

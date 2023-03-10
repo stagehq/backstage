@@ -133,8 +133,21 @@ const OnboardingProfile = () => {
 
   if (!user) return null;
 
+  const handleSubmit = (
+    e:
+      | React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    setActiveSection("subdomain");
+    changeNames();
+  };
+
   return (
-    <div className="flex h-screen flex-col py-6 px-4 sm:h-full sm:min-h-[530px] sm:px-6">
+    <form
+      onSubmit={(e) => handleSubmit(e)}
+      className="flex h-screen flex-col py-6 px-4 sm:h-full sm:min-h-[530px] sm:px-6"
+    >
       <div className="flex flex-col items-start justify-start gap-2">
         <p className="text-left text-xl font-semibold text-zinc-900">
           Basic Information
@@ -278,16 +291,13 @@ const OnboardingProfile = () => {
             user.firstName === "" ||
             user.lastName === ""
           }
-          onClick={() => {
-            setActiveSection("subdomain");
-            changeNames();
-          }}
+          onClick={(e) => handleSubmit(e)}
           className="mt-4 flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
         >
           Next
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 
@@ -373,6 +383,16 @@ export const OnboardingSubdomain: FC = () => {
     }
   }, [onboarding, setOnboarding, user]);
 
+  const handleSubmit = (
+    e:
+      | React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    if (!onboarding.subdomain || subdomainTooShort || !subdomainValid) return;
+    handleUpsertSite();
+  };
+
   return (
     <>
       <div className="relative h-[50vh] sm:h-64">
@@ -401,7 +421,10 @@ export const OnboardingSubdomain: FC = () => {
           )}
         </p>
       </div>
-      <div className="flex flex-col items-start justify-start gap-2 px-4 py-6 sm:px-6">
+      <form
+        onSubmit={(e) => handleSubmit(e)}
+        className="flex flex-col items-start justify-start gap-2 px-4 py-6 sm:px-6"
+      >
         <div className="w-full">
           <div className="w-full">
             <label
@@ -419,6 +442,7 @@ export const OnboardingSubdomain: FC = () => {
                 name="subdomain"
                 type="text"
                 autoComplete="subdomain"
+                autoFocus
                 className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-zinc-500 sm:text-sm"
               />
             </div>
@@ -444,17 +468,13 @@ export const OnboardingSubdomain: FC = () => {
             disabled={
               !onboarding.subdomain || subdomainTooShort || !subdomainValid
             }
-            onClick={() => {
-              if (!onboarding.subdomain || subdomainTooShort || !subdomainValid)
-                return;
-              handleUpsertSite();
-            }}
+            onClick={(e) => handleSubmit(e)}
             className="mt-4 flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
           >
             Let's get started 🎉
           </button>
         </div>
-      </div>
+      </form>
     </>
   );
 };

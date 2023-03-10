@@ -62,9 +62,9 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
     isIsrMode ? isrUserState : currentUserState
   );
 
-  useEffect(() => {
-    console.log(site);
-  }, [site]);
+  // useEffect(() => {
+  //   console.log(site);
+  // }, [site]);
 
   //set initial value
   useEffect(() => {
@@ -180,9 +180,9 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
             placeholder="Enter tagline..."
             className={clsx(
               "-ml-4 block w-full resize-none border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-2xl font-bold text-zinc-800 placeholder-zinc-300 dark:bg-zinc-900 dark:text-zinc-200 lg:text-4xl",
-              !disabled ?
-                "hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
-                : "focus:ring-0 focus:border-white dark:focus:border-zinc-900"
+              !disabled
+                ? "hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 hover:dark:border-zinc-600 focus:dark:border-zinc-300 active:dark:border-zinc-300"
+                : "focus:border-white focus:ring-0 dark:focus:border-zinc-900"
             )}
             readOnly={disabled}
           />
@@ -195,9 +195,9 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
             placeholder="Enter bio..."
             className={clsx(
               "-ml-4 block w-full resize-none border-0 border-l-2 border-transparent bg-white py-0 px-0 pl-4 text-sm text-zinc-800 placeholder-zinc-400 dark:bg-zinc-900 dark:text-zinc-200 focus:dark:border-zinc-300",
-              !disabled ?
-                "hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 hover:dark:border-zinc-600 active:dark:border-zinc-300"
-                : "focus:ring-0 focus:border-white dark:focus:border-zinc-900"
+              !disabled
+                ? "hover:border-zinc-300 focus:border-zinc-600 focus:bg-white focus:ring-transparent active:border-zinc-600 hover:dark:border-zinc-600 active:dark:border-zinc-300"
+                : "focus:border-white focus:ring-0 dark:focus:border-zinc-900"
             )}
             readOnly={disabled}
           />

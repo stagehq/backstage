@@ -51,7 +51,7 @@ export default function DashboardHeader() {
                   <div className="hidden md:relative md:z-10 md:ml-4 md:flex  md:items-center">
                     <div className="flex items-center justify-start gap-1">
                       <a
-                        href="mailto:office@getstage.app"
+                        href="https://discord.gg/PDBGggcTyW"
                         className="flex h-8 cursor-pointer items-center justify-start gap-2 overflow-hidden rounded border border-zinc-200 px-4 py-2 text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800"
                       >
                         <p className="text-sm font-medium">Feedback</p>

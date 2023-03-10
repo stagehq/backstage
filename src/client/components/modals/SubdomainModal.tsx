@@ -159,6 +159,16 @@ const InSiteSubdomain: FC = () => {
     }
   }, [subdomain]);
 
+  const handleSubmit = (
+    e:
+      | React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    if (!subdomain || subdomainTooShort || !subdomainValid) return;
+    handleUpsertSite();
+  };
+
   return (
     <>
       <div className="relative h-[50vh] sm:h-64">
@@ -187,7 +197,10 @@ const InSiteSubdomain: FC = () => {
           )}
         </p>
       </div>
-      <div className="flex flex-col items-start justify-start gap-2 px-4 py-6 sm:px-6">
+      <form
+        onSubmit={(e) => handleSubmit(e)}
+        className="flex flex-col items-start justify-start gap-2 px-4 py-6 sm:px-6"
+      >
         <div className="w-full">
           <div className="w-full">
             <label
@@ -229,16 +242,13 @@ const InSiteSubdomain: FC = () => {
           <button
             type="button"
             disabled={!subdomain || subdomainTooShort || !subdomainValid}
-            onClick={() => {
-              if (!subdomain || subdomainTooShort || !subdomainValid) return;
-              handleUpsertSite();
-            }}
+            onClick={(e) => handleSubmit(e)}
             className="mt-4 flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
           >
             Let's get started 🎉
           </button>
         </div>
-      </div>
+      </form>
     </>
   );
 };

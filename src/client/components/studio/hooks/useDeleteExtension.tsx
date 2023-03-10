@@ -24,21 +24,23 @@ export const useDeleteExtension = () => {
   const [, deleteExtension] = useDeleteExtensionMutation();
 
   const deleteExtensionFromSite = async (extensionId: string) => {
+    console.log("ID: " + extensionId);
+    
     try {
-      // delete extension from database
+      
       if (!siteSlug) return null;
-      // delete extension from recoil site store
       if (!site || !site.extensions) return null;
 
-      const newExtensions = [...site.extensions];
+      const currentExtensions = [...site.extensions];
 
-      const extensionIndex = newExtensions.findIndex(
+      const index = currentExtensions.findIndex(
         (extension) => extension.id === extensionId
       );
-      if (extensionIndex !== -1) {
-        newExtensions.splice(extensionIndex, 1);
-        setSite({ ...site });
-        setSite({ ...site, extensions: newExtensions });
+      console.log(index);
+      if (index !== -1) {
+        currentExtensions.splice(index, 1);
+        console.log(currentExtensions);
+        setSite({ ...site, extensions: currentExtensions });
 
         await deleteExtension({
           id: decodeGlobalID(extensionId).id,

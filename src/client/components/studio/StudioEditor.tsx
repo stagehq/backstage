@@ -1,6 +1,7 @@
+import debounce from "lodash.debounce";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { toast } from "react-hot-toast";
@@ -88,6 +89,7 @@ const StudioEditor = () => {
     }
     setTimeout(async () => {
       if (!site?.layouts || site.layouts == null) return null;
+      console.log("onSiteChange");
       await handleLayoutChange(itemsRef, site.layouts);
 
       setInitialCalculated(true);
@@ -102,9 +104,9 @@ const StudioEditor = () => {
     if (itemsRef.current) itemsRef.current.classList.remove("animated");
   }, []);
 
-  useEffect(() => {
-    console.log(site?.layouts);
-  }, [site]);
+  // useEffect(() => {
+  //   console.log(site?.layouts);
+  // }, [site]);
 
   if (!site || !user || !initialCalculated) return null;
 
@@ -165,8 +167,9 @@ const StudioEditor = () => {
                       setBreakpoint(breakpoint);
                     }}
                     onLayoutChange={(layout: Layout[], layouts: Layouts) => {
-                      console.log("layout changed");
+                      console.log(layouts);
                       handleLayoutChange(itemsRef, layouts);
+                      
                     }}
                     onDrag={onDrag}
                   >

@@ -27,7 +27,7 @@ const Footer: FC<FooterProps> = ({ socials }) => {
               Imprint
             </a>
             <a
-              href="mailto:office@getstage.app"
+              href="https://discord.gg/PDBGggcTyW"
               target={"_blank"}
               rel={"noopener"}
               className="cursor-pointer hover:text-zinc-600 hover:underline hover:dark:text-zinc-500"
