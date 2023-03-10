@@ -133,7 +133,7 @@ export function Header() {
               )}
             </Popover>
             <Button
-              href="mailto:office@getstage.app"
+              href="https://discord.gg/PDBGggcTyW"
               variant="outline"
               className="hidden lg:block"
             >

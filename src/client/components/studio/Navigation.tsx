@@ -57,7 +57,7 @@ export default function Navigation() {
   };
 
   const handleFeedbackClick = () => {
-    window.location.href = "mailto:office@getstage.app";
+    window.location.href = "https://discord.gg/PDBGggcTyW";
   };
 
   const handleAddBlockClick = () => {
