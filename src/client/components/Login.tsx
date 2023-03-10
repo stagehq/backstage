@@ -198,7 +198,7 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
               </span>
             </div> */}
 
-            <div>
+            {/* <div>
               <button
                 onClick={() => signIn("google")}
                 id="google"
@@ -219,7 +219,7 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
                   Continue with Google
                 </span>
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
