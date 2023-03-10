@@ -1,4 +1,4 @@
-import { RefObject } from "react";
+import { RefObject, useState } from "react";
 import { Layouts } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useUpdateSiteLayoutsMutation } from "../../../graphql/updateSiteLayouts.generated";
@@ -31,11 +31,11 @@ export const useHandleLayoutChange = () => {
     itemsRef: RefObject<HTMLDivElement>,
     newlayouts?: Layouts
   ) => {
-    console.log("compare", site?.layouts, newlayouts);
+    //console.log("compare", site?.layouts, newlayouts);
     let currentLayouts = newlayouts ? newlayouts : site?.layouts;
     if (!currentLayouts || !site) return null;
 
-    console.log("before calculation", currentLayouts);
+    //console.log("before calculation", currentLayouts);
 
     //calculate height
     const calculateLayout = () => {
@@ -44,7 +44,7 @@ export const useHandleLayoutChange = () => {
       let index = 0;
       const newItems = [...currentLayouts[breakpoint]];
 
-      console.log("everything ready for calculation");
+      //console.log("everything ready for calculation");
 
       if (itemsRef.current?.children[0].children) {
         for (const element of itemsRef.current.children[0].children) {
@@ -66,19 +66,19 @@ export const useHandleLayoutChange = () => {
       });
     };
     calculateLayout();
-    console.log("after calculation", currentLayouts);
+    //console.log("after calculation", currentLayouts);
 
     await new Promise((resolve) =>
       setTimeout(() => {
         calculateLayout();
-        console.log("after second calculation", currentLayouts);
+        //console.log("after second calculation", currentLayouts);
         resolve(true);
       }, 100)
     );
 
     setTimeout(() => {
       calculateLayout();
-      console.log("after third calculation", currentLayouts);
+      //console.log("after third calculation", currentLayouts);
     }, 200);
 
     //update layout

@@ -71,19 +71,19 @@ export const apiConnectorsData: ApiConnectorUpdate[] = [
       },
     ],
   },
-  {
-    id: "cleea34v800faeobkwbvuvs2k",
-    name: "spotify",
-    markdown: "best player ever",
-    authType: AuthType.oAuth,
-    apiConnectorRoutes: [
-      {
-        id: "cleee4xhj00j0eobkrh6b3i5j",
-        name: "spotify_toptracks",
-        url: "/v1/me/top/tracks?time_range=short_term&limit=5",
-      },
-    ],
-  },
+  // {
+  //   id: "cleea34v800faeobkwbvuvs2k",
+  //   name: "spotify",
+  //   markdown: "best player ever",
+  //   authType: AuthType.oAuth,
+  //   apiConnectorRoutes: [
+  //     {
+  //       id: "cleee4xhj00j0eobkrh6b3i5j",
+  //       name: "spotify_toptracks",
+  //       url: "/v1/me/top/tracks?time_range=short_term&limit=5",
+  //     },
+  //   ],
+  // },
   {
     id: "cleea34v800fceobk1p38j188",
     name: "funnel",
@@ -109,6 +109,20 @@ export const apiConnectorsData: ApiConnectorUpdate[] = [
         name: "image_single",
         url: "",
         urlParameter: ["image path"],
+      },
+    ],
+  },
+  {
+    id: "cleea34v900fneobkq7q7q7q7",
+    name: "links",
+    markdown: "best link block",
+    authType: AuthType.preferences,
+    apiConnectorRoutes: [
+      {
+        id: "cleee4xhl00jheobkq7q7q7q7",
+        name: "link_single",
+        url: "",
+        urlParameter: ["link url"],
       },
     ],
   },
@@ -197,20 +211,20 @@ export const storeExtensionsData: StoreExtensionUpdate[] = [
       },
     ],
   },
-  {
-    id: "clbz5lknp001zpgpx4nboixep",
-    name: "Spotify",
-    description: "Personality through music",
-    image: "spotify",
-    blockId: "spotify_Music",
-    markdown: "This is a extension where you show your musik",
-    icon: "BriefcaseIcon",
-    routes: [
-      {
-        name: "spotify_toptracks",
-      },
-    ],
-  },
+  // {
+  //   id: "clbz5lknp001zpgpx4nboixep",
+  //   name: "Spotify",
+  //   description: "Personality through music",
+  //   image: "spotify",
+  //   blockId: "spotify_Music",
+  //   markdown: "This is a extension where you show your music",
+  //   icon: "BriefcaseIcon",
+  //   routes: [
+  //     {
+  //       name: "spotify_toptracks",
+  //     },
+  //   ],
+  // },
   {
     id: "clbz5lknp001zpgpx4nboixes",
     name: "Funnel",
@@ -245,11 +259,25 @@ export const storeExtensionsData: StoreExtensionUpdate[] = [
     description: "Paste your own image",
     image: "images",
     blockId: "image_single",
-    markdown: "This is a extension where you show your answers",
+    markdown: "This is a extension where you show your images",
     icon: "BriefcaseIcon",
     routes: [
       {
         name: "image_single",
+      },
+    ],
+  },
+  {
+    id: "clbz5lknp001zpgpx4nboixelfm",
+    name: "Links",
+    description: "Paste your own link",
+    image: "links",
+    blockId: "link_single",
+    markdown: "This is a extension where you show your links",
+    icon: "BriefcaseIcon",
+    routes: [
+      {
+        name: "link_single",
       },
     ],
   },
