@@ -15,7 +15,7 @@ const Footer: FC<FooterProps> = ({ socials }) => {
             Built with
           </div>
           <div className=" text-center text-lg font-semibold text-zinc-600 dark:text-zinc-400 lg:text-left">
-            Stage, the API-based developer portfolio.
+            Stage, your personal site.
           </div>
           <div className="font-mdeium flex flex-wrap gap-4 pt-4 text-center text-sm text-zinc-500 dark:text-zinc-600 lg:text-left">
             <a
