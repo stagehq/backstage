@@ -1,7 +1,6 @@
-import debounce from "lodash.debounce";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import { FC, useCallback, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { toast } from "react-hot-toast";
@@ -75,7 +74,7 @@ const StudioEditor = () => {
     }
     //set extensions
     if (site?.extensions) {
-      //console.log("test");
+      // console.log("test");
       site.extensions.forEach(async (extension) => {
         const Extension = dynamic(
           () => import(`../../blocks/${extension.storeExtension?.blockId}`)
@@ -89,7 +88,7 @@ const StudioEditor = () => {
     }
     setTimeout(async () => {
       if (!site?.layouts || site.layouts == null) return null;
-      console.log("onSiteChange");
+      // console.log("onSiteChange");
       await handleLayoutChange(itemsRef, site.layouts);
 
       setInitialCalculated(true);
@@ -105,7 +104,7 @@ const StudioEditor = () => {
   }, []);
 
   // useEffect(() => {
-  //   console.log(site?.layouts);
+  //   // console.log(site?.layouts);
   // }, [site]);
 
   if (!site || !user || !initialCalculated) return null;
@@ -159,17 +158,16 @@ const StudioEditor = () => {
                     measureBeforeMount={true}
                     containerPadding={[0, 32]}
                     onWidthChange={() => {
-                      console.log("Width changed");
+                      // console.log("Width changed");
                       handleLayoutChange(itemsRef);
                     }}
                     onBreakpointChange={(breakpoint) => {
-                      console.log("Breakpoint changed");
+                      // console.log("Breakpoint changed");
                       setBreakpoint(breakpoint);
                     }}
                     onLayoutChange={(layout: Layout[], layouts: Layouts) => {
-                      console.log(layouts);
+                      // console.log(layouts);
                       handleLayoutChange(itemsRef, layouts);
-                      
                     }}
                     onDrag={onDrag}
                   >

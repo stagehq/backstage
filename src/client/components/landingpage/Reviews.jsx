@@ -177,7 +177,7 @@ function ReviewColumn({
 }
 
 function ReviewGrid({ review }) {
-  console.log(review);
+  // console.log(review);
   let containerRef = useRef();
   // let isInView = useInView(containerRef, { once: true, amount: 0.4 })
   let isInView = true;

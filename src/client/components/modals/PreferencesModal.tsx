@@ -61,7 +61,7 @@ const PreferencesModal: FC = () => {
             if (event.target[key].files) {
               updateUploadCredit().then((result) => {
                 if (result.data?.updateUploadCredit) {
-                  console.log("Updated Credit");
+                  // console.log("Updated Credit");
                 } else {
                   throw new Error("Error adding upload credit to user");
                 }
@@ -139,14 +139,14 @@ const PreferencesModal: FC = () => {
             },
           ],
         };
-        console.log(response);
+        // console.log(response);
         setSite({ ...newSite });
         //handle success
         setAddingInProcess("added");
         setOpenStoreModal(false);
       } catch (error) {
         //handle error
-        console.log(error);
+        // console.log(error);
         toast.error(
           "Oops! It's not your fault, seems like this doesn't work atm. We're working hard to bring more functionality to Stage soon."
         );

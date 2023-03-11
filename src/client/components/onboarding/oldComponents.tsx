@@ -62,8 +62,8 @@ const OnboardingCv: FC = () => {
   const user = useRecoilValue(currentUserState);
   const storeExtensions = useRecoilValue(storeExtensionState);
 
-  console.log(storeExtensions);
-  console.log(site);
+  // console.log(storeExtensions);
+  // console.log(site);
 
   const [validLink, setValidLink] = useState(false);
 
@@ -209,9 +209,9 @@ export const OnboardingProjects: FC = () => {
   // connect to github
   const handleGithubAuth = async () => {
     // await github.authorize();
-    // console.log(github.getTokens());
+    // // console.log(github.getTokens());
     // if (!github.getTokens()?.isExpired()) {
-    //   console.log(github.getTokens()?.idToken);
+    //   // console.log(github.getTokens()?.idToken);
     //   if (!site || !user || !storeExtension || !storeExtension.routes) return;
     //   await upsertExtension({
     //     siteId: decodeGlobalID(site.id).id,
@@ -412,7 +412,7 @@ export const OnboardingBlogs: FC = () => {
     );
 
     if (devtoExtension) {
-      console.log("moin");
+      // console.log("moin");
       setPreferencesApi("devto");
       setPreferencesExtension(devtoExtension);
       setOpenPreferencesModal(true);

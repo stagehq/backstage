@@ -44,7 +44,7 @@ async function emptyDatabase() {
   try {
     await prisma.$executeRawUnsafe(`TRUNCATE TABLE ${tables} CASCADE;`);
   } catch (error) {
-    console.log({ error });
+    // console.log({ error });
   }
 }
 
@@ -52,7 +52,7 @@ async function seedDatabase(
   apiConnectors: apiConnectorSeedInput,
   storeExtensions: storeExtensionSeedInput
 ) {
-  //console.log("Seeding database");
+  // console.log("Seeding database");
 
   //create apiConnectors
   await Promise.all(
@@ -75,11 +75,11 @@ async function seedDatabase(
           },
         },
       });
-      console.log(a);
+      // console.log(a);
     })
   );
 
-  //console.log("start with e");
+  // console.log("start with e");
   //create storeExtensions
   await Promise.all(
     storeExtensions.map(async (storeExtension) => {
@@ -101,7 +101,7 @@ async function seedDatabase(
           },
         },
       });
-      console.log(e);
+      // console.log(e);
     })
   );
 }
@@ -110,7 +110,7 @@ export async function reseedDatabase(
   apiConnectors: apiConnectorSeedInput,
   storeExtensions: storeExtensionSeedInput
 ) {
-  console.log("test");
+  // console.log("test");
   await emptyDatabase();
   await seedDatabase(apiConnectors, storeExtensions);
 }

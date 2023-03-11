@@ -19,7 +19,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .json();
     res.status(200).json(response);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     res.status(500).json({ error });
   }
 };

@@ -34,6 +34,7 @@ module.exports = {
         additionalHooks: "(useRecoilCallback|useRecoilTransaction_UNSTABLE)",
       },
     ],
+    "no-console": "warn",
   },
   overrides: [
     {

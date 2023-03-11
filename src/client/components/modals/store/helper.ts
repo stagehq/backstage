@@ -74,7 +74,7 @@ export const addOAuthExtension = async (
         },
       ],
     };
-    console.log(response);
+    // console.log(response);
     setSite({ ...newSite });
     setAddingInProcess("added");
     setOpenStoreModal(false);

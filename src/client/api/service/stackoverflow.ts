@@ -36,7 +36,7 @@ async function fetchTokens(
   authRequest: OAuth.AuthorizationRequest,
   authCode: string
 ): Promise<OAuth.TokenResponse> {
-  console.log("moin");
+  // console.log("moin");
   const response = await fetch("/api/oauth/stackoverflow/access_token/json", {
     method: "POST",
     headers: {
@@ -64,7 +64,7 @@ async function refreshTokens(
     }),
   });
   if (!response.ok) {
-    console.error("refresh tokens error:", await response.text());
+    // console.error("refresh tokens error:", await response.text());
     throw new Error(response.statusText);
   }
   const tokenResponse = (await response.json()) as OAuth.TokenResponse;

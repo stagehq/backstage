@@ -50,7 +50,7 @@ export function getInviteRecord(
       .firstPage((err, records) => {
         if (err) {
           // propagate errors
-          console.error(err);
+          // console.error(err);
           return reject(err);
         }
 

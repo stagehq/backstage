@@ -65,7 +65,7 @@ const Repositories: FC<BlockProps> = ({
       if (languages.length > 5) {
         collectLanguages = collectLanguages.slice(0, 5);
       }
-      console.log(mergedData);
+      // console.log(mergedData);
 
       setLanguages(collectLanguages);
       setData(mergedData);

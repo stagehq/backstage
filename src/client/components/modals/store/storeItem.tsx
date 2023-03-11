@@ -64,7 +64,7 @@ const StoreItem: FC<StoreItemProps> = ({ storeExtension }) => {
         setAddingInProcess("added");
       } catch (error) {
         //handle error
-        console.log(error);
+        // console.log(error);
         toast.error("Something went wrong!");
         setAddingInProcess("unadded");
       }
@@ -73,9 +73,9 @@ const StoreItem: FC<StoreItemProps> = ({ storeExtension }) => {
       setPreferencesExtension(storeExtension);
       setOpenPreferencesModal(true);
     } else if (authType === AuthType.oAuthWithPreferences) {
-      console.log("oAuthWithPreferences");
+      // console.log("oAuthWithPreferences");
     } else {
-      console.log("noAuth");
+      // console.log("noAuth");
     }
   };
 

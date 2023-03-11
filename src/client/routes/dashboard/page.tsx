@@ -11,7 +11,7 @@ const Dashboard = () => {
   const user = useRecoilValue(currentUserState);
 
   useEffect(() => {
-    console.log(user);
+    // console.log(user);
   }, [user]);
 
   return (

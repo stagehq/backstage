@@ -115,10 +115,7 @@ export function Header() {
                             </MobileNavLink>
                           </div>
                           <div className="mt-8 flex flex-col gap-4">
-                            <Button
-                              href="/auth/login"
-                              variant="outline"
-                            >
+                            <Button href="/auth/login" variant="outline">
                               Log in
                             </Button>
                             <Button href="https://tally.so/r/w4a70o">

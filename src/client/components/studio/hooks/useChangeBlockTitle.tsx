@@ -40,7 +40,7 @@ export const useChangeBlockTitle = () => {
 
   const changeBlockTitle = async (id: string, title: string) => {
     // update extension in recoil site store with id with immutability
-    console.log("update Block Title");
+    // console.log("update Block Title");
     setSite(() => {
       const newSite = { ...site };
       const newBlocks = newSite?.extensions?.map((extension) => {

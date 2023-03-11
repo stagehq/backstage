@@ -46,7 +46,7 @@ const SitePage: FC<SitePageProps> = ({ data }) => {
   const itemsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    console.log(site?.extensions);
+    // console.log(site?.extensions);
     const screenWidth = window.screen.width;
     if (screenWidth > 991) {
       setBreakpoint("lg");
@@ -63,7 +63,7 @@ const SitePage: FC<SitePageProps> = ({ data }) => {
             () => import(`../../blocks/${extension.storeExtension?.blockId}`)
           ) as FC<BlockProps>;
           if (Extension && !(String(extension.id) in components)) {
-            console.log("add Extension");
+            // console.log("add Extension");
             setComponents((prevComponents) => ({
               ...prevComponents,
               [extension.id]: Extension,
@@ -79,7 +79,7 @@ const SitePage: FC<SitePageProps> = ({ data }) => {
 
   if (!site) return null;
 
-  console.log(site.layouts);
+  // console.log(site.layouts);
 
   return (
     <>
@@ -122,22 +122,22 @@ const SitePage: FC<SitePageProps> = ({ data }) => {
                   isDraggable={false}
                   measureBeforeMount={true}
                   onWidthChange={() => {
-                    console.log("Widtch changed");
+                    // console.log("Widtch changed");
                     handleLayoutChange(itemsRef);
                   }}
                   onBreakpointChange={(breakpoint) => {
-                    console.log("Breakpoint changed");
+                    // console.log("Breakpoint changed");
                     setBreakpoint(breakpoint);
                   }}
                   onLayoutChange={(layout: Layout[], layouts: Layouts) => {
-                    console.log("layout changed");
+                    // console.log("layout changed");
                     handleLayoutChange(itemsRef, layouts);
                   }}
                 >
                   {site.extensions &&
                     site.extensions.map((extension, index) => {
-                      console.log("extensions", site.extensions);
-                      console.log("components", components);
+                      // console.log("extensions", site.extensions);
+                      // console.log("components", components);
                       if (components[extension.id]) {
                         const Extension = components[
                           extension.id

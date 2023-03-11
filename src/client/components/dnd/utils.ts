@@ -19,7 +19,7 @@ export const updateLayout = (
   const newItems = [...layout];
   if (document.readyState === "complete") {
     if (itemsRef.current?.children[0].children) {
-      console.log(itemsRef.current.children[0].children);
+      // console.log(itemsRef.current.children[0].children);
       for (const element of itemsRef.current.children[0].children) {
         const content = element.children[0] as HTMLDivElement;
         if (content.offsetHeight !== 0) {

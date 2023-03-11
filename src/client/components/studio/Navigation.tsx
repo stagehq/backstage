@@ -35,19 +35,18 @@ export default function Navigation() {
   const [, setStoreOpen] = useRecoilState(storeOpenState);
 
   const handleCopyLink = () => {
-    console.log("Copy link");
+    // console.log("Copy link");
 
-    if (!site || typeof navigator === "undefined")
-      return console.error("No site found");
+    if (!site || typeof navigator === "undefined") return; // console.error("No site found");
 
     const url = `${getBaseUrl()}/${site?.subdomain}`;
     navigator.clipboard.writeText(url).then(
       () => {
-        console.log(`Copied URL to clipboard: ${url}`);
+        // console.log(`Copied URL to clipboard: ${url}`);
         toast.success(`Yay!! Copied URL to clipboard: ${url}`);
       },
       (error) => {
-        console.error(`Failed to copy URL to clipboard: ${error}`);
+        // console.error(`Failed to copy URL to clipboard: ${error}`);
       }
     );
   };
