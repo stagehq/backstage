@@ -26,7 +26,6 @@ const StudioEditor = () => {
 
   const navigate = useNavigate();
 
-
   //recoil
   const [breakpoint, setBreakpoint] = useRecoilState(gridBreakpointState);
   const user = useRecoilValue(currentUserState);
@@ -112,7 +111,8 @@ const StudioEditor = () => {
   // }, [site]);
 
   if (!site || !user || !initialCalculated) return null;
-  if (!user.sites?.find(s => s.subdomain === siteSlug)) navigate(`/${siteSlug}`);
+  if (!user.sites?.find((s) => s.subdomain === siteSlug))
+    navigate(`/${siteSlug}`);
 
   return (
     <>
