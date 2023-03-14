@@ -22,18 +22,27 @@ if (!process.env.AIRTABLE_BASE_ID) {
 const airtable = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY });
 const base = airtable.base(process.env.AIRTABLE_BASE_ID);
 
+function validateEmail(email: string) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
 // get an invite by invite code (promisified)
 export async function getInvite(email: string): Promise<Invite | undefined> {
-  const inviteRecord = await getInviteRecord(email);
-  if (!inviteRecord) return undefined;
+  if (!validateEmail(email)) {
+    alert("Invalid email address");
+  } else {
+    const inviteRecord = await getInviteRecord(email);
+    if (!inviteRecord) return undefined;
 
-  return {
-    email: String(inviteRecord.fields.email),
-    invited:
-      typeof inviteRecord.fields.invited === "undefined"
-        ? undefined
-        : inviteRecord.fields.invited === true,
-  };
+    return {
+      email: String(inviteRecord.fields.email),
+      invited:
+        typeof inviteRecord.fields.invited === "undefined"
+          ? undefined
+          : inviteRecord.fields.invited === true,
+    };
+  }
 }
 
 export function getInviteRecord(
