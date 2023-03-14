@@ -33,7 +33,7 @@ const ListHeader = () => {
       </div>
       <button
         disabled={user?.sites && user.sites.length >= 1 ? true : false}
-        className="inline-flex w-fit justify-center rounded-md border border-transparent bg-zinc-900 px-4 py-2 text-sm font-medium text-zinc-100 shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-800 focus:ring-offset-2 disabled:opacity-30 sm:w-auto sm:text-sm"
+        className="inline-flex w-fit justify-center rounded-md border border-transparent bg-zinc-800 px-4 py-2 text-sm font-medium text-zinc-100 shadow-sm hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-800 focus:ring-offset-2 disabled:opacity-30 sm:w-auto sm:text-sm"
         onClick={() => setSubdomainCardOpen(true)}
       >
         Create site

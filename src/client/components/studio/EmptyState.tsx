@@ -60,7 +60,7 @@ const EmptyState = () => {
           </div>
           <button
             onClick={() => setStoreOpen(true)}
-            className="flex cursor-pointer items-center justify-center gap-2 rounded-md border border-zinc-200 bg-zinc-900 px-4 py-2 text-zinc-100 shadow hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:ring-offset-2 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:focus:ring-zinc-300 dark:focus:ring-offset-zinc-900"
+            className="flex cursor-pointer items-center justify-center gap-2 rounded-md border border-zinc-200 bg-zinc-800 px-4 py-2 text-zinc-100 shadow hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:ring-offset-2 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700 dark:focus:ring-zinc-300 dark:focus:ring-offset-zinc-900"
           >
             <PlusSmallIcon className="h-5 w-5" />
             <p className="text-left text-sm font-medium">Add a block</p>

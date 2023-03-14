@@ -161,7 +161,7 @@ const OnboardingCv: FC = () => {
                 handleCvUpdate();
                 setActiveSection("projects");
               }}
-              className="mt-2 flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
+              className="mt-2 flex w-full justify-center rounded-md border border-transparent bg-zinc-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
             >
               Import
             </button>
@@ -376,7 +376,7 @@ export const OnboardingProjects: FC = () => {
                   type="button"
                   disabled={!githubConnected && !gitlabConnected}
                   onClick={() => setActiveSection("blogs")}
-                  className="flex justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
+                  className="flex justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
                 >
                   Next
                 </button>
@@ -518,7 +518,7 @@ export const OnboardingBlogs: FC = () => {
                   type="button"
                   disabled={!devtoConnected && !mediumConnected}
                   onClick={() => setActiveSection("store")}
-                  className="flex justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
+                  className="flex justify-center rounded-md border border-transparent bg-zinc-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
                 >
                   Next
                 </button>
@@ -556,7 +556,7 @@ export const OnboardingStore: FC = () => {
             <button
               type="button"
               onClick={() => setActiveSection("store")}
-              className="mt-4 flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2"
+              className="mt-4 flex w-full justify-center rounded-md border border-transparent bg-zinc-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2"
             >
               Let's go!
             </button>
