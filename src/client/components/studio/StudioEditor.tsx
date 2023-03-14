@@ -4,6 +4,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { getBaseUrl } from "../../../helper/getBaseUrl";
 import { BlockProps } from "../../blocks/type";
@@ -22,6 +23,9 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 const StudioEditor = () => {
   //refs
   const itemsRef = useRef<HTMLDivElement>(null);
+
+  const navigate = useNavigate();
+
 
   //recoil
   const [breakpoint, setBreakpoint] = useRecoilState(gridBreakpointState);
@@ -108,6 +112,7 @@ const StudioEditor = () => {
   // }, [site]);
 
   if (!site || !user || !initialCalculated) return null;
+  if (!user.sites?.find(s => s.subdomain === siteSlug)) navigate(`/${siteSlug}`);
 
   return (
     <>
