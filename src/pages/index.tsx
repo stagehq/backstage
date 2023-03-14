@@ -10,10 +10,16 @@ import { Reviews } from "../client/components/landingpage/Reviews";
 import { SecondaryFeatures } from "../client/components/landingpage/SecondaryFeatures";
 
 export default function Home() {
-  useEffect((): void => {
-    if (typeof document !== "undefined") {
-      document.querySelector("body")?.classList.add("bg-gray-50");
-    }
+  // add bg-gray-50 to body
+  useEffect(() => {
+    document.body.classList.add("bg-gray-50");
+  }, []);
+
+  // get rid of bg-gray-50 on unmount
+  useEffect(() => {
+    return () => {
+      document.body.classList.remove("bg-gray-50");
+    };
   }, []);
 
   return (
@@ -32,44 +38,44 @@ export default function Home() {
           content="API-based developer portfolio, that converts."
         />
         {/* Big */}
-        {/* <meta
-            property="og:image"
-            content="https://getstage.app/images/social/social-big.png"
-          />
-          <meta
-            property="og:image:secure"
-            content="https://getstage.app/images/social/social-big.png"
-          />
-          <meta property="og:image:type" content="image/png" />
-          <meta property="og:image:width" content="1200" />
-          <meta property="og:image:height" content="630" />
-          <meta property="og:image:alt" content="Stage" /> */}
+        <meta
+          property="og:image"
+          content="https://getstage.app/images/social/social-big.png"
+        />
+        <meta
+          property="og:image:secure"
+          content="https://getstage.app/images/social/social-big.png"
+        />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Stage" />
         {/* Small */}
-        {/* <meta
-            property="og:image"
-            content="https://getstage.app/images/social/social-small.png"
-          />
-          <meta
-            property="og:image:secure"
-            content="https://getstage.app/images/social/social-small.png"
-          />
-          <meta property="og:image:type" content="image/png" />
-          <meta property="og:image:width" content="600" />
-          <meta property="og:image:height" content="314" />
-          <meta property="og:image:alt" content="Stage" /> */}
+        <meta
+          property="og:image"
+          content="https://getstage.app/images/social/social-small.png"
+        />
+        <meta
+          property="og:image:secure"
+          content="https://getstage.app/images/social/social-small.png"
+        />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="600" />
+        <meta property="og:image:height" content="314" />
+        <meta property="og:image:alt" content="Stage" />
         {/* Logo */}
-        {/* <meta
-            property="og:image"
-            content="https://getstage.app/images/social/social-logo.jpg"
-          />
-          <meta
-            property="og:image:secure"
-            content="https://getstage.app/images/social/social-logo.jpg"
-          />
-          <meta property="og:image:type" content="image/jpeg" />
-          <meta property="og:image:width" content="400" />
-          <meta property="og:image:height" content="400" />
-          <meta property="og:image:alt" content="Stage" /> */}
+        <meta
+          property="og:image"
+          content="https://getstage.app/images/social/social-logo.jpg"
+        />
+        <meta
+          property="og:image:secure"
+          content="https://getstage.app/images/social/social-logo.jpg"
+        />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="400" />
+        <meta property="og:image:height" content="400" />
+        <meta property="og:image:alt" content="Stage" />
         {/* Twitter */}
         <meta name="twitter:site" content="@stage_hq" />
         <Favicons />
