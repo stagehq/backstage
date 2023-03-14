@@ -22,8 +22,8 @@ function CustomApp({
         apiUrl: "/sb-api",
         scriptUrl: "/sb.js",
       });
-      posthog.init(String(process.env.NEXT_PUBLIC_POSTHOG_KEY), { api_host: process.env.NEXT_PUBLIC_POSTHOG_URL })
     }
+    posthog.init(String(process.env.NEXT_PUBLIC_POSTHOG_KEY), { api_host: process.env.NEXT_PUBLIC_POSTHOG_URL })
   }, []);
 
   return (
