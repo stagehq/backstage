@@ -22,7 +22,7 @@ function CustomApp({
         apiUrl: "/sb-api",
         scriptUrl: "/sb.js",
       });
-      posthog.init(String(process.env.POSTHOG_TOKEN), { api_host: 'https://app.posthog.com' })
+      posthog.init(String(process.env.NEXT_PUBLIC_POSTHOG_KEY), { api_host: process.env.NEXT_PUBLIC_POSTHOG_URL })
     }
   }, []);
 
