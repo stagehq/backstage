@@ -63,7 +63,7 @@ export const GradientArea = () => {
       <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
         <Logo />
       </div>
-      <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
+      <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white"></div>
       <Gradient />
     </div>
   );
@@ -79,7 +79,7 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
         <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <Logo />
         </div>
-        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
+        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white"></div>
         <Gradient />
       </div>
       <div className="py-8 px-4 pt-20 sm:px-10">

@@ -125,7 +125,7 @@ const OnboardingCv: FC = () => {
         <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <CvIcon />
         </div>
-        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
+        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white"></div>
         <Gradient />
       </div>
       <div className="py-6 px-4 sm:px-6">
@@ -280,7 +280,7 @@ export const OnboardingProjects: FC = () => {
         <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <GGIcons />
         </div>
-        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
+        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white"></div>
         <Gradient />
       </div>
       <div className="py-6 px-4 sm:px-6">
@@ -426,7 +426,7 @@ export const OnboardingBlogs: FC = () => {
         <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <BlogsIcon />
         </div>
-        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
+        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white"></div>
         <Gradient />
       </div>
       <div className="py-6 px-4 sm:px-6">
@@ -540,7 +540,7 @@ export const OnboardingStore: FC = () => {
         <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <StoreIcon />
         </div>
-        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
+        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white"></div>
         <Gradient />
       </div>
       <div className="mt-auto py-6 px-4 sm:px-6">
