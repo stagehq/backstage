@@ -11,7 +11,7 @@ declare global {
 // Workaround to make Prisma Client work well during "next dev"
 // @see https://www.prisma.io/docs/support/help-articles/nextjs-prisma-client-dev-practices
 let prisma: PrismaClient;
-if (process.env.NODE_ENV === "production") {
+if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") {
   prisma = new PrismaClient();
 } else {
   if (!global.cachedPrisma) {
