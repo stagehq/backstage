@@ -82,7 +82,7 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white"></div>
         <Gradient />
       </div>
-      <div className="py-8 px-4 pt-20 sm:px-10">
+      <div className="py-8 px-4 sm:px-10 pt-20">
         <form
           className="space-y-6"
           method="post"
@@ -153,8 +153,8 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
               </span>
             </div>
           </div> */}
-
-        {/*<div className="mt-6 grid grid-cols-1">
+          
+          {/*<div className="mt-6 grid grid-cols-1">
             <div>
               <span
                 onClick={() => signIn("github")}
@@ -196,8 +196,7 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
                 <span className="ml-2 hover:cursor-default">GitLab</span>
               </span>
             </div> */}
-
-        {/* <div>
+            {/* <div>
               <button
                 onClick={() => signIn("google")}
                 id="google"
