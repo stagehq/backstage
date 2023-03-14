@@ -8,6 +8,7 @@ import { Provider } from "urql";
 import "../../styles/globals.css";
 import ToasterComponent from "../client/components/Notification";
 import { client } from "../client/graphql/client";
+import posthog from 'posthog-js';
 
 function CustomApp({
   Component,
@@ -21,6 +22,7 @@ function CustomApp({
         apiUrl: "/sb-api",
         scriptUrl: "/sb.js",
       });
+      posthog.init(String(process.env.POSTHOG_TOKEN), { api_host: 'https://app.posthog.com' })
     }
   }, []);
 

@@ -99,6 +99,7 @@
     "notion-types": "^6.11.0",
     "notion-utils": "^6.11.0",
     "postcss-focus-visible": "^7.1.0",
+    "posthog-js": "^1.50.9",
     "postmark": "^3.0.1",
     "prisma-field-encryption": "^1.4.1",
     "query-string": "^8.1.0",
