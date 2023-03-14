@@ -293,23 +293,23 @@ const Profile: FC<ProfileProps> = ({ user }) => {
             >
               Photo
             </label>
-            <Dropzone user={editCurrentUser} type={"profileImage"} noClick>
-              <div className="mt-1 flex items-center">
-                {user.image ? (
-                  <img
-                    className="inline-block h-12 w-12 rounded-full"
-                    src={user.image}
-                    referrerPolicy="no-referrer"
-                    alt="profile image"
-                  />
-                ) : (
-                  <div
-                    style={{ background: gradient }}
-                    className="h-12 w-12 rounded-full border border-zinc-200 dark:border-zinc-600 dark:bg-zinc-800"
-                  />
-                )}
+            <div className="mt-1 flex items-center">
+              {user.image ? (
+                <img
+                  className="inline-block h-12 w-12 rounded-full"
+                  src={user.image}
+                  referrerPolicy="no-referrer"
+                  alt="profile image"
+                />
+              ) : (
+                <div
+                  style={{ background: gradient }}
+                  className="h-12 w-12 rounded-full border border-zinc-200 dark:border-zinc-600 dark:bg-zinc-800"
+                />
+              )}
 
-                <div className="ml-4 flex">
+              <div className="ml-4 flex">
+                <Dropzone user={editCurrentUser} type={"profileImage"} noClick>
                   <div className="border-zinc-gray-300 hover:bg-zinc-gray-50 focus-within:ring-offset-zinc-gray-50 relative flex cursor-pointer items-center rounded-md border bg-white py-2 px-3 shadow-sm focus-within:outline-none focus-within:ring-2 focus-within:ring-zinc-500 focus-within:ring-offset-2">
                     <label
                       htmlFor="user-photo"
@@ -318,22 +318,16 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                       <span>Change</span>
                       <span className="sr-only"> user photo</span>
                     </label>
-                    <input
-                      id="user-photo"
-                      name="user-photo"
-                      type="file"
-                      className="absolute inset-0 h-full w-full cursor-pointer rounded-md border-gray-300 opacity-0"
-                    />
                   </div>
-                  <button
-                    type="button"
-                    className="hover:text-zinc-gray-700 focus:border-zinc-gray-300 focus:ring-offset-zinc-gray-50 ml-3 rounded-md border border-transparent bg-transparent py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2"
-                  >
-                    Remove
-                  </button>
-                </div>
+                </Dropzone>
+                <button
+                  type="button"
+                  className="hover:text-zinc-gray-700 focus:border-zinc-gray-300 focus:ring-offset-zinc-gray-50 ml-3 rounded-md border border-transparent bg-transparent py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2"
+                >
+                  Remove
+                </button>
               </div>
-            </Dropzone>
+            </div>
           </div>
 
           {/* <div className="sm:col-span-6">
