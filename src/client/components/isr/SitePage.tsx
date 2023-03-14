@@ -13,7 +13,6 @@ import { gridBreakpointState } from "../../store/ui/grid-dnd";
 import { themeState } from "../../store/ui/theme";
 import Footer from "../Footer";
 import { PageHeader } from "../PageHeader";
-import EmptyState from "../studio/EmptyState";
 import { useHandleLayoutChange } from "../studio/hooks/useHandleLayoutChange";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
@@ -103,8 +102,8 @@ const SitePage: FC<SitePageProps> = ({ data }) => {
         <meta property="og:url" content={getBaseUrl() + "/" + site.subdomain} />
       </Head>
       <div className={clsx(theme === "dark" && "dark", "h-screen w-full ")}>
-        <div className="h-full overflow-scroll bg-white @container dark:bg-zinc-900">
-          <div className="min-h-full w-full max-w-[1200px] p-8 pb-24 sm:p-16 lg:mx-auto xl:p-4 ">
+        <div className="flex h-full flex-col justify-between overflow-x-hidden overflow-y-scroll bg-white @container dark:bg-zinc-900">
+          <div className="w-full max-w-[1200px] p-8 pb-24 sm:p-16 lg:mx-auto xl:p-4 ">
             <div className="py-8">
               <PageHeader disabled />
             </div>
@@ -169,7 +168,8 @@ const SitePage: FC<SitePageProps> = ({ data }) => {
                 </ResponsiveGridLayout>
               </div>
             ) : (
-              <EmptyState />
+              <></>
+              // <EmptyState />
             )}
           </div>
           <Footer socials={site.socials} />
