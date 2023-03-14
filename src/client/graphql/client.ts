@@ -26,7 +26,7 @@ const getAPIURl = (): string => {
   }
 
   // Finally, fallback to hard-coded URL in case nothing else works
-  if (process.env.NODE_ENV === `development`)
+  if (process.env.NEXT_PUBLIC_VERCEL_ENV === `development`)
     return `http://localhost:3000/api`;
 
   // TODO: Replace with your production URL for the very final fallback
@@ -59,7 +59,7 @@ export const client = createClient({
   requestPolicy: `cache-and-network`,
   url: getAPIURl(),
   exchanges:
-    process.env.NODE_ENV === `development`
+    process.env.NEXT_PUBLIC_VERCEL_ENV === `development`
       ? ([devtoolsExchange, ...defaultExchanges] as Exchange[])
       : ([...defaultExchanges] as Exchange[]),
 });

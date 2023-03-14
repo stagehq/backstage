@@ -15,15 +15,15 @@ function CustomApp({
   pageProps: { session, ...pageProps },
 }: AppProps) {
   useEffect((): void => {
-    if (process.env.NODE_ENV === "production") {
+    if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") {
       splitbee.init({
         token: process.env.SPLITBEE_TOKEN,
         disableCookie: true,
         apiUrl: "/sb-api",
         scriptUrl: "/sb.js",
       });
+      posthog.init(String(process.env.NEXT_PUBLIC_POSTHOG_KEY), { api_host: process.env.NEXT_PUBLIC_POSTHOG_URL });
     }
-    posthog.init(String(process.env.NEXT_PUBLIC_POSTHOG_KEY), { api_host: process.env.NEXT_PUBLIC_POSTHOG_URL })
   }, []);
 
   return (

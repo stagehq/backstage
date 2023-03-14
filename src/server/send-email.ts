@@ -25,7 +25,7 @@ interface SendEmailInput {
  * ```
  */
 export const sendEmail = (input: SendEmailInput) => {
-  if (process.env.NODE_ENV === `development`) {
+  if (process.env.NEXT_PUBLIC_VERCEL_ENV === `development`) {
     info(`not sending email in development:`);
     // console.log();
     // console.log(`To: ${input.to}`);
