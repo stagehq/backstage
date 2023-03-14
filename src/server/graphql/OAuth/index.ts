@@ -61,7 +61,7 @@ builder.mutationField('createOAuthforApi', (t) =>
     resolve: async (query, root, args, ctx) => {
       if (!ctx.session.user.email || args.accessToken == null || args.apiConnectorName == null) return null;
 
-      console.log(args.apiConnectorName, ctx.session.user.email);
+      // console.log(args.apiConnectorName, ctx.session.user.email);
       //check if api extension is already added
       const check = await prisma.oAuth.findFirst({
         where: {
@@ -73,10 +73,10 @@ builder.mutationField('createOAuthforApi', (t) =>
           }
         }
       })
-      console.log(check);
+      // console.log(check);
       if (check) {
         //update oAuth
-        console.log("update");
+        // console.log("update");
         const oAuth = await prisma.oAuth.update({
           where: {
             id: check.id
@@ -93,7 +93,7 @@ builder.mutationField('createOAuthforApi', (t) =>
 
       } else {
         //create oAuth
-        console.log("create");
+        // console.log("create");
         const oAuth = await prisma.oAuth.create({
           data: {
             user: {

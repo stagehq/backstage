@@ -2,7 +2,7 @@ import { s3, s3handler } from "../../../server/aws/handler";
 
 export default s3handler()
   .delete((req, res) => {
-    console.log("Delete file");
+    // console.log("Delete file");
     s3.deleteObject;
     res.send("Delete - tb programmed");
   })

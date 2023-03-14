@@ -28,7 +28,7 @@ const Repositories: FC<BlockProps> = ({
         if (api.apiConnector?.name === "stackoverflow") {
           api.apiResponses?.forEach((apiResponse) => {
             apiResponse.response.forEach((answers: any) => {
-              console.log(answers);
+              // console.log(answers);
               // if (profileLink === "") {
               //   setProfileLink(repository.namespace.web_url);
               // }
@@ -66,7 +66,7 @@ const Repositories: FC<BlockProps> = ({
       // if (languages.length > 5) {
       //   collectLanguages = collectLanguages.slice(0, 5);
       // }
-      // console.log(mergedData);
+      // // console.log(mergedData);
 
       // setLanguages(collectLanguages);
       // setData(mergedData);

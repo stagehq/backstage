@@ -15,7 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   });
 
   const url = "https://dev.to/api/articles" + route + "?" + params;
-  console.log(url);
+  // console.log(url);
 
   try {
     const response = await wretch(url)
@@ -28,7 +28,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     res.status(200).json(response);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     res.status(500).json({ error });
   }
 };

@@ -39,7 +39,7 @@ export const Dropzone: React.FC<DropzoneProps> = ({
   const handleImageChange = (url: string) => {
     updateUploadCredit().then((result) => {
       if (result.data?.updateUploadCredit) {
-        console.log("Updated Credit");
+        // console.log("Updated Credit");
       } else {
         throw new Error("Error adding upload credit to user");
       }
@@ -56,7 +56,7 @@ export const Dropzone: React.FC<DropzoneProps> = ({
     if (currentUser?.uploadCredit && currentUser.uploadCredit < 100) {
       setFiles(
         acceptedFiles.map((file: any) => {
-          console.log(file);
+          // console.log(file);
 
           uploadFile(file ? file : null, user.id, type).then((data) => {
             // Update user images
@@ -66,7 +66,7 @@ export const Dropzone: React.FC<DropzoneProps> = ({
             }).then((result) => {
               // Success messages if image is uploaded
               if (result.data?.updateUser) {
-                console.log("Success");
+                // console.log("Success");
                 handleImageChange(
                   result.data?.updateUser.image
                     ? result.data?.updateUser.image

@@ -59,7 +59,7 @@ async function refreshTokens(
       return json;
     });
   if (!response.ok) {
-    console.error("refresh tokens error:", await response.text());
+    // console.error("refresh tokens error:", await response.text());
     throw new Error(response.statusText);
   }
   const tokenResponse = (await response.json()) as OAuth.TokenResponse;
@@ -86,7 +86,7 @@ export async function route(route: string) {
       return json;
     });
   if (!response.ok) {
-    console.error("route error:", await response.text());
+    // console.error("route error:", await response.text());
     throw new Error(response.statusText);
   }
   return await response.json();

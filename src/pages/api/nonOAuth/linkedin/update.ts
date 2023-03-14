@@ -7,7 +7,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { route, preferences } = req.body;
 
-  console.log(preferences);
+  // console.log(preferences);
 
   const { value } = preferences[0];
 
@@ -35,10 +35,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .get()
       .json();
 
-    console.log(response);
+    // console.log(response);
     res.status(200).json(response);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     res.status(500).json({ error });
   }
 };

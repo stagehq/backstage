@@ -24,10 +24,9 @@ export const useDeleteExtension = () => {
   const [, deleteExtension] = useDeleteExtensionMutation();
 
   const deleteExtensionFromSite = async (extensionId: string) => {
-    console.log("ID: " + extensionId);
-    
+    // console.log("ID: " + extensionId);
+
     try {
-      
       if (!siteSlug) return null;
       if (!site || !site.extensions) return null;
 
@@ -36,10 +35,10 @@ export const useDeleteExtension = () => {
       const index = currentExtensions.findIndex(
         (extension) => extension.id === extensionId
       );
-      console.log(index);
+      // console.log(index);
       if (index !== -1) {
         currentExtensions.splice(index, 1);
-        console.log(currentExtensions);
+        // console.log(currentExtensions);
         setSite({ ...site, extensions: currentExtensions });
 
         await deleteExtension({
@@ -48,7 +47,7 @@ export const useDeleteExtension = () => {
         });
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

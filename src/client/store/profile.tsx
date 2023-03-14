@@ -27,7 +27,7 @@ export const userState = atomFamily<User | null, string | null>({
 
         return (response.data.user as User) || null;
       } catch (error) {
-        console.error(`userFetch -> client.query() ERROR: \n${error}`);
+        // console.error(`userFetch -> client.query() ERROR: \n${error}`);
         return null;
       }
     },

@@ -7,6 +7,6 @@ export const createExtensionOnSite = (storeExtension: StoreExtension) => {
   );
   // remove duplicates
   const uniqueApiConnectors = [...new Set(apiConnectors)];
-  console.log(uniqueApiConnectors);
+  // console.log(uniqueApiConnectors);
   // open modal to select which apiConnector to use
 };

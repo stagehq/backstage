@@ -27,19 +27,19 @@ interface SendEmailInput {
 export const sendEmail = (input: SendEmailInput) => {
   if (process.env.NODE_ENV === `development`) {
     info(`not sending email in development:`);
-    console.log();
-    console.log(`To: ${input.to}`);
-    console.log(`Subject: ${input.subject}`);
-    console.log();
-    console.log(input.text);
-    console.log();
+    // console.log();
+    // console.log(`To: ${input.to}`);
+    // console.log(`Subject: ${input.subject}`);
+    // console.log();
+    // console.log(input.text);
+    // console.log();
     return;
   }
 
   if (API_TOKEN === "fake" || !FROM_EMAIL) {
-    console.error(
-      `Please specify the POSTMARK_FROM_EMAIL and POSTMARK_API_TOKEN env variables.`
-    );
+    // console.error(
+    //   `Please specify the POSTMARK_FROM_EMAIL and POSTMARK_API_TOKEN env variables.`
+    // );
     return;
   }
 

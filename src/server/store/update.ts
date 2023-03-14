@@ -82,7 +82,7 @@ export async function updateStore(
           },
         },
       });
-      console.log(a);
+      // console.log(a);
     })
   );
 
@@ -125,7 +125,7 @@ export async function updateStore(
           },
         },
       });
-      console.log(e);
+      // console.log(e);
     })
   );
 }

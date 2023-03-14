@@ -206,7 +206,7 @@ const Subdomain: FC<SubdomainProps> = ({ site }) => {
                         )
                         .then((result) => {
                           // check if the site is successfully updated
-                          console.log(result.data);
+                          // console.log(result.data);
                           if (!result.data?.updateSiteSubdomain) {
                             toast.error("Something went wrong.");
                             return false;

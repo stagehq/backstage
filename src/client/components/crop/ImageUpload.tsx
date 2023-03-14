@@ -33,7 +33,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
   size,
   disabled = false,
 }) => {
-  //console.log(imageUrl, uploadType, mutationId);
+  // console.log(imageUrl, uploadType, mutationId);
   const cancelButtonRef = useRef(null);
 
   const [image, setImage] = useState("");
@@ -123,19 +123,19 @@ const ImageUpload: FC<ImageUploadProps> = ({
 
   const handleUpload = async (url: string) => {
     if (currentUser?.uploadCredit && currentUser.uploadCredit < 100) {
-      console.log(url);
+      // console.log(url);
       const file = dataURItoBlob(url);
 
       updateUploadCredit().then((result) => {
         if (result.data?.updateUploadCredit) {
-          console.log("Updated Credit");
+          // console.log("Updated Credit");
         } else {
           throw new Error("Error adding upload credit to user");
         }
       });
 
       if (!currentUser) return null;
-      console.log(file, currentUser.id, uploadType);
+      // console.log(file, currentUser.id, uploadType);
       uploadFile(file, currentUser.id, uploadType).then((data) => {
         if (
           uploadType === "profileImage" ||
@@ -147,7 +147,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
           }).then((result) => {
             // Success messages if image is uploaded
             if (result.data?.updateUser) {
-              console.log("Success");
+              // console.log("Success");
               handleImageChange(
                 result.data?.updateUser.image
                   ? result.data?.updateUser.image
@@ -165,7 +165,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
           }).then((result) => {
             // Success messages if image is uploaded
             if (result.data?.updateSiteHeader) {
-              console.log("Success");
+              // console.log("Success");
               handleImageChange(
                 result.data?.updateSiteHeader.image
                   ? result.data?.updateSiteHeader.image

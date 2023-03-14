@@ -23,19 +23,19 @@ export const useDropImage = () => {
       ) {
         updateUploadCredit().then((result) => {
           if (result.data?.updateUploadCredit) {
-            console.log("Updated Credit");
+            // console.log("Updated Credit");
           } else {
             throw new Error("Error adding upload credit to user");
           }
         });
 
-        console.log(acceptedFiles);
+        // console.log(acceptedFiles);
         acceptedFiles.forEach((file) => {
           //check correct format
           const regex = /image\/(jpeg|png|gif)/;
-          console.log("match");
+          // console.log("match");
           if (file.type.match(regex)) {
-            console.log(file.type.match(regex));
+            // console.log(file.type.match(regex));
           } else {
             toast.error("Wrong format!");
           }
@@ -116,7 +116,7 @@ export const useDropImage = () => {
             }
           };
           reader.onerror = (error) => {
-            console.log("Error: ", error);
+            // console.log("Error: ", error);
           };
         });
       } else {

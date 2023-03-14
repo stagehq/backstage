@@ -46,7 +46,7 @@ builder.prismaNode('Preference', {
 //         })
 //         preferenceIds.push(check.id);
 //       })
-//       console.log(preferenceIds);
+//       // console.log(preferenceIds);
 //       return check;
 //     }
 //   })

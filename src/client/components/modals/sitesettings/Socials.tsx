@@ -89,7 +89,7 @@ const Socials: FC = () => {
     e: React.ChangeEvent<HTMLSelectElement>,
     index: number
   ) => {
-    console.log(e.target.value, index);
+    // console.log(e.target.value, index);
 
     const selectedNetwork = e.target.value;
     setSite({
