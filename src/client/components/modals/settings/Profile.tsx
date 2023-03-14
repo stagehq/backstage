@@ -293,7 +293,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
             >
               Photo
             </label>
-            <Dropzone user={editCurrentUser} type={"profileImage"}>
+            <Dropzone user={editCurrentUser} type={"profileImage"} noClick>
               <div className="mt-1 flex items-center">
                 {user.image ? (
                   <img

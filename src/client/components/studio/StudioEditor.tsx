@@ -26,7 +26,6 @@ const StudioEditor = () => {
 
   const navigate = useNavigate();
 
-
   //recoil
   const [breakpoint, setBreakpoint] = useRecoilState(gridBreakpointState);
   const user = useRecoilValue(currentUserState);
@@ -112,7 +111,8 @@ const StudioEditor = () => {
   // }, [site]);
 
   if (!site || !user || !initialCalculated) return null;
-  if (!user.sites?.find(s => s.subdomain === siteSlug)) navigate(`/${siteSlug}`);
+  if (!user.sites?.find((s) => s.subdomain === siteSlug))
+    navigate(`/${siteSlug}`);
 
   return (
     <>
@@ -145,8 +145,8 @@ const StudioEditor = () => {
             onClick: (event) => event.stopPropagation(),
           })}
         >
-          <div className="h-full overflow-x-hidden overflow-y-scroll bg-white @container dark:bg-zinc-900">
-            <div className="min-h-full w-full max-w-[1200px] pb-24 sm:p-4 lg:mx-auto">
+          <div className="flex h-full flex-col justify-between overflow-x-hidden overflow-y-scroll bg-white @container dark:bg-zinc-900">
+            <div className="h-fit w-full max-w-[1200px] pb-24 sm:p-4 lg:mx-auto">
               <div className="py-8">
                 <PageHeader />
               </div>
