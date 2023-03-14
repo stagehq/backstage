@@ -12,7 +12,7 @@ export const currentUserFetch = selector<User | null>({
       const response = await client.query(GetCurrentUserDocument).toPromise();
       return (response.data.currentUser as User) || null;
     } catch (error) {
-      console.error(`currentUserFetch -> client.query() ERROR: \n${error}`);
+      // console.error(`currentUserFetch -> client.query() ERROR: \n${error}`);
       return null;
     }
   },

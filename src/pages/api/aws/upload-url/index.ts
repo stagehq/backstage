@@ -3,7 +3,7 @@ import { s3, s3handler } from "../../../../server/aws/handler";
 // Get a pre-signed POST policy to support uploading to S3 directly from an HTML form.
 
 export default s3handler().get((req, res) => {
-  console.log(req.query.file);
+  // console.log(req.query.file);
   const post = s3.createPresignedPost({
     Bucket: process.env.S3_BUCKET_NAME,
     Fields: {

@@ -23,7 +23,7 @@ export const upsertExtension = async ({
 }: upsertExtensionType) => {
   const url =
     process.env.NEXT_PUBLIC_HOST_URL + "/api/dbInsertion/fetchAndCreate";
-  console.log(url);
+  // console.log(url);
   const response = await fetch(url, {
     method: "POST",
     body: JSON.stringify({

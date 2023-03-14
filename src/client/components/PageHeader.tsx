@@ -63,7 +63,7 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
   );
 
   // useEffect(() => {
-  //   console.log(site);
+  //   // console.log(site);
   // }, [site]);
 
   //set initial value
@@ -102,14 +102,14 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
           tagline: tagline ? tagline : "",
         });
         if (!response.data?.updateSiteHeader) {
-          console.log(
-            "We're sorry! Something went wrong while updating the header."
-          );
+          // console.log(
+          //   "We're sorry! Something went wrong while updating the header."
+          // );
           toast.error(
             "We're sorry! Something went wrong while updating the header."
           );
         } else {
-          console.log(response);
+          // console.log(response);
           setSite({
             ...site,
             bio: response.data.updateSiteHeader.bio
@@ -139,7 +139,7 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
           });
         }
       } else {
-        console.log("Need site object for update");
+        // console.log("Need site object for update");
         toast.error("Something went wrong!");
       }
     }

@@ -66,7 +66,7 @@ const OnboardingStart = () => {
         <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <Logo />
         </div>
-        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
+        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white"></div>
         <Gradient />
       </div>
       <div className="mt-auto py-6 px-4 sm:px-6">
@@ -399,7 +399,7 @@ export const OnboardingSubdomain: FC = () => {
         <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <DomainIcon />
         </div>
-        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
+        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white"></div>
         <Gradient />
       </div>
       <div className="mt-auto flex flex-col items-start justify-start gap-2 px-4 pt-8 sm:px-6">

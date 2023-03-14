@@ -37,7 +37,7 @@ export const Button = forwardRef(function Button(
     external ? (
       <a ref={ref} href={href} className={className} {...props} />
     ) : (
-      <Link ref={ref} href={href} className={className} {...props}>
+      <Link href={href} className={className} {...props}>
         <a className={className} {...props} />
       </Link>
     )

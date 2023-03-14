@@ -23,7 +23,7 @@ export function useStoreExtensionActions() {
         parent: "store",
         icon: <Icon name="RectangleGroupIcon" size="md" color="dark" />,
         action: () => {
-          console.log("storeExtension.id: " + storeExtension.id);
+          // console.log("storeExtension.id: " + storeExtension.id);
         },
       };
     });

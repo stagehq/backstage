@@ -137,7 +137,7 @@ export namespace OAuth {
         redirect_uri: getRedirectURI(),
         ...extraParameters,
       });
-      console.log(params.toString());
+      // console.log(params.toString());
       const url = `${endpoint}?${params.toString()}`;
       return {
         codeVerifier,
@@ -153,7 +153,7 @@ export namespace OAuth {
       options: AuthorizationRequestOptions,
       codeVerifier: string
     ): Promise<AuthorizationResponse> => {
-      console.log(options, codeVerifier);
+      // console.log(options, codeVerifier);
       let authorizationRequest: AuthorizationRequest;
       if ("endpoint" in options) {
         // options is an AuthorizationRequestOptions object
@@ -177,7 +177,7 @@ export namespace OAuth {
       if (!loginWindow) throw new Error("Could not open login window");
 
       const response = await this.pollForResponse(loginWindow);
-      console.log(response);
+      // console.log(response);
 
       loginWindow.close();
 
@@ -200,7 +200,7 @@ export namespace OAuth {
         .toPromise();
 
       if (!response.data?.createOAuthforApi) {
-        console.log("Error creating OAuth API");
+        // console.log("Error creating OAuth API");
       }
 
       const idToken = decodeGlobalID(response.data?.createOAuthforApi.id)?.id;

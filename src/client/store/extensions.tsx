@@ -12,10 +12,10 @@ const storeExtensionSelector = selector({
       const response = await client
         .query(GetStoreExtensionsDocument)
         .toPromise();
-      //console.log(response.data.getStoreExtensions);
+      // console.log(response.data.getStoreExtensions);
       return (response.data.getStoreExtensions as StoreExtension[]) || null;
     } catch (error) {
-      console.error(`getStoreExtensions -> client.query() ERROR: \n${error}`);
+      // console.error(`getStoreExtensions -> client.query() ERROR: \n${error}`);
       return null;
     }
   },

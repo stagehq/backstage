@@ -19,7 +19,7 @@ const errors: Errors = {
 };
 
 const ErrorMessage = ({ error }: ParsedUrlQuery) => {
-  console.log(error);
+  // console.log(error);
 
   const errorMessage =
     error && typeof error === "string" && (errors[error] ?? errors.default);

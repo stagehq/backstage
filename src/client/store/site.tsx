@@ -26,7 +26,7 @@ export const siteState = atomFamily<Site | null, string | null>({
           .toPromise();
         return (response.data.getSite as Site) || null;
       } catch (error) {
-        console.error(`siteFetch -> client.query() ERROR: \n${error}`);
+        // console.error(`siteFetch -> client.query() ERROR: \n${error}`);
         return null;
       }
     },

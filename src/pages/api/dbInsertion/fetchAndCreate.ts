@@ -28,27 +28,27 @@ export interface FetchAndCreateProps {
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log("I am on the fetch route");
+  // console.log("I am on the fetch route");
   const data: FetchAndCreateProps = await JSON.parse(req.body);
-  //console.log(data);
+  // console.log(data);
   let prismaCreateRoutesArray;
   let prismaCreatePreferencesArray;
 
   //Generate preferences Array
   if (data.preferences) {
-    console.log("We have prefernces");
+    // console.log("We have prefernces");
     prismaCreatePreferencesArray = await generatePreferencesArray(
       data.preferences,
       data.userId
     );
-    //console.log(prismaCreatePreferencesArray);
+    // console.log(prismaCreatePreferencesArray);
   }
 
   //---------------------------------------------------------------------------------------------------------------
 
   //Get data
   if (data.authType !== AuthType.preferences && data.oAuthId) {
-    console.log("We have oAuth");
+    // console.log("We have oAuth");
     //handle oauth and oauth with preferences
     const oAuth = await getOAuthToken(data.oAuthId);
     if (!oAuth) res.status(404).json({ error: "oAuth is not in database" });
@@ -66,7 +66,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(500).json({ error: "Data fetching failed" });
     }
   } else {
-    console.log("Only preferences");
+    // console.log("Only preferences");
     //handle without oauth
     if (data.preferences) {
       prismaCreateRoutesArray = await fetchDataFromRoutesWithoutOAuth(
@@ -74,14 +74,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         data.apiConnectorName,
         data.preferences
       );
-      //console.log(prismaCreateRoutesArray);
+      // console.log(prismaCreateRoutesArray);
     }
   }
 
   //---------------------------------------------------------------------------------------------------------------
 
   //create extension
-  console.log("create extension");
+  // console.log("create extension");
   const extension = await prisma.extension.create({
     data: {
       sortOrder: 0,
@@ -176,7 +176,7 @@ const fetchDataFromRoutes = async (
     apiConnectorRoute: { connect: { id: string } };
   }[] = [];
 
-  console.log("fetch data from routes");
+  // console.log("fetch data from routes");
 
   await Promise.all(
     routes.map(async (route) => {
@@ -199,7 +199,7 @@ const fetchDataFromRoutes = async (
     })
   );
 
-  console.log(prismaCreationArr);
+  // console.log(prismaCreationArr);
 
   return prismaCreationArr;
 };
@@ -215,8 +215,8 @@ const fetchDataFromRoutesWithoutOAuth = async (
     apiConnectorRoute: { connect: { id: string } };
   }[] = [];
 
-  console.log(apiConnectorName);
-  console.log(routes);
+  // console.log(apiConnectorName);
+  // console.log(routes);
 
   await Promise.all(
     routes.map(async (route) => {

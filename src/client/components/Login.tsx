@@ -1,4 +1,3 @@
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import { FC, useState } from "react";
@@ -64,7 +63,7 @@ export const GradientArea = () => {
       <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
         <Logo />
       </div>
-      <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
+      <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white"></div>
       <Gradient />
     </div>
   );
@@ -80,10 +79,10 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
         <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <Logo />
         </div>
-        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent"></div>
+        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-white"></div>
         <Gradient />
       </div>
-      <div className="py-8 px-4 sm:px-10">
+      <div className="py-8 px-4 pt-20 sm:px-10">
         <form
           className="space-y-6"
           method="post"
@@ -140,23 +139,23 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
           </div>
         </form>
 
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-zinc-300" />
             </div>
             <div className="relative flex justify-center text-sm">
-              {/* <span className="bg-white px-2 font-medium text-zinc-500">
+              <span className="bg-white px-2 font-medium text-zinc-500">
                 or continue with
-              </span> */}
+              </span>
               <span className="bg-white px-2 font-medium text-zinc-500">
                 or
               </span>
             </div>
-          </div>
+          </div> */}
 
-          <div className="mt-6 grid grid-cols-1">
-            {/*<div>
+        {/*<div className="mt-6 grid grid-cols-1">
+            <div>
               <span
                 onClick={() => signIn("github")}
                 className="inline-flex w-full justify-center rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-900 shadow-sm hover:bg-zinc-50"
@@ -177,7 +176,7 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
               </span>
             </div> */}
 
-            {/* <div>
+        {/* <div>
               <span
                 onClick={() => signIn("gitlab")}
                 className="inline-flex w-full justify-center rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-900 shadow-sm hover:bg-zinc-50"
@@ -198,7 +197,7 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
               </span>
             </div> */}
 
-            <div>
+        {/* <div>
               <button
                 onClick={() => signIn("google")}
                 id="google"
@@ -219,9 +218,9 @@ const Login: FC<LoginProps> = ({ csrfToken }) => {
                   Continue with Google
                 </span>
               </button>
-            </div>
+            </div> 
           </div>
-        </div>
+        </div>*/}
       </div>
     </LoginCard>
   );
