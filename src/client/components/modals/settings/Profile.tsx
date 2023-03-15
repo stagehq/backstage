@@ -309,7 +309,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
               )}
 
               <div className="ml-4 flex">
-                <Dropzone user={editCurrentUser} type={"profileImage"} noClick>
+                <Dropzone user={editCurrentUser} type={"profileImage"}>
                   <div className="border-zinc-gray-300 hover:bg-zinc-gray-50 focus-within:ring-offset-zinc-gray-50 relative flex cursor-pointer items-center rounded-md border bg-white py-2 px-3 shadow-sm focus-within:outline-none focus-within:ring-2 focus-within:ring-zinc-500 focus-within:ring-offset-2">
                     <label
                       htmlFor="user-photo"
