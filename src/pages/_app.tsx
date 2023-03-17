@@ -2,27 +2,29 @@ import splitbee from "@splitbee/web";
 import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/dist/shared/lib/router/router";
 import Head from "next/head";
+import posthog from "posthog-js";
 import { useEffect } from "react";
 import { RecoilRoot } from "recoil";
 import { Provider } from "urql";
 import "../../styles/globals.css";
 import ToasterComponent from "../client/components/Notification";
 import { client } from "../client/graphql/client";
-import posthog from 'posthog-js';
 
 function CustomApp({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps) {
   useEffect((): void => {
-    if (process.env.NODE_ENV === "production") {
+    if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") {
       splitbee.init({
         token: process.env.SPLITBEE_TOKEN,
         disableCookie: true,
         apiUrl: "/sb-api",
         scriptUrl: "/sb.js",
       });
-      posthog.init(String(process.env.POSTHOG_TOKEN), { api_host: 'https://app.posthog.com' })
+      posthog.init(String(process.env.NEXT_PUBLIC_POSTHOG_KEY), {
+        api_host: process.env.NEXT_PUBLIC_POSTHOG_URL,
+      });
     }
   }, []);
 

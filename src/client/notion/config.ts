@@ -4,4 +4,5 @@ export const legalPageId = "af8a78ebb4ed44118985bf41fad230f8";
 export const manifestoPageId = "797ebb47fb57473884bbda4dc45cde09";
 
 export const isDev =
-  process.env.NODE_ENV === "development" || !process.env.NODE_ENV;
+  process.env.NEXT_PUBLIC_VERCEL_ENV === "development" ||
+  !process.env.NEXT_PUBLIC_VERCEL_ENV;

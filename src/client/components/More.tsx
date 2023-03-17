@@ -19,7 +19,7 @@ const More: FC = () => {
       <div className="flex w-full items-end justify-start md:w-1/3 md:justify-end">
         <button
           type="button"
-          className="rounded bg-zinc-900 px-4 py-2 text-left text-xs font-medium text-white"
+          className="rounded bg-zinc-800 px-4 py-2 text-left text-xs font-medium text-white"
         >
           Create a tailoring
         </button>

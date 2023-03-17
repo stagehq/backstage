@@ -243,7 +243,7 @@ const InSiteSubdomain: FC = () => {
             type="button"
             disabled={!subdomain || subdomainTooShort || !subdomainValid}
             onClick={(e) => handleSubmit(e)}
-            className="mt-4 flex w-full justify-center rounded-md border border-transparent bg-zinc-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
+            className="mt-4 flex w-full justify-center rounded-md border border-transparent bg-zinc-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 disabled:opacity-30"
           >
             Let's get started 🎉
           </button>

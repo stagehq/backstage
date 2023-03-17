@@ -104,8 +104,11 @@ export default function Navigation() {
                     aria-label={item.name}
                     onClick={() => item.action()}
                     className={clsx(
-                      "cursor-pointer text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700",
-                      "group flex items-center rounded-md p-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-zinc-800 dark:focus:ring-zinc-300"
+                      "cursor-pointer dark:text-zinc-300 dark:hover:bg-zinc-700",
+                      "group flex items-center rounded-md p-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-zinc-800 dark:focus:ring-zinc-300",
+                      item.name === "Add block"
+                        ? "border border-zinc-200 bg-zinc-800 text-zinc-100 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:ring-offset-2 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:focus:ring-zinc-300 dark:focus:ring-offset-zinc-900"
+                        : "text-zinc-600 hover:bg-zinc-100"
                     )}
                   >
                     <item.icon aria-hidden="true" />
