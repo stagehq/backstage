@@ -142,6 +142,7 @@ const StudioEditor = () => {
         <div
           {...getRootProps({
             className: "h-full w-full",
+            tabIndex: -1,
             onClick: (event) => event.stopPropagation(),
           })}
         >
