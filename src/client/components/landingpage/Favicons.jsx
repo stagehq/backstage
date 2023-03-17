@@ -18,7 +18,7 @@ export default function Favicons() {
         sizes="16x16"
         href="/favicons/favicon-16x16.png"
       />
-      <link rel="manifest" href="/favicons/site.webmanifest" />
+      <link rel="manifest" href="/site.webmanifest" />
       <meta name="msapplication-TileColor" content="#333333" />
       <meta name="theme-color" content="#ffffff" />
     </>
