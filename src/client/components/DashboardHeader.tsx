@@ -17,7 +17,7 @@ export default function DashboardHeader() {
   const gradient = generateGradient(user?.firstName ? user.firstName : "Horst");
 
   return (
-    <div className="mx-auto w-full px-2 sm:w-full sm:px-4 md:w-[750] lg:w-[1200px]">
+    <div className="mx-auto w-full px-4 sm:w-full sm:px-4 md:w-[750] lg:w-[1200px]">
       <Disclosure as="div" className="relative w-full">
         {({ open }) => (
           <>
@@ -154,7 +154,7 @@ export default function DashboardHeader() {
                 </div>
               </div>
 
-              <Disclosure.Panel className="lg:hidden">
+              <Disclosure.Panel className="md:hidden">
                 <div className="pt-4 pb-3">
                   <div className="flex items-center px-4">
                     {user.image && (
@@ -166,7 +166,7 @@ export default function DashboardHeader() {
                         />
                       </div>
                     )}
-                    <div className="ml-3">
+                    <div className="ml-1">
                       <div className="text-base font-medium text-zinc-800">
                         {user.name}
                       </div>
