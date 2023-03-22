@@ -16,7 +16,6 @@ import { PageHeader } from "../PageHeader";
 import EmptyState from "./EmptyState";
 import { useDropImage } from "./hooks/useDropImage";
 import { useHandleLayoutChange } from "./hooks/useHandleLayoutChange";
-import MobileEditor from "./MobileEditor";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -135,10 +134,10 @@ const StudioEditor = () => {
         <meta property="og:description" content={site.bio ? site.bio : ""} />
         <meta property="og:url" content={getBaseUrl() + "/" + site.subdomain} />
       </Head>
-      <div className="h-full w-full sm:hidden">
+      {/* <div className="h-full w-full sm:hidden">
         <MobileEditor />
-      </div>
-      <div className="hidden h-full w-full sm:block">
+      </div> */}
+      <div className="block h-full w-full">
         <div
           {...getRootProps({
             className: "h-full w-full",
@@ -147,7 +146,7 @@ const StudioEditor = () => {
           })}
         >
           <div className="flex h-full flex-col justify-between overflow-x-hidden overflow-y-scroll bg-white @container dark:bg-zinc-900">
-            <div className="h-fit w-full max-w-[1200px] pb-24 sm:p-4 lg:mx-auto">
+            <div className="h-fit w-full max-w-[1200px] p-8 pb-24 sm:p-16 lg:mx-auto xl:p-4">
               <div className="py-8">
                 <PageHeader />
               </div>
