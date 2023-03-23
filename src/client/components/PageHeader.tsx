@@ -1,4 +1,9 @@
-import { LinkIcon, MoonIcon, SunIcon } from "@heroicons/react/24/outline";
+import {
+  LinkIcon,
+  MoonIcon,
+  PlusSmallIcon,
+  SunIcon,
+} from "@heroicons/react/24/outline";
 import { decodeGlobalID } from "@pothos/plugin-relay";
 import clsx from "clsx";
 import { FC, useEffect, useRef, useState } from "react";
@@ -28,6 +33,7 @@ import { useUpdateSiteHeaderMutation } from "../graphql/updateSiteHeader.generat
 import { handleDynamicHeight } from "../helper/racingBuffer";
 import { isrDataState, isrState } from "../store/isr";
 import { siteSlugState, siteState } from "../store/site";
+import { siteSettingsOpenState } from "../store/ui/modals";
 import { themeState } from "../store/ui/theme";
 import { currentUserState, isrUserState } from "../store/user";
 import ImageUpload from "./crop/ImageUpload";
@@ -58,6 +64,9 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
   );
 
   const [theme, setTheme] = useRecoilState(themeState);
+  const [siteSettingsOpen, setSiteSettingsOpen] = useRecoilState(
+    siteSettingsOpenState
+  );
   const [user, setUser] = useRecoilState(
     isIsrMode ? isrUserState : currentUserState
   );
@@ -202,7 +211,7 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
             readOnly={disabled}
           />
         </div>
-        <div className="flex w-full flex-col items-start justify-start gap-4">
+        <div className="group flex h-12 w-full flex-row items-start justify-start gap-4">
           <div className="flex flex-wrap items-center justify-start gap-4">
             {site.socials?.map(
               (social: { url: string; network: SocialsType }) => {
@@ -222,6 +231,17 @@ export const PageHeader: FC<PageHeaderProps> = ({ disabled = false }) => {
                   </a>
                 );
               }
+            )}
+            {!isIsrMode && (
+              <button
+                className={clsx(
+                  site.socials?.length !== 0 && "lg:hidden",
+                  "flex h-12 w-12 cursor-pointer items-center justify-center overflow-hidden rounded border border-zinc-200 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 focus:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-zinc-800 group-hover:flex dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700 dark:focus:ring-zinc-300 dark:focus:ring-offset-zinc-900"
+                )}
+                onClick={() => setSiteSettingsOpen(!siteSettingsOpen)}
+              >
+                <PlusSmallIcon className="h-8 w-8" />
+              </button>
             )}
           </div>
         </div>
