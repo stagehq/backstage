@@ -158,7 +158,7 @@ export default function DashboardHeader() {
                 <div className="pt-4 pb-3">
                   <div className="flex items-center px-4">
                     {user.image && (
-                      <div className="flex-shrink-0">
+                      <div className="mr-2 flex-shrink-0">
                         <img
                           className="h-10 w-10 rounded-full"
                           src={user.image}

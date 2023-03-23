@@ -1,6 +1,5 @@
-import { Popover, Transition } from "@headlessui/react";
-import { ArrowLeftIcon } from "@heroicons/react/24/outline";
-import { Bars2Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import { Menu, Transition } from "@headlessui/react";
+import { ArrowLeftIcon, Bars2Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import clsx from "clsx";
 import { Fragment } from "react";
@@ -95,14 +94,11 @@ export default function Navigation() {
       </div>
       <div className="absolute top-3 right-4 z-10 block sm:hidden">
         <div className="w-full">
-          <div className="relative z-10 flex items-center md:hidden">
-            {/* Mobile menu button */}
-          </div>
-
-          <Popover className="relative">
+          {/* Mobile menu button */}
+          <Menu as="div" className="relative ml-4 flex-shrink-0">
             {({ open }) => (
               <>
-                <Popover.Button className="group m-0 flex cursor-pointer items-center justify-center rounded-md px-2 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700 dark:focus:ring-zinc-300">
+                <Menu.Button className="group m-0 flex cursor-pointer items-center justify-center rounded-md px-2 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700 dark:focus:ring-zinc-300">
                   <span className="sr-only">Open menu</span>
                   {open ? (
                     <XMarkIcon
@@ -119,62 +115,71 @@ export default function Navigation() {
                       )}
                     />
                   )}
-                </Popover.Button>
-
+                </Menu.Button>
                 <Transition
                   as={Fragment}
-                  enter="transition ease-out duration-200"
-                  enterFrom="opacity-0 translate-y-1"
-                  enterTo="opacity-100 translate-y-0"
-                  leave="transition ease-in duration-150"
-                  leaveFrom="opacity-100 translate-y-0"
-                  leaveTo="opacity-0 translate-y-1"
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
                 >
-                  <Popover.Panel
+                  <Menu.Items
                     as="div"
-                    className="absolute right-0 z-10 mt-5 w-screen max-w-min rounded bg-white shadow-lg dark:bg-zinc-800 dark:shadow-none"
+                    className="absolute right-0 mt-2 origin-top-right cursor-pointer rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-zinc-800 dark:hover:bg-zinc-700"
                   >
                     {navigation.map(
                       (item) =>
                         item.name !== "Add block" && (
-                          <Popover.Button
+                          <Menu.Item
                             as="div"
                             key={item.name}
                             onClick={item.action}
-                            className="block rounded-md py-2 px-3 text-base font-medium text-zinc-600 hover:bg-zinc-200 hover:text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
                           >
-                            {item.name}
-                          </Popover.Button>
+                            {({ active }) => (
+                              <div
+                                className={clsx(
+                                  active ? "bg-gray-100" : "",
+                                  "block py-2 px-4 text-sm text-gray-700 dark:text-zinc-100"
+                                )}
+                              >
+                                {item.name}
+                              </div>
+                            )}
+                          </Menu.Item>
                         )
                     )}
-                  </Popover.Panel>
+                  </Menu.Items>
                 </Transition>
               </>
             )}
-          </Popover>
+          </Menu>
         </div>
       </div>
-      <div className="absolute bottom-12 right-12 z-10 block sm:hidden">
-        {navigation.map(
-          (item) =>
-            item.name === "Add block" && (
-              <button
-                key={item.name}
-                aria-label={item.name}
-                onClick={() => item.action()}
-                className={clsx(
-                  "cursor-pointer shadow-lg dark:text-zinc-300 dark:shadow-none dark:hover:bg-zinc-700",
-                  "group flex items-center rounded-md p-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-zinc-800 dark:focus:ring-zinc-300",
-                  item.name === "Add block"
-                    ? "border border-zinc-200 bg-zinc-800 text-zinc-100 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:ring-offset-2 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:focus:ring-zinc-300 dark:focus:ring-offset-zinc-900"
-                    : "text-zinc-600 hover:bg-zinc-100"
-                )}
-              >
-                <item.icon aria-hidden="true" />
-              </button>
-            )
-        )}
-      </div>
+      {site?.extensions && site?.extensions?.length > 0 && (
+        <div className="absolute bottom-12 right-12 z-10 block rounded-md bg-transparent shadow-lg dark:shadow-none sm:hidden">
+          {navigation.map(
+            (item) =>
+              item.name === "Add block" && (
+                <button
+                  key={item.name}
+                  aria-label={item.name}
+                  onClick={() => item.action()}
+                  className={clsx(
+                    "cursor-pointer dark:text-zinc-300 dark:hover:bg-zinc-700",
+                    "group flex items-center rounded-md p-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-zinc-800 dark:focus:ring-zinc-300",
+                    item.name === "Add block"
+                      ? "border border-zinc-200 bg-zinc-800 text-zinc-100 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:ring-offset-2 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:focus:ring-zinc-300 dark:focus:ring-offset-zinc-900"
+                      : "text-zinc-600 hover:bg-zinc-100"
+                  )}
+                >
+                  <item.icon aria-hidden="true" width={40} height={40} />
+                </button>
+              )
+          )}
+        </div>
+      )}
       <div className="hidden sm:flex">
         <TooltipPrimitive.Provider>
           <div className="flex w-16 flex-col items-center overflow-y-auto border-r border-zinc-300 bg-white pt-5 pb-4 dark:border-zinc-600 dark:bg-zinc-900">
