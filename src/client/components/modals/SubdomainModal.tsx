@@ -171,7 +171,7 @@ const InSiteSubdomain: FC = () => {
 
   return (
     <>
-      <div className="relative h-[50vh] sm:h-64">
+      <div className="relative max-h-[50vh] grow sm:h-64">
         <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <DomainIcon />
         </div>

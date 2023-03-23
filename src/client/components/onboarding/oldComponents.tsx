@@ -121,7 +121,7 @@ const OnboardingCv: FC = () => {
 
   return (
     <>
-      <div className="relative h-[50vh] sm:h-64">
+      <div className="relative max-h-[50vh] grow sm:h-64">
         <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <CvIcon />
         </div>
@@ -276,7 +276,7 @@ export const OnboardingProjects: FC = () => {
 
   return (
     <>
-      <div className="relative h-[50vh] sm:h-64">
+      <div className="relative max-h-[50vh] grow sm:h-64">
         <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <GGIcons />
         </div>
@@ -422,7 +422,7 @@ export const OnboardingBlogs: FC = () => {
 
   return (
     <>
-      <div className="relative h-[50vh] sm:h-64">
+      <div className="relative max-h-[50vh] grow sm:h-64">
         <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <BlogsIcon />
         </div>
@@ -536,7 +536,7 @@ export const OnboardingStore: FC = () => {
 
   return (
     <>
-      <div className="relative h-[50vh] sm:h-64">
+      <div className="relative max-h-[50vh] grow sm:h-64">
         <div className="absolute top-1/2 left-2/4 z-10 -translate-x-1/2 -translate-y-1/2">
           <StoreIcon />
         </div>
