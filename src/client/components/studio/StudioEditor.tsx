@@ -14,6 +14,8 @@ import EmptyState from "./EmptyState";
 import { MuuriComponent, useRefresh } from 'muuri-react';
 import { Extension } from "../../graphql/types.generated";
 import { DecoratedItem } from "muuri-react/dist/types/interfaces";
+import clsx from "clsx";
+import { useUpdateSiteLayoutsMutation } from "../../graphql/updateSiteLayouts.generated";
 
 export const StudioEditor = () => {
   //refs
@@ -23,14 +25,19 @@ export const StudioEditor = () => {
 
   //local state items
   const [items, setItems] = useState<Extension[] | undefined>(undefined);
+  const [components, setComponents] = useState<{
+    [key: string]: FC<BlockProps>;
+  }>({});
+  const [breakpoint, setBreakpoint] = useState<"sm" | "lg">("sm");
 
   //recoil
   const user = useRecoilValue(currentUserState);
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site] = useRecoilState(siteState(siteSlug));
-  const [components, setComponents] = useState<{
-    [key: string]: FC<BlockProps>;
-  }>({});
+  const [site, setSite] = useRecoilState(siteState(siteSlug));
+
+  //mutation
+  const [, updateSiteLayouts] = useUpdateSiteLayoutsMutation();
+  
 
   useEffect(() => {
     //set extensions
@@ -49,6 +56,14 @@ export const StudioEditor = () => {
     }
   }, [site?.extensions]);
 
+  useEffect(() => {
+    if(window.innerWidth > 1200){
+      breakpoint === "sm" && setBreakpoint("lg")
+    }else{
+      breakpoint === "lg" && setBreakpoint("sm")
+    }
+  }, [window.innerWidth, breakpoint])
+
   //load items state
   useEffect(() => {
     if(site?.extensions && components){
@@ -57,12 +72,14 @@ export const StudioEditor = () => {
   }, [site?.extensions, components])
 
   //user needs to be owner of page
-  if (!site || !user) return null;
+  if (!site || !user || !site.layouts[breakpoint]) return null;
   if (!user.sites?.find((s) => s.subdomain === siteSlug))
     navigate(`/${siteSlug}`);
 
   window.dispatchEvent(new Event("resize"));
-    
+
+  console.log(site.layouts[breakpoint]);
+
   return (
     <>
       <Head>
@@ -118,6 +135,21 @@ export const StudioEditor = () => {
                     dragSortHeuristics={{
                       sortInterval: 10
                     }}
+                    onDragEnd={function (item) {
+                      const grid = item.getGrid();
+                      const items = grid.getItems();
+                      const keys = items.map((item) => item.getKey());
+                      if(site?.subdomain){
+                        updateSiteLayouts({
+                          id: site.subdomain,
+                          layouts: JSON.stringify({...site.layouts, [breakpoint]: keys}),
+                        }).then((res) => {
+                          console.log(res);
+                        });
+                      }
+                      setSite({...site, layouts: {...site.layouts, [breakpoint]: keys}});
+                    }}
+                    sort={site.layouts.breakpoint}
                     layout={{
                       fillGaps: true,
                       horizontal: false,
@@ -127,7 +159,7 @@ export const StudioEditor = () => {
                     }}
                   >
                     {items.map((extension) => 
-                      <SingleBlock key={extension.id} components={components} itemsRef={itemsRef} extension={extension}/>
+                      <SingleBlock key={extension.id} components={components} itemsRef={itemsRef} extension={extension} breakpoint={breakpoint}/>
                     )}
                   </MuuriComponent>
                 </div>
@@ -147,15 +179,16 @@ interface SingleBlockProps {
   components: {[key: string]: FC<BlockProps>}
   extension: Extension
   itemsRef: React.RefObject<HTMLDivElement>
+  breakpoint: "lg" | "sm"
 }
 
-const SingleBlock: FC<SingleBlockProps> = ({extension, components, itemsRef}) => {
+const SingleBlock: FC<SingleBlockProps> = ({extension, components, itemsRef, breakpoint}) => {
   const Block = components[extension.id] as FC<BlockProps>;
   useRefresh([extension]);
 
   if(!Block) return (<div />);
   return (
-    <div key={extension.id} className="item w-[calc(33%_-_32px)] z-10" data-id={extension.id}>
+    <div key={extension.id} className={clsx("item z-10", breakpoint === "sm" ? "w-[calc(100%_-_32px)]" : "w-[calc(33%_-_32px)]")} data-id={extension.id}>
       <div className="item-content p-4 w-full h-auto">
         <Block
           gridRef={itemsRef}
