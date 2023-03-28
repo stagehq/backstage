@@ -1,17 +1,24 @@
 import clsx from "clsx";
-import { useEffect } from "react";
+import dynamic from "next/dynamic";
+import { Suspense, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import Navigation from "../../components/studio/Navigation";
-import StudioEditor from "../../components/studio/StudioEditor";
+//import StudioEditor from "../../components/studio/StudioEditor";
 import { siteSlugState } from "../../store/site";
 import { themeState } from "../../store/ui/theme";
+
+const StudioEditor = dynamic(() => import('../../components/studio/StudioEditor').then(module => module.StudioEditor), {
+  ssr: false
+});
 
 const Site = () => {
   const { siteId } = useParams();
   const [, setSiteSlug] = useRecoilState(siteSlugState);
 
   const [theme] = useRecoilState(themeState);
+
+  const isSSR = typeof window === 'undefined';
 
   useEffect(() => {
     if (siteId) {
