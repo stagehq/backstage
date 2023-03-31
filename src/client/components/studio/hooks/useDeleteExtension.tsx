@@ -1,8 +1,10 @@
 import { decodeGlobalID } from "@pothos/plugin-relay";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useDeleteExtensionMutation } from "../../../graphql/deleteExtension.generated";
+import { Extension } from "../../../graphql/types.generated";
 import { isrDataState, isrState } from "../../../store/isr";
 import { siteSlugState, siteState } from "../../../store/site";
+// import { gridLayoutState } from "../../../store/ui/grid-dnd";
 
 /**
  * @function
@@ -23,29 +25,17 @@ export const useDeleteExtension = () => {
   );
   const [, deleteExtension] = useDeleteExtensionMutation();
 
-  const deleteExtensionFromSite = async (extensionId: string) => {
-    // console.log("ID: " + extensionId);
-
+  const deleteExtensionFromSite = (extensionId: string) => {
     try {
-      if (!siteSlug) return null;
-      if (!site || !site.extensions) return null;
+      if (!siteSlug || !site || !site.extensions) return null;
+      const newExtensions: Extension[] = [...site.extensions].filter((e) => e.id !== extensionId);
+      setSite({ ...site, extensions: newExtensions });
 
-      const currentExtensions = [...site.extensions];
+      // await deleteExtension({
+      //   id: decodeGlobalID(extensionId).id,
+      //   siteId: siteSlug,
+      // });
 
-      const index = currentExtensions.findIndex(
-        (extension) => extension.id === extensionId
-      );
-      // console.log(index);
-      if (index !== -1) {
-        currentExtensions.splice(index, 1);
-        // console.log(currentExtensions);
-        setSite({ ...site, extensions: currentExtensions });
-
-        await deleteExtension({
-          id: decodeGlobalID(extensionId).id,
-          siteId: siteSlug,
-        });
-      }
     } catch (error) {
       // console.log(error);
     }

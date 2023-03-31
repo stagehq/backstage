@@ -11,7 +11,7 @@ import Footer from "../Footer";
 import { PageHeader } from "../PageHeader";
 import EmptyState from "./EmptyState";
 
-import { MuuriComponent, useRefresh } from 'muuri-react';
+import { MuuriComponent, useData, useRefresh } from 'muuri-react';
 import { Extension } from "../../graphql/types.generated";
 import { DecoratedItem } from "muuri-react/dist/types/interfaces";
 import clsx from "clsx";
@@ -24,11 +24,10 @@ export const StudioEditor = () => {
 
   const navigate = useNavigate();
 
-  //local state items
-  const [items, setItems] = useState<Extension[] | undefined>(undefined);
+  //local states
   const [components, setComponents] = useState<{
     [key: string]: FC<BlockProps>;
-  }>({});
+  } | undefined>(undefined);
 
   //recoil
   const user = useRecoilValue(currentUserState);
@@ -38,7 +37,6 @@ export const StudioEditor = () => {
 
   //mutation
   const [, updateSiteLayouts] = useUpdateSiteLayoutsMutation();
-  
 
   useEffect(() => {
     //set extensions
@@ -57,6 +55,7 @@ export const StudioEditor = () => {
     }
   }, [site?.extensions]);
 
+  //setbreakpoint
   useEffect(() => {
     if(window.innerWidth > 1200){
       breakpoint === "sm" && setBreakpoint("lg")
@@ -65,21 +64,14 @@ export const StudioEditor = () => {
     }
   }, [window.innerWidth, breakpoint])
 
-  //load items state
-  useEffect(() => {
-    if(site?.extensions && components){
-      setItems(site.extensions);
-    }
-  }, [site?.extensions, components])
-
+  //only render when ...
+  if (!site || !user || !site.layouts[breakpoint] || !site.extensions || !components) return null;
+  
   //user needs to be owner of page
-  if (!site || !user || !site.layouts[breakpoint]) return null;
   if (!user.sites?.find((s) => s.subdomain === siteSlug))
-    navigate(`/${siteSlug}`);
+  navigate(`/${siteSlug}`);
 
   window.dispatchEvent(new Event("resize"));
-
-  console.log(site.layouts[breakpoint]);
 
   return (
     <>
@@ -112,11 +104,12 @@ export const StudioEditor = () => {
               <div className="py-8">
                 <PageHeader />
               </div>
-              {items ? (
+              {site.extensions ? (
                 <div ref={itemsRef} className="py-4 -mx-4">
-                  <MuuriComponent 
-                    dragEnabled 
+                  <MuuriComponent
+                    id={site.id}
                     dragFixed
+                    dragEnabled 
                     dragSortPredicate={{
                       action: "swap",
                       threshold: 30,
@@ -136,6 +129,7 @@ export const StudioEditor = () => {
                     dragSortHeuristics={{
                       sortInterval: 10
                     }}
+                    onSort={() => window.dispatchEvent(new Event("resize"))}
                     onDragEnd={function (item) {
                       const grid = item.getGrid();
                       const items = grid.getItems();
@@ -159,9 +153,10 @@ export const StudioEditor = () => {
                       rounding: true,
                     }}
                   >
-                    {items.map((extension) => 
-                      <SingleBlock key={extension.id} components={components} itemsRef={itemsRef} extension={extension} breakpoint={breakpoint} size={extension.size ? extension.size : 3}/>
-                    )}
+                    {site.extensions.map((extension) => {
+                      console.log(extension);
+                      return <SingleBlock key={extension.id} components={components} itemsRef={itemsRef} extension={extension} breakpoint={breakpoint} size={extension.size ? extension.size : 3}/>
+                    })}
                   </MuuriComponent>
                 </div>
               ) : (
@@ -175,7 +170,6 @@ export const StudioEditor = () => {
     </>
   );
 };
-
 interface SingleBlockProps {
   components: {[key: string]: FC<BlockProps>}
   extension: Extension
@@ -187,8 +181,6 @@ interface SingleBlockProps {
 const SingleBlock: FC<SingleBlockProps> = ({extension, components, itemsRef, breakpoint, size}) => {
   const Block = components[extension.id] as FC<BlockProps>;
   useRefresh([extension]);
-
-  
 
   if(!Block || (size !== 1 && size !== 2 && size !== 3)) return (<div />);
   return (
