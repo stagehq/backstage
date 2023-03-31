@@ -16,6 +16,7 @@ import { Extension } from "../../graphql/types.generated";
 import { DecoratedItem } from "muuri-react/dist/types/interfaces";
 import clsx from "clsx";
 import { useUpdateSiteLayoutsMutation } from "../../graphql/updateSiteLayouts.generated";
+import { gridBreakpointState } from "../../store/ui/grid-dnd";
 
 export const StudioEditor = () => {
   //refs
@@ -28,12 +29,12 @@ export const StudioEditor = () => {
   const [components, setComponents] = useState<{
     [key: string]: FC<BlockProps>;
   }>({});
-  const [breakpoint, setBreakpoint] = useState<"sm" | "lg">("sm");
 
   //recoil
   const user = useRecoilValue(currentUserState);
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(siteState(siteSlug));
+  const [breakpoint, setBreakpoint] = useRecoilState(gridBreakpointState);
 
   //mutation
   const [, updateSiteLayouts] = useUpdateSiteLayoutsMutation();
@@ -149,7 +150,7 @@ export const StudioEditor = () => {
                       }
                       setSite({...site, layouts: {...site.layouts, [breakpoint]: keys}});
                     }}
-                    sort={site.layouts.breakpoint}
+                    sort={site.layouts[breakpoint]}
                     layout={{
                       fillGaps: true,
                       horizontal: false,

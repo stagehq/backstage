@@ -6,7 +6,7 @@ export const gridLayoutState = atom<Layouts | null>({
   default: null,
 });
 
-export const gridBreakpointState = atom<string>({
+export const gridBreakpointState = atom<"sm" | "lg">({
   key: "gridBreakpointState",
-  default: "lg",
+  default: "sm",
 });
