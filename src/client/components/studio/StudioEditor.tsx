@@ -160,7 +160,7 @@ export const StudioEditor = () => {
                     }}
                   >
                     {items.map((extension) => 
-                      <SingleBlock key={extension.id} components={components} itemsRef={itemsRef} extension={extension} breakpoint={breakpoint}/>
+                      <SingleBlock key={extension.id} components={components} itemsRef={itemsRef} extension={extension} breakpoint={breakpoint} size={extension.size ? extension.size : 3}/>
                     )}
                   </MuuriComponent>
                 </div>
@@ -181,23 +181,43 @@ interface SingleBlockProps {
   extension: Extension
   itemsRef: React.RefObject<HTMLDivElement>
   breakpoint: "lg" | "sm"
+  size: number
 }
 
-const SingleBlock: FC<SingleBlockProps> = ({extension, components, itemsRef, breakpoint}) => {
+const SingleBlock: FC<SingleBlockProps> = ({extension, components, itemsRef, breakpoint, size}) => {
   const Block = components[extension.id] as FC<BlockProps>;
   useRefresh([extension]);
 
-  if(!Block) return (<div />);
+  
+
+  if(!Block || (size !== 1 && size !== 2 && size !== 3)) return (<div />);
   return (
-    <div key={extension.id} className={clsx("item z-10", breakpoint === "sm" ? "w-[calc(100%_-_32px)]" : "w-[calc(33%_-_32px)]")} data-id={extension.id}>
+    <div key={extension.id} className={clsx("item z-10", getSizeStyling(breakpoint, size))} data-id={extension.id}>
       <div className="item-content p-4 w-full h-auto">
         <Block
           gridRef={itemsRef}
           extension={extension}
-          size={3}
+          size={size}
           isEditable={true}
         />
       </div>
     </div> 
   )
+}
+
+const getSizeStyling = (breakpoint: "sm" | "lg", size: 1 | 2 | 3 ) => {
+  if(breakpoint === "sm"){
+    return "w-[calc(100%_-_32px)]"
+  }else{
+    switch(size){
+      case 1:
+        return "w-[calc(33%_-_32px)]"
+      case 2:
+        return "w-[calc(66%_-_32px)]"
+      case 3:
+        return "w-[calc(100%_-_32px)]"
+      default:
+        return "w-[calc(100%_-_32px)]"
+    }
+  }
 }

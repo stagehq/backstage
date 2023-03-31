@@ -22,6 +22,7 @@ query GetSite($subdomain: String!) {
       sortOrder
       title
       description
+      size
 
       storeExtension {
         id

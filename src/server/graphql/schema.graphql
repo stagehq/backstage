@@ -51,6 +51,7 @@ type Extension implements Node {
   id: ID!
   modifiedAt: String
   site: Site
+  size: Int
   sortOrder: Int
   storeExtension: StoreExtension
   title: String

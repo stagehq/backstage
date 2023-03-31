@@ -10,6 +10,7 @@ builder.prismaNode('Extension', {
     createdAt: t.string({ resolve: extension => extension.createdAt.toString()}),
     modifiedAt: t.string({ resolve: extension => extension.modifiedAt.toString()}),
     sortOrder: t.exposeInt('sortOrder'),
+    size: t.exposeInt('size'),
 
     storeExtension: t.relation('storeExtension'),
     underlayingApis: t.relation('underlayingApis'),

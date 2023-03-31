@@ -1,9 +1,7 @@
-import { Layout } from "react-grid-layout";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { Extension } from "../../../graphql/types.generated";
 import { isrDataState, isrState } from "../../../store/isr";
 import { siteSlugState, siteState } from "../../../store/site";
-import { gridBreakpointState } from "../../../store/ui/grid-dnd";
-import { useHandleLayoutChange } from "./useHandleLayoutChange";
 
 /**
  * Custom hook that allows for changing the size of a grid layout extension.
@@ -16,28 +14,30 @@ import { useHandleLayoutChange } from "./useHandleLayoutChange";
 
 export const useChangeExtensionSize = () => {
   const [isIsrMode] = useRecoilState(isrState);
-  const breakpoint = useRecoilValue(gridBreakpointState);
   const siteSlug = useRecoilValue(siteSlugState);
-  const [site] = useRecoilState(isIsrMode ? isrDataState : siteState(siteSlug));
-  const handleLayoutChange = useHandleLayoutChange();
+  const [site, setSite] = useRecoilState(isIsrMode ? isrDataState : siteState(siteSlug));
 
   const changeExtensionSize = (
     id: string,
     size: 1 | 2 | 3,
     gridRef: React.RefObject<HTMLDivElement>
   ) => {
-    if (!site) return null;
-    const newGridLayout = { ...site.layouts };
-    const newLayout = newGridLayout[breakpoint].map((layout: Layout) => {
-      if (layout.i === id) {
-        return { ...layout, w: size };
-      }
-      return layout;
-    });
-    newGridLayout[breakpoint] = newLayout;
-    handleLayoutChange(gridRef, newGridLayout);
+    if (!site || !site?.extensions || !id) return null;
 
-    window.dispatchEvent(new Event("resize"));
+    const existingExtension = site.extensions.find(e => e.id === id);
+
+    if (existingExtension) {
+      const updatedExtension = { ...existingExtension, size };
+      const index = site.extensions.indexOf(existingExtension);
+      const newExtensions = [...site.extensions.slice(0, index), updatedExtension, ...site.extensions.slice(index + 1)];
+      setSite({...site, extensions: newExtensions});
+    } else {
+      const newExtension: Extension = { ...site.extensions.find(e => e.id === id), size } as Extension;
+      setSite({...site, extensions: [...site.extensions, newExtension]});
+    }
+    //setSite({...site, extensions: [...site.extensions, {...site.extensions.find(e => e.id === id) as Extension, size: size}]})
+    //set new site state
+    //update db
   };
 
   return changeExtensionSize;

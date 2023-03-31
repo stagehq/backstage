@@ -106,7 +106,8 @@ model Extension {
   title                 String?
   description           String?
 
-  sortOrder             Int                                
+  sortOrder             Int      
+  size                  Int                   @default(3)               
 
   siteId                String
   site                  Site                  @relation(fields: [siteId], references: [id], onDelete: Cascade)
