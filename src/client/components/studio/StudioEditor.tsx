@@ -211,9 +211,9 @@ const getSizeStyling = (breakpoint: "sm" | "lg", size: 1 | 2 | 3 ) => {
   }else{
     switch(size){
       case 1:
-        return "w-[calc(33%_-_32px)]"
+        return "w-[calc(35%_-_32px)]"
       case 2:
-        return "w-[calc(66%_-_32px)]"
+        return "w-[calc(67.5%_-_32px)]"
       case 3:
         return "w-[calc(100%_-_32px)]"
       default:

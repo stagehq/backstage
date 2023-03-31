@@ -35,6 +35,23 @@ builder.mutationField('updateBlockTitle', (t) => t.prismaField({
   },
 }));
 
+builder.mutationField('updateBlockSize', (t) => t.prismaField({
+  type: 'Extension',
+  args: {
+    id: t.arg.string({ required: true }),
+    size: t.arg.int({ required: true }),
+  },
+  resolve: async (query, root, { id, size }, ctx) => {
+    if(!ctx.session?.user.email) return null;
+
+    const extension = await prisma.extension.update({
+      where: { id: id },
+      data: { size: size },
+    });
+    return extension;
+  },
+}));
+
 builder.mutationField('updateBlockDescription', (t) => t.prismaField({
   type: 'Extension',
   args: {

@@ -2,6 +2,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { Extension } from "../../../graphql/types.generated";
 import { isrDataState, isrState } from "../../../store/isr";
 import { siteSlugState, siteState } from "../../../store/site";
+import { useUpdateBlockSizeMutation } from "../../../graphql/updateBlockSize.generated";
+import { decodeGlobalID } from "@pothos/plugin-relay";
 
 /**
  * Custom hook that allows for changing the size of a grid layout extension.
@@ -16,6 +18,8 @@ export const useChangeExtensionSize = () => {
   const [isIsrMode] = useRecoilState(isrState);
   const siteSlug = useRecoilValue(siteSlugState);
   const [site, setSite] = useRecoilState(isIsrMode ? isrDataState : siteState(siteSlug));
+  const [, updateBlockSize] = useUpdateBlockSizeMutation();
+  
 
   const changeExtensionSize = (
     id: string,
@@ -24,8 +28,8 @@ export const useChangeExtensionSize = () => {
   ) => {
     if (!site || !site?.extensions || !id) return null;
 
+    //set site
     const existingExtension = site.extensions.find(e => e.id === id);
-
     if (existingExtension) {
       const updatedExtension = { ...existingExtension, size };
       const index = site.extensions.indexOf(existingExtension);
@@ -35,9 +39,11 @@ export const useChangeExtensionSize = () => {
       const newExtension: Extension = { ...site.extensions.find(e => e.id === id), size } as Extension;
       setSite({...site, extensions: [...site.extensions, newExtension]});
     }
-    //setSite({...site, extensions: [...site.extensions, {...site.extensions.find(e => e.id === id) as Extension, size: size}]})
-    //set new site state
-    //update db
+
+    updateBlockSize({
+      id: decodeGlobalID(id).id,
+      size,
+    }).then((res) => console.log(res));
   };
 
   return changeExtensionSize;

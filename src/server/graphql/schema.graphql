@@ -66,6 +66,7 @@ type Mutation {
   deleteExtension(id: String!, siteId: String!): Extension
   deleteSite(subdomain: String!): Site
   updateBlockDescription(description: String!, id: String!): Extension
+  updateBlockSize(id: String!, size: Int!): Extension
   updateBlockTitle(id: String!, title: String!): Extension
   updateSiteHeader(bio: String, image: String, siteId: String!, tagline: String): Site
   updateSiteLayouts(id: String!, layouts: String!): Site

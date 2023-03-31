@@ -1,0 +1,6 @@
+mutation UpdateBlockSize($id: String!, $size: Int!) {
+  updateBlockSize(id: $id, size: $size) {
+    id
+    size
+  }
+}
