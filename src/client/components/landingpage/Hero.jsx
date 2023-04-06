@@ -259,6 +259,7 @@ export function Hero() {
       <Container>
         <div className="lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-20">
           <div className="relative z-10 mx-auto max-w-2xl lg:col-span-7 lg:max-w-none lg:pt-6 xl:col-span-6">
+            <a href="https://github.com/stagehq/" className="mb-10 flex items-center w-fit gap-2 bg-white border border-zinc-200 text-zinc-600 rounded-full pl-4 pr-2 h-10 text-sm font-medium cursor-pointer">We are now<span className="flex items-center bg-cyan-100 text-cyan-700 rounded-full px-3 h-7 text-sm font-medium border border-cyan-800/10">open source</span></a>
             <h1 className="text-landing-3xl font-medium tracking-tight text-gray-900 sm:text-landing-4xl">
               API-based developer portfolio, that converts.
             </h1>
