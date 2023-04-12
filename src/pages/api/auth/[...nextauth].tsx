@@ -80,21 +80,23 @@ export const authOptions: AuthOptions = {
         profile,
       }: { user: User; account: Account | null; profile?: Profile } = params;
       if (!user.email) return false;
-
-      // Check if the user is allowed to sign in
-      const invite = await getInvite(user.email);
-      // Check if invite exists
-      if (!invite) return false;
-      // Check if invite is allowed to sign in
-      const isAllowedToSignIn = invite.invited;
-      if (isAllowedToSignIn) {
-        return true;
-      } else {
-        // Return false to display a default error message
-        return false;
-        // Or you can return a URL to redirect to:
-        // return '/unauthorized'
-      }
+      return true;
+      
+      // was used to have the closed beta
+      // // Check if the user is allowed to sign in
+      // const invite = await getInvite(user.email);
+      // // Check if invite exists
+      // if (!invite) return false;
+      // // Check if invite is allowed to sign in
+      // const isAllowedToSignIn = invite.invited;
+      // if (isAllowedToSignIn) {
+      //   return true;
+      // } else {
+      //   // Return false to display a default error message
+      //   return false;
+      //   // Or you can return a URL to redirect to:
+      //   // return '/unauthorized'
+      // }
     },
   },
 };
