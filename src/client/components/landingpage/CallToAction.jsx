@@ -22,7 +22,7 @@ export function CallToAction() {
           <div className="mt-8 flex justify-center">
             <a
               className="inline-flex justify-center rounded-lg bg-white py-2 px-3 text-landing-sm font-semibold text-cyan-900 outline-2 outline-offset-2 transition-colors hover:bg-white/90 active:bg-white/90 active:text-cyan-900/70"
-              href="https://tally.so/r/w4a70o"
+              href="/auth/login"
               target="_blank"
               color="white"
             >

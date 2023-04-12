@@ -259,7 +259,15 @@ export function Hero() {
       <Container>
         <div className="lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-20">
           <div className="relative z-10 mx-auto max-w-2xl lg:col-span-7 lg:max-w-none lg:pt-6 xl:col-span-6">
-            <a href="https://github.com/stagehq/" className="mb-10 flex items-center w-fit gap-2 bg-white border border-zinc-200 text-zinc-600 rounded-full pl-4 pr-2 h-10 text-sm font-medium cursor-pointer">We are now<span className="flex items-center bg-cyan-100 text-cyan-700 rounded-full px-3 h-7 text-sm font-medium border border-cyan-800/10">open source</span></a>
+            <a
+              href="https://github.com/stagehq/"
+              className="mb-10 flex h-10 w-fit cursor-pointer items-center gap-2 rounded-full border border-zinc-200 bg-white pl-4 pr-2 text-sm font-medium text-zinc-600"
+            >
+              We are now
+              <span className="flex h-7 items-center rounded-full border border-cyan-800/10 bg-cyan-100 px-3 text-sm font-medium text-cyan-700">
+                open source
+              </span>
+            </a>
             <h1 className="text-landing-3xl font-medium tracking-tight text-gray-900 sm:text-landing-4xl">
               API-based developer portfolio, that converts.
             </h1>
@@ -270,17 +278,17 @@ export function Hero() {
             </p>
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-4">
               {/* sign up button */}
-              <Button href="https://tally.so/r/w4a70o" target="_blank">
+              <Button href="/auth/login" target="_blank">
                 Get started
               </Button>
               <Button
-                href="https://ui.getstage.app/?path=/story/private-page--default"
+                href="https://getstage.app/caksono"
                 target="_blank"
                 variant="outline"
                 external
               >
                 <PlayIcon className="h-6 w-6 flex-none" />
-                <span className="ml-2.5">Experience the future</span>
+                <span className="ml-2.5">See example</span>
               </Button>
             </div>
           </div>

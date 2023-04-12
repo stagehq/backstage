@@ -118,9 +118,7 @@ export function Header() {
                             <Button href="/auth/login" variant="outline">
                               Log in
                             </Button>
-                            <Button href="https://tally.so/r/w4a70o">
-                              Sign up
-                            </Button>
+                            <Button href="/auth/login">Sign up</Button>
                           </div>
                         </Popover.Panel>
                       </>
@@ -137,7 +135,7 @@ export function Header() {
               Log in
             </Button>
             <Button
-              href="https://tally.so/r/w4a70o"
+              href="/auth/login"
               target="_blank"
               className="hidden lg:block"
             >
