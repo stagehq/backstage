@@ -255,23 +255,15 @@ function AppDemo() {
 
 export function Hero() {
   return (
-    <div className="overflow-hidden py-8 sm:py-32 lg:pb-32 xl:pb-36">
+    <div className="overflow-hidden py-8 sm:py-24 lg:pb-24 xl:pb-24">
       <Container>
-        <div className="lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-20">
-          <div className="relative z-10 mx-auto max-w-2xl lg:col-span-7 lg:max-w-none lg:pt-6 xl:col-span-6">
-            <a
-              href="https://github.com/stagehq/"
-              className="mb-10 flex h-10 w-fit cursor-pointer items-center gap-2 rounded-full border border-zinc-200 bg-white pl-4 pr-2 text-sm font-medium text-zinc-600"
-            >
-              We are now
-              <span className="flex h-7 items-center rounded-full border border-cyan-800/10 bg-cyan-100 px-3 text-sm font-medium text-cyan-700">
-                open source
-              </span>
-            </a>
-            <h1 className="text-landing-3xl font-medium tracking-tight text-gray-900 sm:text-landing-4xl">
+        <div className="w-full flex flex-col gap-20">
+          <div className="flex flex-col items-center relative z-10 mx-auto max-w-4xl w-full">
+            <a href="https://github.com/stagehq/" className="mb-10 flex items-center w-fit gap-2 bg-white border border-zinc-200 text-zinc-600 rounded-full pl-4 pr-2 h-10 text-sm font-medium cursor-pointer">We are now<span className="flex items-center bg-cyan-100 text-cyan-700 rounded-full px-3 h-7 text-sm font-medium border border-cyan-800/10">open source</span></a>
+            <h1 className="text-landing-3xl font-medium tracking-tight text-gray-900 sm:text-landing-4xl text-center">
               API-based developer portfolio, that converts.
             </h1>
-            <p className="mt-6 text-landing-lg text-gray-600">
+            <p className="mt-6 text-landing-lg text-gray-600 text-center">
               Next-gen developer portfolio that helps you showcase your
               projects, skills, and experience. Personalize it by an evergrowing
               collection of building blocks and analyse your growth.
@@ -292,48 +284,7 @@ export function Hero() {
               </Button>
             </div>
           </div>
-          <div className="relative mt-10 sm:mt-20 lg:col-span-5 lg:row-span-2 lg:mt-0 xl:col-span-6">
-            <BackgroundIllustration className="absolute left-1/2 top-4 h-[1026px] w-[1026px] -translate-x-1/3 stroke-gray-300/70 [mask-image:linear-gradient(to_bottom,white_20%,transparent_75%)] sm:top-16 sm:-translate-x-1/2 lg:-top-16 lg:ml-12 xl:-top-14 xl:ml-0" />
-            <div className="-mx-4 h-[448px] px-9 [mask-image:linear-gradient(to_bottom,white_60%,transparent)] sm:mx-0 lg:absolute lg:-inset-x-10 lg:-top-10 lg:-bottom-20 lg:h-auto lg:px-0 lg:pt-10 xl:-bottom-32">
-              <PhoneFrameToggleScreen
-                className="mx-auto max-w-[366px]"
-                priority
-              >
-                <AppDemo />
-              </PhoneFrameToggleScreen>
-            </div>
-          </div>
-          <div className="relative mt-6 lg:col-span-7 lg:mt-0 xl:col-span-6">
-            <p className="text-center text-landing-sm font-semibold text-gray-900 lg:text-left">
-              Built with feedback from amazing engineers at
-            </p>
-            <ul
-              role="list"
-              className="mx-auto mt-8 flex max-w-xl flex-wrap justify-center gap-x-10 gap-y-8 lg:mx-0 lg:justify-start"
-            >
-              {[
-                ["Uber", logoUber],
-                ["Zillow", logoZillow],
-                ["MaterialUI", logoMaterialUI],
-                ["Google", logoGoogle],
-                ["Freecodecamp", logoFreecodecamp],
-                ["Drupal", logoDrupal],
-                ["Golang", logoGo],
-                ["OpenShift", logoOpenshift],
-              ].map(([name, logo, className]) => (
-                <li key={name} className={clsx("flex", className)}>
-                  <Image
-                    title={name}
-                    src={logo}
-                    alt={name}
-                    sizes={100}
-                    className="h-8 w-auto"
-                    unoptimized
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
+          <video class="rounded-xl w-full lg:w-4/5 mx-auto border border-zinc-200" src="/title_video.mp4" type="video/mp4" muted={true} autoPlay={true}/>
         </div>
       </Container>
     </div>
